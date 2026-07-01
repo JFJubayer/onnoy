@@ -3,16 +3,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.add('js-ready');
 
+    // Load Supabase initialization & navbar helper scripts
+    const basePath = window.location.pathname.includes('/courses/') ? '../' : '';
+    const isAdminPage = window.location.pathname.endsWith('admin.html');
+    if (!isAdminPage) {
+        const initScript = document.createElement('script');
+        initScript.src = `${basePath}assets/js/supabase-init.js`;
+        initScript.onload = () => {
+            const navScript = document.createElement('script');
+            navScript.src = `${basePath}assets/js/auth-nav.js`;
+            document.body.appendChild(navScript);
+        };
+        document.body.appendChild(initScript);
+    }
+
     // Hide Loader
     const loader = document.getElementById('loader');
     const hideLoader = () => {
         if (loader) loader.classList.add('fade-out');
     };
-    if (document.readyState === 'complete') {
-        hideLoader();
-    } else {
-        window.addEventListener('load', hideLoader, { once: true });
-    }
+    // Since we are running inside the DOMContentLoaded handler, the DOM is ready.
+    // Hide the loader immediately to prevent getting stuck on slow external assets.
+    hideLoader();
 
     let hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');

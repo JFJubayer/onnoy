@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | Onnoy-অন্বয়</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --admin-bg: #0b132b;
+            --admin-card-bg: rgba(28, 37, 65, 0.4);
+            --admin-border: rgba(91, 192, 190, 0.15);
+            --admin-text: #f4f6fc;
+            --admin-primary: #5bc0be;
+            --admin-primary-hover: #6fffe9;
+        }
+
+        body.admin-body {
+            background-color: var(--admin-bg);
+            color: var(--admin-text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .admin-glass-card {
+            background: var(--admin-card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--admin-border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s ease;
+        }
+
+        .admin-login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .admin-login-card {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .admin-login-card h2 {
+            color: var(--admin-primary);
+            margin-bottom: 8px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .admin-login-card p {
+            color: rgba(244, 246, 252, 0.7);
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .admin-input-group {
+            margin-bottom: 20px;
+        }
+
+        .admin-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--admin-primary);
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(11, 19, 43, 0.6);
+            border: 1px solid var(--admin-border);
+            border-radius: 8px;
+            color: var(--admin-text);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--admin-primary);
+        }
+
+        .admin-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--admin-primary);
+            border: none;
+            border-radius: 8px;
+            color: #0b132b;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .admin-btn:hover {
+            background: var(--admin-primary-hover);
+            box-shadow: 0 0 15px rgba(91, 192, 190, 0.4);
+        }
+
+        .admin-alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .admin-alert-error {
+            background: rgba(239, 71, 111, 0.2);
+            border: 1px solid #ef476f;
+            color: #ff85a2;
+        }
+
+        .admin-dashboard-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: none;
+            box-sizing: border-box;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--admin-border);
+            padding-bottom: 20px;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--admin-primary);
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--admin-primary);
+            color: var(--admin-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(91, 192, 190, 0.1);
+            color: var(--admin-primary-hover);
+        }
+
+        .submissions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .submission-card {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            padding: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .submission-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sub-details h3 {
+            margin-top: 0;
+            color: var(--admin-primary);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .sub-meta {
+            font-size: 0.9rem;
+            color: rgba(244, 246, 252, 0.6);
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .sub-meta span {
+            background: rgba(91, 192, 190, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(91, 192, 190, 0.2);
+        }
+
+        .notes-box {
+            background: rgba(11, 19, 43, 0.4);
+            border: 1px solid var(--admin-border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: inherit;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: rgba(244, 246, 252, 0.95);
+        }
+
+        .sub-media h4 {
+            margin-top: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--admin-primary);
+            margin-bottom: 12px;
+        }
+
+        .media-thumbs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .media-thumb {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--admin-border);
+            background: #000;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .media-thumb:hover {
+            transform: scale(1.05);
+        }
+
+        .media-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-pdf-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: #ef476f;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+
+        .approve-action-btn {
+            background: #06d6a0;
+            color: #0b132b;
+            font-weight: 700;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .approve-action-btn:hover {
+            background: #4efbc6;
+            box-shadow: 0 0 12px rgba(6, 214, 160, 0.4);
+        }
+
+        .no-submissions {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(244, 246, 252, 0.5);
+            font-size: 1.1rem;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="admin-body">
+    <div id="loginSection" class="admin-login-wrapper">
+        <div class="admin-glass-card admin-login-card">
+            <h2>Admin Portal</h2>
+            <p>Access pending student missions review board.</p>
+            <div id="loginAlert" class="admin-alert admin-alert-error"></div>
+            <form id="adminLoginForm">
+                <div class="admin-input-group">
+                    <label for="adminEmail">Email Address</label>
+                    <input type="email" id="adminEmail" class="admin-input" required placeholder="admin@onnoy.org">
+                </div>
+                <div class="admin-input-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" class="admin-input" required placeholder="••••••••">
+                </div>
+                <button type="submit" id="loginBtn" class="admin-btn">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboardSection" class="admin-dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1>Submissions Review Board</h1>
+                <p style="margin: 5px 0 0; color: rgba(244, 246, 252, 0.6);">Approve Level 2 missions to unlock full access.</p>
+            </div>
+            <button onclick="handleLogout()" class="logout-btn">Log Out</button>
+        </div>
+
+        <div id="submissionsContainer" class="submissions-grid">
+            <div class="no-submissions">Loading pending submissions...</div>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        const getStorageOrFallback = (key, fallback) => {
+            try {
+                const val = localStorage.getItem(key);
+                if (val && val !== "YOUR_SUPABASE_URL" && val !== "YOUR_SUPABASE_ANON_KEY" && val.trim() !== "" && val !== "null" && val !== "undefined") {
+                    return val;
+                }
+            } catch (e) {}
+            return fallback;
+        };
+
+        const SUPABASE_URL = getStorageOrFallback('SUPABASE_URL', "https://rsjrcpfszcmniyylmhev.supabase.co");
+        const SUPABASE_ANON_KEY = getStorageOrFallback('SUPABASE_ANON_KEY', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzanJjcGZzemNtbml5eWxtaGV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3ODEzMDMsImV4cCI6MjA5ODM1NzMwM30.VODUmfl6b_IFmmTcm3BoQ2fzAGacyqo7EslmFdpRssg");
+        if (typeof window.ADMIN_EMAILS === 'undefined') {
+            window.ADMIN_EMAILS = [
+                'zubayertalukdar2002@gmail.com',
+                'masuma.sarker21220@gmail.com',
+                'nayeemahrahman@gmail.com',
+                'alfeeasha84@gmail.com',
+                'jubayerjf28@gmail.com',
+                'fnfahim122@gmail.com'
+            ];
+        }
+
+        if (!window.supabaseClient) {
+            try {
+                window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } catch (e) {
+                console.error("Supabase config error:", e);
+            }
+        }
+
+        const loginSection = document.getElementById('loginSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+        const loginForm = document.getElementById('adminLoginForm');
+        const loginAlert = document.getElementById('loginAlert');
+        const loginBtn = document.getElementById('loginBtn');
+        const submissionsContainer = document.getElementById('submissionsContainer');
+
+        // Check active session on load
+        async function checkSession() {
+            if (!window.supabaseClient) return;
+            const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+            if (session && session.user) {
+                // Verify admin status
+                const isAdmin = await checkAdminRole(session.user.id);
+                if (isAdmin) {
+                    showDashboard();
+                } else {
+                    await window.supabaseClient.auth.signOut();
+                    showLogin("Access denied: You are not registered as an administrator.");
+                }
+            } else {
+                showLogin();
+            }
+        }
+
+        async function checkAdminRole(userId) {
+            try {
+                const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+                if (session && session.user && window.ADMIN_EMAILS.includes(session.user.email)) {
+                    return true;
+                }
+                const { data: profile, error } = await window.supabaseClient
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', userId)
+                    .single();
+                return profile && profile.role === 'admin';
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function showLogin(errorMsg = '') {
+            loginSection.style.display = 'flex';
+            dashboardSection.style.display = 'none';
+            if (errorMsg) {
+                loginAlert.textContent = errorMsg;
+                loginAlert.style.display = 'block';
+            } else {
+                loginAlert.style.display = 'none';
+            }
+        }
+
+        function showDashboard() {
+            loginSection.style.display = 'none';
+            dashboardSection.style.display = 'block';
+            loadPendingSubmissions();
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginAlert.style.display = 'none';
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+
+            try {
+                const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+
+                const isAdmin = await checkAdminRole(data.user.id);
+                if (!isAdmin) {
+                    await window.supabaseClient.auth.signOut();
+                    throw new Error("Access denied: Account does not have admin permissions.");
+                }
+
+                showDashboard();
+            } catch (err) {
+                showLogin(err.message || "Authentication failed.");
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Log In';
+            }
+        });
+
+        async function handleLogout() {
+            await window.supabaseClient.auth.signOut();
+            location.reload();
+        }
+
+        async function loadPendingSubmissions() {
+            submissionsContainer.innerHTML = '<div class="no-submissions">Loading pending submissions...</div>';
+            try {
+                const { data: submissions, error } = await window.supabaseClient
+                    .from('submissions')
+                    .select('*')
+                    .eq('status', 'pending')
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+
+                if (!submissions || submissions.length === 0) {
+                    submissionsContainer.innerHTML = '<div class="no-submissions">No pending submissions found! All clear.</div>';
+                    return;
+                }
+
+                submissionsContainer.innerHTML = '';
+                submissions.forEach(sub => {
+                    const card = document.createElement('div');
+                    card.className = 'admin-glass-card submission-card';
+                    card.id = `sub-card-${sub.id}`;
+
+                    const dateStr = new Date(sub.created_at).toLocaleString();
+                    
+                    // Render screenshots
+                    let mediaHtml = '';
+                    if (sub.screenshot_urls && sub.screenshot_urls.length > 0) {
+                        let thumbs = '';
+                        sub.screenshot_urls.forEach(url => {
+                            if (url.toLowerCase().endsWith('.pdf')) {
+                                thumbs += `
+                                    <a class="media-thumb" href="${url}" target="_blank" title="View PDF">
+                                        <div class="media-pdf-icon">PDF</div>
+                                    </a>
+                                `;
+                            } else {
+                                thumbs += `
+                                    <div class="media-thumb" onclick="previewImage('${url}')">
+                                        <img src="${url}" alt="Screenshot">
+                                    </div>
+                                `;
+                            }
+                        });
+                        mediaHtml = `
+                            <div class="sub-media">
+                                <h4>Evidence Media</h4>
+                                <div class="media-thumbs">${thumbs}</div>
+                            </div>
+                        `;
+                    }
+
+                    let btnText = 'Approve Student';
+                    const titleLower = (sub.mission_title || '').toLowerCase();
+                    if (titleLower.includes('spot the lie') || titleLower.includes('mission 1')) {
+                        btnText = 'Approve & Unlock Mission 2';
+                    } else if (titleLower.includes('scam alert') || titleLower.includes('mission 2')) {
+                        btnText = 'Approve & Unlock Mission 3';
+                    } else if (titleLower.includes('ai integrity') || titleLower.includes('mission 3')) {
+                        btnText = 'Approve & Unlock Mission 4';
+                    }
+
+                    card.innerHTML = `
+                        <div class="sub-details">
+                            <h3>${sub.mission_title || 'Level 2 Mission'}</h3>
+                            <div class="sub-meta">
+                                <span><strong>Name:</strong> ${sub.student_name}</span>
+                                <span><strong>Email:</strong> ${sub.student_email}</span>
+                                <span><strong>ID:</strong> ${sub.unique_id}</span>
+                                <span><strong>Date:</strong> ${dateStr}</span>
+                            </div>
+                            <div class="notes-box">${sub.evidence_notes}</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                            ${mediaHtml}
+                            <button id="approve-btn-${sub.id}" onclick="approveSubmission('${sub.id}', '${sub.unique_id}', '${sub.mission_title}')" class="approve-action-btn">
+                                ${btnText} →
+                            </button>
+                        </div>
+                    `;
+                    submissionsContainer.appendChild(card);
+                });
+            } catch (err) {
+                submissionsContainer.innerHTML = `<div class="no-submissions" style="color:#ef476f;">Error loading data: ${err.message || err}</div>`;
+            }
+        }
+
+        async function approveSubmission(subId, uniqueId, missionTitle) {
+            const btn = document.getElementById(`approve-btn-${subId}`);
+            btn.disabled = true;
+            btn.textContent = 'Approving...';
+
+            try {
+                // 1. Update submission status
+                const { error: subError } = await window.supabaseClient
+                    .from('submissions')
+                    .update({ status: 'approved' })
+                    .eq('id', subId);
+
+                if (subError) throw subError;
+
+                // 2. Map missionTitle to the progression status
+                let nextStatus = 'Approved';
+                const titleLower = (missionTitle || '').toLowerCase();
+                if (titleLower.includes('spot the lie') || titleLower.includes('mission 1')) {
+                    nextStatus = 'Mission2Unlocked';
+                } else if (titleLower.includes('scam alert') || titleLower.includes('mission 2')) {
+                    nextStatus = 'Mission3Unlocked';
+                } else if (titleLower.includes('ai integrity') || titleLower.includes('mission 3')) {
+                    nextStatus = 'Mission4Unlocked';
+                }
+
+                // 3. Update student profile status
+                const { error: profError } = await window.supabaseClient
+                    .from('profiles')
+                    .update({ status: nextStatus })
+                    .eq('unique_id', uniqueId);
+
+                if (profError) throw profError;
+
+                // Visual removal from board
+                const card = document.getElementById(`sub-card-${subId}`);
+                if (card) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        card.remove();
+                        if (submissionsContainer.children.length === 0) {
+                            submissionsContainer.innerHTML = '<div class="no-submissions">No pending submissions found! All clear.</div>';
+                        }
+                    }, 300);
+                }
+            } catch (err) {
+                alert(`Approval failed: ${err.message || err}`);
+                btn.disabled = false;
+                btn.textContent = 'Approve Student →';
+            }
+        }
+
+        // Image Modal Previews
+        function previewImage(url) {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            img.src = url;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Check session on startup
+        checkSession();
+    </script>
+</body>
+</html>

@@ -8,6 +8,21 @@ const translations = {
   "nav-about": { "en": "About", "bn": "আমাদের সম্পর্কে" },
   "nav-contact": { "en": "Contact Us", "bn": "যোগাযোগ" },
   "nav-cta": { "en": "Request a Session", "bn": "সেশন অনুরোধ করুন" },
+  "nav-login": { "en": "Log In", "bn": "লগইন" },
+  "nav-register": { "en": "Register", "bn": "নিবন্ধন" },
+  "nav-signout": { "en": "Sign Out", "bn": "লগআউট" },
+  "nav-loading": { "en": "Loading...", "bn": "লোড হচ্ছে..." },
+  "nav-profile-id": { "en": "Profile ID", "bn": "প্রোফাইল আইডি" },
+  "auth-login-title": { "en": "Log In to Onnoy", "bn": "অন্বয়-এ লগইন করুন" },
+  "auth-login-subtitle": { "en": "Access your portal", "bn": "আপনার পোর্টালে প্রবেশ করুন" },
+  "auth-register-title": { "en": "Join Onnoy", "bn": "অন্বয়-এ যোগ দিন" },
+  "auth-register-subtitle": { "en": "Start your digital journey", "bn": "আপনার ডিজিটাল যাত্রা শুরু করুন" },
+  "auth-email": { "en": "Email Address", "bn": "ইমেইল ঠিকানা" },
+  "auth-password": { "en": "Password", "bn": "পাসওয়ার্ড" },
+  "auth-submit-login": { "en": "Log In", "bn": "লগইন করুন" },
+  "auth-submit-register": { "en": "Register", "bn": "নিবন্ধন করুন" },
+  "auth-no-account": { "en": "Don't have an account?", "bn": "অ্যাকাউন্ট নেই?" },
+  "auth-have-account": { "en": "Already have an account?", "bn": "ইতিমধ্যে অ্যাকাউন্ট আছে?" },
 
   // Hero Section
   "hero-title": { 
@@ -87,5 +102,9 @@ const translations = {
   "modules-subtitle": { "en": "Step-by-step guides to digital responsibility", "bn": "ডিজিটাল দায়িত্বশীলতার ধাপে ধাপে নির্দেশিকা" },
   "res-title": { "en": "Resources", "bn": "রিসোর্স" },
   "res-subtitle": { "en": "Tools and guides for a safer digital life", "bn": "নিরাপদ ডিজিটাল জীবনের জন্য সরঞ্জাম এবং নির্দেশিকা" },
-  "facilitator-subtitle": { "en": "", "bn": "সেশন পরিচালনার গাইড" }
+  "facilitator-subtitle": { "en": "", "bn": "সেশন পরিচালনার গাইড" },
+  "missions-login-to-proceed": {
+    "en": "You need to log in to get the Unique ID and to go on. The Unique ID will be sent with the confirmation email.",
+    "bn": "সামনে যাওয়ার জন্য এবং ইউনিক আইডি (Unique ID) পেতে আপনাকে লগইন করতে হবে। কনফার্মেশন ইমেলের সাথে ইউনিক আইডি পাঠানো হবে।"
+  }
 };

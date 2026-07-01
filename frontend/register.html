@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register to join Onnoy (অন্বয়) and become a responsible digital citizen.">
+    <meta name="keywords" content="Onnoy, register, sign up, auth, responsible digital citizenship">
+    <meta property="og:title" content="Register - Onnoy — অন্বয় Onnoy">
+    <meta property="og:description" content="Register to join Onnoy (অন্বয়) and become a responsible digital citizen.">
+    <meta property="og:image" content="https://onnoy.vercel.app/assets/images/og-image.png">
+    <meta property="og:url" content="https://onnoy.vercel.app/register.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://onnoy.vercel.app/register.html">
+    <title>Register - Onnoy-অন্বয়</title>
+    <!-- PAGE: register.html | PHASE: 2 | STATUS: completed -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+</head>
+
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <!-- Page Loader -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="assets/images/logo-v2.jpeg" alt="Onnoy Logo"><span data-i18n="nav-logo">Onnoy-অন্বয়</span></a>
+            <div class="nav-links">
+                <a href="index.html" data-i18n="nav-home">Home</a>
+                <a href="modules.html" data-i18n="nav-modules">Modules</a>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="resources.html" data-i18n="nav-resources">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="fact-check.html">Is This True?</a>
+                        <a href="support.html">Need Help?</a>
+                        <a href="quiz.html">Safety Quiz</a>
+                        <a href="checklist.html">Misinformation Checklist</a>
+                        <a href="resources-library.html">Resource Library</a>
+                        <a href="digital-safety-laws.html">Digital Safety Laws</a>
+                        <a href="stories.html">Student Stories</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="faq.html" data-i18n="nav-learn">Learn</a>
+                    <div class="dropdown-menu">
+                        <a href="faq.html">FAQ</a>
+                        <a href="scenario-cards.html">Scenario Cards</a>
+                        <a href="facilitator-guide.html">Facilitator Guide</a>
+                        <a href="courses.html">Courses</a>
+                    </div>
+                </div>
+                <a href="about.html" data-i18n="nav-about">About</a>
+                <a href="contact.html" data-i18n="nav-contact">Contact Us</a>
+            </div>
+            <div class="nav-right">
+                <a href="session-request.html" class="nav-cta" data-i18n="nav-cta">Request a Session</a>
+            </div>
+            <button class="hamburger" type="button" aria-label="Toggle navigation"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-menu"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        </div>
+    </nav>
+
+    <!-- 1. Page Hero -->
+    <header class="hero" id="main" tabindex="-1">
+        <div class="container fade-in">
+            <h1 data-i18n="auth-register-title">Join Onnoy</h1>
+            <p data-i18n="auth-register-subtitle">Start your digital journey</p>
+        </div>
+    </header>
+
+    <div class="container section-gap">
+        <div class="card" style="max-width: 480px; margin: 0 auto; padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow);">
+            
+            <div id="registerCardContent">
+                <div id="authAlert" class="note-box" style="display: none; margin-top: 0; margin-bottom: 20px; padding: 15px;"></div>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label data-i18n="auth-email">Email Address *</label>
+                        <input type="email" id="email" class="form-control" required placeholder="your@email.com" style="margin-top: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 30px;">
+                        <label data-i18n="auth-password">Password *</label>
+                        <div style="position: relative; margin-top: 8px; display: flex; align-items: center;">
+                            <input type="password" id="password" class="form-control" required placeholder="••••••••" style="padding-right: 50px;">
+                            <button type="button" id="togglePassword" style="position: absolute; right: 14px; background: none; border: none; cursor: pointer; color: var(--ink-light); display: flex; align-items: center; justify-content: center; padding: 0; flex-shrink: 0;" aria-label="Toggle password visibility">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-green full-width" data-i18n="auth-submit-register">Register</button>
+                </form>
+
+                <div style="margin-top: 25px; text-align: center; font-size: 0.95rem; color: var(--ink-mid);">
+                    <span data-i18n="auth-have-account">Already have an account?</span> 
+                    <a href="login.html" style="color: var(--green); font-weight: 600; text-decoration: underline;" data-i18n="nav-login">Log In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p data-i18n="footer-tagline">Onnoy - অন্বয় | Connecting Necessary Dots...</p>
+        <p data-i18n="footer-address">A Responsible Digital Youth Initiative</p>
+        <p data-i18n="footer-location">Mymensingh, Bangladesh</p>
+        <div class="social-links" style="margin: 15px 0;">
+            <a href="https://www.facebook.com/profile.php?id=61589327446397" target="_blank" rel="noopener" aria-label="Facebook" style="display: inline-block; margin: 0 10px; color: #FFFFFF; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@onnoybd" target="_blank" rel="noopener" aria-label="YouTube" style="display: inline-block; margin: 0 10px; color: #FFFFFF; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+        </div>
+        <p class="footer-links">
+            <a href="faq.html">FAQ</a> ·
+            <a href="scenario-cards.html">Scenario Cards</a> ·
+            <a href="facilitator-guide.html">Facilitator Guide</a> ·
+            <a href="contact.html">Contact</a>
+        </p>
+    </footer>
+
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registerForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const alertBox = document.getElementById('authAlert');
+            const submitBtn = document.getElementById('submitBtn');
+            const togglePassword = document.getElementById('togglePassword');
+            const registerCardContent = document.getElementById('registerCardContent');
+
+            // Handle password reveal
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePassword.querySelector('svg').innerHTML = type === 'password' 
+                    ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>' 
+                    : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+            });
+
+            // Redirect if already logged in
+            const checkSession = async () => {
+                if (window.supabaseClient) {
+                    const sessionRes = await window.supabaseClient.auth.getSession().catch(() => null);
+                    if (sessionRes && sessionRes.data.session) {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    setTimeout(checkSession, 100);
+                }
+            };
+            checkSession();
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alertBox.style.display = 'none';
+                
+                if (!window.supabaseClient) {
+                    alertBox.textContent = "Supabase client is not initialized yet. Please check credentials.";
+                    alertBox.style.backgroundColor = 'var(--danger-bg)';
+                    alertBox.style.color = 'var(--danger-fg)';
+                    alertBox.style.borderColor = 'var(--danger-fg)';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                const lang = document.documentElement.getAttribute('lang') || 'en';
+                submitBtn.disabled = true;
+                submitBtn.textContent = lang === 'bn' ? 'নিবন্ধন হচ্ছে...' : 'Registering...';
+
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+
+                try {
+                    const { data, error } = await window.supabaseClient.auth.signUp({
+                        email: email,
+                        password: password
+                    });
+
+                    if (error) {
+                        alertBox.textContent = error.message;
+                        alertBox.style.backgroundColor = 'var(--danger-bg)';
+                        alertBox.style.color = 'var(--danger-fg)';
+                        alertBox.style.borderColor = 'var(--danger-fg)';
+                        alertBox.style.display = 'block';
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = lang === 'bn' ? 'নিবন্ধন করুন' : 'Register';
+                    } else {
+                        // Registration success
+                        registerCardContent.innerHTML = `
+                            <div style="text-align: center; padding: 20px 0;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background-color: var(--success-bg); color: var(--success-fg); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 24px;">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                </div>
+                                <h3 style="margin-bottom: 12px; font-family: 'Plus Jakarta Sans', sans-serif;">${lang === 'bn' ? 'নিবন্ধন সফল!' : 'Registration Successful!'}</h3>
+                                <p style="color: var(--ink-mid); margin-bottom: 25px; font-size: 0.95rem; line-height: 1.6;">
+                                    ${lang === 'bn' ? 'আমরা আপনার ইমেইলে একটি নিশ্চিতকরণ লিঙ্ক পাঠিয়েছি। আপনার অ্যাকাউন্ট সক্রিয় করতে অনুগ্রহ করে লিঙ্কে ক্লিক করুন।' : 'We have sent a confirmation link to your email address. Please click on the link to verify your account and complete registration.'}
+                                </p>
+                                <a href="login.html" class="btn btn-green" style="display: inline-block;">${lang === 'bn' ? 'লগইন পৃষ্ঠায় যান' : 'Go to Login'}</a>
+                            </div>
+                        `;
+                    }
+                } catch (err) {
+                    console.error("Register Exception:", err);
+                    alertBox.textContent = err.message || "An unexpected error occurred.";
+                    alertBox.style.backgroundColor = 'var(--danger-bg)';
+                    alertBox.style.color = 'var(--danger-fg)';
+                    alertBox.style.borderColor = 'var(--danger-fg)';
+                    alertBox.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = lang === 'bn' ? 'নিবন্ধন করুন' : 'Register';
+                }
+            });
+        });
+    </script>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/8801830900746" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="label">Chat with Onnoy</span>
+    </a>
+</body>
+
+</html>

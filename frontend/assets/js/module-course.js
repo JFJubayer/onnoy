@@ -1,3 +1,14 @@
+if (typeof window.ADMIN_EMAILS === 'undefined') {
+  window.ADMIN_EMAILS = [
+    'zubayertalukdar2002@gmail.com',
+    'masuma.sarker21220@gmail.com',
+    'nayeemahrahman@gmail.com',
+    'alfeeasha84@gmail.com',
+    'jubayerjf28@gmail.com',
+    'fnfahim122@gmail.com'
+  ];
+}
+
 const courseLessons = {
   overview: {
     storageKey: 'onnoy_lesson_overview',
@@ -505,6 +516,10 @@ function renderLesson() {
           feedback.textContent = 'Completed. Progress saved in this browser.';
           feedback.className = 'module-feedback success';
           root.querySelector('.module-status-pill').textContent = 'Complete';
+          
+          if (lesson.storageKey === 'onnoy_lesson_overview') {
+            triggerOverviewCompletionFlow();
+          }
           return;
         }
 
@@ -525,25 +540,152 @@ function renderHubProgress() {
   if (courseList) {
     courseList.innerHTML = lessonOrder.map((id) => {
       const lesson = courseLessons[id];
-      return `<li><span>${lesson.title}</span><strong>${isComplete(lesson.storageKey) ? 'Complete' : 'Open'}</strong></li>`;
+      let lessonUrl = 'module-overview.html';
+      if (id === 'attention') lessonUrl = 'module-attention-literacy.html';
+      else if (id === 'misinformation') lessonUrl = 'module-misinformation.html';
+      else if (id === 'scams') lessonUrl = 'module-scam-safety.html';
+      else if (id === 'ai') lessonUrl = 'module-ai-mindset.html';
+      
+      return `<li style="padding: 0;"><a href="${lessonUrl}" style="display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 14px 0 14px 24px; text-decoration: none; color: inherit;"><span>${lesson.title}</span><strong style="color: var(--green);">${isComplete(lesson.storageKey) ? 'Complete' : 'Open →'}</strong></a></li>`;
     }).join('');
   }
 
   const level2Gate = document.getElementById('level2Gate');
   if (level2Gate) {
     const ready = lessonOrder.every((id) => isComplete(courseLessons[id].storageKey));
-    level2Gate.classList.toggle('is-locked', !ready);
-    level2Gate.querySelector('a').setAttribute('aria-disabled', String(!ready));
-    level2Gate.querySelector('p').textContent = ready
-      ? 'Level 2 is unlocked in this browser. Start the missions.'
-      : 'Finish all five Level 1 pages in this browser to unlock Level 2.';
+    const btn = level2Gate.querySelector('a');
+    const textPara = level2Gate.querySelector('p');
+
+    if (btn && !btn.dataset.hasListener) {
+      btn.dataset.hasListener = 'true';
+      btn.addEventListener('click', (e) => {
+        if (btn.getAttribute('aria-disabled') === 'true') {
+          e.preventDefault();
+          const href = btn.getAttribute('href');
+          if (href && href !== '#') {
+            window.location.href = href;
+          }
+        }
+      });
+    }
+
+    if (!ready) {
+      level2Gate.classList.add('is-locked');
+      if (btn) {
+        btn.setAttribute('aria-disabled', 'true');
+        btn.href = '#';
+      }
+      if (textPara) {
+        textPara.textContent = 'Finish all five Level 1 pages in this browser to unlock Level 2.';
+      }
+    } else {
+      // Level 1 is complete! Check Supabase verification status
+      if (btn) {
+        btn.setAttribute('aria-disabled', 'true');
+        btn.href = '#';
+      }
+      if (textPara) {
+        textPara.textContent = 'Checking authorization status...';
+      }
+
+      const verifyStatus = async () => {
+        try {
+          if (window.supabaseClient) {
+            const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+            if (!session || !session.user) {
+              if (textPara) {
+                const lang = document.documentElement.getAttribute('lang') || localStorage.getItem('onnoy_lang') || 'en';
+                const dict = typeof translations !== 'undefined' ? translations : {};
+                const loginMsg = (dict['missions-login-to-proceed'] && dict['missions-login-to-proceed'][lang]) || "You need to log in to get the Unique ID and to go on. The Unique ID will be sent with the confirmation email.";
+                textPara.innerHTML = `<span style="color: var(--danger-fg); font-weight: 500;">${loginMsg} <a href="login.html" style="color: var(--green); font-weight: 600; text-decoration: underline;">${lang === 'bn' ? 'লগইন করুন' : 'Log In'}</a></span>`;
+              }
+              if (btn) {
+                btn.setAttribute('aria-disabled', 'true');
+                btn.href = 'login.html';
+              }
+              return;
+            }
+
+            // Admin bypass check
+            if (window.ADMIN_EMAILS.includes(session.user.email)) {
+              level2Gate.classList.remove('is-locked');
+              if (btn) {
+                btn.setAttribute('aria-disabled', 'false');
+                btn.href = 'level-2-missions.html';
+              }
+              if (textPara) {
+                textPara.textContent = 'Admin Mode: Level 2 is fully unlocked.';
+              }
+              return;
+            }
+
+            // Fetch profile status
+            const { data: profile, error } = await window.supabaseClient
+              .from('profiles')
+              .select('status, unique_id')
+              .eq('id', session.user.id)
+              .single()
+              .catch(() => ({ data: null }));
+
+            if (error || !profile) {
+              if (textPara) {
+                textPara.innerHTML = '<span style="color: var(--danger-fg);">Error fetching profile status. Please reload.</span>';
+              }
+              return;
+            }
+
+            // Sync: If overview is complete and profile status is pending, auto-approve it!
+            if (profile.status === 'pending' && isComplete('onnoy_lesson_overview')) {
+              console.log("Syncing completed overview: auto-approving profile status.");
+              const { error: updateError } = await window.supabaseClient
+                .from('profiles')
+                .update({ status: 'Approved' })
+                .eq('id', session.user.id);
+              if (!updateError) {
+                profile.status = 'Approved';
+              }
+            }
+
+            // Since any status other than pending means approved for Level 2 in general
+            if (profile.status && profile.status !== 'pending') {
+              level2Gate.classList.remove('is-locked');
+              if (btn) {
+                btn.setAttribute('aria-disabled', 'false');
+                btn.href = 'level-2-missions.html';
+              }
+              if (textPara) {
+                textPara.textContent = `Level 2 is unlocked! Your account is verified (ID: ${profile.unique_id || 'None'}).`;
+              }
+            } else {
+              level2Gate.classList.add('is-locked');
+              if (btn) {
+                btn.setAttribute('aria-disabled', 'true');
+                btn.href = '#';
+              }
+              if (textPara) {
+                textPara.innerHTML = `<span style="color: var(--caution-fg); font-weight: 600;">Pending Admin Verification (ID: ${profile.unique_id || 'Pending'}). Your submissions are being reviewed.</span>`;
+              }
+            }
+          } else {
+            setTimeout(verifyStatus, 200);
+          }
+        } catch (err) {
+          console.error("Verification error:", err);
+          if (textPara) {
+            textPara.textContent = 'Error verifying status. Please refresh.';
+          }
+        }
+      };
+      verifyStatus();
+    }
   }
 
   const missionList = document.getElementById('missionProgress');
   if (missionList) {
     missionList.innerHTML = missionOrder.map((id) => {
       const mission = missions[id];
-      return `<li><span>${mission.title}</span><strong>${isComplete(mission.storageKey) ? 'Complete' : 'Open'}</strong></li>`;
+      const missionUrl = id === 'spotLie' ? 'mission-spot-the-lie.html' : id === 'scamAlert' ? 'mission-scam-alert.html' : id === 'aiIntegrity' ? 'mission-ai-integrity.html' : 'mission-digital-guardian.html';
+      return `<li style="padding: 0;"><a href="${missionUrl}" style="display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 14px 0 14px 24px; text-decoration: none; color: inherit;"><span>${mission.title}</span><strong style="color: var(--green);">${isComplete(mission.storageKey) ? 'Complete' : 'Open →'}</strong></a></li>`;
     }).join('');
   }
 }
@@ -634,6 +776,16 @@ function buildMissionForm(mission, referralMode) {
     `
     : '';
   section.innerHTML = `<h3>Submit for Review</h3>${guideline}<p>${mission.intro || 'Send this to Onnoy for manual review.'}</p><p>Team Onnoy will manually review all mission submissions together at the end. You can continue to the next mission after submitting this form.</p>`;
+  
+  // Create Alert Box for status feedback
+  const alertBox = document.createElement('div');
+  alertBox.className = 'note-box';
+  alertBox.style.display = 'none';
+  alertBox.style.marginBottom = '20px';
+  alertBox.style.padding = '15px';
+  alertBox.style.borderRadius = 'var(--radius)';
+  section.appendChild(alertBox);
+
   const form = document.createElement('form');
   form.action = mission.formAction;
   form.method = 'POST';
@@ -641,22 +793,238 @@ function buildMissionForm(mission, referralMode) {
   form.innerHTML = `
     <input type="hidden" name="_subject" value="${mission.title}">
     <input type="hidden" name="mission_title" value="${mission.title}">
-    <div class="form-group"><label class="form-label" for="unique_id">Unique ID *</label><input class="form-control" id="unique_id" name="unique_id" required></div>
+    <div class="form-group">
+      <label class="form-label" for="unique_id">Unique ID *</label>
+      <input class="form-control" id="unique_id" name="unique_id" required>
+      <p class="mission-upload-help" id="unique_id_hint" style="margin-top: 6px; display: flex; align-items: flex-start; gap: 6px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px; color: var(--green);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <span id="unique_id_hint_text">Your Unique ID is visible in the <strong>top-right navbar dropdown</strong> next to your email.</span>
+      </p>
+    </div>
     <div class="form-group"><label class="form-label" for="student_name">Name *</label><input class="form-control" id="student_name" name="student_name" required></div>
     <div class="form-group"><label class="form-label" for="student_email">Email Address *</label><input class="form-control" id="student_email" name="student_email" type="email" required></div>
     <div class="form-group">
       <label class="form-label" for="evidence_files">Screenshots or PDF Files *</label>
-      <input class="form-control" id="evidence_files" name="evidence_files" type="file" accept="image/*,.pdf" multiple required>
-      <p class="mission-upload-help">Select all screenshots/images/PDFs for this mission at once. Video files are not accepted here; paste video links in the notes box.</p>
+      <div class="file-drop-zone" id="file_drop_zone">
+        <svg width="32" height="32" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <p class="file-drop-label">Drag &amp; drop files here, or <span class="file-drop-browse">browse</span></p>
+        <p class="mission-upload-help" style="margin:4px 0 0;">Images and PDFs only. Video links go in the notes box below.</p>
+        <input class="form-control" id="evidence_files" name="evidence_files" type="file" accept="image/*,.pdf" multiple required style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
+      </div>
+      <ul class="file-list" id="file_list"></ul>
     </div>
     <div class="form-group">
       <label class="form-label" for="evidence_notes">Numbered Evidence Notes *</label>
-      <textarea class="form-control" id="evidence_notes" name="evidence_notes" rows="10" placeholder="${mission.notesPlaceholder || '1. Category:\nSource or video link:\nWhy it belongs here:\nHow I checked it:'}" required></textarea>
+      <textarea class="form-control" id="evidence_notes" name="evidence_notes" rows="10" required>${mission.notesPlaceholder || '1. Category:\nSource or video link:\nWhy it belongs here:\nHow I checked it:'}</textarea>
     </div>
   `;
   const buttonText = referralMode ? 'Submit Recognition Claim' : 'Submit Mission for Review';
-  form.innerHTML += `<button class="btn btn-green full-submit" type="submit">${buttonText} →</button>`;
-  form.addEventListener('submit', () => setComplete(mission.storageKey));
+  const submitBtn = document.createElement('button');
+  submitBtn.className = 'btn btn-green full-submit';
+  submitBtn.type = 'submit';
+  submitBtn.textContent = `${buttonText} →`;
+  form.appendChild(submitBtn);
+  // Wire up custom file drop zone
+  const fileInput = form.querySelector('#evidence_files');
+  const fileList = form.querySelector('#file_list');
+  const dropZone = form.querySelector('#file_drop_zone');
+
+  const renderFileList = (files) => {
+    fileList.innerHTML = '';
+    if (!files || files.length === 0) return;
+    Array.from(files).forEach((file, i) => {
+      const li = document.createElement('li');
+      li.className = 'file-list-item';
+      const ext = file.name.split('.').pop().toUpperCase();
+      const isPdf = ext === 'PDF';
+      li.innerHTML = `
+        <span class="file-list-icon">${isPdf ? '📄' : '🖼️'}</span>
+        <span class="file-list-name">${i + 1}. ${file.name}</span>
+        <span class="file-list-size">${(file.size / 1024).toFixed(0)} KB</span>
+      `;
+      fileList.appendChild(li);
+    });
+  };
+
+  fileInput.addEventListener('change', () => renderFileList(fileInput.files));
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    // Transfer dragged files to the input
+    const dt = new DataTransfer();
+    Array.from(e.dataTransfer.files).forEach(f => {
+      if (f.type.startsWith('image/') || f.type === 'application/pdf') dt.items.add(f);
+    });
+    fileInput.files = dt.files;
+    renderFileList(fileInput.files);
+  });
+
+  // Pre-fill user details if logged in
+
+  const prefillUserDetails = async () => {
+    try {
+      if (window.supabaseClient) {
+        const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+        if (session && session.user) {
+          const user = session.user;
+          const emailInput = form.querySelector('#student_email');
+          const nameInput = form.querySelector('#student_name');
+          const idInput = form.querySelector('#unique_id');
+
+          if (emailInput && !emailInput.value) emailInput.value = user.email || '';
+          if (nameInput && !nameInput.value) nameInput.value = user.user_metadata?.full_name || '';
+
+          const { data: profile } = await window.supabaseClient
+            .from('profiles')
+            .select('unique_id')
+            .eq('id', user.id)
+            .single()
+            .catch(() => ({ data: null }));
+
+          if (profile && profile.unique_id && idInput) {
+            idInput.value = profile.unique_id;
+            idInput.readOnly = true;
+            // Update hint to confirm auto-fill
+            const hintText = form.querySelector('#unique_id_hint_text');
+            if (hintText) {
+              hintText.innerHTML = `✅ Auto-filled: <strong>${profile.unique_id}</strong>. Your Unique ID is also visible in the <strong>top-right navbar dropdown</strong> next to your email.`;
+            }
+            const hintSvg = form.querySelector('#unique_id_hint svg');
+            if (hintSvg) hintSvg.style.display = 'none';
+          } else if (idInput) {
+            const hintText = form.querySelector('#unique_id_hint_text');
+            if (hintText) {
+              hintText.innerHTML = `Your Unique ID is visible in the <strong>top-right navbar dropdown</strong> next to your email.`;
+            }
+          }
+        }
+      } else {
+        setTimeout(prefillUserDetails, 200);
+      }
+    } catch (e) {
+      console.warn("Error prefilling user details:", e);
+    }
+  };
+  prefillUserDetails();
+
+  form.addEventListener('submit', async (e) => {
+    // If Supabase is not configured, fallback to standard Formspree action
+    if (!window.supabaseClient) {
+      console.warn("Supabase client not initialized. Falling back to Formspree submit.");
+      setComplete(mission.storageKey);
+      return; // Let browser do the standard form POST
+    }
+
+    e.preventDefault();
+    alertBox.style.display = 'none';
+
+    const uniqueId = form.querySelector('#unique_id').value.trim();
+    const name = form.querySelector('#student_name').value.trim();
+    const email = form.querySelector('#student_email').value.trim();
+    const notes = form.querySelector('#evidence_notes').value.trim();
+    const fileInput = form.querySelector('#evidence_files');
+    const files = fileInput ? fileInput.files : [];
+
+    if (!uniqueId || !name || !email || !notes || files.length === 0) {
+      alertBox.textContent = "Please fill in all required fields and select at least one file.";
+      alertBox.style.backgroundColor = 'var(--danger-bg)';
+      alertBox.style.color = 'var(--danger-fg)';
+      alertBox.style.borderColor = 'var(--danger-fg)';
+      alertBox.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading files...';
+    alertBox.textContent = 'Uploading screenshots to Supabase Storage...';
+    alertBox.style.backgroundColor = 'var(--caution-bg)';
+    alertBox.style.color = 'var(--caution-fg)';
+    alertBox.style.borderColor = 'var(--caution-fg)';
+    alertBox.style.display = 'block';
+
+    try {
+      const fileUrls = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const filePath = `${uniqueId}/${Date.now()}_${cleanFileName}`;
+        
+        const { data, error } = await window.supabaseClient.storage
+          .from('mission-screenshots')
+          .upload(filePath, file);
+
+        if (error) throw error;
+
+        const { data: { publicUrl } } = window.supabaseClient.storage
+          .from('mission-screenshots')
+          .getPublicUrl(filePath);
+
+        fileUrls.push(publicUrl);
+      }
+
+      alertBox.textContent = 'Saving submission data to Supabase database...';
+
+      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+      const userId = session?.user?.id || null;
+
+      const { error: insertError } = await window.supabaseClient
+        .from('submissions')
+        .insert([
+          {
+            user_id: userId,
+            unique_id: uniqueId,
+            student_name: name,
+            student_email: email,
+            mission_title: mission.title,
+            evidence_notes: notes,
+            screenshot_urls: fileUrls
+          }
+        ]);
+
+      if (insertError) throw insertError;
+
+      // Success
+      setComplete(mission.storageKey);
+      
+      const root = document.querySelector('[data-mission]');
+      if (root) {
+        const statusPill = root.querySelector('.module-status-pill');
+        if (statusPill) statusPill.textContent = 'Submitted for final review';
+      }
+
+      alertBox.textContent = 'Success! Your submission has been saved to Supabase. You can now proceed to the next mission.';
+      alertBox.style.backgroundColor = 'var(--success-bg)';
+      alertBox.style.color = 'var(--success-fg)';
+      alertBox.style.borderColor = 'var(--success-fg)';
+      alertBox.style.display = 'block';
+
+      // Replace form contents with a success banner
+      form.innerHTML = `
+        <div style="text-align: center; padding: 30px; border: 2px dashed var(--green); border-radius: var(--radius); margin-top: 20px;">
+          <svg width="48" height="48" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 15px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <h4 style="color: var(--green); margin-bottom: 10px;">Submission Completed</h4>
+          <p style="color: var(--ink-mid); font-size: 0.95rem;">All files uploaded successfully. Your progress is marked as complete.</p>
+        </div>
+      `;
+    } catch (err) {
+      console.error("Submission error:", err);
+      alertBox.textContent = `Submission failed: ${err.message || err}`;
+      alertBox.style.backgroundColor = 'var(--danger-bg)';
+      alertBox.style.color = 'var(--danger-fg)';
+      alertBox.style.borderColor = 'var(--danger-fg)';
+      alertBox.style.display = 'block';
+      
+      submitBtn.disabled = false;
+      submitBtn.textContent = `${buttonText} →`;
+    }
+  });
+
   section.appendChild(form);
   return section;
 }
@@ -690,8 +1058,240 @@ function buildReferralForm(mission) {
   return section;
 }
 
+async function triggerOverviewCompletionFlow() {
+  try {
+    if (window.supabaseClient) {
+      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+      if (session && session.user) {
+        const user = session.user;
+        if (window.ADMIN_EMAILS.includes(user.email)) return;
+        
+        // 1. Fetch Unique ID from profile
+        const { data: profile } = await window.supabaseClient
+          .from('profiles')
+          .select('unique_id, status')
+          .eq('id', user.id)
+          .single()
+          .catch(() => ({ data: null }));
+          
+        if (profile) {
+          const uniqueId = profile.unique_id;
+          
+          // 2. Set profile status to Approved in Supabase
+          if (profile.status === 'pending') {
+            await window.supabaseClient
+              .from('profiles')
+              .update({ status: 'Approved' })
+              .eq('id', user.id);
+          }
+          
+          // 3. Send email notification via Formspree
+          const formAction = 'https://formspree.io/f/xwvyyoqr';
+          const formData = new FormData();
+          formData.append('email', user.email);
+          formData.append('_subject', 'Onnoy-অন্বয়: Your Unique ID and Course Start');
+          formData.append('student_name', user.user_metadata?.full_name || 'Student');
+          formData.append('unique_id', uniqueId);
+          formData.append('message', `Congratulations! You have completed the Course Overview. Your Unique ID is: ${uniqueId}. Save this ID for your missions!`);
+          
+          fetch(formAction, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          }).then(res => console.log('Overview Formspree submit status:', res.status))
+            .catch(err => console.error('Overview Formspree submit error:', err));
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Error in overview completion flow:", e);
+  }
+}
+
+// Restrict Level 2 mission cards and page access sequentially
+async function restrictMissionAccess() {
+  const isMissionsPage = window.location.pathname.endsWith('level-2-missions.html');
+  const root = document.querySelector('[data-mission]');
+  
+  if (!isMissionsPage && !root) return;
+  
+  try {
+    if (window.supabaseClient) {
+      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+      
+      const fileNames = [
+        'mission-spot-the-lie.html',
+        'mission-scam-alert.html',
+        'mission-ai-integrity.html',
+        'mission-digital-guardian.html'
+      ];
+
+      const startBtn = document.querySelector('.module-page-nav a.btn-green');
+
+      if (!session || !session.user) {
+        const lang = document.documentElement.getAttribute('lang') || localStorage.getItem('onnoy_lang') || 'en';
+        const dict = typeof translations !== 'undefined' ? translations : {};
+        const loginToProceedMsg = (dict['missions-login-to-proceed'] && dict['missions-login-to-proceed'][lang]) || "You need to log in to get the Unique ID and to go on. The Unique ID will be sent with the confirmation email.";
+
+        if (isMissionsPage) {
+          lockAllMissionCards(loginToProceedMsg);
+          if (startBtn) {
+            startBtn.href = 'login.html';
+            startBtn.textContent = lang === 'bn' ? 'শুরু করতে লগইন করুন →' : 'Log In to Start →';
+          }
+        } else if (root) {
+          blockMissionPage(loginToProceedMsg);
+        }
+        return;
+      }
+      
+      const isAdmin = window.ADMIN_EMAILS.includes(session.user.email);
+      
+      const { data: profile } = await window.supabaseClient
+        .from('profiles')
+        .select('status')
+        .eq('id', session.user.id)
+        .single()
+        .catch(() => ({ data: null }));
+        
+      const status = profile?.status || 'pending';
+      
+      const unlockedMissions = new Set();
+      if (status === 'Approved' || status === 'Mission2Unlocked' || status === 'Mission3Unlocked' || status === 'Mission4Unlocked' || isAdmin) {
+        unlockedMissions.add('spotLie');
+      }
+      if (status === 'Mission2Unlocked' || status === 'Mission3Unlocked' || status === 'Mission4Unlocked' || isAdmin) {
+        unlockedMissions.add('scamAlert');
+      }
+      if (status === 'Mission3Unlocked' || status === 'Mission4Unlocked' || isAdmin) {
+        unlockedMissions.add('aiIntegrity');
+      }
+      if (status === 'Mission4Unlocked' || isAdmin) {
+        unlockedMissions.add('guardian');
+      }
+      
+      if (isMissionsPage) {
+        const cards = document.querySelectorAll('.mission-card');
+        const order = ['spotLie', 'scamAlert', 'aiIntegrity', 'guardian'];
+        
+        cards.forEach((card, idx) => {
+          const mKey = order[idx];
+          if (!unlockedMissions.has(mKey)) {
+            card.classList.add('is-locked');
+            card.setAttribute('aria-disabled', 'true');
+            card.href = '#';
+            
+            if (!card.dataset.hasLockListener) {
+              card.dataset.hasLockListener = 'true';
+              card.addEventListener('click', (e) => {
+                if (card.classList.contains('is-locked')) {
+                  e.preventDefault();
+                }
+              });
+            }
+            
+            const p = card.querySelector('p');
+            if (p) {
+              p.innerHTML = `<span class="lock-msg" style="color: var(--caution-fg); font-weight: 600;">🔒 Locked - Pending Admin Approval of previous mission.</span>`;
+            }
+          } else {
+            card.classList.remove('is-locked');
+            card.removeAttribute('aria-disabled');
+            card.href = fileNames[idx];
+            
+            const p = card.querySelector('p');
+            if (p && p.querySelector('.lock-msg')) {
+              const originalDescs = [
+                'Upload five misinformation examples and your fact-check notes.',
+                'Upload five scam examples and explain your checks.',
+                'Upload five AI-related misinformation examples and verification notes.',
+                'Invite 1-5 acquaintances to complete the course.'
+              ];
+              p.textContent = originalDescs[idx];
+            }
+          }
+        });
+
+        // Update green start button dynamically
+        if (startBtn) {
+          if (status === 'Approved') {
+            startBtn.href = 'mission-spot-the-lie.html';
+            startBtn.textContent = 'Start Mission 1 →';
+          } else if (status === 'Mission2Unlocked') {
+            startBtn.href = 'mission-scam-alert.html';
+            startBtn.textContent = 'Start Mission 2 →';
+          } else if (status === 'Mission3Unlocked') {
+            startBtn.href = 'mission-ai-integrity.html';
+            startBtn.textContent = 'Start Mission 3 →';
+          } else if (status === 'Mission4Unlocked') {
+            startBtn.href = 'mission-digital-guardian.html';
+            startBtn.textContent = 'Start Mission 4 →';
+          } else {
+            startBtn.href = 'mission-spot-the-lie.html';
+            startBtn.textContent = 'Start Mission 1 →';
+          }
+        }
+      } else if (root) {
+        const currentMissionKey = root.dataset.mission;
+        if (!unlockedMissions.has(currentMissionKey)) {
+          blockMissionPage("This mission is locked. Please complete and submit the previous mission, and wait for admin approval.");
+        }
+      }
+    } else {
+      setTimeout(restrictMissionAccess, 200);
+    }
+  } catch (e) {
+    console.error("Error restricting mission access:", e);
+  }
+}
+
+function lockAllMissionCards(message) {
+  const cards = document.querySelectorAll('.mission-card');
+  cards.forEach(card => {
+    card.classList.add('is-locked');
+    card.setAttribute('aria-disabled', 'true');
+    card.href = '#';
+    if (!card.dataset.hasLockListener) {
+      card.dataset.hasLockListener = 'true';
+      card.addEventListener('click', (e) => {
+        if (card.classList.contains('is-locked')) {
+          e.preventDefault();
+        }
+      });
+    }
+    const p = card.querySelector('p');
+    if (p) p.innerHTML = `<span class="lock-msg" style="color: var(--danger-fg); font-weight: 600;">${message}</span>`;
+  });
+}
+
+function blockMissionPage(message, buttonText = "Back to Modules", buttonHref = "modules.html") {
+  const root = document.querySelector('[data-mission]');
+  if (root) {
+    root.innerHTML = `
+      <div class="note-box" style="margin: 40px auto; max-width: 600px; padding: 30px; text-align: center; border-radius: var(--radius); border: 1px solid var(--border);">
+        <svg width="48" height="48" fill="none" stroke="var(--caution-fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 20px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <h3 style="color: var(--caution-fg); margin-bottom: 15px;">Mission Access Restricted</h3>
+        <p style="color: var(--ink-mid); margin-bottom: 20px; line-height: 1.5;">${message}</p>
+        <a href="${buttonHref}" class="btn btn-green">${buttonText}</a>
+      </div>
+    `;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderLesson();
   renderHubProgress();
   renderMission();
+  
+  const initLocks = () => {
+    if (window.supabaseClient) {
+      restrictMissionAccess();
+      window.supabaseClient.auth.onAuthStateChange(() => {
+        restrictMissionAccess();
+      });
+    } else {
+      setTimeout(initLocks, 100);
+    }
+  };
+  initLocks();
 });
