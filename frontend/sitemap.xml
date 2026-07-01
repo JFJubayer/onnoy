@@ -1,172 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://onnoy.vercel.app/index.html</loc>
+    <loc>https://onnoy.vercel.app/</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/about.html</loc>
+    <loc>https://onnoy.vercel.app/about</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/admin-portal.html</loc>
+    <loc>https://onnoy.vercel.app/checklist</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/admin.html</loc>
+    <loc>https://onnoy.vercel.app/contact</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/assets/images/og-image.html</loc>
+    <loc>https://onnoy.vercel.app/courses/course-1</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/checklist.html</loc>
+    <loc>https://onnoy.vercel.app/courses/course-2</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/contact.html</loc>
+    <loc>https://onnoy.vercel.app/courses</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/courses/course-1.html</loc>
+    <loc>https://onnoy.vercel.app/digital-safety-laws</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/courses/course-2.html</loc>
+    <loc>https://onnoy.vercel.app/facilitator-guide</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/courses.html</loc>
+    <loc>https://onnoy.vercel.app/fact-check</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/digital-safety-laws.html</loc>
+    <loc>https://onnoy.vercel.app/faq</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/facilitator-guide.html</loc>
+    <loc>https://onnoy.vercel.app/level-2-missions</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/fact-check.html</loc>
+    <loc>https://onnoy.vercel.app/login</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/faq.html</loc>
+    <loc>https://onnoy.vercel.app/mission-ai-integrity</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/level-2-missions.html</loc>
+    <loc>https://onnoy.vercel.app/mission-digital-guardian</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/login.html</loc>
+    <loc>https://onnoy.vercel.app/mission-scam-alert</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/mission-ai-integrity.html</loc>
+    <loc>https://onnoy.vercel.app/mission-spot-the-lie</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/mission-digital-guardian.html</loc>
+    <loc>https://onnoy.vercel.app/module-ai-mindset</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/mission-scam-alert.html</loc>
+    <loc>https://onnoy.vercel.app/module-attention-literacy</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/mission-spot-the-lie.html</loc>
+    <loc>https://onnoy.vercel.app/module-misinformation</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/module-ai-mindset.html</loc>
+    <loc>https://onnoy.vercel.app/module-overview</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/module-attention-literacy.html</loc>
+    <loc>https://onnoy.vercel.app/module-scam-safety</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/module-misinformation.html</loc>
+    <loc>https://onnoy.vercel.app/modules</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/module-overview.html</loc>
+    <loc>https://onnoy.vercel.app/quiz</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/module-scam-safety.html</loc>
+    <loc>https://onnoy.vercel.app/register</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/modules.html</loc>
+    <loc>https://onnoy.vercel.app/resources-library</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/quiz.html</loc>
+    <loc>https://onnoy.vercel.app/resources</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/register.html</loc>
+    <loc>https://onnoy.vercel.app/scenario-cards</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/resources-library.html</loc>
+    <loc>https://onnoy.vercel.app/session-request</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/resources.html</loc>
+    <loc>https://onnoy.vercel.app/stories</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://onnoy.vercel.app/scenario-cards.html</loc>
-    <lastmod>2026-07-01</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://onnoy.vercel.app/session-request.html</loc>
-    <lastmod>2026-07-01</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://onnoy.vercel.app/stories.html</loc>
-    <lastmod>2026-07-01</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://onnoy.vercel.app/support.html</loc>
+    <loc>https://onnoy.vercel.app/support</loc>
     <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
