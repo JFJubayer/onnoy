@@ -1,3 +1,4 @@
 {
-  "outputDirectory": "frontend"
+  "outputDirectory": "frontend",
+  "cleanUrls": true
 }
