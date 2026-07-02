@@ -110,6 +110,9 @@ async function renderAuthNav(session) {
         const user = session.user;
         const email = user.email;
 
+        // Sync local badges & progress
+        syncLocalBadgesToDatabase();
+
         container.innerHTML = `
             <div class="dropdown auth-dropdown" style="position: relative; display: flex; align-items: center;">
                 <button class="dropdown-toggle auth-user-btn" aria-expanded="false" style="background: var(--green-pale); border: 1.5px solid var(--green); height: 38px; padding: 0 22px; border-radius: 40px; color: var(--green); font-size: 0.88rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; box-sizing: border-box; margin: 0;">
@@ -230,5 +233,71 @@ async function renderAuthNav(session) {
         } catch (e) {
             console.error("Exception loading user profile:", e);
         }
+    }
+}
+
+async function syncLocalBadgesToDatabase() {
+    try {
+        if (window.supabaseClient) {
+            const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+            if (session && session.user) {
+                // 1. Fetch current profile status & badges
+                const { data: profile, error: selectError } = await window.supabaseClient
+                    .from('profiles')
+                    .select('badges, status')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (selectError) {
+                    console.error("Error fetching profile during auth sync:", selectError.message);
+                    return;
+                }
+
+                if (profile) {
+                    let updates = {};
+                    
+                    // 2. Sync Badges
+                    const localBadges = [];
+                    if (localStorage.getItem('onnoy_badge_informed_shown') === 'true') localBadges.push('informed');
+                    if (localStorage.getItem('onnoy_badge_aware_shown') === 'true') localBadges.push('aware');
+                    if (localStorage.getItem('onnoy_badge_guardian_shown') === 'true') localBadges.push('guardian');
+
+                    if (localBadges.length > 0) {
+                        let dbBadges = Array.isArray(profile.badges) ? profile.badges : [];
+                        let badgesUpdated = false;
+                        localBadges.forEach(badge => {
+                            if (!dbBadges.includes(badge)) {
+                                dbBadges.push(badge);
+                                badgesUpdated = true;
+                            }
+                        });
+                        if (badgesUpdated) {
+                            updates.badges = dbBadges;
+                        }
+                    }
+
+                    // 3. Sync Status (auto-approve if overview is complete)
+                    if (profile.status === 'pending' && localStorage.getItem('onnoy_lesson_overview') === 'complete') {
+                        updates.status = 'Approved';
+                    }
+
+                    // 4. Perform update if needed
+                    if (Object.keys(updates).length > 0) {
+                        const { error: updateError } = await window.supabaseClient
+                            .from('profiles')
+                            .update(updates)
+                            .eq('id', session.user.id);
+                        
+                        if (updateError) {
+                            console.error("Error updating profile during auth sync:", updateError.message);
+                        } else {
+                            console.log("Successfully synced profile during auth sync:", updates);
+                        }
+                    }
+                }
+            }
+        }
+    } catch (err) {
+        console.error("Error in syncLocalBadgesToDatabase (auth-nav):", err);
     }
 }

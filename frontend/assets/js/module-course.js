@@ -1440,52 +1440,6 @@ const addBadgeToDatabase = async (badgeName) => {
   }
 };
 
-const syncLocalBadgesToDatabase = async () => {
-  try {
-    if (window.supabaseClient) {
-      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
-      if (session && session.user) {
-        const localBadges = [];
-        if (localStorage.getItem('onnoy_badge_informed_shown') === 'true') localBadges.push('informed');
-        if (localStorage.getItem('onnoy_badge_aware_shown') === 'true') localBadges.push('aware');
-        if (localStorage.getItem('onnoy_badge_guardian_shown') === 'true') localBadges.push('guardian');
-
-        if (localBadges.length > 0) {
-          const { data: profile } = await window.supabaseClient
-            .from('profiles')
-            .select('badges')
-            .eq('id', session.user.id)
-            .single()
-            .catch(() => ({ data: null }));
-
-          let dbBadges = [];
-          if (profile && profile.badges) {
-            dbBadges = Array.isArray(profile.badges) ? profile.badges : [];
-          }
-
-          let updated = false;
-          localBadges.forEach(badge => {
-            if (!dbBadges.includes(badge)) {
-              dbBadges.push(badge);
-              updated = true;
-            }
-          });
-
-          if (updated) {
-            await window.supabaseClient
-              .from('profiles')
-              .update({ badges: dbBadges })
-              .eq('id', session.user.id);
-            console.log("Synced local badges to Supabase:", dbBadges);
-          }
-        }
-      }
-    }
-  } catch (err) {
-    console.error("Error syncing local badges:", err);
-  }
-};
-
 function checkAndAwardInformedBadge() {
   const allComplete = lessonOrder.every(id => isComplete(courseLessons[id].storageKey));
   if (allComplete) {
@@ -1596,10 +1550,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const initLocks = () => {
     if (window.supabaseClient) {
       restrictMissionAccess();
-      syncLocalBadgesToDatabase();
       window.supabaseClient.auth.onAuthStateChange(() => {
         restrictMissionAccess();
-        syncLocalBadgesToDatabase();
       });
     } else {
       setTimeout(initLocks, 100);
