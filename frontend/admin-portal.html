@@ -336,6 +336,14 @@
             cursor: pointer;
             font-weight: bold;
         }
+        
+        .admin-tab-btn:hover {
+            color: var(--admin-primary-hover) !important;
+        }
+        .admin-tab-btn.active {
+            color: var(--admin-primary-hover) !important;
+            border-bottom-color: var(--admin-primary) !important;
+        }
     </style>
 </head>
 <body class="admin-body">
@@ -367,8 +375,41 @@
             <button onclick="handleLogout()" class="logout-btn">Log Out</button>
         </div>
 
-        <div id="submissionsContainer" class="submissions-grid">
-            <div class="no-submissions">Loading pending submissions...</div>
+        <!-- Tabs Navigation -->
+        <div class="admin-tabs" style="display: flex; gap: 15px; margin-bottom: 24px; border-bottom: 1px solid var(--admin-border); padding-bottom: 15px;">
+            <button onclick="switchTab('submissions')" id="tab-submissions" class="admin-tab-btn active" style="background: transparent; border: none; color: var(--admin-primary); font-size: 1.1rem; font-weight: 700; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid var(--admin-primary); transition: all 0.2s;">Pending Submissions</button>
+            <button onclick="switchTab('students')" id="tab-students" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Student Badges Board</button>
+        </div>
+
+        <div id="submissionsTabContent">
+            <div id="submissionsContainer" class="submissions-grid">
+                <div class="no-submissions">Loading pending submissions...</div>
+            </div>
+        </div>
+
+        <div id="studentsTabContent" style="display: none;">
+            <div class="admin-glass-card" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <h3 style="margin: 0; color: var(--admin-primary);">Registered Students Directory</h3>
+                <input type="text" id="studentSearchInp" oninput="filterStudentsTable()" class="admin-input" placeholder="Search by name, email, or Unique ID..." style="max-width: 320px; font-size: 0.9rem; padding: 8px 12px; margin: 0;">
+            </div>
+            <div class="admin-glass-card" style="overflow-x: auto; padding: 0;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; color: var(--admin-text);">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--admin-border); color: var(--admin-primary);">
+                            <th style="padding: 15px 20px;">Student Email</th>
+                            <th style="padding: 15px 20px;">Unique ID</th>
+                            <th style="padding: 15px 20px;">Status</th>
+                            <th style="padding: 15px 20px;">Earned Badges</th>
+                            <th style="padding: 15px 20px;">Joined Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <tr>
+                            <td colspan="5" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Loading students profiles...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -502,9 +543,28 @@
             location.reload();
         }
 
+        let profilesMap = {};
+        async function loadProfilesMap() {
+            try {
+                const { data } = await window.supabaseClient
+                    .from('profiles')
+                    .select('unique_id, badges');
+                if (data) {
+                    profilesMap = {};
+                    data.forEach(p => {
+                        profilesMap[p.unique_id] = p.badges || [];
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading profiles map:", e);
+            }
+        }
+
         async function loadPendingSubmissions() {
             submissionsContainer.innerHTML = '<div class="no-submissions">Loading pending submissions...</div>';
             try {
+                await loadProfilesMap();
+
                 const { data: submissions, error } = await window.supabaseClient
                     .from('submissions')
                     .select('*')
@@ -563,9 +623,21 @@
                         btnText = 'Approve & Unlock Mission 4';
                     }
 
+                    const studentBadges = profilesMap[sub.unique_id] || [];
+                    let badgesHtml = '';
+                    if (studentBadges.includes('informed')) {
+                        badgesHtml += `<span style="background: rgba(6, 214, 160, 0.15); color: #06d6a0; border: 1px solid #06d6a0; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; vertical-align: middle;"><img src="assets/images/badges/informed.png" style="width: 14px; height: 14px; object-fit: contain;"> Informed</span>`;
+                    }
+                    if (studentBadges.includes('aware')) {
+                        badgesHtml += `<span style="background: rgba(37, 99, 235, 0.15); color: #60a5fa; border: 1px solid #2563eb; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; vertical-align: middle;"><img src="assets/images/badges/aware.png" style="width: 14px; height: 14px; object-fit: contain;"> Aware</span>`;
+                    }
+                    if (studentBadges.includes('guardian')) {
+                        badgesHtml += `<span style="background: rgba(239, 71, 111, 0.15); color: #ef476f; border: 1px solid #ef476f; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; vertical-align: middle;"><img src="assets/images/badges/guardian.png" style="width: 14px; height: 14px; object-fit: contain;"> Guardian</span>`;
+                    }
+
                     card.innerHTML = `
                         <div class="sub-details">
-                            <h3>${sub.mission_title || 'Level 2 Mission'}</h3>
+                            <h3 style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px;">${sub.mission_title || 'Level 2 Mission'} ${badgesHtml}</h3>
                             <div class="sub-meta">
                                 <span><strong>Name:</strong> ${sub.student_name}</span>
                                 <span><strong>Email:</strong> ${sub.student_email}</span>
@@ -650,6 +722,140 @@
 
         function closeModal() {
             document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // --- NEW TABS & DIRECTORY FUNCTIONS ---
+
+        let activeTab = 'submissions';
+        async function switchTab(tabId) {
+            activeTab = tabId;
+            const subTab = document.getElementById('submissionsTabContent');
+            const stuTab = document.getElementById('studentsTabContent');
+            const subBtn = document.getElementById('tab-submissions');
+            const stuBtn = document.getElementById('tab-students');
+
+            if (tabId === 'submissions') {
+                subTab.style.display = 'block';
+                stuTab.style.display = 'none';
+                subBtn.classList.add('active');
+                subBtn.style.color = 'var(--admin-primary)';
+                subBtn.style.borderBottomColor = 'var(--admin-primary)';
+                stuBtn.classList.remove('active');
+                stuBtn.style.color = 'rgba(244, 246, 252, 0.6)';
+                stuBtn.style.borderBottomColor = 'transparent';
+                loadPendingSubmissions();
+            } else {
+                subTab.style.display = 'none';
+                stuTab.style.display = 'block';
+                stuBtn.classList.add('active');
+                stuBtn.style.color = 'var(--admin-primary)';
+                stuBtn.style.borderBottomColor = 'var(--admin-primary)';
+                subBtn.classList.remove('active');
+                subBtn.style.color = 'rgba(244, 246, 252, 0.6)';
+                subBtn.style.borderBottomColor = 'transparent';
+                loadStudentProfiles();
+            }
+        }
+
+        let allProfiles = [];
+        async function loadStudentProfiles() {
+            const tableBody = document.getElementById('studentsTableBody');
+            tableBody.innerHTML = '<tr><td colspan="5" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Loading students profiles...</td></tr>';
+            try {
+                const { data: profiles, error } = await window.supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                allProfiles = profiles || [];
+
+                renderStudentsTable(allProfiles);
+            } catch (err) {
+                tableBody.innerHTML = `<tr><td colspan="5" style="padding: 30px; text-align: center; color: #ef476f;">Error loading profiles: ${err.message || err}</td></tr>`;
+            }
+        }
+
+        function renderStudentsTable(profiles) {
+            const tableBody = document.getElementById('studentsTableBody');
+            tableBody.innerHTML = '';
+
+            if (profiles.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">No students found.</td></tr>';
+                return;
+            }
+
+            profiles.forEach(p => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid rgba(91, 192, 190, 0.1)';
+                
+                const dateStr = p.created_at ? new Date(p.created_at).toLocaleDateString() : 'N/A';
+                
+                let badgesHtml = '<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">';
+                let hasBadges = false;
+                const userBadges = Array.isArray(p.badges) ? p.badges : [];
+
+                if (userBadges.includes('informed')) {
+                    badgesHtml += `
+                        <span style="background: rgba(6, 214, 160, 0.15); color: #06d6a0; border: 1px solid #06d6a0; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                            <img src="assets/images/badges/informed.png" style="width: 14px; height: 14px; object-fit: contain;"> Informed
+                        </span>
+                    `;
+                    hasBadges = true;
+                }
+                if (userBadges.includes('aware')) {
+                    badgesHtml += `
+                        <span style="background: rgba(37, 99, 235, 0.15); color: #60a5fa; border: 1px solid #2563eb; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                            <img src="assets/images/badges/aware.png" style="width: 14px; height: 14px; object-fit: contain;"> Aware
+                        </span>
+                    `;
+                    hasBadges = true;
+                }
+                if (userBadges.includes('guardian')) {
+                    badgesHtml += `
+                        <span style="background: rgba(239, 71, 111, 0.15); color: #ef476f; border: 1px solid #ef476f; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                            <img src="assets/images/badges/guardian.png" style="width: 14px; height: 14px; object-fit: contain;"> Guardian
+                        </span>
+                    `;
+                    hasBadges = true;
+                }
+
+                if (!hasBadges) {
+                    badgesHtml += '<span style="color: rgba(244, 246, 252, 0.35); font-size: 0.85rem;">No badges earned yet</span>';
+                }
+                badgesHtml += '</div>';
+
+                let emailHtml = p.email || 'N/A';
+                if (p.role === 'admin') {
+                    emailHtml += ' <span style="background: #5bc0be; color: #0b132b; font-size: 0.65rem; font-weight: 700; padding: 1px 5px; border-radius: 4px; margin-left: 5px; vertical-align: middle;">ADMIN</span>';
+                }
+
+                row.innerHTML = `
+                    <td style="padding: 12px 20px; font-weight: 600;">${emailHtml}</td>
+                    <td style="padding: 12px 20px; font-family: monospace; font-size: 0.85rem; color: var(--admin-primary);">${p.unique_id || 'N/A'}</td>
+                    <td style="padding: 12px 20px;"><span style="background: rgba(91, 192, 190, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(91, 192, 190, 0.2); font-size: 0.85rem;">${p.status || 'pending'}</span></td>
+                    <td style="padding: 12px 20px;">${badgesHtml}</td>
+                    <td style="padding: 12px 20px; color: rgba(244, 246, 252, 0.5);">${dateStr}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function filterStudentsTable() {
+            const query = document.getElementById('studentSearchInp').value.toLowerCase().trim();
+            if (!query) {
+                renderStudentsTable(allProfiles);
+                return;
+            }
+
+            const filtered = allProfiles.filter(p => {
+                const email = (p.email || '').toLowerCase();
+                const uid = (p.unique_id || '').toLowerCase();
+                const status = (p.status || '').toLowerCase();
+                return email.includes(query) || uid.includes(query) || status.includes(query);
+            });
+
+            renderStudentsTable(filtered);
         }
 
         // Check session on startup

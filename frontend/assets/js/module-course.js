@@ -520,6 +520,7 @@ function renderLesson() {
           if (lesson.storageKey === 'onnoy_lesson_overview') {
             triggerOverviewCompletionFlow();
           }
+          checkAndAwardInformedBadge();
           return;
         }
 
@@ -688,6 +689,7 @@ function renderHubProgress() {
       return `<li style="padding: 0;"><a href="${missionUrl}" style="display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 14px 0 14px 24px; text-decoration: none; color: inherit;"><span>${mission.title}</span><strong style="color: var(--green);">${isComplete(mission.storageKey) ? 'Complete' : 'Open →'}</strong></a></li>`;
     }).join('');
   }
+  renderBadgesDisplay();
 }
 
 function renderMission() {
@@ -991,6 +993,7 @@ function buildMissionForm(mission, referralMode) {
 
       // Success
       setComplete(mission.storageKey);
+      checkAndAwardAwareBadge();
       
       const root = document.querySelector('[data-mission]');
       if (root) {
@@ -1053,7 +1056,10 @@ function buildReferralForm(mission) {
     `;
   }
   form.innerHTML += '<button class="btn btn-green full-submit" type="submit">Submit Recognition Claim →</button>';
-  form.addEventListener('submit', () => setComplete(mission.storageKey));
+  form.addEventListener('submit', () => {
+    setComplete(mission.storageKey);
+    checkAndAwardGuardianBadge();
+  });
   section.appendChild(form);
   return section;
 }
@@ -1278,16 +1284,322 @@ function blockMissionPage(message, buttonText = "Back to Modules", buttonHref = 
   }
 }
 
+// --- GAMIFICATION / BADGES SYSTEM ---
+
+function showBadgeEarnedModal(badgeId) {
+  if (document.getElementById('badge-modal-overlay')) return;
+
+  const badgeInfo = {
+    informed: {
+      name: 'Informed',
+      title: 'Informed Badge Unlocked!',
+      desc: 'Congratulations! You have completed all five Level 1 modules on digital citizenship. You are now prepared for Level 2 missions.',
+      image: 'assets/images/badges/informed.png',
+      color: '#06d6a0'
+    },
+    aware: {
+      name: 'Aware',
+      title: 'Aware Badge Unlocked!',
+      desc: 'Incredible work! You have successfully completed three Level 2 missions. Your awareness of online threats is outstanding.',
+      image: 'assets/images/badges/aware.png',
+      color: '#2563eb'
+    },
+    guardian: {
+      name: 'Guardian',
+      title: 'Guardian Badge Unlocked!',
+      desc: 'Congratulations! You have completed all four Level 2 missions and claimed the ultimate Digital Guardian status!',
+      image: 'assets/images/badges/guardian.png',
+      color: '#ef476f'
+    }
+  };
+
+  const badge = badgeInfo[badgeId];
+  if (!badge) return;
+
+  // Load confetti script dynamically if not present
+  if (!window.confetti) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+    script.onload = () => {
+      triggerConfetti();
+    };
+    document.head.appendChild(script);
+  } else {
+    setTimeout(triggerConfetti, 100);
+  }
+
+  function triggerConfetti() {
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+      setTimeout(() => {
+        confetti({
+          particleCount: 100,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      }, 250);
+    }
+  }
+
+  const overlay = document.createElement('div');
+  overlay.id = 'badge-modal-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.backgroundColor = 'rgba(11, 19, 43, 0.85)';
+  overlay.style.backdropFilter = 'blur(10px)';
+  overlay.style.webkitBackdropFilter = 'blur(10px)';
+  overlay.style.zIndex = '99999';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.padding = '20px';
+  overlay.style.animation = 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+
+  const basePath = window.location.pathname.includes('/courses/') ? '../' : '';
+  const imgUrl = basePath + badge.image;
+
+  overlay.innerHTML = `
+    <div id="badge-modal-card" style="background: #ffffff; border-radius: 24px; padding: 40px; text-align: center; max-width: 440px; width: 100%; border: 2px solid ${badge.color}; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transform: scale(0.9); animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; box-sizing: border-box;">
+      <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: ${badge.color}; font-weight: 700; margin-bottom: 15px;">New Achievement!</div>
+      <div style="position: relative; margin-bottom: 25px; display: inline-block;">
+        <div style="position: absolute; inset: -15px; border-radius: 50%; background: ${badge.color}; opacity: 0.1; filter: blur(15px); animation: pulse 2s infinite alternate;"></div>
+        <img src="${imgUrl}" alt="${badge.name} Badge" style="width: 160px; height: 160px; object-fit: contain; position: relative;">
+      </div>
+      <h2 style="font-size: 1.8rem; color: #0b132b; margin: 0 0 12px 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800;">${badge.title}</h2>
+      <p style="color: #4b5563; font-size: 0.95rem; line-height: 1.6; margin: 0 0 30px 0;">${badge.desc}</p>
+      <button id="close-badge-btn" class="btn" style="background: ${badge.color}; color: #ffffff; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; border: none; cursor: pointer; transition: transform 0.2s, filter 0.2s; font-size: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Awesome! →</button>
+    </div>
+  `;
+
+  if (!document.getElementById('badge-modal-styles')) {
+    const style = document.createElement('style');
+    style.id = 'badge-modal-styles';
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes scaleUp {
+        to { transform: scale(1); }
+      }
+      @keyframes pulse {
+        from { transform: scale(0.95); opacity: 0.05; }
+        to { transform: scale(1.05); opacity: 0.15; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  document.body.appendChild(overlay);
+
+  const closeBtn = overlay.querySelector('#close-badge-btn');
+  closeBtn.addEventListener('click', () => {
+    overlay.style.animation = 'fadeIn 0.3s reverse forwards';
+    const card = overlay.querySelector('#badge-modal-card');
+    card.style.animation = 'scaleUp 0.3s reverse cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards';
+    setTimeout(() => {
+      overlay.remove();
+      renderBadgesDisplay();
+    }, 300);
+  });
+}
+
+const addBadgeToDatabase = async (badgeName) => {
+  try {
+    if (window.supabaseClient) {
+      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+      if (session && session.user) {
+        const { data: profile } = await window.supabaseClient
+          .from('profiles')
+          .select('badges')
+          .eq('id', session.user.id)
+          .single()
+          .catch(() => ({ data: null }));
+
+        let currentBadges = [];
+        if (profile && profile.badges) {
+          currentBadges = Array.isArray(profile.badges) ? profile.badges : [];
+        }
+
+        if (!currentBadges.includes(badgeName)) {
+          currentBadges.push(badgeName);
+          await window.supabaseClient
+            .from('profiles')
+            .update({ badges: currentBadges })
+            .eq('id', session.user.id);
+          console.log(`Successfully saved badge ${badgeName} to database.`);
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Error saving badge to database:", err);
+  }
+};
+
+const syncLocalBadgesToDatabase = async () => {
+  try {
+    if (window.supabaseClient) {
+      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+      if (session && session.user) {
+        const localBadges = [];
+        if (localStorage.getItem('onnoy_badge_informed_shown') === 'true') localBadges.push('informed');
+        if (localStorage.getItem('onnoy_badge_aware_shown') === 'true') localBadges.push('aware');
+        if (localStorage.getItem('onnoy_badge_guardian_shown') === 'true') localBadges.push('guardian');
+
+        if (localBadges.length > 0) {
+          const { data: profile } = await window.supabaseClient
+            .from('profiles')
+            .select('badges')
+            .eq('id', session.user.id)
+            .single()
+            .catch(() => ({ data: null }));
+
+          let dbBadges = [];
+          if (profile && profile.badges) {
+            dbBadges = Array.isArray(profile.badges) ? profile.badges : [];
+          }
+
+          let updated = false;
+          localBadges.forEach(badge => {
+            if (!dbBadges.includes(badge)) {
+              dbBadges.push(badge);
+              updated = true;
+            }
+          });
+
+          if (updated) {
+            await window.supabaseClient
+              .from('profiles')
+              .update({ badges: dbBadges })
+              .eq('id', session.user.id);
+            console.log("Synced local badges to Supabase:", dbBadges);
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Error syncing local badges:", err);
+  }
+};
+
+function checkAndAwardInformedBadge() {
+  const allComplete = lessonOrder.every(id => isComplete(courseLessons[id].storageKey));
+  if (allComplete) {
+    if (localStorage.getItem('onnoy_badge_informed_shown') !== 'true') {
+      localStorage.setItem('onnoy_badge_informed_shown', 'true');
+      showBadgeEarnedModal('informed');
+      addBadgeToDatabase('informed');
+    }
+  }
+}
+
+function checkAndAwardAwareBadge() {
+  const threeMissions = ['spotLie', 'scamAlert', 'aiIntegrity'];
+  const threeComplete = threeMissions.every(id => isComplete(missions[id].storageKey));
+  if (threeComplete) {
+    if (localStorage.getItem('onnoy_badge_aware_shown') !== 'true') {
+      localStorage.setItem('onnoy_badge_aware_shown', 'true');
+      showBadgeEarnedModal('aware');
+      addBadgeToDatabase('aware');
+    }
+  }
+}
+
+function checkAndAwardGuardianBadge() {
+  if (isComplete(missions.guardian.storageKey)) {
+    if (localStorage.getItem('onnoy_badge_guardian_shown') !== 'true') {
+      localStorage.setItem('onnoy_badge_guardian_shown', 'true');
+      showBadgeEarnedModal('guardian');
+      addBadgeToDatabase('guardian');
+    }
+  }
+}
+
+function renderBadgesDisplay() {
+  const progressCard = document.getElementById('courseProgress')?.closest('.module-content-card') || 
+                       document.getElementById('missionProgress')?.closest('.module-content-card');
+  if (!progressCard) return;
+
+  let badgesCard = document.getElementById('badges-achievements-card');
+  const basePath = window.location.pathname.includes('/courses/') ? '../' : '';
+  
+  const badges = [
+    {
+      id: 'informed',
+      name: 'Informed',
+      image: 'assets/images/badges/informed.png',
+      desc: 'Complete all Level 1 modules'
+    },
+    {
+      id: 'aware',
+      name: 'Aware',
+      image: 'assets/images/badges/aware.png',
+      desc: 'Complete 3 missions'
+    },
+    {
+      id: 'guardian',
+      name: 'Guardian',
+      image: 'assets/images/badges/guardian.png',
+      desc: 'Complete 4 missions'
+    }
+  ];
+
+  const htmlList = badges.map(b => {
+    const isEarned = (b.id === 'informed' && localStorage.getItem('onnoy_badge_informed_shown') === 'true') ||
+                     (b.id === 'aware' && localStorage.getItem('onnoy_badge_aware_shown') === 'true') ||
+                     (b.id === 'guardian' && localStorage.getItem('onnoy_badge_guardian_shown') === 'true');
+                     
+    const style = isEarned ? 'opacity: 1; filter: none;' : 'opacity: 0.35; filter: grayscale(100%);';
+    const borderStyle = isEarned ? 'border: 2px solid var(--green);' : 'border: 1px dashed var(--border);';
+    const badgeStatus = isEarned ? '<span style="color: var(--green); font-weight: 600; font-size: 0.8rem;">Unlocked ✅</span>' : '<span style="color: var(--ink-light); font-size: 0.8rem;">Locked 🔒</span>';
+
+    return `
+      <div class="badge-item" style="flex: 1; min-width: 120px; max-width: 150px; text-align: center; padding: 15px; border-radius: var(--radius); ${borderStyle} transition: all 0.3s ease; box-sizing: border-box; background: rgba(255,255,255,0.02);">
+        <img src="${basePath + b.image}" alt="${b.name}" style="width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; ${style}">
+        <h4 style="margin: 0 0 5px 0; font-size: 0.95rem; font-weight: 700; color: var(--ink);">${b.name}</h4>
+        <p style="margin: 0 0 10px 0; font-size: 0.72rem; color: var(--ink-mid); min-height: 30px; line-height: 1.3;">${b.desc}</p>
+        ${badgeStatus}
+      </div>
+    `;
+  }).join('');
+
+  if (!badgesCard) {
+    badgesCard = document.createElement('section');
+    badgesCard.className = 'module-content-card';
+    badgesCard.id = 'badges-achievements-card';
+    badgesCard.style.marginBottom = '24px';
+    progressCard.parentNode.insertBefore(badgesCard, progressCard);
+  }
+
+  badgesCard.innerHTML = `
+    <h3>Your Badges & Achievements</h3>
+    <div style="display: flex; gap: 15px; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
+      ${htmlList}
+    </div>
+  `;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderLesson();
   renderHubProgress();
   renderMission();
   
+  renderBadgesDisplay();
+  checkAndAwardInformedBadge();
+  checkAndAwardAwareBadge();
+  checkAndAwardGuardianBadge();
+  
   const initLocks = () => {
     if (window.supabaseClient) {
       restrictMissionAccess();
+      syncLocalBadgesToDatabase();
       window.supabaseClient.auth.onAuthStateChange(() => {
         restrictMissionAccess();
+        syncLocalBadgesToDatabase();
       });
     } else {
       setTimeout(initLocks, 100);
