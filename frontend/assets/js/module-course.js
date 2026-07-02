@@ -330,17 +330,17 @@ const missions = {
   spotLie: {
     storageKey: 'onnoy_mission_spot_lie',
     title: 'Mission 1: Spot the Lie',
-    subtitle: 'Find five pieces of misinformation and show how you checked them.',
+    subtitle: 'Find 2 pieces of misinformation and show how you checked them.',
     prevHref: 'level-2-missions.html',
     nextHref: 'mission-scam-alert.html',
     type: 'form',
     formAction: 'https://formspree.io/f/xwvyyoqr',
-    intro: 'Identify five pieces of misinformation. Upload your screenshots or PDFs in one place, then use numbered notes to explain each example.',
+    intro: 'Identify 2 pieces of misinformation. Upload your screenshots or PDFs in one place, then use numbered notes to explain each example.',
     guidelineTitle: 'Spot the Lie Rules',
     guidelineItems: [
       'Acceptable evidence: screenshots, image files, PDFs, source links, or video links.',
       'Submit screenshots/PDFs with the upload field. Paste video links and source links in the notes box.',
-      'In the notes box, number each example 1-5 and explain what claim you found, why it may be false, and how you checked it.',
+      'In the notes box, number each example 1-2 and explain what claim you found, why it may be false, and how you checked it.',
       'Hide private information before uploading. Do not submit passwords, OTPs, NID/card numbers, private messages, or harmful content.'
     ],
     notesPlaceholder: '1. Category: false claim / old image / edited screenshot / fake quote\nSource or video link:\nWhy it belongs here:\nHow I checked it:\n\n2. Category:\nSource or video link:\nWhy it belongs here:\nHow I checked it:'
@@ -348,17 +348,17 @@ const missions = {
   scamAlert: {
     storageKey: 'onnoy_mission_scam_alert',
     title: 'Mission 2: Scam Alert',
-    subtitle: 'Find five scams or suspicious messages and show your evidence.',
+    subtitle: 'Find 2 scams or suspicious messages and show your evidence.',
     prevHref: 'mission-spot-the-lie.html',
     nextHref: 'mission-ai-integrity.html',
     type: 'form',
     formAction: 'https://formspree.io/f/xwvyyoqr',
-    intro: 'Identify five scams, suspicious links, or suspicious messages. Upload your screenshots or PDFs in one place, then use numbered notes to explain each example.',
+    intro: 'Identify 2 scams, suspicious links, or suspicious messages. Upload your screenshots or PDFs in one place, then use numbered notes to explain each example.',
     guidelineTitle: 'Scam Alert Rules',
     guidelineItems: [
       'Acceptable evidence: screenshots, image files, PDFs, suspicious links, message links, or video links.',
       'Submit screenshots/PDFs with the upload field. Paste video links, website links, and message details in the notes box.',
-      'In the notes box, number each example 1-5 and explain the scam sign, what it asks people to do, and how you checked it.',
+      'In the notes box, number each example 1-2 and explain the scam sign, what it asks people to do, and how you checked it.',
       'Hide private information before uploading. Do not submit passwords, OTPs, NID/card numbers, payment details, private messages, or live scam credentials.'
     ],
     notesPlaceholder: '1. Category: fake offer / phishing link / impersonation / payment scam\nSource or video link:\nWhy it belongs here:\nHow I checked it:\n\n2. Category:\nSource or video link:\nWhy it belongs here:\nHow I checked it:'
@@ -366,17 +366,17 @@ const missions = {
   aiIntegrity: {
     storageKey: 'onnoy_mission_ai_integrity',
     title: 'Mission 3: AI Integrity Check',
-    subtitle: 'Find five AI-related misinformation examples and show your checks.',
+    subtitle: 'Find 2 AI-related misinformation examples and show your checks.',
     prevHref: 'mission-scam-alert.html',
     nextHref: 'mission-digital-guardian.html',
     type: 'form',
     formAction: 'https://formspree.io/f/xwvyyoqr',
-    intro: 'Identify five AI-generated or AI-assisted misinformation examples. Upload your screenshots or PDFs in one place, then use numbered notes to explain each example.',
+    intro: 'Identify 2 AI-generated or AI-assisted misinformation examples. Upload your screenshots or PDFs in one place, then use numbered notes to explain each example.',
     guidelineTitle: 'AI Integrity Check Rules',
     guidelineItems: [
       'Acceptable evidence: screenshots, image files, PDFs, AI output links, source links, or video links.',
       'Submit screenshots/PDFs with the upload field. Paste video links and AI/source links in the notes box.',
-      'In the notes box, number each example 1-5 and explain whether it is AI-generated, AI-assisted, or AI-claimed, why it is risky, and how you verified it.',
+      'In the notes box, number each example 1-2 and explain whether it is AI-generated, AI-assisted, or AI-claimed, why it is risky, and how you verified it.',
       'Hide private information before uploading. Do not submit passwords, OTPs, NID/card numbers, private chats, or harmful synthetic content.'
     ],
     notesPlaceholder: '1. Category: AI image / AI text / fake source / deepfake claim\nSource or video link:\nWhy it belongs here:\nHow I checked it:\n\n2. Category:\nSource or video link:\nWhy it belongs here:\nHow I checked it:'
@@ -831,24 +831,61 @@ function buildMissionForm(mission, referralMode) {
   const fileList = form.querySelector('#file_list');
   const dropZone = form.querySelector('#file_drop_zone');
 
-  const renderFileList = (files) => {
+  let accumulatedFiles = [];
+
+  const updateFileInputAndList = () => {
+    const dt = new DataTransfer();
+    accumulatedFiles.forEach(file => dt.items.add(file));
+    fileInput.files = dt.files;
+
     fileList.innerHTML = '';
-    if (!files || files.length === 0) return;
-    Array.from(files).forEach((file, i) => {
+    if (accumulatedFiles.length === 0) return;
+    accumulatedFiles.forEach((file, i) => {
       const li = document.createElement('li');
       li.className = 'file-list-item';
+      li.style.display = 'flex';
+      li.style.alignItems = 'center';
+      li.style.justifyContent = 'space-between';
+      li.style.padding = '8px 12px';
+      li.style.border = '1px solid var(--border)';
+      li.style.borderRadius = '8px';
+      li.style.marginBottom = '8px';
+      li.style.background = 'var(--bg-light)';
+
       const ext = file.name.split('.').pop().toUpperCase();
       const isPdf = ext === 'PDF';
+
       li.innerHTML = `
-        <span class="file-list-icon">${isPdf ? '📄' : '🖼️'}</span>
-        <span class="file-list-name">${i + 1}. ${file.name}</span>
-        <span class="file-list-size">${(file.size / 1024).toFixed(0)} KB</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="file-list-icon">${isPdf ? '📄' : '🖼️'}</span>
+          <span class="file-list-name" style="font-size:0.9rem; font-weight:500;">${i + 1}. ${file.name}</span>
+          <span class="file-list-size" style="font-size:0.8rem; color:var(--ink-light);">${(file.size / 1024).toFixed(0)} KB</span>
+        </div>
+        <button type="button" class="remove-file-btn" data-index="${i}" style="background:none; border:none; color:var(--danger-fg); cursor:pointer; font-size:1.1rem; display:flex; align-items:center; padding:0 4px; line-height:1;">&times;</button>
       `;
       fileList.appendChild(li);
     });
+
+    fileList.querySelectorAll('.remove-file-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const idx = parseInt(btn.dataset.index, 10);
+        accumulatedFiles.splice(idx, 1);
+        updateFileInputAndList();
+      });
+    });
   };
 
-  fileInput.addEventListener('change', () => renderFileList(fileInput.files));
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files) {
+      Array.from(fileInput.files).forEach(f => {
+        if (!accumulatedFiles.some(existing => existing.name === f.name && existing.size === f.size)) {
+          accumulatedFiles.push(f);
+        }
+      });
+      updateFileInputAndList();
+    }
+  });
 
   dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -858,13 +895,16 @@ function buildMissionForm(mission, referralMode) {
   dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('drag-over');
-    // Transfer dragged files to the input
-    const dt = new DataTransfer();
-    Array.from(e.dataTransfer.files).forEach(f => {
-      if (f.type.startsWith('image/') || f.type === 'application/pdf') dt.items.add(f);
-    });
-    fileInput.files = dt.files;
-    renderFileList(fileInput.files);
+    if (e.dataTransfer.files) {
+      Array.from(e.dataTransfer.files).forEach(f => {
+        if (f.type.startsWith('image/') || f.type === 'application/pdf') {
+          if (!accumulatedFiles.some(existing => existing.name === f.name && existing.size === f.size)) {
+            accumulatedFiles.push(f);
+          }
+        }
+      });
+      updateFileInputAndList();
+    }
   });
 
   // Pre-fill user details if logged in
@@ -1208,9 +1248,9 @@ async function restrictMissionAccess() {
             const p = card.querySelector('p');
             if (p && p.querySelector('.lock-msg')) {
               const originalDescs = [
-                'Upload five misinformation examples and your fact-check notes.',
-                'Upload five scam examples and explain your checks.',
-                'Upload five AI-related misinformation examples and verification notes.',
+                'Upload 2 misinformation examples and your fact-check notes.',
+                'Upload 2 scam examples and explain your checks.',
+                'Upload 2 AI-related misinformation examples and verification notes.',
                 'Invite 1-5 acquaintances to complete the course.'
               ];
               p.textContent = originalDescs[idx];
