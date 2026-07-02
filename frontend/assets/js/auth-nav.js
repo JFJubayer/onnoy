@@ -161,6 +161,7 @@ async function renderAuthNav(session) {
             if (signOutBtn) {
                 signOutBtn.addEventListener('click', async (e) => {
                     e.preventDefault();
+                    clearLocalProgress();
                     await supabaseClient.auth.signOut();
                     window.location.reload();
                 });
@@ -197,6 +198,7 @@ async function renderAuthNav(session) {
         if (signOutBtn) {
             signOutBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
+                clearLocalProgress();
                 const { error } = await supabaseClient.auth.signOut();
                 if (error) {
                     console.error("Sign out error:", error.message);
@@ -236,6 +238,24 @@ async function renderAuthNav(session) {
     }
 }
 
+function clearLocalProgress() {
+    const keysToClear = [
+        'onnoy_lesson_overview',
+        'onnoy_lesson_attention',
+        'onnoy_lesson_misinformation',
+        'onnoy_lesson_scams',
+        'onnoy_lesson_ai',
+        'onnoy_mission_spot_lie',
+        'onnoy_mission_scam_alert',
+        'onnoy_mission_ai_integrity',
+        'onnoy_mission_guardian',
+        'onnoy_badge_informed_shown',
+        'onnoy_badge_aware_shown',
+        'onnoy_badge_guardian_shown'
+    ];
+    keysToClear.forEach(key => localStorage.removeItem(key));
+}
+
 async function syncLocalBadgesToDatabase() {
     try {
         if (window.supabaseClient) {
@@ -254,34 +274,83 @@ async function syncLocalBadgesToDatabase() {
                 }
 
                 if (profile) {
+                    let localChanged = false;
+                    
+                    // A. Restore database badges to localStorage
+                    const dbBadges = Array.isArray(profile.badges) ? profile.badges : [];
+                    dbBadges.forEach(badge => {
+                        const lKey = `onnoy_badge_${badge}_shown`;
+                        if (localStorage.getItem(lKey) !== 'true') {
+                            localStorage.setItem(lKey, 'true');
+                            localChanged = true;
+                        }
+                    });
+
+                    // B. Restore database status/progress to localStorage
+                    const hasFinishedLevel1 = ['Approved', 'Mission2Unlocked', 'Mission3Unlocked', 'Mission4Unlocked'].includes(profile.status);
+                    if (hasFinishedLevel1) {
+                        const lessons = ['overview', 'attention', 'misinformation', 'scams', 'ai'];
+                        lessons.forEach(l => {
+                            const lKey = `onnoy_lesson_${l}`;
+                            if (localStorage.getItem(lKey) !== 'complete') {
+                                localStorage.setItem(lKey, 'complete');
+                                localChanged = true;
+                            }
+                        });
+                    }
+
+                    const statusOrder = ['Approved', 'Mission2Unlocked', 'Mission3Unlocked', 'Mission4Unlocked'];
+                    const currentStatusIdx = statusOrder.indexOf(profile.status);
+                    if (currentStatusIdx >= 1) {
+                        if (localStorage.getItem('onnoy_mission_spot_lie') !== 'complete') {
+                            localStorage.setItem('onnoy_mission_spot_lie', 'complete');
+                            localChanged = true;
+                        }
+                    }
+                    if (currentStatusIdx >= 2) {
+                        if (localStorage.getItem('onnoy_mission_scam_alert') !== 'complete') {
+                            localStorage.setItem('onnoy_mission_scam_alert', 'complete');
+                            localChanged = true;
+                        }
+                    }
+                    if (currentStatusIdx >= 3) {
+                        if (localStorage.getItem('onnoy_mission_ai_integrity') !== 'complete') {
+                            localStorage.setItem('onnoy_mission_ai_integrity', 'complete');
+                            localChanged = true;
+                        }
+                    }
+
+                    if (localChanged && typeof renderBadgesDisplay === 'function') {
+                        renderBadgesDisplay();
+                        if (typeof renderHubProgress === 'function') renderHubProgress();
+                    }
+
+                    // C. Sync local badges and status to Supabase (in case they completed something locally before logging in)
                     let updates = {};
                     
-                    // 2. Sync Badges
                     const localBadges = [];
                     if (localStorage.getItem('onnoy_badge_informed_shown') === 'true') localBadges.push('informed');
                     if (localStorage.getItem('onnoy_badge_aware_shown') === 'true') localBadges.push('aware');
                     if (localStorage.getItem('onnoy_badge_guardian_shown') === 'true') localBadges.push('guardian');
 
                     if (localBadges.length > 0) {
-                        let dbBadges = Array.isArray(profile.badges) ? profile.badges : [];
+                        let finalBadges = [...dbBadges];
                         let badgesUpdated = false;
                         localBadges.forEach(badge => {
-                            if (!dbBadges.includes(badge)) {
-                                dbBadges.push(badge);
+                            if (!finalBadges.includes(badge)) {
+                                finalBadges.push(badge);
                                 badgesUpdated = true;
                             }
                         });
                         if (badgesUpdated) {
-                            updates.badges = dbBadges;
+                            updates.badges = finalBadges;
                         }
                     }
 
-                    // 3. Sync Status (auto-approve if overview is complete)
                     if (profile.status === 'pending' && localStorage.getItem('onnoy_lesson_overview') === 'complete') {
                         updates.status = 'Approved';
                     }
 
-                    // 4. Perform update if needed
                     if (Object.keys(updates).length > 0) {
                         const { error: updateError } = await window.supabaseClient
                             .from('profiles')
