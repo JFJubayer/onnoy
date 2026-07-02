@@ -254,6 +254,7 @@ function clearLocalProgress() {
         'onnoy_badge_guardian_shown'
     ];
     keysToClear.forEach(key => localStorage.removeItem(key));
+    localStorage.setItem('onnoy_progress_owner', 'anonymous');
 }
 
 async function syncLocalBadgesToDatabase() {
@@ -261,6 +262,18 @@ async function syncLocalBadgesToDatabase() {
         if (window.supabaseClient) {
             const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
             if (session && session.user) {
+                const currentOwner = localStorage.getItem('onnoy_progress_owner');
+                const loggedInEmail = session.user.email;
+
+                // If progress belongs to someone else, wipe it first!
+                if (currentOwner && currentOwner !== 'anonymous' && currentOwner !== loggedInEmail) {
+                    console.log(`User switch detected: ${currentOwner} -> ${loggedInEmail}. Wiping local progress.`);
+                    clearLocalProgress();
+                }
+
+                // Set current owner
+                localStorage.setItem('onnoy_progress_owner', loggedInEmail);
+
                 // 1. Fetch current profile status & badges
                 const { data: profile, error: selectError } = await window.supabaseClient
                     .from('profiles')
