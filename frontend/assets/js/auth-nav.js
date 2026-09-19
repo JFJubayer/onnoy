@@ -115,15 +115,20 @@ async function renderAuthNav(session) {
 
         container.innerHTML = `
             <div class="dropdown auth-dropdown" style="position: relative; display: flex; align-items: center;">
-                <button class="dropdown-toggle auth-user-btn" aria-expanded="false" style="background: var(--green-pale); border: 1.5px solid var(--green); height: 38px; padding: 0 22px; border-radius: 40px; color: var(--green); font-size: 0.88rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; box-sizing: border-box; margin: 0;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    <span class="auth-email-span" style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle;">${email}</span>
+                <button class="auth-user-btn" aria-expanded="false" style="background: var(--white); border: 2px solid var(--green); width: 40px; height: 40px; padding: 0; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: transform 0.2s; margin: 0; text-decoration: none;">
+                    <img id="nav-profile-avatar" src="${basePath}assets/images/default-avatar.png" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: none;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <svg style="width:20px; height:20px; color:var(--green); margin: auto;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 </button>
-                <div class="dropdown-menu auth-dropdown-menu" style="right: 0; left: auto; min-width: 190px; margin-top: 8px; border-top: 3px solid var(--green); display: none; padding: 10px 0; border-radius: 12px; box-shadow: var(--shadow);">
-                    <div style="padding: 8px 16px; font-size: 11px; color: var(--ink-light); border-bottom: 1px solid var(--border); word-break: break-all; margin-bottom: 5px;">
-                        ${t('nav-profile-id', 'Profile ID')}: <span id="nav-profile-id-val" style="font-weight: 600; color: var(--ink);">${t('nav-loading', 'Loading...')}</span>
+                <div class="dropdown-menu auth-dropdown-menu" style="right: 0; left: auto; min-width: 190px; margin-top: 8px; border-top: 3px solid var(--green); display: none; padding: 10px 0; border-radius: 12px; box-shadow: var(--shadow); background: var(--white); z-index: 1001;">
+                    <div style="padding: 8px 16px; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid var(--border); word-break: break-all; margin-bottom: 5px; line-height: 1.4;">
+                        <span style="font-size: 12px; color: var(--ink);">${email}</span><br>
+                        ${t('nav-profile-id', 'ID')}: <span id="nav-profile-id-val" style="font-weight: 600; color: var(--green);">${t('nav-loading', 'Loading...')}</span>
                     </div>
-                    <a href="#" id="navSignOutBtn" style="color: var(--danger-fg); display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 0.85rem; transition: background 0.2s;">
+                    <a href="${basePath}profile.html" style="color: var(--ink); display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 0.85rem; transition: background 0.2s; text-decoration: none !important;" onmouseover="this.style.backgroundColor='var(--surface-soft)'" onmouseout="this.style.backgroundColor='transparent'">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        My Profile
+                    </a>
+                    <a href="#" id="navSignOutBtn" style="color: var(--danger-fg); display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 0.85rem; transition: background 0.2s; text-decoration: none !important;" onmouseover="this.style.backgroundColor='var(--surface-soft)'" onmouseout="this.style.backgroundColor='transparent'">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--danger-fg);"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                         ${t('nav-signout', 'Sign Out')}
                     </a>
@@ -136,6 +141,22 @@ async function renderAuthNav(session) {
                 profileSpan.textContent = lang === 'bn' ? 'অ্যাডমিন' : 'Admin';
                 profileSpan.style.color = 'var(--green)';
             }
+            
+            const menuNode = container.querySelector('.auth-dropdown-menu');
+            if (menuNode) {
+                const adminLink = document.createElement('a');
+                adminLink.href = `${basePath}admin-portal.html`;
+                adminLink.style.cssText = 'color: var(--ink); display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 0.85rem; transition: background 0.2s; text-decoration: none !important;';
+                adminLink.onmouseover = function() { this.style.backgroundColor='var(--surface-soft)'; };
+                adminLink.onmouseout = function() { this.style.backgroundColor='transparent'; };
+                adminLink.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--blue);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    Admin Dashboard
+                `;
+                const signOutNode = container.querySelector('#navSignOutBtn');
+                menuNode.insertBefore(adminLink, signOutNode);
+            }
+
             // Add Sign Out listener and return early
             const signOutBtn = container.querySelector('#navSignOutBtn');
             const btn = container.querySelector('.auth-user-btn');
@@ -208,15 +229,17 @@ async function renderAuthNav(session) {
             });
         }
 
-        // Fetch profile unique ID from Database profiles table
+        // Fetch profile unique ID and avatar from Database profiles table
         try {
             const { data, error } = await supabaseClient
                 .from('profiles')
-                .select('unique_id')
+                .select('unique_id, avatar_url')
                 .eq('id', user.id)
                 .single();
 
             const profileSpan = container.querySelector('#nav-profile-id-val');
+            const navAvatar = container.querySelector('#nav-profile-avatar');
+
             if (profileSpan) {
                 if (error) {
                     if (error.code === 'PGRST116') {
@@ -227,9 +250,16 @@ async function renderAuthNav(session) {
                         console.error("Error reading profile unique_id:", error.message);
                         profileSpan.textContent = 'None';
                     }
-                } else if (data && data.unique_id) {
-                    profileSpan.textContent = data.unique_id;
-                    profileSpan.style.color = 'var(--green)';
+                } else if (data) {
+                    if (data.unique_id) {
+                        profileSpan.textContent = data.unique_id;
+                        profileSpan.style.color = 'var(--green)';
+                    }
+                    if (data.avatar_url && navAvatar) {
+                        navAvatar.src = data.avatar_url;
+                        navAvatar.style.display = 'block';
+                        navAvatar.nextElementSibling.style.display = 'none'; // hide the default SVG icon
+                    }
                 }
             }
         } catch (e) {
@@ -277,7 +307,7 @@ async function syncLocalBadgesToDatabase() {
                 // 1. Fetch current profile status & badges
                 const { data: profile, error: selectError } = await window.supabaseClient
                     .from('profiles')
-                    .select('badges, status')
+                    .select('badges, status, ongoing_modules, completed_modules')
                     .eq('id', session.user.id)
                     .single();
 
@@ -346,22 +376,73 @@ async function syncLocalBadgesToDatabase() {
                     if (localStorage.getItem('onnoy_badge_aware_shown') === 'true') localBadges.push('aware');
                     if (localStorage.getItem('onnoy_badge_guardian_shown') === 'true') localBadges.push('guardian');
 
+                    let finalBadges = [...dbBadges];
+                    let badgesUpdated = false;
+
                     if (localBadges.length > 0) {
-                        let finalBadges = [...dbBadges];
-                        let badgesUpdated = false;
                         localBadges.forEach(badge => {
                             if (!finalBadges.includes(badge)) {
                                 finalBadges.push(badge);
                                 badgesUpdated = true;
                             }
                         });
-                        if (badgesUpdated) {
-                            updates.badges = finalBadges;
-                        }
                     }
 
                     if (profile.status === 'pending' && localStorage.getItem('onnoy_lesson_overview') === 'complete') {
                         updates.status = 'Approved';
+                    }
+
+                    // Check for Informed badge: ALL 5 Level 1 modules must be complete
+                    const level1Keys = [
+                        'onnoy_lesson_overview',
+                        'onnoy_lesson_attention',
+                        'onnoy_lesson_misinformation',
+                        'onnoy_lesson_scams',
+                        'onnoy_lesson_ai'
+                    ];
+                    const allLevel1Complete = level1Keys.every(key => localStorage.getItem(key) === 'complete');
+                    
+                    if (allLevel1Complete) {
+                        if (!finalBadges.includes('informed')) {
+                            finalBadges.push('informed');
+                            badgesUpdated = true;
+                            localStorage.setItem('onnoy_badge_informed_shown', 'true');
+                        }
+                    }
+
+                    if (badgesUpdated) {
+                        updates.badges = finalBadges;
+                    }
+
+                    // D. Sync module progress (Append to existing DB arrays, do not overwrite!)
+                    let completedModules = [...(profile.completed_modules || [])];
+                    let ongoingModules = [];
+                    let foundOngoing = false;
+                    let modulesUpdated = false;
+                    
+                    if (window.ONNOY_TRACKABLE_MODULES) {
+                        for (let item of window.ONNOY_TRACKABLE_MODULES) {
+                            if (localStorage.getItem(item.key) === 'complete') {
+                                if (!completedModules.includes(item.title)) {
+                                    completedModules.push(item.title);
+                                    modulesUpdated = true;
+                                }
+                            } else {
+                                if (!foundOngoing && !completedModules.includes(item.title)) {
+                                    ongoingModules.push(item.title);
+                                    foundOngoing = true;
+                                }
+                            }
+                        }
+                    }
+
+                    const dbOngoing = profile.ongoing_modules || [];
+                    
+                    if (modulesUpdated) {
+                        updates.completed_modules = completedModules;
+                    }
+                    if (JSON.stringify(ongoingModules) !== JSON.stringify(dbOngoing)) {
+                        updates.ongoing_modules = ongoingModules;
                     }
 
                     if (Object.keys(updates).length > 0) {

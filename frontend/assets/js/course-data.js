@@ -1,5 +1,5 @@
-/**
- * Onnoy (অন্বয়) - Multi-Course Data & Storage Engine
+﻿/**
+ * Onnoy (à¦…à¦¨à§à¦¬à¦¯à¦¼) - Multi-Course Data & Storage Engine
  * Supports multiple courses (AI Acknowledgement, Digital Safety, etc.)
  * Each course has its own video lessons, 5 timestamped questions per video,
  * independent progress tracking, and verified certificates.
@@ -19,17 +19,17 @@ const ONNOY_COURSES = {
   'ai-acknowledgement': {
     id: 'ai-acknowledgement',
     title: 'AI Acknowledgement & Literacy Course',
-    titleBn: 'এআই পরিচিতি ও সচেতনতা কোর্স (AI Acknowledgement)',
+    titleBn: 'à¦à¦†à¦‡ à¦ªà¦°à¦¿à¦šà¦¿à¦¤à¦¿ à¦“ à¦¸à¦šà§‡à¦¤à¦¨à¦¤à¦¾ à¦•à§‹à¦°à§à¦¸ (AI Acknowledgement)',
     playlistUrl: 'https://www.youtube.com/playlist?list=PLb71XEVSg6VY',
-    badge: '⭐ New · 7 Video Lessons',
+    badge: 'â­ New Â· 7 Video Lessons',
     summary: 'Master the fundamental working mechanics of Artificial Intelligence: CPU vs GPU, AI Agents, Context Windows, RAG, Hallucinations, LLM Training, and Transformers.',
-    certificateIssuer: 'Onnoy — অন্বয় Foundation',
+    certificateIssuer: 'Onnoy â€” à¦…à¦¨à§à¦¬à¦¯à¦¼ Foundation',
     certificateLocation: 'Mymensingh, Bangladesh',
     lessons: [
       {
         id: 'ai-lesson-1',
         lessonNumber: 1,
-        title: 'AI চালাতে কেন গ্রাফিক্স কার্ড লাগে? (CPU vs GPU)',
+        title: 'AI à¦šà¦¾à¦²à¦¾à¦¤à§‡ à¦•à§‡à¦¨ à¦—à§à¦°à¦¾à¦«à¦¿à¦•à§à¦¸ à¦•à¦¾à¦°à§à¦¡ à¦²à¦¾à¦—à§‡? (CPU vs GPU)',
         titleBn: 'Why AI Needs Graphic Cards (CPU vs GPU)',
         videoId: 'OC44fRxkIX4',
         duration: '06:30',
@@ -38,7 +38,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai1_q1',
             question: 'What is the primary architectural difference between a CPU and a GPU when processing AI models?',
-            questionBn: 'AI মডেল প্রসেসিংয়ে CPU এবং GPU-এর মধ্যে প্রধান পার্থক্য কী?',
+            questionBn: 'AI à¦®à¦¡à§‡à¦² à¦ªà§à¦°à¦¸à§‡à¦¸à¦¿à¦‚à¦¯à¦¼à§‡ CPU à¦à¦¬à¦‚ GPU-à¦à¦° à¦®à¦§à§à¦¯à§‡ à¦ªà§à¦°à¦§à¦¾à¦¨ à¦ªà¦¾à¦°à§à¦¥à¦•à§à¦¯ à¦•à§€?',
             options: [
               'CPU has a few powerful sequential cores; GPU has thousands of smaller parallel cores designed for simultaneous tasks',
               'CPU only operates with text files while GPU only displays computer monitors',
@@ -53,7 +53,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai1_q2',
             question: 'Why do neural network forward and backward passes rely heavily on matrix multiplication?',
-            questionBn: 'নিউরাল নেটওয়ার্কের গণনায় ম্যাট্রিক্স মাল্টিপ্লিকেশন (Matrix Multiplication) কেন এত বেশি প্রয়োজন?',
+            questionBn: 'à¦¨à¦¿à¦‰à¦°à¦¾à¦² à¦¨à§‡à¦Ÿà¦“à¦¯à¦¼à¦¾à¦°à§à¦•à§‡à¦° à¦—à¦£à¦¨à¦¾à¦¯à¦¼ à¦®à§à¦¯à¦¾à¦Ÿà§à¦°à¦¿à¦•à§à¦¸ à¦®à¦¾à¦²à§à¦Ÿà¦¿à¦ªà§à¦²à¦¿à¦•à§‡à¦¶à¦¨ (Matrix Multiplication) à¦•à§‡à¦¨ à¦à¦¤ à¦¬à§‡à¦¶à¦¿ à¦ªà§à¦°à¦¯à¦¼à§‹à¦œà¦¨?',
             options: [
               'Because audio sound cards cannot read code',
               'Because millions of artificial neural connections and weights are mathematically structured as large numeric matrices',
@@ -68,7 +68,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai1_q3',
             question: 'What critical role does GPU Video Memory (VRAM) play when running Large Language Models (LLMs)?',
-            questionBn: 'লার্জ ল্যাঙ্গুয়েজ মডেল (LLM) চালানোর ক্ষেত্রে GPU-এর VRAM-এর ভূমিকা কী?',
+            questionBn: 'à¦²à¦¾à¦°à§à¦œ à¦²à§à¦¯à¦¾à¦™à§à¦—à§à¦¯à¦¼à§‡à¦œ à¦®à¦¡à§‡à¦² (LLM) à¦šà¦¾à¦²à¦¾à¦¨à§‹à¦° à¦•à§à¦·à§‡à¦¤à§à¦°à§‡ GPU-à¦à¦° VRAM-à¦à¦° à¦­à§‚à¦®à¦¿à¦•à¦¾ à¦•à§€?',
             options: [
               'It stores the billions of model parameters (weights) directly on ultra-fast memory for immediate computation',
               'It increases internet download bandwidth automatically',
@@ -82,8 +82,8 @@ const ONNOY_COURSES = {
           },
           {
             id: 'ai1_q4',
-            question: 'What software ecosystem contributed significantly to NVIDIA’s leadership in AI hardware?',
-            questionBn: 'AI হার্ডওয়্যারে এনভিডিয়া (NVIDIA)-এর আধিপত্যের পেছনে কোন সফটওয়্যার প্ল্যাটফর্মের অবদান সবচেয়ে বেশি?',
+            question: 'What software ecosystem contributed significantly to NVIDIAâ€™s leadership in AI hardware?',
+            questionBn: 'AI à¦¹à¦¾à¦°à§à¦¡à¦“à¦¯à¦¼à§à¦¯à¦¾à¦°à§‡ à¦à¦¨à¦­à¦¿à¦¡à¦¿à¦¯à¦¼à¦¾ (NVIDIA)-à¦à¦° à¦†à¦§à¦¿à¦ªà¦¤à§à¦¯à§‡à¦° à¦ªà§‡à¦›à¦¨à§‡ à¦•à§‹à¦¨ à¦¸à¦«à¦Ÿà¦“à¦¯à¦¼à§à¦¯à¦¾à¦° à¦ªà§à¦²à§à¦¯à¦¾à¦Ÿà¦«à¦°à§à¦®à§‡à¦° à¦…à¦¬à¦¦à¦¾à¦¨ à¦¸à¦¬à¦šà§‡à¦¯à¦¼à§‡ à¦¬à§‡à¦¶à¦¿?',
             options: [
               'CUDA (Compute Unified Device Architecture)',
               'Microsoft Paint',
@@ -98,7 +98,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai1_q5',
             question: 'Can a standard computer CPU run an AI model without a dedicated GPU?',
-            questionBn: 'একটি সাধারণ কম্পিউটার CPU কি ডেডিকেটেড GPU ছাড়া কোনো AI মডেল চালাতে পারে?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ à¦¸à¦¾à¦§à¦¾à¦°à¦£ à¦•à¦®à§à¦ªà¦¿à¦‰à¦Ÿà¦¾à¦° CPU à¦•à¦¿ à¦¡à§‡à¦¡à¦¿à¦•à§‡à¦Ÿà§‡à¦¡ GPU à¦›à¦¾à¦¡à¦¼à¦¾ à¦•à§‹à¦¨à§‹ AI à¦®à¦¡à§‡à¦² à¦šà¦¾à¦²à¦¾à¦¤à§‡ à¦ªà¦¾à¦°à§‡?',
             options: [
               'No, CPUs physically cannot execute any AI code',
               'Yes, but processing and token generation will generally be significantly slower than on a modern GPU',
@@ -115,7 +115,7 @@ const ONNOY_COURSES = {
       {
         id: 'ai-lesson-2',
         lessonNumber: 2,
-        title: 'চ্যাটবটের দিন শেষ: কেন ২০২৬ সাল AI এজেন্টের? (Chatbot vs AI Agent)',
+        title: 'à¦šà§à¦¯à¦¾à¦Ÿà¦¬à¦Ÿà§‡à¦° à¦¦à¦¿à¦¨ à¦¶à§‡à¦·: à¦•à§‡à¦¨ à§¨à§¦à§¨à§¬ à¦¸à¦¾à¦² AI à¦à¦œà§‡à¦¨à§à¦Ÿà§‡à¦°? (Chatbot vs AI Agent)',
         titleBn: 'The Era of AI Agents (Chatbot vs Autonomous Agent)',
         videoId: '0kQ63my2ifQ',
         duration: '07:15',
@@ -124,7 +124,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai2_q1',
             question: 'How does an autonomous AI Agent differ from a traditional conversational chatbot?',
-            questionBn: 'একটি অটোনোমাস এআই এজেন্ট (AI Agent) সাধারণ চ্যাটবট থেকে কীভাবে আলাদা?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ à¦…à¦Ÿà§‹à¦¨à§‹à¦®à¦¾à¦¸ à¦à¦†à¦‡ à¦à¦œà§‡à¦¨à§à¦Ÿ (AI Agent) à¦¸à¦¾à¦§à¦¾à¦°à¦£ à¦šà§à¦¯à¦¾à¦Ÿà¦¬à¦Ÿ à¦¥à§‡à¦•à§‡ à¦•à§€à¦­à¦¾à¦¬à§‡ à¦†à¦²à¦¾à¦¦à¦¾?',
             options: [
               'An AI Agent can independently plan, execute multi-step actions, and use external software tools to accomplish a goal',
               'A chatbot speaks with human voice while an agent can only print text',
@@ -139,7 +139,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai2_q2',
             question: 'What capability enables an AI agent to query databases, check weather, or book tickets?',
-            questionBn: 'এআই এজেন্টকে বাহ্যিক ডেটাবেজ ব্রাউজ বা টিকিট কাটার মতো কাজ করার সুযোগ দেয় কোনটি?',
+            questionBn: 'à¦à¦†à¦‡ à¦à¦œà§‡à¦¨à§à¦Ÿà¦•à§‡ à¦¬à¦¾à¦¹à§à¦¯à¦¿à¦• à¦¡à§‡à¦Ÿà¦¾à¦¬à§‡à¦œ à¦¬à§à¦°à¦¾à¦‰à¦œ à¦¬à¦¾ à¦Ÿà¦¿à¦•à¦¿à¦Ÿ à¦•à¦¾à¦Ÿà¦¾à¦° à¦®à¦¤à§‹ à¦•à¦¾à¦œ à¦•à¦°à¦¾à¦° à¦¸à§à¦¯à§‹à¦— à¦¦à§‡à¦¯à¦¼ à¦•à§‹à¦¨à¦Ÿà¦¿?',
             options: [
               'Function Calling and Tool Integration APIs',
               'Increasing the font size of the prompt',
@@ -154,7 +154,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai2_q3',
             question: 'What is the "Planning and Reasoning Loop" in an AI agent workflow?',
-            questionBn: 'এআই এজেন্টের "প্ল্যানিং ও রিজনিং লুপ" বলতে কী বোঝায়?',
+            questionBn: 'à¦à¦†à¦‡ à¦à¦œà§‡à¦¨à§à¦Ÿà§‡à¦° "à¦ªà§à¦²à§à¦¯à¦¾à¦¨à¦¿à¦‚ à¦“ à¦°à¦¿à¦œà¦¨à¦¿à¦‚ à¦²à§à¦ª" à¦¬à¦²à¦¤à§‡ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'The process of decomposing a large objective into sequential sub-tasks, observing results, and self-correcting',
               'Restarting the computer after every question',
@@ -169,7 +169,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai2_q4',
             question: 'What does "Human-in-the-Loop" (HITL) ensure in agentic systems?',
-            questionBn: 'এআই এজেন্টের ক্ষেত্রে "Human-in-the-Loop" কী নিশ্চিত করে?',
+            questionBn: 'à¦à¦†à¦‡ à¦à¦œà§‡à¦¨à§à¦Ÿà§‡à¦° à¦•à§à¦·à§‡à¦¤à§à¦°à§‡ "Human-in-the-Loop" à¦•à§€ à¦¨à¦¿à¦¶à§à¦šà¦¿à¦¤ à¦•à¦°à§‡?',
             options: [
               'Critical, risky, or irreversible actions (like payments or deleting data) require explicit human approval before execution',
               'Humans must type every token by hand',
@@ -184,7 +184,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai2_q5',
             question: 'Why are AI agents considered a massive leap in digital productivity?',
-            questionBn: 'এআই এজেন্টকে উৎপাদনশীলতার ক্ষেত্রে কেন এক বিশাল বিপ্লব মনে করা হয়?',
+            questionBn: 'à¦à¦†à¦‡ à¦à¦œà§‡à¦¨à§à¦Ÿà¦•à§‡ à¦‰à§Žà¦ªà¦¾à¦¦à¦¨à¦¶à§€à¦²à¦¤à¦¾à¦° à¦•à§à¦·à§‡à¦¤à§à¦°à§‡ à¦•à§‡à¦¨ à¦à¦• à¦¬à¦¿à¦¶à¦¾à¦² à¦¬à¦¿à¦ªà§à¦²à¦¬ à¦®à¦¨à§‡ à¦•à¦°à¦¾ à¦¹à¦¯à¦¼?',
             options: [
               'Because they automate end-to-end multi-step tasks rather than just drafting raw text',
               'Because they make computers use zero internet data',
@@ -201,7 +201,7 @@ const ONNOY_COURSES = {
       {
         id: 'ai-lesson-3',
         lessonNumber: 3,
-        title: 'ChatGPT কেন পুরোনো চ্যাট ভুলে যায়? (Context Window-এর আসল সত্য)',
+        title: 'ChatGPT à¦•à§‡à¦¨ à¦ªà§à¦°à§‹à¦¨à§‹ à¦šà§à¦¯à¦¾à¦Ÿ à¦­à§à¦²à§‡ à¦¯à¦¾à§Ÿ? (Context Window-à¦à¦° à¦†à¦¸à¦² à¦¸à¦¤à§à¦¯)',
         titleBn: 'Why ChatGPT Forgets Context (The Truth of Context Windows)',
         videoId: 'jJXGIcLaSHE',
         duration: '06:00',
@@ -210,7 +210,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai3_q1',
             question: 'What is the "Context Window" of an AI language model?',
-            questionBn: 'এআই ল্যাঙ্গুয়েজ মডেলের "কনটেক্সট উইন্ডো" (Context Window) কী?',
+            questionBn: 'à¦à¦†à¦‡ à¦²à§à¦¯à¦¾à¦™à§à¦—à§à¦¯à¦¼à§‡à¦œ à¦®à¦¡à§‡à¦²à§‡à¦° "à¦•à¦¨à¦Ÿà§‡à¦•à§à¦¸à¦Ÿ à¦‰à¦‡à¦¨à§à¦¡à§‹" (Context Window) à¦•à§€?',
             options: [
               'The maximum amount of text (tokens) the model can read and process simultaneously in a single prompt and response',
               'The glass window in a server room',
@@ -225,7 +225,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai3_q2',
             question: 'What unit of measurement do language models use to count text length?',
-            questionBn: 'ল্যাঙ্গুয়েজ মডেল টেক্সটের দৈর্ঘ্য পরিমাপে কোন একক ব্যবহার করে?',
+            questionBn: 'à¦²à§à¦¯à¦¾à¦™à§à¦—à§à¦¯à¦¼à§‡à¦œ à¦®à¦¡à§‡à¦² à¦Ÿà§‡à¦•à§à¦¸à¦Ÿà§‡à¦° à¦¦à§ˆà¦°à§à¦˜à§à¦¯ à¦ªà¦°à¦¿à¦®à¦¾à¦ªà§‡ à¦•à§‹à¦¨ à¦à¦•à¦• à¦¬à§à¦¯à¦¬à¦¹à¦¾à¦° à¦•à¦°à§‡?',
             options: [
               'Tokens (sub-word units representing fragments of words, characters, or syllables)',
               'Centimeters',
@@ -239,8 +239,8 @@ const ONNOY_COURSES = {
           },
           {
             id: 'ai3_q3',
-            question: 'What happens when an ongoing conversation exceeds the model’s context window limit?',
-            questionBn: 'চলমান কথোপকথন যখন মডেলের কনটেক্সট উইন্ডোর সীমা অতিক্রম করে তখন কী ঘটে?',
+            question: 'What happens when an ongoing conversation exceeds the modelâ€™s context window limit?',
+            questionBn: 'à¦šà¦²à¦®à¦¾à¦¨ à¦•à¦¥à§‹à¦ªà¦•à¦¥à¦¨ à¦¯à¦–à¦¨ à¦®à¦¡à§‡à¦²à§‡à¦° à¦•à¦¨à¦Ÿà§‡à¦•à§à¦¸à¦Ÿ à¦‰à¦‡à¦¨à§à¦¡à§‹à¦° à¦¸à§€à¦®à¦¾ à¦…à¦¤à¦¿à¦•à§à¦°à¦® à¦•à¦°à§‡ à¦¤à¦–à¦¨ à¦•à§€ à¦˜à¦Ÿà§‡?',
             options: [
               'The system truncates or drops the oldest messages to make room for new ones, causing the model to "forget" earlier details',
               'The computer immediately shuts down',
@@ -255,7 +255,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai3_q4',
             question: 'Does a standard LLM naturally maintain permanent memory between separate new chats?',
-            questionBn: 'একটি সাধারণ LLM কি স্বয়ংক্রিয়ভাবে দুটি ভিন্ন চ্যাটের মাঝে স্থায়ী স্মৃতি মনে রাখে?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ à¦¸à¦¾à¦§à¦¾à¦°à¦£ LLM à¦•à¦¿ à¦¸à§à¦¬à¦¯à¦¼à¦‚à¦•à§à¦°à¦¿à¦¯à¦¼à¦­à¦¾à¦¬à§‡ à¦¦à§à¦Ÿà¦¿ à¦­à¦¿à¦¨à§à¦¨ à¦šà§à¦¯à¦¾à¦Ÿà§‡à¦° à¦®à¦¾à¦à§‡ à¦¸à§à¦¥à¦¾à¦¯à¦¼à§€ à¦¸à§à¦®à§ƒà¦¤à¦¿ à¦®à¦¨à§‡ à¦°à¦¾à¦–à§‡?',
             options: [
               'No, standard LLMs are fundamentally stateless; each request is calculated anew from the provided prompt',
               'Yes, it saves every thought in your computer hard drive BIOS',
@@ -270,7 +270,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai3_q5',
             question: 'Why is dramatically increasing the context window computationally expensive?',
-            questionBn: 'কনটেক্সট উইন্ডো অনেক বড় করা কেন কম্পিউটেশনালভাবে অত্যন্ত ব্যয়বহুল?',
+            questionBn: 'à¦•à¦¨à¦Ÿà§‡à¦•à§à¦¸à¦Ÿ à¦‰à¦‡à¦¨à§à¦¡à§‹ à¦…à¦¨à§‡à¦• à¦¬à¦¡à¦¼ à¦•à¦°à¦¾ à¦•à§‡à¦¨ à¦•à¦®à§à¦ªà¦¿à¦‰à¦Ÿà§‡à¦¶à¦¨à¦¾à¦²à¦­à¦¾à¦¬à§‡ à¦…à¦¤à§à¦¯à¦¨à§à¦¤ à¦¬à§à¦¯à¦¯à¦¼à¦¬à¦¹à§à¦²?',
             options: [
               'Standard self-attention mechanisms scale quadratically: doubling context quadruples computational and memory requirements',
               'Because internet cables melt with long words',
@@ -287,7 +287,7 @@ const ONNOY_COURSES = {
       {
         id: 'ai-lesson-4',
         lessonNumber: 4,
-        title: 'ChatGPT ইন্টারনেটের রিয়েল-টাইম তথ্য কীভাবে পায়? (Tools ও RAG মেকানিজম)',
+        title: 'ChatGPT à¦‡à¦¨à§à¦Ÿà¦¾à¦°à¦¨à§‡à¦Ÿà§‡à¦° à¦°à¦¿à§Ÿà§‡à¦²-à¦Ÿà¦¾à¦‡à¦® à¦¤à¦¥à§à¦¯ à¦•à§€à¦­à¦¾à¦¬à§‡ à¦ªà¦¾à§Ÿ? (Tools à¦“ RAG à¦®à§‡à¦•à¦¾à¦¨à¦¿à¦œà¦®)',
         titleBn: 'Real-Time Web Data in AI (Tools & RAG Mechanisms)',
         videoId: 'IZJZTSo-pBA',
         duration: '06:45',
@@ -296,7 +296,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai4_q1',
             question: 'What does the acronym RAG stand for in AI engineering?',
-            questionBn: 'এআই ইঞ্জিনিয়ারিংয়ে RAG-এর পূর্ণরূপ কী?',
+            questionBn: 'à¦à¦†à¦‡ à¦‡à¦žà§à¦œà¦¿à¦¨à¦¿à¦¯à¦¼à¦¾à¦°à¦¿à¦‚à¦¯à¦¼à§‡ RAG-à¦à¦° à¦ªà§‚à¦°à§à¦£à¦°à§‚à¦ª à¦•à§€?',
             options: [
               'Retrieval-Augmented Generation',
               'Random Automatic Graphing',
@@ -310,8 +310,8 @@ const ONNOY_COURSES = {
           },
           {
             id: 'ai4_q2',
-            question: 'Why can’t a standalone base LLM know today’s news or weather on its own?',
-            questionBn: 'একটি বেস LLM নিজে থেকে আজকের তাজা খবর বা আবহাওয়া কেন জানতে পারে না?',
+            question: 'Why canâ€™t a standalone base LLM know todayâ€™s news or weather on its own?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ à¦¬à§‡à¦¸ LLM à¦¨à¦¿à¦œà§‡ à¦¥à§‡à¦•à§‡ à¦†à¦œà¦•à§‡à¦° à¦¤à¦¾à¦œà¦¾ à¦–à¦¬à¦° à¦¬à¦¾ à¦†à¦¬à¦¹à¦¾à¦“à¦¯à¦¼à¦¾ à¦•à§‡à¦¨ à¦œà¦¾à¦¨à¦¤à§‡ à¦ªà¦¾à¦°à§‡ à¦¨à¦¾?',
             options: [
               'Because its training was completed in the past and has a fixed knowledge cutoff date',
               'Because AI is forbidden from reading newspapers by law',
@@ -326,7 +326,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai4_q3',
             question: 'What is the role of Vector Embeddings in a RAG system?',
-            questionBn: 'RAG সিস্টেমে ভেক্টর এমবেডিংস (Vector Embeddings)-এর ভূমিকা কী?',
+            questionBn: 'RAG à¦¸à¦¿à¦¸à§à¦Ÿà§‡à¦®à§‡ à¦­à§‡à¦•à§à¦Ÿà¦° à¦à¦®à¦¬à§‡à¦¡à¦¿à¦‚à¦¸ (Vector Embeddings)-à¦à¦° à¦­à§‚à¦®à¦¿à¦•à¦¾ à¦•à§€?',
             options: [
               'Converting text into mathematical coordinates so semantic meaning and similarity can be searched instantly',
               'Compressing video files into MP3 format',
@@ -341,7 +341,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai4_q4',
             question: 'How does an AI system ground its answer when using internet search?',
-            questionBn: 'ইন্টারনেট সার্চ ব্যবহার করার সময় এআই কীভাবে তার উত্তর তথ্যনির্ভর করে?',
+            questionBn: 'à¦‡à¦¨à§à¦Ÿà¦¾à¦°à¦¨à§‡à¦Ÿ à¦¸à¦¾à¦°à§à¦š à¦¬à§à¦¯à¦¬à¦¹à¦¾à¦° à¦•à¦°à¦¾à¦° à¦¸à¦®à¦¯à¦¼ à¦à¦†à¦‡ à¦•à§€à¦­à¦¾à¦¬à§‡ à¦¤à¦¾à¦° à¦‰à¦¤à§à¦¤à¦° à¦¤à¦¥à§à¦¯à¦¨à¦¿à¦°à§à¦­à¦° à¦•à¦°à§‡?',
             options: [
               'It searches web queries, extracts top snippet passages, and places them into the prompt as factual reference context',
               'It retrains the entire model weights from scratch in 2 seconds',
@@ -356,7 +356,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai4_q5',
             question: 'Why is RAG preferred over constantly retraining foundation models with new company documents?',
-            questionBn: 'নতুন তথ্যের জন্য পুরো মডেল পুনরায় ট্রেইনিং না করে RAG পদ্ধতি কেন বেশি পছন্দনীয়?',
+            questionBn: 'à¦¨à¦¤à§à¦¨ à¦¤à¦¥à§à¦¯à§‡à¦° à¦œà¦¨à§à¦¯ à¦ªà§à¦°à§‹ à¦®à¦¡à§‡à¦² à¦ªà§à¦¨à¦°à¦¾à¦¯à¦¼ à¦Ÿà§à¦°à§‡à¦‡à¦¨à¦¿à¦‚ à¦¨à¦¾ à¦•à¦°à§‡ RAG à¦ªà¦¦à§à¦§à¦¤à¦¿ à¦•à§‡à¦¨ à¦¬à§‡à¦¶à¦¿ à¦ªà¦›à¦¨à§à¦¦à¦¨à§€à¦¯à¦¼?',
             options: [
               'RAG is drastically cheaper, faster, updates instantly, and provides direct source citations',
               'Retraining a model takes only 5 seconds on a smartphone',
@@ -373,7 +373,7 @@ const ONNOY_COURSES = {
       {
         id: 'ai-lesson-5',
         lessonNumber: 5,
-        title: 'ChatGPT এত আত্মবিশ্বাসের সাথে বানিয়ে বানিয়ে মিথ্যা বলে কেন? (AI Hallucinations)',
+        title: 'ChatGPT à¦à¦¤ à¦†à¦¤à§à¦®à¦¬à¦¿à¦¶à§à¦¬à¦¾à¦¸à§‡à¦° à¦¸à¦¾à¦¥à§‡ à¦¬à¦¾à¦¨à¦¿à§Ÿà§‡ à¦¬à¦¾à¦¨à¦¿à§Ÿà§‡ à¦®à¦¿à¦¥à§à¦¯à¦¾ à¦¬à¦²à§‡ à¦•à§‡à¦¨? (AI Hallucinations)',
         titleBn: 'Understanding AI Hallucinations & Fabrications',
         videoId: '1MKVLqUY298',
         duration: '06:15',
@@ -382,7 +382,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai5_q1',
             question: 'What is an "AI Hallucination"?',
-            questionBn: 'এআই হ্যালুসিনেশন (AI Hallucination) বলতে কী বোঝায়?',
+            questionBn: 'à¦à¦†à¦‡ à¦¹à§à¦¯à¦¾à¦²à§à¦¸à¦¿à¦¨à§‡à¦¶à¦¨ (AI Hallucination) à¦¬à¦²à¦¤à§‡ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'When an AI generates fabricated, inaccurate, or non-existent facts with high persuasive confidence',
               'When an AI screen flickers with colorful lights',
@@ -397,7 +397,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai5_q2',
             question: 'Why do LLMs hallucinate instead of simply looking up verified truths?',
-            questionBn: 'সত্য যাচাই না করে LLM কেন তথ্য বানিয়ে বলে?',
+            questionBn: 'à¦¸à¦¤à§à¦¯ à¦¯à¦¾à¦šà¦¾à¦‡ à¦¨à¦¾ à¦•à¦°à§‡ LLM à¦•à§‡à¦¨ à¦¤à¦¥à§à¦¯ à¦¬à¦¾à¦¨à¦¿à¦¯à¦¼à§‡ à¦¬à¦²à§‡?',
             options: [
               'Because they are statistical engines trained to predict probable next words, not databases of verified facts',
               'Because they are programmed to deliberately deceive human users',
@@ -412,7 +412,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai5_q3',
             question: 'Why can an AI hallucination sound so convincing to readers?',
-            questionBn: 'এআই-এর বানিয়ে বলা মিথ্যা কেন পাঠকের কাছে এত বিশ্বাসযোগ্য মনে হয়?',
+            questionBn: 'à¦à¦†à¦‡-à¦à¦° à¦¬à¦¾à¦¨à¦¿à¦¯à¦¼à§‡ à¦¬à¦²à¦¾ à¦®à¦¿à¦¥à§à¦¯à¦¾ à¦•à§‡à¦¨ à¦ªà¦¾à¦ à¦•à§‡à¦° à¦•à¦¾à¦›à§‡ à¦à¦¤ à¦¬à¦¿à¦¶à§à¦¬à¦¾à¦¸à¦¯à§‹à¦—à§à¦¯ à¦®à¦¨à§‡ à¦¹à¦¯à¦¼?',
             options: [
               'Because it is trained on polished, authoritative human writing styles and uses confident grammatical structure',
               'Because it speaks in a robotic sound',
@@ -427,7 +427,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai5_q4',
             question: 'Which prompting technique helps reduce the likelihood of hallucination?',
-            questionBn: 'কোন প্রম্পট টেকনিক এআই হ্যালুসিনেশন কমাতে সাহায্য করে?',
+            questionBn: 'à¦•à§‹à¦¨ à¦ªà§à¦°à¦®à§à¦ªà¦Ÿ à¦Ÿà§‡à¦•à¦¨à¦¿à¦• à¦à¦†à¦‡ à¦¹à§à¦¯à¦¾à¦²à§à¦¸à¦¿à¦¨à§‡à¦¶à¦¨ à¦•à¦®à¦¾à¦¤à§‡ à¦¸à¦¾à¦¹à¦¾à¦¯à§à¦¯ à¦•à¦°à§‡?',
             options: [
               'Explicitly instructing: "Answer only based on the provided text. If you do not know, say I do not know"',
               'Typing the prompt entirely in CAPITAL letters',
@@ -442,7 +442,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai5_q5',
             question: 'What is the golden rule for students using AI for homework or academic assignments?',
-            questionBn: 'পড়াশোনা ও গবেষণায় এআই ব্যবহারের ক্ষেত্রে শিক্ষার্থীদের প্রধান নিয়ম কী?',
+            questionBn: 'à¦ªà§œà¦¾à¦¶à§‹à¦¨à¦¾ à¦“ à¦—à¦¬à§‡à¦·à¦£à¦¾à¦¯à¦¼ à¦à¦†à¦‡ à¦¬à§à¦¯à¦¬à¦¹à¦¾à¦°à§‡à¦° à¦•à§à¦·à§‡à¦¤à§à¦°à§‡ à¦¶à¦¿à¦•à§à¦·à¦¾à¦°à§à¦¥à§€à¦¦à§‡à¦° à¦ªà§à¦°à¦§à¦¾à¦¨ à¦¨à¦¿à¦¯à¦¼à¦® à¦•à§€?',
             options: [
               'Never blindly trust citations or claims; always verify sources with primary textbooks or credible publications',
               'Copy and paste everything directly without reading',
@@ -459,7 +459,7 @@ const ONNOY_COURSES = {
       {
         id: 'ai-lesson-6',
         lessonNumber: 6,
-        title: 'AI কি আসলেই কিছু শেখে, নাকি অন্ধের মতো মুখস্থ করে? (LLM Training ও RLHF)',
+        title: 'AI à¦•à¦¿ à¦†à¦¸à¦²à§‡à¦‡ à¦•à¦¿à¦›à§ à¦¶à§‡à¦–à§‡, à¦¨à¦¾à¦•à¦¿ à¦…à¦¨à§à¦§à§‡à¦° à¦®à¦¤à§‹ à¦®à§à¦–à¦¸à§à¦¥ à¦•à¦°à§‡? (LLM Training à¦“ RLHF)',
         titleBn: 'How LLMs Learn: Pre-Training vs RLHF Alignment',
         videoId: 'hNPmKPBbWq8',
         duration: '07:00',
@@ -468,7 +468,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai6_q1',
             question: 'What is the primary objective of the "Pre-Training" phase of an LLM?',
-            questionBn: 'একটি LLM-এর "প্রি-ট্রেইনিং" (Pre-Training) পর্যায়ের প্রধান লক্ষ্য কী?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ LLM-à¦à¦° "à¦ªà§à¦°à¦¿-à¦Ÿà§à¦°à§‡à¦‡à¦¨à¦¿à¦‚" (Pre-Training) à¦ªà¦°à§à¦¯à¦¾à¦¯à¦¼à§‡à¦° à¦ªà§à¦°à¦§à¦¾à¦¨ à¦²à¦•à§à¦·à§à¦¯ à¦•à§€?',
             options: [
               'Learning grammar, facts, reasoning patterns, and world knowledge by predicting the next token across massive text datasets',
               'Teaching the model how to format Word documents',
@@ -483,7 +483,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai6_q2',
             question: 'What does RLHF stand for in modern AI development?',
-            questionBn: 'আধুনিক এআই উন্নয়নে RLHF-এর পূর্ণরূপ কী?',
+            questionBn: 'à¦†à¦§à§à¦¨à¦¿à¦• à¦à¦†à¦‡ à¦‰à¦¨à§à¦¨à¦¯à¦¼à¦¨à§‡ RLHF-à¦à¦° à¦ªà§‚à¦°à§à¦£à¦°à§‚à¦ª à¦•à§€?',
             options: [
               'Reinforcement Learning from Human Feedback',
               'Recursive Logic for Hardware Facilities',
@@ -498,7 +498,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai6_q3',
             question: 'Does an LLM store compressed literal copies of web pages like a ZIP archive?',
-            questionBn: 'একটি LLM কি ইন্টারনেটের ওয়েব পেজগুলোর জিপ (ZIP) ফাইলের মতো হুবহু কপি সংরক্ষণ করে?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ LLM à¦•à¦¿ à¦‡à¦¨à§à¦Ÿà¦¾à¦°à¦¨à§‡à¦Ÿà§‡à¦° à¦“à¦¯à¦¼à§‡à¦¬ à¦ªà§‡à¦œà¦—à§à¦²à§‹à¦° à¦œà¦¿à¦ª (ZIP) à¦«à¦¾à¦‡à¦²à§‡à¦° à¦®à¦¤à§‹ à¦¹à§à¦¬à¦¹à§ à¦•à¦ªà¦¿ à¦¸à¦‚à¦°à¦•à§à¦·à¦£ à¦•à¦°à§‡?',
             options: [
               'No, it adjusts numerical neural network weights representing abstract statistical relationships and concepts',
               'Yes, it saves every single webpage as a PDF file inside its memory',
@@ -513,7 +513,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai6_q4',
             question: 'Why is RLHF necessary after initial pre-training is complete?',
-            questionBn: 'প্রি-ট্রেইনিং শেষ হওয়ার পর RLHF কেন অপরিহার্য?',
+            questionBn: 'à¦ªà§à¦°à¦¿-à¦Ÿà§à¦°à§‡à¦‡à¦¨à¦¿à¦‚ à¦¶à§‡à¦· à¦¹à¦“à¦¯à¦¼à¦¾à¦° à¦ªà¦° RLHF à¦•à§‡à¦¨ à¦…à¦ªà¦°à¦¿à¦¹à¦¾à¦°à§à¦¯?',
             options: [
               'Because raw pre-trained models can be toxic, unhelpful, or continue rambling; RLHF aligns them to be helpful and safe assistants',
               'To speed up CPU clock speeds by 50%',
@@ -528,7 +528,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai6_q5',
             question: 'What is "Generalization" in deep learning?',
-            questionBn: 'ডিপ লার্নিংয়ে "জেনারেলাইজেশন" (Generalization) বলতে কী বোঝায়?',
+            questionBn: 'à¦¡à¦¿à¦ª à¦²à¦¾à¦°à§à¦¨à¦¿à¦‚à¦¯à¦¼à§‡ "à¦œà§‡à¦¨à¦¾à¦°à§‡à¦²à¦¾à¦‡à¦œà§‡à¦¶à¦¨" (Generalization) à¦¬à¦²à¦¤à§‡ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'The capacity to correctly answer novel, unseen prompts by applying underlying learned patterns rather than mere rote memorization',
               'Writing answers in general non-specific words',
@@ -545,7 +545,7 @@ const ONNOY_COURSES = {
       {
         id: 'ai-lesson-7',
         lessonNumber: 7,
-        title: 'ChatGPT কীভাবে পরের শব্দ আন্দাজ করে? (Transformer ও Attention মেকানিজম)',
+        title: 'ChatGPT à¦•à§€à¦­à¦¾à¦¬à§‡ à¦ªà¦°à§‡à¦° à¦¶à¦¬à§à¦¦ à¦†à¦¨à§à¦¦à¦¾à¦œ à¦•à¦°à§‡? (Transformer à¦“ Attention à¦®à§‡à¦•à¦¾à¦¨à¦¿à¦œà¦®)',
         titleBn: 'How Transformers Predict the Next Word (Self-Attention)',
         videoId: 'NgB4jPe5hh0',
         duration: '07:30',
@@ -554,7 +554,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai7_q1',
             question: 'What breakthrough paper published in 2017 introduced the Transformer architecture?',
-            questionBn: '২০১৭ সালে কোন যুগান্তকারী গবেষণাপত্রে ট্রান্সফরমার আর্কিটেকচার প্রথম উন্মোচিত হয়?',
+            questionBn: 'à§¨à§¦à§§à§­ à¦¸à¦¾à¦²à§‡ à¦•à§‹à¦¨ à¦¯à§à¦—à¦¾à¦¨à§à¦¤à¦•à¦¾à¦°à§€ à¦—à¦¬à§‡à¦·à¦£à¦¾à¦ªà¦¤à§à¦°à§‡ à¦Ÿà§à¦°à¦¾à¦¨à§à¦¸à¦«à¦°à¦®à¦¾à¦° à¦†à¦°à§à¦•à¦¿à¦Ÿà§‡à¦•à¦šà¦¾à¦° à¦ªà§à¦°à¦¥à¦® à¦‰à¦¨à§à¦®à§‹à¦šà¦¿à¦¤ à¦¹à¦¯à¦¼?',
             options: [
               '"Attention Is All You Need" (by Vaswani et al.)',
               '"Deep Residual Learning for Image Recognition"',
@@ -569,7 +569,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai7_q2',
             question: 'What does the "Self-Attention" mechanism calculate inside a Transformer layer?',
-            questionBn: 'ট্রান্সফরমার লেয়ারে "সেলফ-অ্যাটেনশন" (Self-Attention) মেকানিজম কী হিসাব করে?',
+            questionBn: 'à¦Ÿà§à¦°à¦¾à¦¨à§à¦¸à¦«à¦°à¦®à¦¾à¦° à¦²à§‡à¦¯à¦¼à¦¾à¦°à§‡ "à¦¸à§‡à¦²à¦«-à¦…à§à¦¯à¦¾à¦Ÿà§‡à¦¨à¦¶à¦¨" (Self-Attention) à¦®à§‡à¦•à¦¾à¦¨à¦¿à¦œà¦® à¦•à§€ à¦¹à¦¿à¦¸à¦¾à¦¬ à¦•à¦°à§‡?',
             options: [
               'How strongly each token in a sentence relates to every other token, capturing context and ambiguous references',
               'The electrical voltage of the GPU fan',
@@ -584,7 +584,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai7_q3',
             question: 'How does an LLM select the next token during text generation?',
-            questionBn: 'টেক্সট জেনারেশনের সময় LLM কীভাবে পরের টোকেনটি বেছে নেয়?',
+            questionBn: 'à¦Ÿà§‡à¦•à§à¦¸à¦Ÿ à¦œà§‡à¦¨à¦¾à¦°à§‡à¦¶à¦¨à§‡à¦° à¦¸à¦®à¦¯à¦¼ LLM à¦•à§€à¦­à¦¾à¦¬à§‡ à¦ªà¦°à§‡à¦° à¦Ÿà§‹à¦•à§‡à¦¨à¦Ÿà¦¿ à¦¬à§‡à¦›à§‡ à¦¨à§‡à¦¯à¦¼?',
             options: [
               'It computes a probability distribution (via Softmax) across its entire vocabulary and samples according to generation settings',
               'It selects the first word in the dictionary alphabetically',
@@ -599,7 +599,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai7_q4',
             question: 'What happens when you adjust the "Temperature" setting of a language model to a lower value (e.g. 0.1)?',
-            questionBn: 'ল্যাঙ্গুয়েজ মডেলের "Temperature" সেটিংস কমিয়ে দিলে (যেমন ০.১) কী ঘটে?',
+            questionBn: 'à¦²à§à¦¯à¦¾à¦™à§à¦—à§à¦¯à¦¼à§‡à¦œ à¦®à¦¡à§‡à¦²à§‡à¦° "Temperature" à¦¸à§‡à¦Ÿà¦¿à¦‚à¦¸ à¦•à¦®à¦¿à¦¯à¦¼à§‡ à¦¦à¦¿à¦²à§‡ (à¦¯à§‡à¦®à¦¨ à§¦.à§§) à¦•à§€ à¦˜à¦Ÿà§‡?',
             options: [
               'The outputs become much more deterministic, focused, and predictable by favoring top probable tokens',
               'The computer cooling fan spins slower',
@@ -614,7 +614,7 @@ const ONNOY_COURSES = {
           {
             id: 'ai7_q5',
             question: 'Does the Transformer architecture possess human conscious intent or subjective feeling?',
-            questionBn: 'ট্রান্সফরমার আর্কিটেকচারের কি মানুষের মতো চেতনা বা নিজস্ব অনুভূতি রয়েছে?',
+            questionBn: 'à¦Ÿà§à¦°à¦¾à¦¨à§à¦¸à¦«à¦°à¦®à¦¾à¦° à¦†à¦°à§à¦•à¦¿à¦Ÿà§‡à¦•à¦šà¦¾à¦°à§‡à¦° à¦•à¦¿ à¦®à¦¾à¦¨à§à¦·à§‡à¦° à¦®à¦¤à§‹ à¦šà§‡à¦¤à¦¨à¦¾ à¦¬à¦¾ à¦¨à¦¿à¦œà¦¸à§à¦¬ à¦…à¦¨à§à¦­à§‚à¦¤à¦¿ à¦°à¦¯à¦¼à§‡à¦›à§‡?',
             options: [
               'No, it is a sophisticated mathematical function that maps input token patterns to output token probability distributions',
               'Yes, it feels emotions whenever someone speaks kindly to it',
@@ -634,18 +634,18 @@ const ONNOY_COURSES = {
   'digital-safety': {
     id: 'digital-safety',
     title: 'Digital Responsibility & Cyber Safety Course',
-    titleBn: 'ডিজিটাল দায়িত্বশীলতা ও সাইবার সুরক্ষা কোর্স',
+    titleBn: 'à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦¦à¦¾à¦¯à¦¼à¦¿à¦¤à§à¦¬à¦¶à§€à¦²à¦¤à¦¾ à¦“ à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦¸à§à¦°à¦•à§à¦·à¦¾ à¦•à§‹à¦°à§à¦¸',
     playlistUrl: '',
-    badge: '⭐ 5 Video Lessons',
+    badge: 'â­ 5 Video Lessons',
     summary: 'Essential digital citizenship, password safety, phishing detection, misinformation fact-checking, and Bangladeshi cyber laws.',
-    certificateIssuer: 'Onnoy — অন্বয় Foundation',
+    certificateIssuer: 'Onnoy â€” à¦…à¦¨à§à¦¬à¦¯à¦¼ Foundation',
     certificateLocation: 'Mymensingh, Bangladesh',
     lessons: [
       {
         id: 'ds-lesson-1',
         lessonNumber: 1,
         title: 'Understanding Digital Footprints & Online Identity',
-        titleBn: 'ডিজিটাল পদচিহ্ন ও অনলাইন পরিচয় পরিচিতি',
+        titleBn: 'à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦ªà¦¦à¦šà¦¿à¦¹à§à¦¨ à¦“ à¦…à¦¨à¦²à¦¾à¦‡à¦¨ à¦ªà¦°à¦¿à¦šà¦¯à¦¼ à¦ªà¦°à¦¿à¦šà¦¿à¦¤à¦¿',
         videoId: 'yrln8nyVBLU',
         duration: '04:15',
         summary: 'Discover what a digital footprint is, how permanent online actions are, and how students can protect their reputation.',
@@ -653,7 +653,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds1_q1',
             question: 'What constitutes your "digital footprint"?',
-            questionBn: 'আপনার "ডিজিটাল পদচিহ্ন" বলতে কী বোঝায়?',
+            questionBn: 'à¦†à¦ªà¦¨à¦¾à¦° "à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦ªà¦¦à¦šà¦¿à¦¹à§à¦¨" à¦¬à¦²à¦¤à§‡ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'The brand of smartphone or computer you own',
               'The trail of data and information you leave behind when using the internet',
@@ -668,7 +668,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds1_q2',
             question: 'Can content you delete online always be completely erased?',
-            questionBn: 'অনলাইন থেকে মুছে ফেলা পোস্ট বা কনটেন্ট কি সবসময় চিরতরে মুছে যায়?',
+            questionBn: 'à¦…à¦¨à¦²à¦¾à¦‡à¦¨ à¦¥à§‡à¦•à§‡ à¦®à§à¦›à§‡ à¦«à§‡à¦²à¦¾ à¦ªà§‹à¦¸à§à¦Ÿ à¦¬à¦¾ à¦•à¦¨à¦Ÿà§‡à¦¨à§à¦Ÿ à¦•à¦¿ à¦¸à¦¬à¦¸à¦®à¦¯à¦¼ à¦šà¦¿à¦°à¦¤à¦°à§‡ à¦®à§à¦›à§‡ à¦¯à¦¾à¦¯à¦¼?',
             options: [
               'Yes, once you click delete, nobody can ever retrieve or view it',
               'No, screenshots, archives, and server logs may keep copies permanently',
@@ -683,7 +683,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds1_q3',
             question: 'Which of the following is considered an "active" digital footprint?',
-            questionBn: 'নিচের কোনটি একটি "সক্রিয়" (Active) ডিজিটাল পদচিহ্ন?',
+            questionBn: 'à¦¨à¦¿à¦šà§‡à¦° à¦•à§‹à¦¨à¦Ÿà¦¿ à¦à¦•à¦Ÿà¦¿ "à¦¸à¦•à§à¦°à¦¿à¦¯à¦¼" (Active) à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦ªà¦¦à¦šà¦¿à¦¹à§à¦¨?',
             options: [
               'Websites collecting your IP address in background logs',
               'Cookies tracking your browsing history without interaction',
@@ -698,7 +698,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds1_q4',
             question: 'Why should students be mindful of their digital footprint for the future?',
-            questionBn: 'ভবিষ্যতের জন্য শিক্ষার্থীদের ডিজিটাল পদচিহ্ন সম্পর্কে কেন সতর্ক থাকা উচিত?',
+            questionBn: 'à¦­à¦¬à¦¿à¦·à§à¦¯à¦¤à§‡à¦° à¦œà¦¨à§à¦¯ à¦¶à¦¿à¦•à§à¦·à¦¾à¦°à§à¦¥à§€à¦¦à§‡à¦° à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦ªà¦¦à¦šà¦¿à¦¹à§à¦¨ à¦¸à¦®à§à¦ªà¦°à§à¦•à§‡ à¦•à§‡à¦¨ à¦¸à¦¤à¦°à§à¦• à¦¥à¦¾à¦•à¦¾ à¦‰à¦šà¦¿à¦¤?',
             options: [
               'Colleges, scholarship boards, and employers often review public online activity',
               'Having any online presence will block you from taking board exams',
@@ -713,7 +713,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds1_q5',
             question: 'What is the most effective habit to protect your digital footprint?',
-            questionBn: 'আপনার ডিজিটাল পদচিহ্ন সুরক্ষিত রাখার সবচেয়ে কার্যকর অভ্যাস কোনটি?',
+            questionBn: 'à¦†à¦ªà¦¨à¦¾à¦° à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦ªà¦¦à¦šà¦¿à¦¹à§à¦¨ à¦¸à§à¦°à¦•à§à¦·à¦¿à¦¤ à¦°à¦¾à¦–à¦¾à¦° à¦¸à¦¬à¦šà§‡à¦¯à¦¼à§‡ à¦•à¦¾à¦°à§à¦¯à¦•à¦° à¦…à¦­à§à¦¯à¦¾à¦¸ à¦•à§‹à¦¨à¦Ÿà¦¿?',
             options: [
               'Sharing all personal passwords with trusted friends',
               'Pausing to think about long-term consequences before posting personal info',
@@ -731,7 +731,7 @@ const ONNOY_COURSES = {
         id: 'ds-lesson-2',
         lessonNumber: 2,
         title: 'Recognizing Phishing, Scams & Social Engineering',
-        titleBn: 'ফিশিং, অনলাইন প্রতারণা ও সোশ্যাল ইঞ্জিনিয়ারিং শনাক্তকরণ',
+        titleBn: 'à¦«à¦¿à¦¶à¦¿à¦‚, à¦…à¦¨à¦²à¦¾à¦‡à¦¨ à¦ªà§à¦°à¦¤à¦¾à¦°à¦£à¦¾ à¦“ à¦¸à§‹à¦¶à§à¦¯à¦¾à¦² à¦‡à¦žà§à¦œà¦¿à¦¨à¦¿à¦¯à¦¼à¦¾à¦°à¦¿à¦‚ à¦¶à¦¨à¦¾à¦•à§à¦¤à¦•à¦°à¦£',
         videoId: '7bz1uVqgQ3A',
         duration: '05:10',
         summary: 'Learn how cyber fraudsters craft deceptive messages, OTP traps, fake giveaways, and urgent emergency scams.',
@@ -739,7 +739,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds2_q1',
             question: 'What is the primary method used in a "phishing" attack?',
-            questionBn: '"ফিশিং" (Phishing) আক্রমণের প্রধান কৌশল কী?',
+            questionBn: '"à¦«à¦¿à¦¶à¦¿à¦‚" (Phishing) à¦†à¦•à§à¦°à¦®à¦£à§‡à¦° à¦ªà§à¦°à¦§à¦¾à¦¨ à¦•à§Œà¦¶à¦² à¦•à§€?',
             options: [
               'Deceiving users with fake emails, links, or messages to steal passwords or money',
               'Cracking a hardware router using physical cables',
@@ -754,7 +754,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds2_q2',
             question: 'If you receive an SMS saying you won 50,000 BDT in a lottery you never entered, you should:',
-            questionBn: 'আপনি কখনো অংশ নেননি এমন লটারিতে ৫০,০০০ টাকা জিতেছেন বলে কোনো মেসেজ পেলে আপনার কী করা উচিত?',
+            questionBn: 'à¦†à¦ªà¦¨à¦¿ à¦•à¦–à¦¨à§‹ à¦…à¦‚à¦¶ à¦¨à§‡à¦¨à¦¨à¦¿ à¦à¦®à¦¨ à¦²à¦Ÿà¦¾à¦°à¦¿à¦¤à§‡ à§«à§¦,à§¦à§¦à§¦ à¦Ÿà¦¾à¦•à¦¾ à¦œà¦¿à¦¤à§‡à¦›à§‡à¦¨ à¦¬à¦²à§‡ à¦•à§‹à¦¨à§‹ à¦®à§‡à¦¸à§‡à¦œ à¦ªà§‡à¦²à§‡ à¦†à¦ªà¦¨à¦¾à¦° à¦•à§€ à¦•à¦°à¦¾ à¦‰à¦šà¦¿à¦¤?',
             options: [
               'Immediately call the number and provide your bKash PIN to claim the prize',
               'Recognize it as an advance-fee fraud scam and ignore/report it',
@@ -769,7 +769,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds2_q3',
             question: 'When is it safe to share your One-Time Password (OTP) or mobile banking PIN?',
-            questionBn: 'কখন ওটিপি (OTP) বা মোবাইল ব্যাংকিং পিন অন্যদের সাথে শেয়ার করা নিরাপদ?',
+            questionBn: 'à¦•à¦–à¦¨ à¦“à¦Ÿà¦¿à¦ªà¦¿ (OTP) à¦¬à¦¾ à¦®à§‹à¦¬à¦¾à¦‡à¦² à¦¬à§à¦¯à¦¾à¦‚à¦•à¦¿à¦‚ à¦ªà¦¿à¦¨ à¦…à¦¨à§à¦¯à¦¦à§‡à¦° à¦¸à¦¾à¦¥à§‡ à¦¶à§‡à¦¯à¦¼à¦¾à¦° à¦•à¦°à¦¾ à¦¨à¦¿à¦°à¦¾à¦ªà¦¦?',
             options: [
               'When someone calls claiming to be a customer service representative',
               'When a friend on Facebook messages saying they need urgent help',
@@ -784,7 +784,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds2_q4',
             question: 'What common psychological trigger do cyber scammers exploit the most?',
-            questionBn: 'সাইবার প্রতারকরা সাধারণত মানুষের কোন মানসিক অনুভূতির সুযোগ নেয়?',
+            questionBn: 'à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦ªà§à¦°à¦¤à¦¾à¦°à¦•à¦°à¦¾ à¦¸à¦¾à¦§à¦¾à¦°à¦£à¦¤ à¦®à¦¾à¦¨à§à¦·à§‡à¦° à¦•à§‹à¦¨ à¦®à¦¾à¦¨à¦¸à¦¿à¦• à¦…à¦¨à§à¦­à§‚à¦¤à¦¿à¦° à¦¸à§à¦¯à§‹à¦— à¦¨à§‡à¦¯à¦¼?',
             options: [
               'Deep relaxation and patience',
               'Artificial urgency, panic, and fear of missing out',
@@ -799,7 +799,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds2_q5',
             question: 'How can you verify if a login webpage link is genuine before typing your credentials?',
-            questionBn: 'লগইন তথ্য দেওয়ার আগে কীভাবে নিশ্চিত হবেন লিংকটি আসল কি না?',
+            questionBn: 'à¦²à¦—à¦‡à¦¨ à¦¤à¦¥à§à¦¯ à¦¦à§‡à¦“à¦¯à¦¼à¦¾à¦° à¦†à¦—à§‡ à¦•à§€à¦­à¦¾à¦¬à§‡ à¦¨à¦¿à¦¶à§à¦šà¦¿à¦¤ à¦¹à¦¬à§‡à¦¨ à¦²à¦¿à¦‚à¦•à¦Ÿà¦¿ à¦†à¦¸à¦² à¦•à¦¿ à¦¨à¦¾?',
             options: [
               'Check the exact spelling of the domain name and ensure secure HTTPS protocol',
               'Trust any link that contains an attractive logo and green colors',
@@ -817,7 +817,7 @@ const ONNOY_COURSES = {
         id: 'ds-lesson-3',
         lessonNumber: 3,
         title: 'Spotting Misinformation, Rumors & Fake News',
-        titleBn: 'গুজব, ভুয়া খবর ও ভুল তথ্য যাচাইয়ের কৌশল',
+        titleBn: 'à¦—à§à¦œà¦¬, à¦­à§à¦¯à¦¼à¦¾ à¦–à¦¬à¦° à¦“ à¦­à§à¦² à¦¤à¦¥à§à¦¯ à¦¯à¦¾à¦šà¦¾à¦‡à¦¯à¦¼à§‡à¦° à¦•à§Œà¦¶à¦²',
         videoId: 'BSpYn65UvT8',
         duration: '04:45',
         summary: 'Master the SIFT method: Stop, Investigate the source, Find better coverage, and Trace claims back to original context.',
@@ -825,7 +825,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds3_q1',
             question: 'What does the letter "S" stand for in the SIFT fact-checking routine?',
-            questionBn: 'তথ্য যাচাইয়ের SIFT পদ্ধতির প্রথম অক্ষর "S" দ্বারা কী বোঝায়?',
+            questionBn: 'à¦¤à¦¥à§à¦¯ à¦¯à¦¾à¦šà¦¾à¦‡à¦¯à¦¼à§‡à¦° SIFT à¦ªà¦¦à§à¦§à¦¤à¦¿à¦° à¦ªà§à¦°à¦¥à¦® à¦…à¦•à§à¦·à¦° "S" à¦¦à§à¦¬à¦¾à¦°à¦¾ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'Share immediately to warn others',
               'Stop: pause your initial emotional reaction before liking or forwarding',
@@ -840,7 +840,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds3_q2',
             question: 'What is the key difference between misinformation and disinformation?',
-            questionBn: 'ভুল তথ্য (Misinformation) ও অপতথ্য (Disinformation)-এর মধ্যে প্রধান পার্থক্য কী?',
+            questionBn: 'à¦­à§à¦² à¦¤à¦¥à§à¦¯ (Misinformation) à¦“ à¦…à¦ªà¦¤à¦¥à§à¦¯ (Disinformation)-à¦à¦° à¦®à¦§à§à¦¯à§‡ à¦ªà§à¦°à¦§à¦¾à¦¨ à¦ªà¦¾à¦°à§à¦¥à¦•à§à¦¯ à¦•à§€?',
             options: [
               'Misinformation is shared without malicious intent, while disinformation is created deliberately to deceive',
               'Misinformation only happens on television, while disinformation is online only',
@@ -855,7 +855,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds3_q3',
             question: 'Why are sensationalist headlines or emotional captions a red flag?',
-            questionBn: 'উত্তেজনাপূর্ণ বা আবেগতাড়িত শিরোনাম কেন সতর্কতার সংকেত?',
+            questionBn: 'à¦‰à¦¤à§à¦¤à§‡à¦œà¦¨à¦¾à¦ªà§‚à¦°à§à¦£ à¦¬à¦¾ à¦†à¦¬à§‡à¦—à¦¤à¦¾à¦¡à¦¼à¦¿à¦¤ à¦¶à¦¿à¦°à§‹à¦¨à¦¾à¦® à¦•à§‡à¦¨ à¦¸à¦¤à¦°à§à¦•à¦¤à¦¾à¦° à¦¸à¦‚à¦•à§‡à¦¤?',
             options: [
               'Because professional journalists only use robotic words',
               'Because clickbait algorithms exploit emotional spikes to boost engagement without factual verification',
@@ -870,7 +870,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds3_q4',
             question: 'How can you verify whether an image or video is reused from an old event?',
-            questionBn: 'একটি ছবি বা ভিডিও পুরোনো কোনো ঘটনার কি না, তা কীভাবে যাচাই করবেন?',
+            questionBn: 'à¦à¦•à¦Ÿà¦¿ à¦›à¦¬à¦¿ à¦¬à¦¾ à¦­à¦¿à¦¡à¦¿à¦“ à¦ªà§à¦°à§‹à¦¨à§‹ à¦•à§‹à¦¨à§‹ à¦˜à¦Ÿà¦¨à¦¾à¦° à¦•à¦¿ à¦¨à¦¾, à¦¤à¦¾ à¦•à§€à¦­à¦¾à¦¬à§‡ à¦¯à¦¾à¦šà¦¾à¦‡ à¦•à¦°à¦¬à§‡à¦¨?',
             options: [
               'Perform a reverse image search (e.g. Google Lens) to find original publication dates',
               'Increase the brightness of your device screen',
@@ -885,11 +885,11 @@ const ONNOY_COURSES = {
           {
             id: 'ds3_q5',
             question: 'What is lateral reading when evaluating an unfamiliar news website?',
-            questionBn: 'কোনো অপরিচিত ওয়েবসাইটের নির্ভরযোগ্যতা যাচাইয়ে ল্যাটারাল রিডিং (Lateral Reading) কী?',
+            questionBn: 'à¦•à§‹à¦¨à§‹ à¦…à¦ªà¦°à¦¿à¦šà¦¿à¦¤ à¦“à¦¯à¦¼à§‡à¦¬à¦¸à¦¾à¦‡à¦Ÿà§‡à¦° à¦¨à¦¿à¦°à§à¦­à¦°à¦¯à§‹à¦—à§à¦¯à¦¤à¦¾ à¦¯à¦¾à¦šà¦¾à¦‡à¦¯à¦¼à§‡ à¦²à§à¦¯à¦¾à¦Ÿà¦¾à¦°à¦¾à¦² à¦°à¦¿à¦¡à¦¿à¦‚ (Lateral Reading) à¦•à§€?',
             options: [
               'Reading from right to left across the screen',
               'Opening new browser tabs to see what credible third-party sources say about that website',
-              'Staying strictly on the site’s "About Us" page without leaving',
+              'Staying strictly on the siteâ€™s "About Us" page without leaving',
               'Reading only the last paragraph of the article'
             ],
             correctAnswer: 1,
@@ -903,7 +903,7 @@ const ONNOY_COURSES = {
         id: 'ds-lesson-4',
         lessonNumber: 4,
         title: 'Account Security, Passwords & Two-Factor Authentication',
-        titleBn: 'অ্যাকাউন্ট নিরাপত্তা, শক্তিশালী পাসওয়ার্ড ও টু-ফ্যাক্টর অথেনটিকেশন',
+        titleBn: 'à¦…à§à¦¯à¦¾à¦•à¦¾à¦‰à¦¨à§à¦Ÿ à¦¨à¦¿à¦°à¦¾à¦ªà¦¤à§à¦¤à¦¾, à¦¶à¦•à§à¦¤à¦¿à¦¶à¦¾à¦²à§€ à¦ªà¦¾à¦¸à¦“à¦¯à¦¼à¦¾à¦°à§à¦¡ à¦“ à¦Ÿà§-à¦«à§à¦¯à¦¾à¦•à§à¦Ÿà¦° à¦…à¦¥à§‡à¦¨à¦Ÿà¦¿à¦•à§‡à¦¶à¦¨',
         videoId: 'q13zUv-P7Cg',
         duration: '04:30',
         summary: 'Build uncrackable passphrases, configure 2FA correctly, and manage social media recovery options safely.',
@@ -911,7 +911,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds4_q1',
             question: 'Which of the following is the strongest password structure?',
-            questionBn: 'নিচের কোন পাসওয়ার্ডটি সবচেয়ে শক্তিশালী?',
+            questionBn: 'à¦¨à¦¿à¦šà§‡à¦° à¦•à§‹à¦¨ à¦ªà¦¾à¦¸à¦“à¦¯à¦¼à¦¾à¦°à§à¦¡à¦Ÿà¦¿ à¦¸à¦¬à¦šà§‡à¦¯à¦¼à§‡ à¦¶à¦•à§à¦¤à¦¿à¦¶à¦¾à¦²à§€?',
             options: [
               'Your birthdate followed by 123 (e.g., 2008123)',
               'Your nickname and mobile number',
@@ -926,7 +926,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds4_q2',
             question: 'Why is reusing the same password across multiple websites dangerous?',
-            questionBn: 'বিভিন্ন ওয়েবসাইটে একই পাসওয়ার্ড বারবার ব্যবহার করা কেন বিপজ্জনক?',
+            questionBn: 'à¦¬à¦¿à¦­à¦¿à¦¨à§à¦¨ à¦“à¦¯à¦¼à§‡à¦¬à¦¸à¦¾à¦‡à¦Ÿà§‡ à¦à¦•à¦‡ à¦ªà¦¾à¦¸à¦“à¦¯à¦¼à¦¾à¦°à§à¦¡ à¦¬à¦¾à¦°à¦¬à¦¾à¦° à¦¬à§à¦¯à¦¬à¦¹à¦¾à¦° à¦•à¦°à¦¾ à¦•à§‡à¦¨ à¦¬à¦¿à¦ªà¦œà§à¦œà¦¨à¦•?',
             options: [
               'It uses up too much cloud storage space',
               'If one low-security website is breached, hackers can access all your other accounts',
@@ -941,7 +941,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds4_q3',
             question: 'What is Two-Factor Authentication (2FA)?',
-            questionBn: 'টু-ফ্যাক্টর অথেনটিকেশন (2FA) বলতে কী বোঝায়?',
+            questionBn: 'à¦Ÿà§-à¦«à§à¦¯à¦¾à¦•à§à¦Ÿà¦° à¦…à¦¥à§‡à¦¨à¦Ÿà¦¿à¦•à§‡à¦¶à¦¨ (2FA) à¦¬à¦²à¦¤à§‡ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'Logging in using two different computers at the exact same moment',
               'A security layer requiring two separate proofs of identity (e.g. password + phone code/app)',
@@ -956,7 +956,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds4_q4',
             question: 'What should you do immediately after using a public computer (cyber cafe or school lab)?',
-            questionBn: 'সাইবার ক্যাফে বা স্কুলের কম্পিউটারে কাজ শেষে আপনার তাৎক্ষণিক করণীয় কী?',
+            questionBn: 'à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦•à§à¦¯à¦¾à¦«à§‡ à¦¬à¦¾ à¦¸à§à¦•à§à¦²à§‡à¦° à¦•à¦®à§à¦ªà¦¿à¦‰à¦Ÿà¦¾à¦°à§‡ à¦•à¦¾à¦œ à¦¶à§‡à¦·à§‡ à¦†à¦ªà¦¨à¦¾à¦° à¦¤à¦¾à§Žà¦•à§à¦·à¦£à¦¿à¦• à¦•à¦°à¦£à§€à¦¯à¦¼ à¦•à§€?',
             options: [
               'Simply turn off the computer monitor and walk away',
               'Log out of all accounts, uncheck "remember me", and clear browser session history',
@@ -971,7 +971,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds4_q5',
             question: 'Where should account recovery codes (backup codes) be stored?',
-            questionBn: 'অ্যাকাউন্টের ব্যাকআপ কোড বা রিকভারি কোড কোথায় সংরক্ষণ করা উচিত?',
+            questionBn: 'à¦…à§à¦¯à¦¾à¦•à¦¾à¦‰à¦¨à§à¦Ÿà§‡à¦° à¦¬à§à¦¯à¦¾à¦•à¦†à¦ª à¦•à§‹à¦¡ à¦¬à¦¾ à¦°à¦¿à¦•à¦­à¦¾à¦°à¦¿ à¦•à§‹à¦¡ à¦•à§‹à¦¥à¦¾à¦¯à¦¼ à¦¸à¦‚à¦°à¦•à§à¦·à¦£ à¦•à¦°à¦¾ à¦‰à¦šà¦¿à¦¤?',
             options: [
               'Posted as a public status or pinned comment',
               'In a secure, private place like a physical notebook or trusted password manager',
@@ -989,7 +989,7 @@ const ONNOY_COURSES = {
         id: 'ds-lesson-5',
         lessonNumber: 5,
         title: 'Responsible Online Conduct, Cyberbullying & Law in Bangladesh',
-        titleBn: 'দায়িত্বশীল অনলাইন আচরণ, সাইবার বুলিং ও বাংলাদেশের সাইবার আইন',
+        titleBn: 'à¦¦à¦¾à¦¯à¦¼à¦¿à¦¤à§à¦¬à¦¶à§€à¦² à¦…à¦¨à¦²à¦¾à¦‡à¦¨ à¦†à¦šà¦°à¦£, à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦¬à§à¦²à¦¿à¦‚ à¦“ à¦¬à¦¾à¦‚à¦²à¦¾à¦¦à§‡à¦¶à§‡à¦° à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦†à¦‡à¦¨',
         videoId: '3Z4sR_p5q_o',
         duration: '05:00',
         summary: 'Understand the legal framework (Cyber Security Act), reporting mechanisms, and bystander interventions against online harassment.',
@@ -997,7 +997,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds5_q1',
             question: 'What should you do if someone is threatening or blackmailing you online in Bangladesh?',
-            questionBn: 'বাংলাদেশে অনলাইনে কেউ আপনাকে হুমকি বা ব্ল্যাকমেইল করলে আপনার প্রথম পদক্ষেপ কী হওয়া উচিত?',
+            questionBn: 'à¦¬à¦¾à¦‚à¦²à¦¾à¦¦à§‡à¦¶à§‡ à¦…à¦¨à¦²à¦¾à¦‡à¦¨à§‡ à¦•à§‡à¦‰ à¦†à¦ªà¦¨à¦¾à¦•à§‡ à¦¹à§à¦®à¦•à¦¿ à¦¬à¦¾ à¦¬à§à¦²à§à¦¯à¦¾à¦•à¦®à§‡à¦‡à¦² à¦•à¦°à¦²à§‡ à¦†à¦ªà¦¨à¦¾à¦° à¦ªà§à¦°à¦¥à¦® à¦ªà¦¦à¦•à§à¦·à§‡à¦ª à¦•à§€ à¦¹à¦“à¦¯à¦¼à¦¾ à¦‰à¦šà¦¿à¦¤?',
             options: [
               'Pay whatever ransom or money they demand immediately',
               'Preserve evidence (screenshots, URLs, sender info) and contact trusted guardians or Cyber Police (999 / CID Cyber Police)',
@@ -1011,8 +1011,8 @@ const ONNOY_COURSES = {
           },
           {
             id: 'ds5_q2',
-            question: 'Under cyber laws in Bangladesh, is publishing someone’s private photos or defamatory content without consent an offense?',
-            questionBn: 'অনুমতি ছাড়া কারো ব্যক্তিগত ছবি বা মানহানিকর কনটেন্ট অনলাইনে প্রকাশ করা কি আইনে দণ্ডনীয় অপরাধ?',
+            question: 'Under cyber laws in Bangladesh, is publishing someoneâ€™s private photos or defamatory content without consent an offense?',
+            questionBn: 'à¦…à¦¨à§à¦®à¦¤à¦¿ à¦›à¦¾à¦¡à¦¼à¦¾ à¦•à¦¾à¦°à§‹ à¦¬à§à¦¯à¦•à§à¦¤à¦¿à¦—à¦¤ à¦›à¦¬à¦¿ à¦¬à¦¾ à¦®à¦¾à¦¨à¦¹à¦¾à¦¨à¦¿à¦•à¦° à¦•à¦¨à¦Ÿà§‡à¦¨à§à¦Ÿ à¦…à¦¨à¦²à¦¾à¦‡à¦¨à§‡ à¦ªà§à¦°à¦•à¦¾à¦¶ à¦•à¦°à¦¾ à¦•à¦¿ à¦†à¦‡à¦¨à§‡ à¦¦à¦£à§à¦¡à¦¨à§€à¦¯à¦¼ à¦…à¦ªà¦°à¦¾à¦§?',
             options: [
               'No, the internet is completely unregulated and anything goes',
               'Yes, non-consensual sharing of intimate images and defamation are punishable offenses with fines and imprisonment',
@@ -1027,7 +1027,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds5_q3',
             question: 'What is the role of an "active bystander" when witnessing cyberbullying?',
-            questionBn: 'সহপাঠী বা কাউকে সাইবার বুলিংয়ের শিকার হতে দেখলে একজন সচেতন নাগরিক হিসেবে আপনার ভূমিকা কী?',
+            questionBn: 'à¦¸à¦¹à¦ªà¦¾à¦ à§€ à¦¬à¦¾ à¦•à¦¾à¦‰à¦•à§‡ à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦¬à§à¦²à¦¿à¦‚à¦¯à¦¼à§‡à¦° à¦¶à¦¿à¦•à¦¾à¦° à¦¹à¦¤à§‡ à¦¦à§‡à¦–à¦²à§‡ à¦à¦•à¦œà¦¨ à¦¸à¦šà§‡à¦¤à¦¨ à¦¨à¦¾à¦—à¦°à¦¿à¦• à¦¹à¦¿à¦¸à§‡à¦¬à§‡ à¦†à¦ªà¦¨à¦¾à¦° à¦­à§‚à¦®à¦¿à¦•à¦¾ à¦•à§€?',
             options: [
               'Join in the teasing to fit in with the group',
               'Support the victim privately, report the harassing content, and do not amplify abusive posts',
@@ -1042,7 +1042,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds5_q4',
             question: 'What emergency helpline number can anyone in Bangladesh dial for emergency police assistance including cyber harassment?',
-            questionBn: 'বাংলাদেশে সাইবার হয়রানি সহ যেকোনো জরুরি পুলিশি সহায়তার জন্য কোন হেল্পলাইনে কল করা যায়?',
+            questionBn: 'à¦¬à¦¾à¦‚à¦²à¦¾à¦¦à§‡à¦¶à§‡ à¦¸à¦¾à¦‡à¦¬à¦¾à¦° à¦¹à¦¯à¦¼à¦°à¦¾à¦¨à¦¿ à¦¸à¦¹ à¦¯à§‡à¦•à§‹à¦¨à§‹ à¦œà¦°à§à¦°à¦¿ à¦ªà§à¦²à¦¿à¦¶à¦¿ à¦¸à¦¹à¦¾à¦¯à¦¼à¦¤à¦¾à¦° à¦œà¦¨à§à¦¯ à¦•à§‹à¦¨ à¦¹à§‡à¦²à§à¦ªà¦²à¦¾à¦‡à¦¨à§‡ à¦•à¦² à¦•à¦°à¦¾ à¦¯à¦¾à¦¯à¦¼?',
             options: [
               '999 (National Emergency Service)',
               '100',
@@ -1057,7 +1057,7 @@ const ONNOY_COURSES = {
           {
             id: 'ds5_q5',
             question: 'What does "Digital Empathy" mean in the Onnoy philosophy?',
-            questionBn: 'অন্বয় (Onnoy)-এর ধারণায় "ডিজিটাল সহমর্মিতা" (Digital Empathy) বলতে কী বোঝায়?',
+            questionBn: 'à¦…à¦¨à§à¦¬à¦¯à¦¼ (Onnoy)-à¦à¦° à¦§à¦¾à¦°à¦£à¦¾à¦¯à¦¼ "à¦¡à¦¿à¦œà¦¿à¦Ÿà¦¾à¦² à¦¸à¦¹à¦®à¦°à§à¦®à¦¿à¦¤à¦¾" (Digital Empathy) à¦¬à¦²à¦¤à§‡ à¦•à§€ à¦¬à§‹à¦à¦¾à¦¯à¦¼?',
             options: [
               'Remembering that behind every screen and profile is a real human with feelings, dignity, and rights',
               'Using artificial intelligence to write all your personal messages',
@@ -1299,3 +1299,15 @@ Object.defineProperty(window, 'ONNOY_COURSE_LESSONS', {
 
 window.ONNOY_COURSES = ONNOY_COURSES;
 window.OnnoyCourseStore = OnnoyCourseStore;
+
+window.ONNOY_TRACKABLE_MODULES = [
+    { key: 'onnoy_lesson_overview', title: 'Level 1: Digital Citizenship' },
+    { key: 'onnoy_lesson_attention', title: 'Attention Literacy' },
+    { key: 'onnoy_lesson_misinformation', title: 'Misinformation' },
+    { key: 'onnoy_lesson_scams', title: 'Scam Safety' },
+    { key: 'onnoy_lesson_ai', title: 'AI and Mindset' },
+    { key: 'onnoy_mission_spot_lie', title: 'Mission 1: Spot the Lie' },
+    { key: 'onnoy_mission_scam_alert', title: 'Mission 2: Scam Alert' },
+    { key: 'onnoy_mission_ai_integrity', title: 'Mission 3: AI Integrity Check' },
+    { key: 'onnoy_mission_guardian', title: 'Mission 4: Digital Guardian Claim' }
+];

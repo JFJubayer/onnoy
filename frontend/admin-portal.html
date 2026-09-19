@@ -401,6 +401,7 @@
                             <th style="padding: 15px 20px;">Student Email</th>
                             <th style="padding: 15px 20px;">Unique ID</th>
                             <th style="padding: 15px 20px;">Status</th>
+                            <th style="padding: 15px 20px;">Progress</th>
                             <th style="padding: 15px 20px;">Earned Badges</th>
                             <th style="padding: 15px 20px;">Joined Date</th>
                         </tr>
@@ -676,21 +677,55 @@
 
                 if (subError) throw subError;
 
-                // 2. Map missionTitle to the progression status
+                // 2. Fetch the user profile to get existing arrays
+                const { data: profile, error: fetchProfError } = await window.supabaseClient
+                    .from('profiles')
+                    .select('completed_modules, badges')
+                    .eq('unique_id', uniqueId)
+                    .single();
+                
+                if (fetchProfError) throw fetchProfError;
+                
+                let completedModules = profile.completed_modules || [];
+                let badges = Array.isArray(profile.badges) ? profile.badges : [];
+
+                // 3. Map missionTitle to the progression status and exact title
                 let nextStatus = 'Approved';
+                let exactTitle = missionTitle;
+                let badgeToAward = null;
+                
                 const titleLower = (missionTitle || '').toLowerCase();
                 if (titleLower.includes('spot the lie') || titleLower.includes('mission 1')) {
                     nextStatus = 'Mission2Unlocked';
+                    exactTitle = 'Mission 1: Spot the Lie';
                 } else if (titleLower.includes('scam alert') || titleLower.includes('mission 2')) {
                     nextStatus = 'Mission3Unlocked';
+                    exactTitle = 'Mission 2: Scam Alert';
                 } else if (titleLower.includes('ai integrity') || titleLower.includes('mission 3')) {
                     nextStatus = 'Mission4Unlocked';
+                    exactTitle = 'Mission 3: AI Integrity Check';
+                    badgeToAward = 'aware';
+                } else if (titleLower.includes('guardian claim') || titleLower.includes('mission 4')) {
+                    exactTitle = 'Mission 4: Digital Guardian Claim';
+                    badgeToAward = 'guardian';
                 }
 
-                // 3. Update student profile status
+                if (!completedModules.includes(exactTitle)) {
+                    completedModules.push(exactTitle);
+                }
+                
+                if (badgeToAward && !badges.includes(badgeToAward)) {
+                    badges.push(badgeToAward);
+                }
+
+                // 4. Update student profile status, modules, and badges
                 const { error: profError } = await window.supabaseClient
                     .from('profiles')
-                    .update({ status: nextStatus })
+                    .update({ 
+                        status: nextStatus,
+                        completed_modules: completedModules,
+                        badges: badges
+                    })
                     .eq('unique_id', uniqueId);
 
                 if (profError) throw profError;
@@ -832,10 +867,39 @@
                     emailHtml += ' <span style="background: #5bc0be; color: #0b132b; font-size: 0.65rem; font-weight: 700; padding: 1px 5px; border-radius: 4px; margin-left: 5px; vertical-align: middle;">ADMIN</span>';
                 }
 
+                // Calculate Progress using the new backend-driven logic
+                let completedCount = 0;
+                const totalCount = 9; // 5 modules + 4 missions
+                
+                if (userBadges.includes('guardian')) {
+                    completedCount = 9;
+                } else if (userBadges.includes('aware')) {
+                    completedCount = 8;
+                } else if (userBadges.includes('informed')) {
+                    if (p.status === 'Mission4Unlocked') completedCount = 8;
+                    else if (p.status === 'Mission3Unlocked') completedCount = 7;
+                    else if (p.status === 'Mission2Unlocked') completedCount = 6;
+                    else completedCount = 5;
+                } else {
+                    completedCount = p.completed_modules ? p.completed_modules.length : 0;
+                }
+                
+                const progressPercentage = Math.round((completedCount / totalCount) * 100);
+                const progressHtml = `
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="flex-grow: 1; height: 6px; background: rgba(244,246,252,0.1); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: ${progressPercentage}%; background: var(--admin-primary); border-radius: 4px;"></div>
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--admin-primary); font-weight: 600;">${progressPercentage}%</span>
+                    </div>
+                    <div style="font-size: 0.7rem; color: rgba(244,246,252,0.5); margin-top: 4px;">${completedCount}/${totalCount} completed</div>
+                `;
+
                 row.innerHTML = `
                     <td style="padding: 12px 20px; font-weight: 600;">${emailHtml}</td>
                     <td style="padding: 12px 20px; font-family: monospace; font-size: 0.85rem; color: var(--admin-primary);">${p.unique_id || 'N/A'}</td>
                     <td style="padding: 12px 20px;"><span style="background: rgba(91, 192, 190, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(91, 192, 190, 0.2); font-size: 0.85rem;">${p.status || 'pending'}</span></td>
+                    <td style="padding: 12px 20px;">${progressHtml}</td>
                     <td style="padding: 12px 20px;">${badgesHtml}</td>
                     <td style="padding: 12px 20px; color: rgba(244, 246, 252, 0.5);">${dateStr}</td>
                 `;

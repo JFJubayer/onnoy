@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="OoZ8WMjco7g1Lw3HS3PAd970qPhmi762K8jUR7R_-oA" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage your Onnoy profile, track your progress, and view your badges.">
+    <meta name="keywords" content="Onnoy, profile, digital citizenship, progress">
+    <title>My Profile - Onnoy-অন্বয়</title>
+    <!-- PAGE: profile.html | PHASE: 2 | STATUS: pending -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    <style>
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .profile-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .profile-hero-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-hero-right {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .profile-header-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .profile-hero-right {
+                text-align: center;
+                align-items: center;
+            }
+        }
+        .avatar-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--green);
+            margin-bottom: 15px;
+            cursor: pointer;
+            background-color: var(--bg-alt);
+        }
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 14px;
+        }
+        .avatar-wrapper:hover .avatar-overlay {
+            opacity: 1;
+        }
+        .unique-id-badge {
+            background: var(--green-pale);
+            color: var(--green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 5px;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+        .module-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .module-list li {
+            padding: 10px;
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .module-list li:not(.no-check)::before {
+            content: "✓";
+            color: var(--green);
+            font-weight: bold;
+        }
+        .badges-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--bg-alt);
+            padding: 15px;
+            border-radius: var(--radius);
+            width: 100px;
+            text-align: center;
+        }
+        .badge-icon {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        .badge-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <!-- Page Loader -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <div id="navbar-placeholder"></div>
+
+    <div id="auth-alert" class="container alert error" style="display: none; text-align: center; max-width: 500px; margin: 120px auto 40px auto;">
+        You must be logged in to view your profile. <a href="login.html" style="color: var(--green); font-weight: bold; text-decoration: underline;">Log In</a>
+    </div>
+
+    <div id="profile-content" style="display: none;">
+        
+        <header class="faq-hero" style="padding: 70px 0 40px; margin-bottom: 40px;">
+            <div class="container profile-header-grid">
+                
+                <!-- Left (1/3) -->
+                <div class="profile-hero-left">
+                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                    <div class="avatar-wrapper" id="avatar-btn" title="Click to upload picture" style="width: 140px; height: 140px; margin-bottom: 15px;">
+                        <img id="profile-avatar" src="assets/images/default-avatar.png" alt="Profile Picture" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23ccc\'><path d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/></svg>'">
+                        <div class="avatar-overlay">Upload</div>
+                    </div>
+                    <div class="unique-id-badge" id="display-unique-id" style="margin-top: 0;">ONNOY-......</div>
+                </div>
+
+                <!-- Right (2/3) -->
+                <div class="profile-hero-right">
+                    <h2 id="display-name" style="margin-bottom: 6px; font-size: 2.2rem; line-height: 1.2;">Loading...</h2>
+                    <p id="display-school" style="color: var(--ink-mid); margin: 0 0 4px 0; font-weight: 600; font-size: 1.1rem;"></p>
+                    <p id="display-email" style="color: var(--ink-mid); margin: 0 0 16px 0; font-size: 1rem;">...</p>
+                    
+                    <a href="#" id="display-social" target="_blank" style="display: none; width: fit-content; align-items: center; gap: 6px; padding: 6px 14px; border: 1.5px solid var(--green); border-radius: 40px; color: var(--green); font-weight: 600; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.backgroundColor='rgba(16, 185, 129, 0.1)'" onmouseout="this.style.backgroundColor='transparent'">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                        Social Profile
+                    </a>
+                </div>
+                
+            </div>
+        </header>
+
+        <main id="main" class="container fade-in" style="margin-bottom: 60px;">
+            <div class="profile-container" style="margin-top: 0;">
+                
+                <!-- Left Column: Edit Info -->
+                <div class="left-col">
+                    <div class="card">
+                        <h3>Edit Details</h3>
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label for="full_name">Full Name</label>
+                                <input type="text" id="full_name" class="form-control" placeholder="e.g. Abul Hasan">
+                            </div>
+                            <div class="form-group">
+                                <label for="school_name">School / College Name</label>
+                                <input type="text" id="school_name" class="form-control" placeholder="e.g. Mymensingh Zilla School">
+                            </div>
+                            <div class="form-group">
+                                <label for="social_link">Social Profile Link</label>
+                                <input type="url" id="social_link" class="form-control" placeholder="https://facebook.com/...">
+                            </div>
+                            <button type="submit" class="btn btn-green w-100" id="save-profile-btn">Save Changes</button>
+                        </form>
+                        <div id="profile-msg" style="margin-top: 10px; font-size: 14px; text-align: center;"></div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Progress & Badges -->
+            <div class="right-col">
+                <div class="card">
+                    <h3>Progress Tracking</h3>
+                    
+                    <div class="progress-ring-container" style="display: flex; align-items: center; justify-content: flex-start; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
+                        <div style="position: relative; width: 100px; height: 100px;">
+                            <svg viewBox="0 0 36 36" style="width: 100px; height: 100px;">
+                                <path class="circle-bg"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke="var(--bg-alt, #eee)"
+                                    stroke-width="3"
+                                />
+                                <path class="circle-progress" id="progress-ring-path"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke="var(--green)"
+                                    stroke-width="3"
+                                    stroke-dasharray="100, 100"
+                                    stroke-dashoffset="100"
+                                    stroke-linecap="round"
+                                    style="transition: stroke-dashoffset 1s ease-out;"
+                                />
+                            </svg>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; font-size: 20px;" id="progress-text">0%</div>
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; margin-bottom: 5px; font-size: 16px;">Course Progress</h4>
+                            <p style="margin: 0; color: var(--text-muted); font-size: 14px;" id="progress-desc">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <h4>Completed Modules</h4>
+                        <ul class="module-list" id="completed-modules-list">
+                            <li style="color: var(--text-muted);">No completed modules yet.</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h4>Ongoing Modules</h4>
+                        <ul class="module-list" id="ongoing-modules-list" style="opacity: 0.8;">
+                            <li style="color: var(--text-muted); padding-left: 30px;">No ongoing modules.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3>My Badges</h3>
+                    <div class="badges-grid" id="badges-grid">
+                        <div class="badge-item">
+                            <img src="assets/images/badges/aware.png" alt="Aware Badge" style="width: 48px; height: 48px; margin-bottom: 8px; object-fit: contain;">
+                            <span class="badge-name" style="font-weight: 600;">Aware</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="assets/images/badges/informed.png" alt="Informed Badge" style="width: 48px; height: 48px; margin-bottom: 8px; object-fit: contain;">
+                            <span class="badge-name" style="font-weight: 600;">Informed</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="assets/images/badges/guardian.png" alt="Guardian Badge" style="width: 48px; height: 48px; margin-bottom: 8px; object-fit: contain;">
+                            <span class="badge-name" style="font-weight: 600;">Guardian</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/profile.js"></script>
+</body>
+</html>

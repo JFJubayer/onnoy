@@ -401,6 +401,9 @@ function isComplete(key) {
 
 function setComplete(key) {
   localStorage.setItem(key, 'complete');
+  if (typeof syncLocalBadgesToDatabase === 'function') {
+    syncLocalBadgesToDatabase();
+  }
 }
 
 function buildPageNav(prevHref, nextHref, nextText = 'Next') {
@@ -520,7 +523,6 @@ function renderLesson() {
           if (lesson.storageKey === 'onnoy_lesson_overview') {
             triggerOverviewCompletionFlow();
           }
-          checkAndAwardInformedBadge();
           return;
         }
 
@@ -745,8 +747,7 @@ function renderMission() {
           feedback.className = 'module-feedback danger';
           return;
         }
-        setComplete(mission.storageKey);
-        feedback.textContent = 'Mission completed in this browser.';
+        feedback.textContent = 'Mission submitted for review. Please wait for admin approval.';
         feedback.className = 'module-feedback success';
         block.querySelectorAll('button').forEach((btn) => (btn.disabled = true));
       });
@@ -959,7 +960,6 @@ function buildMissionForm(mission, referralMode) {
     // If Supabase is not configured, fallback to standard Formspree action
     if (!window.supabaseClient) {
       console.warn("Supabase client not initialized. Falling back to Formspree submit.");
-      setComplete(mission.storageKey);
       return; // Let browser do the standard form POST
     }
 
@@ -1032,9 +1032,6 @@ function buildMissionForm(mission, referralMode) {
       if (insertError) throw insertError;
 
       // Success
-      setComplete(mission.storageKey);
-      checkAndAwardAwareBadge();
-      
       const root = document.querySelector('[data-mission]');
       if (root) {
         const statusPill = root.querySelector('.module-status-pill');
@@ -1097,8 +1094,7 @@ function buildReferralForm(mission) {
   }
   form.innerHTML += '<button class="btn btn-green full-submit" type="submit">Submit Recognition Claim →</button>';
   form.addEventListener('submit', () => {
-    setComplete(mission.storageKey);
-    checkAndAwardGuardianBadge();
+    // Form submits to formspree, admin reviews later.
   });
   section.appendChild(form);
   return section;
@@ -1480,38 +1476,7 @@ const addBadgeToDatabase = async (badgeName) => {
   }
 };
 
-function checkAndAwardInformedBadge() {
-  const allComplete = lessonOrder.every(id => isComplete(courseLessons[id].storageKey));
-  if (allComplete) {
-    if (localStorage.getItem('onnoy_badge_informed_shown') !== 'true') {
-      localStorage.setItem('onnoy_badge_informed_shown', 'true');
-      showBadgeEarnedModal('informed');
-      addBadgeToDatabase('informed');
-    }
-  }
-}
 
-function checkAndAwardAwareBadge() {
-  const threeMissions = ['spotLie', 'scamAlert', 'aiIntegrity'];
-  const threeComplete = threeMissions.every(id => isComplete(missions[id].storageKey));
-  if (threeComplete) {
-    if (localStorage.getItem('onnoy_badge_aware_shown') !== 'true') {
-      localStorage.setItem('onnoy_badge_aware_shown', 'true');
-      showBadgeEarnedModal('aware');
-      addBadgeToDatabase('aware');
-    }
-  }
-}
-
-function checkAndAwardGuardianBadge() {
-  if (isComplete(missions.guardian.storageKey)) {
-    if (localStorage.getItem('onnoy_badge_guardian_shown') !== 'true') {
-      localStorage.setItem('onnoy_badge_guardian_shown', 'true');
-      showBadgeEarnedModal('guardian');
-      addBadgeToDatabase('guardian');
-    }
-  }
-}
 
 function renderBadgesDisplay() {
   const progressCard = document.getElementById('courseProgress')?.closest('.module-content-card') || 
@@ -1583,9 +1548,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderMission();
   
   renderBadgesDisplay();
-  checkAndAwardInformedBadge();
-  checkAndAwardAwareBadge();
-  checkAndAwardGuardianBadge();
   
   const initLocks = () => {
     if (window.supabaseClient) {
