@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="OoZ8WMjco7g1Lw3HS3PAd970qPhmi762K8jUR7R_-oA" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Digital Responsibility & Cyber Safety Video Course for students in Bangladesh. Watch, learn, answer timestamped questions, and earn a verified certificate.">
+    <meta property="og:title" content="Interactive Video Course | Onnoy-অন্বয়">
+    <meta property="og:description" content="Watch lessons, test your understanding with timestamp-linked questions, and earn an official Onnoy certificate.">
+    <meta property="og:url" content="https://onnoy.vercel.app/courses/interactive-course.html">
+    <meta property="og:image" content="https://onnoy.vercel.app/assets/og-image.png">
+    <link rel="canonical" href="https://onnoy.vercel.app/courses/interactive-course.html">
+    <title>Interactive Video Course | Onnoy-অন্বয়</title>
+    <!-- PAGE: interactive-course.html | PHASE: 2 | STATUS: completed -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <!-- Page Loader -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="../index.html" class="logo"><img src="../assets/images/logo-v2.jpeg" alt="Onnoy Logo"><span data-i18n="nav-logo">Onnoy-অন্বয়</span></a>
+        <div class="nav-links">
+          <a href="../index.html" data-i18n="nav-home">Home</a>
+          <a href="../modules.html" data-i18n="nav-modules">Modules</a>
+          <div class="dropdown">
+            <a class="dropdown-toggle" href="../resources.html" data-i18n="nav-resources">Resources</a>
+            <div class="dropdown-menu">
+              <a href="../fact-check.html">Is This True?</a>
+              <a href="../support.html">Need Help?</a>
+              <a href="../quiz.html">Safety Quiz</a>
+              <a href="../checklist.html">Misinformation Checklist</a>
+              <a href="../resources-library.html">Resource Library</a>
+              <a href="../digital-safety-laws.html">Digital Safety Laws</a>
+              <a href="../stories.html">Student Stories</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <a class="dropdown-toggle" href="../faq.html" data-i18n="nav-learn">Learn</a>
+            <div class="dropdown-menu">
+              <a href="../faq.html">FAQ</a>
+              <a href="../scenario-cards.html">Scenario Cards</a>
+              <a href="../facilitator-guide.html">Facilitator Guide</a>
+              <a href="../courses.html">Courses</a>
+            </div>
+          </div>
+          <a href="../about.html" data-i18n="nav-about">About</a>
+          <a href="../contact.html" data-i18n="nav-contact">Contact Us</a>
+        </div>
+        <div class="nav-right">
+          <a href="../courses.html" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">← Back to Courses</a>
+        </div>
+        <button class="hamburger" type="button" aria-label="Toggle navigation"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-menu"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+      </div>
+    </nav>
+
+    <!-- Main Course Section -->
+    <main class="container section-gap" id="main" tabindex="-1">
+        
+        <!-- Header Bar: Student info & Course Progress -->
+        <div class="course-header-bar">
+            <div class="student-badge-info">
+                <div class="student-avatar-circle">🎓</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 1.05rem;">
+                        <span id="current-student-name">Student</span> 
+                        <span id="current-student-institution" style="font-size: 0.88rem; color: var(--ink-light); font-weight: 500;"></span>
+                    </div>
+                    <button type="button" id="btn-edit-student-profile" style="background: none; border: none; color: var(--green); font-size: 0.8rem; cursor: pointer; text-decoration: underline; padding: 0;">Edit Student Profile</button>
+                </div>
+            </div>
+
+            <div class="progress-track-wrapper">
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                    <span>Course Progress</span>
+                    <span id="course-progress-text">0 of 5 Lessons Completed (0%)</span>
+                </div>
+                <div class="progress-track-bar">
+                    <div class="progress-fill-bar" id="course-progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="view-cert-cta-btn" class="btn btn-green hidden" style="padding: 8px 18px; font-size: 0.9rem; display: none;">
+                    🎓 View Certificate
+                </button>
+            </div>
+        </div>
+
+        <!-- Course Grid Layout (Player + Playlist Sidebar) -->
+        <div class="course-layout-grid">
+            
+            <!-- Left Column: Video Player & 5 Questions -->
+            <div class="course-main-content">
+                
+                <!-- Lesson Header Info -->
+                <div style="margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <div id="course-eyebrow-name" style="font-size: 0.82rem; font-weight: 700; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;">AI Acknowledgement Course</div>
+                            <div id="active-lesson-num" style="font-size: 0.9rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Lesson 1 of 7</div>
+                        </div>
+                        <a id="active-lesson-yt-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 5px 12px; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 6px;" title="Watch directly on YouTube in new tab">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="color: #FF0000;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <span>Open on YouTube ↗</span>
+                        </a>
+                    </div>
+                    <h1 id="active-lesson-title" style="font-size: clamp(1.4rem, 2.8vw, 2rem); margin-bottom: 8px; line-height: 1.25;">AI চালাতে কেন গ্রাফিক্স কার্ড লাগে?</h1>
+                    <p id="active-lesson-desc" style="color: var(--ink-mid); font-size: 0.98rem; margin-bottom: 16px;"></p>
+                </div>
+
+                <!-- Player Embed Restriction Notice (Error 101/150 fallback) -->
+                <div id="player-embed-error-notice" class="hidden" style="margin-bottom: 16px; padding: 18px; background: #FFFBEB; border: 1px solid #F59E0B; border-radius: var(--radius); display: none;">
+                    <div style="display: flex; gap: 12px; align-items: flex-start;">
+                        <span style="font-size: 1.5rem;">⚠️</span>
+                        <div>
+                            <strong style="color: #92400E; font-size: 1rem;">Video Playback Restricted in Embed (YouTube Error 150/101)</strong>
+                            <p style="margin: 6px 0 10px 0; font-size: 0.9rem; color: #78350F; line-height: 1.4;">
+                                YouTube is preventing this video from playing inside the embedded player. This happens when <strong>"Allow embedding"</strong> is unchecked in YouTube Studio for this video.
+                            </p>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                                <a id="error-direct-yt-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-green" style="padding: 8px 16px; font-size: 0.88rem;">
+                                    Watch Video on YouTube ↗
+                                </a>
+                                <span style="font-size: 0.82rem; color: #92400E;">Watch the lesson, then answer the 5 questions below to complete it!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Player Card -->
+                <div class="video-player-card" id="course-player-container">
+                    <div id="onnoy-yt-player"></div>
+                </div>
+
+                <!-- Review Return Banner (Shown when jumping from question to video) -->
+                <div id="return-to-quiz-banner" class="review-return-banner hidden">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>⏪</span>
+                        <span id="return-banner-text">Watching video topic for Question.</span>
+                    </div>
+                    <button type="button" class="btn btn-green" id="btn-return-to-quiz" style="padding: 6px 14px; font-size: 0.85rem;">
+                        Return to Questions ⬇️
+                    </button>
+                </div>
+
+                <!-- Video Finished Banner -->
+                <div id="video-finished-banner" class="video-finished-banner hidden">
+                    <div>
+                        <strong style="color: var(--green); font-size: 1.05rem;">🎉 Video Finished!</strong>
+                        <p style="margin: 4px 0 0 0; font-size: 0.92rem;">Now answer the 5 questions below correctly to unlock the next lesson.</p>
+                    </div>
+                    <button type="button" class="btn btn-green" id="btn-start-quiz-now" style="padding: 8px 16px; font-size: 0.88rem;">
+                        Answer Questions ⬇️
+                    </button>
+                </div>
+
+                <!-- 5-Question Quiz Section -->
+                <div class="course-quiz-container" id="lesson-quiz-section">
+                    <div class="quiz-header-bar">
+                        <div>
+                            <h3 style="margin: 0; font-size: 1.3rem;">Lesson Review & Knowledge Check</h3>
+                            <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: var(--ink-light);">Answer all 5 questions correctly to advance.</p>
+                        </div>
+                        <div id="quiz-status-pill" class="quiz-status-pill pill-pending">5 Questions Required</div>
+                    </div>
+
+                    <!-- Question list populated dynamically -->
+                    <div id="quiz-questions-list"></div>
+
+                    <!-- Feedback Alert Area -->
+                    <div id="quiz-result-feedback" style="margin-top: 20px;"></div>
+
+                    <!-- Submit Actions -->
+                    <div style="margin-top: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-green" id="btn-submit-lesson-quiz" style="padding: 12px 28px; font-size: 1rem;">
+                            Submit Quiz Answers →
+                        </button>
+                        <span style="font-size: 0.85rem; color: var(--ink-light);">All 5 questions must be correct to unlock next lesson</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Playlist Sidebar -->
+            <aside class="course-sidebar-card">
+                <div class="sidebar-title">
+                    <span>Course Curriculum</span>
+                    <span id="sidebar-lessons-count" style="font-size: 0.85rem; color: var(--ink-light); font-weight: 500;">7 Lessons</span>
+                </div>
+                
+                <div class="playlist-items-list" id="course-playlist-items">
+                    <!-- Lessons rendered dynamically -->
+                </div>
+
+                <div id="sidebar-cert-status-box" style="margin-top: 24px; padding: 16px; background: var(--paper); border: 1px dashed var(--border); border-radius: var(--radius); text-align: center;">
+                    <div id="sidebar-cert-icon" style="font-size: 1.8rem; margin-bottom: 6px;">🔒</div>
+                    <h4 id="sidebar-cert-title" style="font-size: 0.95rem; margin-bottom: 4px; color: var(--ink-mid);">Certificate Locked</h4>
+                    <p id="sidebar-cert-desc" style="font-size: 0.82rem; color: var(--ink-light); margin-bottom: 0;">Unlocks automatically after completing all 5 lessons and passing all quizzes.</p>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Student Onboarding Modal -->
+    <div class="onnoy-modal-overlay" id="student-modal">
+        <div class="onnoy-modal-box">
+            <button type="button" class="modal-close-btn" id="close-student-modal" aria-label="Close modal">&times;</button>
+            <div style="text-align: center; margin-bottom: 24px;">
+                <div style="font-size: 2.2rem; margin-bottom: 8px;">🎓</div>
+                <h2 style="font-size: 1.5rem; margin-bottom: 6px;">Welcome to Onnoy Courses</h2>
+                <p style="color: var(--ink-mid); font-size: 0.95rem;">Please provide your details so we can track your progress and generate your official Certificate of Completion.</p>
+            </div>
+
+            <form id="student-enroll-form">
+                <div style="margin-bottom: 16px;">
+                    <label for="student-name" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">Full Name (নাম) <span style="color: var(--danger);">*</span></label>
+                    <input type="text" id="student-name" class="form-control" placeholder="e.g. Tanvir Ahmed" required style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border);">
+                    <small style="color: var(--ink-light); font-size: 0.78rem;">This name will appear on your official certificate.</small>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label for="student-institution" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">School / College / University Name <span style="color: var(--danger);">*</span></label>
+                    <input type="text" id="student-institution" class="form-control" placeholder="e.g. Mymensingh Zilla School / Dhaka College" required style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border);">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+                    <div>
+                        <label for="student-age" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">Age (বয়স) <span style="color: var(--danger);">*</span></label>
+                        <input type="number" id="student-age" class="form-control" min="8" max="99" placeholder="e.g. 16" required style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border);">
+                    </div>
+                    <div>
+                        <label for="student-grade" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">Class / Grade</label>
+                        <select id="student-grade" class="form-control" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--white);">
+                            <option value="Class 8">Class 8</option>
+                            <option value="Class 9">Class 9</option>
+                            <option value="Class 10">Class 10 (SSC)</option>
+                            <option value="HSC 1st Year">College / HSC 1st Year</option>
+                            <option value="HSC 2nd Year">College / HSC 2nd Year</option>
+                            <option value="University">University / Undergraduate</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px;">
+                    <div>
+                        <label for="student-district" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">District / City (জেলা)</label>
+                        <input type="text" id="student-district" class="form-control" placeholder="e.g. Mymensingh, Dhaka" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border);">
+                    </div>
+                    <div>
+                        <label for="student-email" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">Email (Optional)</label>
+                        <input type="email" id="student-email" class="form-control" placeholder="For certificate backup" style="width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border);">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-green" style="width: 100%; padding: 12px; font-size: 1rem; font-weight: 600;">
+                    Start Learning →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div class="onnoy-modal-overlay" id="certificate-modal">
+        <div class="onnoy-modal-box wide-modal">
+            <button type="button" class="modal-close-btn" id="close-certificate-modal" aria-label="Close certificate">&times;</button>
+            <div style="text-align: center; margin-bottom: 16px;">
+                <h2 style="font-size: 1.6rem; color: var(--green); margin-bottom: 4px;">🎉 Congratulations on Your Achievement!</h2>
+                <p style="color: var(--ink-mid); font-size: 0.95rem;">You have successfully completed the course and passed all knowledge checkpoints.</p>
+            </div>
+
+            <!-- Canvas Container -->
+            <div class="certificate-preview-box">
+                <canvas id="certificate-canvas"></canvas>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="modal-actions-toolbar" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <button type="button" class="btn btn-green" id="btn-download-cert-png">
+                    📥 Download Certificate (PNG)
+                </button>
+                <button type="button" class="btn btn-secondary" id="btn-print-cert-pdf">
+                    🖨️ Print / Save PDF
+                </button>
+                <button type="button" class="btn btn-outline" id="btn-copy-cert-link">
+                    📋 Copy Verification Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p data-i18n="footer-tagline">Onnoy-অন্বয় | Connecting necessary dots</p>
+      <p data-i18n="footer-address">Mymensingh, Bangladesh · Ethical Use of Technology Program</p>
+      <p data-i18n="footer-location">Mymensingh, Bangladesh</p>
+      <div class="social-links" style="margin: 15px 0;">
+        <a href="https://www.facebook.com/profile.php?id=61589327446397" target="_blank" rel="noopener" aria-label="Facebook" style="display: inline-block; margin: 0 10px; color: #FFFFFF; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@onnoybd" target="_blank" rel="noopener" aria-label="YouTube" style="display: inline-block; margin: 0 10px; color: #FFFFFF; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">
+          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+      <p class="footer-links">
+        <a href="../faq.html">FAQ</a> ·
+        <a href="../scenario-cards.html">Scenario Cards</a> ·
+        <a href="../facilitator-guide.html">Facilitator Guide</a> ·
+        <a href="../contact.html">Contact</a>
+      </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/translations.js"></script>
+    <script src="../assets/js/course-data.js"></script>
+    <script src="../assets/js/course-certificate.js"></script>
+    <script src="../assets/js/course-player.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

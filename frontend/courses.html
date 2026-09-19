@@ -84,19 +84,130 @@ gtag('config', 'GA_MEASUREMENT_ID');
     </header>
 
     <div class="container section-gap">
-        <h2 class="section-title text-center">Available Courses</h2>
+        <h2 class="section-title text-center">Available Video Courses</h2>
+        <p class="text-center" style="color: var(--ink-mid); max-width: 700px; margin: 0 auto 40px auto;">
+            Self-paced video courses for students in Bangladesh. Watch curated lessons, test your understanding with timestamp-linked questions, and earn a verified certificate.
+        </p>
+
+        <!-- Course 1: AI Acknowledgement Course -->
+        <div class="card" style="border: 2px solid var(--green); background: linear-gradient(180deg, var(--surface) 0%, rgba(236, 253, 245, 0.45) 100%); margin-bottom: 35px; padding: 32px; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span class="badge" style="background: var(--green); color: #FFF; font-size: 0.85rem; padding: 4px 12px; border-radius: var(--radius-pill);">
+                    ⭐ New Playlist Course · 7 Video Lessons
+                </span>
+                <span id="hub-ai-badge" class="badge badge-unlocked" style="font-size: 0.82rem; padding: 4px 10px;">
+                    Self-Paced
+                </span>
+            </div>
+
+            <h2 style="font-size: clamp(1.4rem, 2.5vw, 1.9rem); margin-bottom: 8px;">AI Acknowledgement & Literacy Course</h2>
+            <p style="color: var(--green); font-weight: 600; margin-bottom: 12px;">এআই পরিচিতি ও সচেতনতা কোর্স — ইউটিউব প্লেলিস্টের ওপর ইন্টারঅ্যাক্টিভ কোর্স</p>
+            <p style="color: var(--ink-mid); max-width: 820px; margin-bottom: 20px;">
+                Explore the internal mechanics of Artificial Intelligence: why AI needs GPUs, how autonomous AI agents work, why ChatGPT forgets context, RAG & real-time search, hallucinations, training & RLHF, and Transformer self-attention. Answer 5 questions per video with <strong>"Rewatch at MM:SS"</strong> shortcuts to earn your verified Onnoy credential!
+            </p>
+
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>🎬</span> <strong>7 Video Lessons</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>⏱️</span> <strong>Timestamp Seeking</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>📝</span> <strong>5 Questions / Video</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>🏅</span> <strong>Verified Certificate</strong>
+                </div>
+            </div>
+
+            <!-- Student Progress Bar Container -->
+            <div id="hub-ai-progress-box" class="hidden" style="margin-bottom: 20px; padding: 14px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); display: none;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">
+                    <span id="hub-ai-student-name">Welcome back</span>
+                    <span id="hub-ai-progress-pct">0% Completed</span>
+                </div>
+                <div class="progress-track-bar">
+                    <div class="progress-fill-bar" id="hub-ai-progress-bar-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="courses/interactive-course.html?course=ai-acknowledgement" id="hub-ai-start-btn" class="btn btn-green" style="padding: 12px 28px; font-size: 1rem;">
+                    Start AI Course (7 Lessons) →
+                </a>
+                <a href="courses/interactive-course.html?course=ai-acknowledgement" id="hub-ai-cert-btn" class="btn btn-outline hidden" style="padding: 12px 24px; font-size: 1rem; display: none;">
+                    🎓 View AI Certificate
+                </a>
+            </div>
+        </div>
+
+        <!-- Course 2: Digital Responsibility & Cyber Safety Course -->
+        <div class="card" style="border: 1px solid var(--border); background: var(--surface); margin-bottom: 40px; padding: 32px; box-shadow: var(--shadow-soft);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span class="badge" style="background: var(--surface-soft); color: var(--green); font-size: 0.85rem; padding: 4px 12px; border-radius: var(--radius-pill); font-weight: 700;">
+                    🛡️ Digital Safety · 5 Video Lessons
+                </span>
+                <span id="hub-ds-badge" class="badge badge-unlocked" style="font-size: 0.82rem; padding: 4px 10px;">
+                    Self-Paced
+                </span>
+            </div>
+
+            <h2 style="font-size: clamp(1.4rem, 2.5vw, 1.8rem); margin-bottom: 8px;">Digital Responsibility & Cyber Safety Course</h2>
+            <p style="color: var(--green); font-weight: 600; margin-bottom: 12px;">ডিজিটাল দায়িত্বশীলতা ও সাইবার সুরক্ষা — ভিডিও ও প্রশ্নোত্তরের মাধ্যমে পূর্ণাঙ্গ কোর্স</p>
+            <p style="color: var(--ink-mid); max-width: 820px; margin-bottom: 20px;">
+                Protect your digital presence in Bangladesh. Master digital footprints, spot phishing and financial fraud scams, apply the SIFT fact-checking method against rumors, secure your passwords with 2FA, and learn cyber laws.
+            </p>
+
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>🎬</span> <strong>5 Video Lessons</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>⏱️</span> <strong>Timestamp Jumps</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>📝</span> <strong>5 Questions / Video</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--ink-mid);">
+                    <span>🏅</span> <strong>Verified Certificate</strong>
+                </div>
+            </div>
+
+            <!-- Student Progress Bar Container -->
+            <div id="hub-ds-progress-box" class="hidden" style="margin-bottom: 20px; padding: 14px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); display: none;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">
+                    <span id="hub-ds-student-name">Welcome back</span>
+                    <span id="hub-ds-progress-pct">0% Completed</span>
+                </div>
+                <div class="progress-track-bar">
+                    <div class="progress-fill-bar" id="hub-ds-progress-bar-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="courses/interactive-course.html?course=digital-safety" id="hub-ds-start-btn" class="btn btn-green" style="padding: 12px 28px; font-size: 1rem;">
+                    Start Cyber Safety Course (5 Lessons) →
+                </a>
+                <a href="courses/interactive-course.html?course=digital-safety" id="hub-ds-cert-btn" class="btn btn-outline hidden" style="padding: 12px 24px; font-size: 1rem; display: none;">
+                    🎓 View Safety Certificate
+                </a>
+            </div>
+        </div>
+
+        <h3 class="section-title text-center" style="font-size: 1.4rem; margin-top: 50px;">Individual Module Worksheets</h3>
         <div class="cards-grid">
             <div class="card">
                 <div class="card-icon">01</div>
                 <h3>Course 1: Digital Safety</h3>
                 <p>Learn the basics of staying safe online in Bangladesh.</p>
-                <a href="courses/course-1.html" class="btn btn-green">Start Module</a>
+                <a href="courses/interactive-course.html?lesson=lesson-1" class="btn btn-green">Start Lesson</a>
             </div>
             <div class="card">
                 <div class="card-icon">02</div>
                 <h3>Course 2: Privacy Mastery</h3>
                 <p>Advanced techniques to protect your personal data.</p>
-                <a href="courses/course-2.html" class="btn btn-green">Start Module</a>
+                <a href="courses/interactive-course.html?lesson=lesson-2" class="btn btn-green">Start Lesson</a>
             </div>
         </div>
 
@@ -136,7 +247,83 @@ gtag('config', 'GA_MEASUREMENT_ID');
 
     <script src="assets/js/translations.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/course-data.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof OnnoyCourseStore !== 'undefined') {
+            var student = OnnoyCourseStore.getStudent();
+
+            function updateCourseCard(courseId, prefix) {
+                var course = OnnoyCourseStore.getCourse(courseId);
+                if (!course) return;
+                var total = course.lessons ? course.lessons.length : 0;
+                var progress = OnnoyCourseStore.getProgress(courseId);
+                var completedCount = progress && progress.completedLessons ? progress.completedLessons.length : 0;
+                var pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+                var progressBox = document.getElementById('hub-' + prefix + '-progress-box');
+                var studentNameEl = document.getElementById('hub-' + prefix + '-student-name');
+                var pctEl = document.getElementById('hub-' + prefix + '-progress-pct');
+                var fillEl = document.getElementById('hub-' + prefix + '-progress-bar-fill');
+                var startBtn = document.getElementById('hub-' + prefix + '-start-btn');
+                var certBtn = document.getElementById('hub-' + prefix + '-cert-btn');
+                var badgeEl = document.getElementById('hub-' + prefix + '-badge');
+
+                if (student && (completedCount > 0 || (progress && progress.startedAt))) {
+                    if (progressBox) {
+                        progressBox.style.display = 'block';
+                        progressBox.classList.remove('hidden');
+                    }
+                    if (studentNameEl) studentNameEl.textContent = 'Welcome back, ' + (student.name || 'Student') + '!';
+                    if (pctEl) pctEl.textContent = completedCount + '/' + total + ' Lessons (' + pct + '%)';
+                    if (fillEl) fillEl.style.width = pct + '%';
+
+                    if (completedCount === total && total > 0 && progress.isCourseFinished) {
+                        if (badgeEl) {
+                            badgeEl.className = 'badge badge-success';
+                            badgeEl.textContent = 'Completed (100%)';
+                        }
+                        if (startBtn) startBtn.textContent = 'Review Course (' + total + ' Lessons) →';
+                        if (certBtn) {
+                            certBtn.style.display = 'inline-flex';
+                            certBtn.classList.remove('hidden');
+                            certBtn.href = 'courses/interactive-course.html?course=' + courseId;
+                        }
+                    } else {
+                        if (certBtn) {
+                            certBtn.style.display = 'none';
+                            certBtn.classList.add('hidden');
+                        }
+                        if (completedCount > 0) {
+                            if (badgeEl) {
+                                badgeEl.className = 'badge badge-active';
+                                badgeEl.textContent = 'In Progress (' + pct + '%)';
+                            }
+                            if (startBtn) {
+                                var nextNum = completedCount + 1;
+                                startBtn.textContent = 'Continue to Lesson ' + nextNum + ' →';
+                            }
+                        }
+                    }
+                } else {
+                    if (certBtn) {
+                        certBtn.style.display = 'none';
+                        certBtn.classList.add('hidden');
+                    }
+                    if (progressBox) {
+                        progressBox.style.display = 'none';
+                        progressBox.classList.add('hidden');
+                    }
+                }
+            }
+
+            // Update both courses
+            updateCourseCard('ai-acknowledgement', 'ai');
+            updateCourseCard('digital-safety', 'ds');
+        }
+    });
+    </script>
 
     <!-- WhatsApp Float Button -->
     <a href="https://wa.me/8801830900746" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
