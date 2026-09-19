@@ -344,21 +344,39 @@ async function syncLocalBadgesToDatabase() {
 
                     const statusOrder = ['Approved', 'Mission2Unlocked', 'Mission3Unlocked', 'Mission4Unlocked'];
                     const currentStatusIdx = statusOrder.indexOf(profile.status);
+                    
                     if (currentStatusIdx >= 1) {
                         if (localStorage.getItem('onnoy_mission_spot_lie') !== 'complete') {
                             localStorage.setItem('onnoy_mission_spot_lie', 'complete');
                             localChanged = true;
                         }
+                    } else {
+                        if (localStorage.getItem('onnoy_mission_spot_lie') === 'complete') {
+                            localStorage.removeItem('onnoy_mission_spot_lie');
+                            localChanged = true;
+                        }
                     }
+                    
                     if (currentStatusIdx >= 2) {
                         if (localStorage.getItem('onnoy_mission_scam_alert') !== 'complete') {
                             localStorage.setItem('onnoy_mission_scam_alert', 'complete');
                             localChanged = true;
                         }
+                    } else {
+                        if (localStorage.getItem('onnoy_mission_scam_alert') === 'complete') {
+                            localStorage.removeItem('onnoy_mission_scam_alert');
+                            localChanged = true;
+                        }
                     }
+                    
                     if (currentStatusIdx >= 3) {
                         if (localStorage.getItem('onnoy_mission_ai_integrity') !== 'complete') {
                             localStorage.setItem('onnoy_mission_ai_integrity', 'complete');
+                            localChanged = true;
+                        }
+                    } else {
+                        if (localStorage.getItem('onnoy_mission_ai_integrity') === 'complete') {
+                            localStorage.removeItem('onnoy_mission_ai_integrity');
                             localChanged = true;
                         }
                     }

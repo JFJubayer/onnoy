@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fix DB</title>
+</head>
+<body style="font-family: sans-serif; padding: 40px;">
+    <h1>Fixing your account...</h1>
+    <div id="output" style="font-family: monospace; padding: 20px; background: #eee; border-radius: 8px;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-init.js"></script>
+    <script>
+        async function runFix() {
+            const out = document.getElementById('output');
+            out.innerHTML = "Checking session...<br>";
+            
+            const { data: { session } } = await window.supabaseClient.auth.getSession();
+            if (!session) {
+                out.innerHTML += "<b>Error: You must be logged into the Admin account on this browser.</b><br>";
+                return;
+            }
+
+            out.innerHTML += "Resetting status for dummy account...<br>";
+            
+            // Revert status to Approved
+            const { data, error } = await window.supabaseClient
+                .from('profiles')
+                .update({ status: 'Approved' })
+                .eq('status', 'Mission2Unlocked'); // Update any that got stuck
+                
+            if (error) {
+                out.innerHTML += <b style="color:red;">Error:  + error.message + </b><br>;
+                out.innerHTML += Try logging into the Admin account and reloading this page.<br>;
+            } else {
+                out.innerHTML += <b style="color:green;">Success! Your status is now 'Approved' again.</b><br>;
+                out.innerHTML += You can now go back to the Missions page.;
+            }
+        }
+        
+        setTimeout(runFix, 1000);
+    </script>
+</body>
+</html>

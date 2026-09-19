@@ -3308,61 +3308,77 @@ html[lang="bn"] .en-only {
         display: flex;
         position: absolute;
         top: 78px;
-        left: 12px;
-        right: 12px;
-        width: auto;
-        max-height: calc(100vh - 100px);
-        overflow: auto;
+        left: 0;
+        width: 50vw;
+        height: auto;
+        max-height: calc(100vh - 78px);
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
         gap: 4px;
         margin: 0;
-        padding: 14px;
+        padding: 24px 14px;
         text-align: left;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
+        background: var(--paper);
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        border-bottom-right-radius: var(--radius);
+        box-shadow: 2px 4px 12px rgba(0,0,0,0.1);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transform: translateY(-8px) scale(0.98);
+        transform: translateX(-10px);
         transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        overflow: visible;
     }
 
     .nav-links.open {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
-        transform: translateY(0) scale(1);
+        transform: translateX(0);
     }
 
     .nav-links > a,
-    .dropdown-toggle {
+    .nav-links .dropdown-toggle {
         display: block;
         padding: 12px 14px;
         border-radius: var(--radius);
+        width: 100%;
     }
 
     .nav-links > a::after,
     .dropdown-toggle::before {
         display: none;
     }
+    
+    .nav-links .dropdown {
+        position: static;
+        width: 100%;
+        display: block;
+    }
 
     .nav-links .dropdown .dropdown-menu {
-        position: static;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 50vw;
+        height: auto;
+        max-height: calc(100vh - 78px);
         display: none;
-        min-width: 0;
-        margin: 4px 0 8px;
-        padding: 6px;
-        background: var(--surface-soft);
-        border: 1px solid var(--border);
-        border-top: 0;
-        box-shadow: none;
+        margin: 0;
+        padding: 24px 14px;
+        background: var(--paper);
+        border-left: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        border-bottom-right-radius: var(--radius);
+        box-shadow: 4px 4px 12px rgba(0,0,0,0.05);
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
         transform: none;
+        overflow-y: auto;
+        text-align: left;
     }
 
     .nav-links .dropdown .dropdown-menu.open {

@@ -610,7 +610,7 @@ function renderHubProgress() {
             }
 
             // Admin bypass check
-            if (window.ADMIN_EMAILS.includes(session.user.email)) {
+            if ((window.ADMIN_EMAILS || []).includes(session.user.email)) {
               level2Gate.classList.remove('is-locked');
               if (btn) {
                 btn.setAttribute('aria-disabled', 'false');
@@ -627,8 +627,7 @@ function renderHubProgress() {
               .from('profiles')
               .select('status, unique_id')
               .eq('id', session.user.id)
-              .single()
-              .catch(() => ({ data: null }));
+              .single();
 
             if (error || !profile) {
               if (textPara) {
@@ -927,8 +926,7 @@ function buildMissionForm(mission, referralMode) {
             .from('profiles')
             .select('unique_id')
             .eq('id', user.id)
-            .single()
-            .catch(() => ({ data: null }));
+            .single();
 
           if (profile && profile.unique_id && idInput) {
             idInput.value = profile.unique_id;
@@ -1106,15 +1104,14 @@ async function triggerOverviewCompletionFlow() {
       const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
       if (session && session.user) {
         const user = session.user;
-        if (window.ADMIN_EMAILS.includes(user.email)) return;
+        if ((window.ADMIN_EMAILS || []).includes(user.email)) return;
         
         // 1. Fetch Unique ID from profile
         const { data: profile } = await window.supabaseClient
           .from('profiles')
           .select('unique_id, status')
           .eq('id', user.id)
-          .single()
-          .catch(() => ({ data: null }));
+          .single();
           
         if (profile) {
           const uniqueId = profile.unique_id;
@@ -1187,14 +1184,13 @@ async function restrictMissionAccess() {
         return;
       }
       
-      const isAdmin = window.ADMIN_EMAILS.includes(session.user.email);
+      const isAdmin = (window.ADMIN_EMAILS || []).includes(session.user.email);
       
       const { data: profile } = await window.supabaseClient
         .from('profiles')
         .select('status')
         .eq('id', session.user.id)
-        .single()
-        .catch(() => ({ data: null }));
+        .single();
         
       const status = profile?.status || 'pending';
       
@@ -1453,8 +1449,7 @@ const addBadgeToDatabase = async (badgeName) => {
           .from('profiles')
           .select('badges')
           .eq('id', session.user.id)
-          .single()
-          .catch(() => ({ data: null }));
+          .single();
 
         let currentBadges = [];
         if (profile && profile.badges) {
