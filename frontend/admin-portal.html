@@ -382,6 +382,11 @@
     </style>
 </head>
 <body class="admin-body">
+    <div id="navbar-placeholder"></div>
+    <div id="admin-floating-scroll" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: var(--admin-primary); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: #0b132b; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-size: 24px; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.background='var(--admin-primary-hover)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='var(--admin-primary)'; this.style.transform='scale(1)'">&#8593;</button>
+        <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" style="background: var(--admin-primary); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: #0b132b; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-size: 24px; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.background='var(--admin-primary-hover)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='var(--admin-primary)'; this.style.transform='scale(1)'">&#8595;</button>
+    </div>
         <div id="loadingSection" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--admin-primary); font-size: 1.2rem;">
         Verifying secure session...
     </div>
@@ -995,6 +1000,25 @@
 
         // Check session on startup
         checkSession();
+
+        // Fetch and load the navbar
+        fetch('components/navbar.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('navbar-placeholder').innerHTML = html;
+                // Simple hamburger menu logic for the navbar
+                const hamburger = document.querySelector('.hamburger');
+                const navLinks = document.querySelector('.nav-links');
+                if (hamburger && navLinks) {
+                    hamburger.addEventListener('click', () => {
+                        const isOpen = navLinks.classList.toggle('open');
+                        hamburger.innerHTML = isOpen 
+                            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' 
+                            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-menu"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+                    });
+                }
+            })
+            .catch(err => console.error('Error loading navbar:', err));
     </script>
     <div id="adminConfirmOverlay" class="admin-confirm-overlay">
         <div class="admin-confirm-modal">
