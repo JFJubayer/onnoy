@@ -2,6 +2,8 @@
   "sessions": 6,
   "students": 180,
   "districts": 40,
+  "citizens": 40,
   "satisfaction": 10,
+  "guardians": 10,
   "last_updated": "June 2026"
 }

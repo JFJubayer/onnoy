@@ -1,0 +1,44 @@
+[
+  {
+    "id": "DL-1727263000001",
+    "name": "Tanvir Ahmed",
+    "email": "tanvir.hsc@gmail.com",
+    "age": "10-18",
+    "booklet": "Not Sure What to Study? (কী নিয়ে পড়ব?)",
+    "booklet_url": "assets/docs/Onnoy-What-to-study-booklet.pdf",
+    "regular_price": "৳49",
+    "price_charged": "৳0",
+    "downloaded_at": "2026-09-25T14:30:00.000Z"
+  },
+  {
+    "id": "DL-1727263000002",
+    "name": "Farhana Yasmin",
+    "email": "farhana.du@gmail.com",
+    "age": "19-26",
+    "booklet": "Learn What Lasts in the Age of AI (এআই যুগে যা চিরস্থায়ী)",
+    "booklet_url": "assets/docs/Onnoy-Learn-What-Lasts.pdf",
+    "regular_price": "৳49",
+    "price_charged": "৳0",
+    "downloaded_at": "2026-09-25T15:15:00.000Z"
+  },
+  {
+    "id": "DL-1727263000003",
+    "name": "Kamrul Hasan",
+    "email": "kamrul.hasan@yahoo.com",
+    "age": "35+",
+    "booklet": "The Child Behind the Screen (স্ক্রিনের পেছনের কিশোর মন)",
+    "booklet_url": "assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf",
+    "regular_price": "৳49",
+    "price_charged": "৳0",
+    "downloaded_at": "2026-09-25T16:05:00.000Z"
+  },
+  {
+    "name": "Ayesha Siddiqua",
+    "email": "ayesha.siddiqua@test.org",
+    "age": "19-26",
+    "booklet": "Learn What Lasts in the Age of AI (এআই যুগে যা চিরস্থায়ী)",
+    "booklet_url": "/assets/docs/Learn_what_lasts_in_the_age_of_AI.pdf",
+    "downloaded_at": "2026-09-25T17:39:05.971259",
+    "id": "DL-1790336345971"
+  }
+]

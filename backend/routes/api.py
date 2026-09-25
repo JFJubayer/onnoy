@@ -66,6 +66,26 @@ def manage_factchecks():
     _write_json(current_app.config['FACTCHECKS_FILE'], data)
     return jsonify({'ok': True, 'message': 'Submitted for verification'})
 
+# ── WORKBOOK DOWNLOADS / LEADS ──
+@api.route('/downloads', methods=['POST', 'GET'])
+def manage_downloads():
+    downloads_file = current_app.config.get('DOWNLOADS_FILE', os.path.join(current_app.config.get('DATA_DIR', ''), 'downloads.json'))
+    if request.method == 'GET':
+        token = request.headers.get('Authorization', '').replace('Bearer ', '').strip()
+        if token != current_app.config.get('ADMIN_TOKEN'):
+            return jsonify({'ok': False, 'error': 'Unauthorized'}), 401
+        return jsonify({'ok': True, 'data': _read_json(downloads_file)})
+
+    new_dl = request.get_json(silent=True) or {}
+    new_dl['downloaded_at'] = datetime.datetime.now().isoformat()
+    if not new_dl.get('id'):
+        new_dl['id'] = f"DL-{int(datetime.datetime.now().timestamp() * 1000)}"
+    data = _read_json(downloads_file)
+    data.append(new_dl)
+    _write_json(downloads_file, data)
+    return jsonify({'ok': True, 'message': 'Download logged', 'id': new_dl['id']})
+
 @api.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'healthy', 'timestamp': datetime.datetime.now().isoformat()})
+

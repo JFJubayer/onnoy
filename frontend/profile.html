@@ -156,8 +156,12 @@
 
     <div id="navbar-placeholder"></div>
 
-    <div id="auth-alert" class="container alert error" style="display: none; text-align: center; max-width: 500px; margin: 120px auto 40px auto;">
-        You must be logged in to view your profile. <a href="login.html" style="color: var(--green); font-weight: bold; text-decoration: underline;">Log In</a>
+    <div id="auth-alert" class="container alert error" style="display: none; text-align: center; max-width: 540px; margin: 120px auto 40px auto; padding: 24px;">
+        <p style="margin-bottom: 12px; font-weight: 600;">You must be logged in to view your personal profile.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="login.html" class="btn btn-green">Log In to Profile</a>
+            <a href="badges.html" class="btn btn-secondary">View Badge Samples & Criteria</a>
+        </div>
     </div>
 
     <div id="profile-content" style="display: none;">
@@ -268,7 +272,10 @@
                 </div>
 
                 <div class="card" style="margin-top: 20px;">
-                    <h3>My Badges</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                        <h3 style="margin: 0;">My Badges</h3>
+                        <a href="badges.html" style="font-size: 0.85rem; color: var(--green); font-weight: 600; text-decoration: underline;">View Badge Samples & Criteria ↗</a>
+                    </div>
                     <div class="badges-grid" id="badges-grid">
                         <div class="badge-item">
                             <img src="assets/images/badges/aware.png" alt="Aware Badge" style="width: 48px; height: 48px; margin-bottom: 8px; object-fit: contain;">

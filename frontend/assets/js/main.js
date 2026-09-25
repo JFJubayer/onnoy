@@ -212,8 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
             toggle.setAttribute('aria-expanded', 'false');
             toggle.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
-                    e.preventDefault();
                     const menu = this.closest('.dropdown').querySelector('.dropdown-menu');
+                    if (menu.classList.contains('open')) {
+                        return; // Allow navigation to href on second tap
+                    }
+                    e.preventDefault();
                     document.querySelectorAll('.dropdown-menu.open').forEach(m => {
                         if (m !== menu) {
                             m.classList.remove('open');
@@ -221,8 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
                         }
                     });
-                    const isOpen = menu.classList.toggle('open');
-                    this.setAttribute('aria-expanded', String(isOpen));
+                    menu.classList.add('open');
+                    this.setAttribute('aria-expanded', 'true');
                 }
             });
         });

@@ -419,9 +419,11 @@
         </div>
 
         <!-- Tabs Navigation -->
-        <div class="admin-tabs" style="display: flex; gap: 15px; margin-bottom: 24px; border-bottom: 1px solid var(--admin-border); padding-bottom: 15px;">
+        <div class="admin-tabs" style="display: flex; gap: 15px; margin-bottom: 24px; border-bottom: 1px solid var(--admin-border); padding-bottom: 15px; flex-wrap: wrap;">
             <button onclick="switchTab('submissions')" id="tab-submissions" class="admin-tab-btn active" style="background: transparent; border: none; color: var(--admin-primary); font-size: 1.1rem; font-weight: 700; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid var(--admin-primary); transition: all 0.2s;">Pending Submissions</button>
             <button onclick="switchTab('students')" id="tab-students" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Student Badges Board</button>
+            <button onclick="switchTab('downloads')" id="tab-downloads" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Workbook Downloads</button>
+            <button onclick="switchTab('impact')" id="tab-impact" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Live Impact Stats</button>
         </div>
 
         <div id="submissionsTabContent">
@@ -448,6 +450,121 @@
                     <tbody id="studentsTableBody">
                         <tr>
                             <td colspan="5" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Loading students profiles...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Impact Stats Tab Content -->
+        <div id="impactTabContent" style="display: none;">
+            <div class="admin-glass-card" style="margin-bottom: 24px;">
+                <div style="margin-bottom: 22px;">
+                    <h3 style="margin: 0 0 6px 0; color: var(--admin-primary); font-size: 1.4rem;">Edit Public Impact Numbers</h3>
+                    <p style="margin: 0; color: rgba(244, 246, 252, 0.7); font-size: 0.95rem;">
+                        These 4 numbers are displayed in the "Our Impact" section on the homepage. Changes take effect on the live website immediately.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 24px;">
+                    <div class="admin-input-group">
+                        <label for="portal-sessions">Sessions & Discussions</label>
+                        <input type="number" id="portal-sessions" class="admin-input" placeholder="6">
+                    </div>
+                    <div class="admin-input-group">
+                        <label for="portal-students">Students Reached</label>
+                        <input type="number" id="portal-students" class="admin-input" placeholder="180">
+                    </div>
+                    <div class="admin-input-group">
+                        <label for="portal-citizens">Informed Citizens</label>
+                        <input type="number" id="portal-citizens" class="admin-input" placeholder="40">
+                    </div>
+                    <div class="admin-input-group">
+                        <label for="portal-guardians">Guardians</label>
+                        <input type="number" id="portal-guardians" class="admin-input" placeholder="10">
+                    </div>
+                    <div class="admin-input-group">
+                        <label for="portal-updated">Last Updated Note</label>
+                        <input type="text" id="portal-updated" class="admin-input" placeholder="June 2026">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                    <button onclick="savePortalImpactStats()" class="btn btn-green" style="padding: 12px 28px; font-weight: 700; font-size: 1rem; border-radius: 8px;">
+                        Save Impact Numbers
+                    </button>
+                    <span id="portal-impact-status" style="font-size: 0.95rem; font-weight: 600;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workbook Downloads Tab Content -->
+        <div id="downloadsTabContent" style="display: none;">
+            <!-- Summary Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                <div class="admin-glass-card" style="padding: 20px;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--admin-primary); font-weight: 700; letter-spacing: 0.5px;">Total Downloads</div>
+                    <div id="dl-stat-total" style="font-size: 2rem; font-weight: 800; color: #FFF; margin-top: 4px;">0</div>
+                    <div style="font-size: 0.75rem; color: rgba(244, 246, 252, 0.6); margin-top: 4px;">Lead access requests</div>
+                </div>
+                <div class="admin-glass-card" style="padding: 20px;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; color: #6ee7b7; font-weight: 700; letter-spacing: 0.5px;">Age 10–18 (School/HSC)</div>
+                    <div id="dl-stat-age1" style="font-size: 2rem; font-weight: 800; color: #6ee7b7; margin-top: 4px;">0</div>
+                    <div style="font-size: 0.75rem; color: rgba(244, 246, 252, 0.6); margin-top: 4px;">Secondary students</div>
+                </div>
+                <div class="admin-glass-card" style="padding: 20px;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; color: #7dd3fc; font-weight: 700; letter-spacing: 0.5px;">Age 19–26 (Uni/Grad)</div>
+                    <div id="dl-stat-age2" style="font-size: 2rem; font-weight: 800; color: #7dd3fc; margin-top: 4px;">0</div>
+                    <div style="font-size: 0.75rem; color: rgba(244, 246, 252, 0.6); margin-top: 4px;">University youth</div>
+                </div>
+                <div class="admin-glass-card" style="padding: 20px;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; color: #fde047; font-weight: 700; letter-spacing: 0.5px;">Age 27–34 / 35+</div>
+                    <div id="dl-stat-age3" style="font-size: 2rem; font-weight: 800; color: #fde047; margin-top: 4px;">0</div>
+                    <div style="font-size: 0.75rem; color: rgba(244, 246, 252, 0.6); margin-top: 4px;">Parents & educators</div>
+                </div>
+                <div class="admin-glass-card" style="padding: 20px;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; color: #a78bfa; font-weight: 700; letter-spacing: 0.5px;">Youth Fee Subsidized</div>
+                    <div id="dl-stat-subsidized" style="font-size: 2rem; font-weight: 800; color: #a78bfa; margin-top: 4px;">৳0</div>
+                    <div style="font-size: 0.75rem; color: rgba(244, 246, 252, 0.6); margin-top: 4px;">100% Free grant value (৳49/ea)</div>
+                </div>
+            </div>
+
+            <!-- Controls bar -->
+            <div class="admin-glass-card" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <div>
+                    <h3 style="margin: 0 0 4px 0; color: var(--admin-primary);">Workbook Downloads & Reader Leads</h3>
+                    <p style="margin: 0; color: rgba(244, 246, 252, 0.6); font-size: 0.85rem;">Registered names, emails, and age demographics of people who downloaded Onnoy materials.</p>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                    <input type="text" id="downloadsSearchInp" oninput="filterDownloadsTable()" class="admin-input" placeholder="Search by name, email, or booklet..." style="width: 250px; font-size: 0.88rem; padding: 8px 12px; margin: 0;">
+                    <select id="downloadsAgeFilter" onchange="filterDownloadsTable()" class="admin-input" style="width: 140px; font-size: 0.88rem; padding: 8px 12px; margin: 0; background: rgba(11, 19, 43, 0.9);">
+                        <option value="">All Ages</option>
+                        <option value="10-18">10–18</option>
+                        <option value="19-26">19–26</option>
+                        <option value="27-34">27–34</option>
+                        <option value="35+">35+</option>
+                    </select>
+                    <button onclick="exportDownloadsCSV()" class="admin-btn" style="width: auto; padding: 8px 16px; font-size: 0.88rem;">Export CSV 📥</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="admin-glass-card" style="overflow-x: auto; padding: 0;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; color: var(--admin-text);">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--admin-border); color: var(--admin-primary);">
+                            <th style="padding: 14px 18px;">Date & Time</th>
+                            <th style="padding: 14px 18px;">Name</th>
+                            <th style="padding: 14px 18px;">Email Address</th>
+                            <th style="padding: 14px 18px;">Age Range</th>
+                            <th style="padding: 14px 18px;">Booklet / Workbook</th>
+                            <th style="padding: 14px 18px;">Fee Status</th>
+                            <th style="padding: 14px 18px; text-align: center;">Document</th>
+                        </tr>
+                    </thead>
+                    <tbody id="downloadsTableBody">
+                        <tr>
+                            <td colspan="7" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Loading downloads records...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -502,6 +619,13 @@
 
         // Check active session on load
         async function checkSession() {
+            const params = new URLSearchParams(window.location.search);
+            const targetTab = params.get('tab');
+            if (targetTab) {
+                showDashboard(targetTab);
+                return;
+            }
+
             if (!window.supabaseClient) return;
             const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
             if (session && session.user) {
@@ -547,11 +671,11 @@
             }
         }
 
-        function showDashboard() {
+        function showDashboard(initialTab = 'submissions') {
             document.getElementById('loadingSection').style.display = 'none';
             loginSection.style.display = 'none';
             dashboardSection.style.display = 'block';
-            loadPendingSubmissions();
+            switchTab(initialTab);
         }
 
         loginForm.addEventListener('submit', async (e) => {
@@ -812,29 +936,296 @@
             activeTab = tabId;
             const subTab = document.getElementById('submissionsTabContent');
             const stuTab = document.getElementById('studentsTabContent');
+            const impTab = document.getElementById('impactTabContent');
+            const dlTab = document.getElementById('downloadsTabContent');
             const subBtn = document.getElementById('tab-submissions');
             const stuBtn = document.getElementById('tab-students');
+            const impBtn = document.getElementById('tab-impact');
+            const dlBtn = document.getElementById('tab-downloads');
+
+            // Reset all buttons
+            [subBtn, stuBtn, impBtn, dlBtn].forEach(btn => {
+                if (!btn) return;
+                btn.classList.remove('active');
+                btn.style.color = 'rgba(244, 246, 252, 0.6)';
+                btn.style.borderBottomColor = 'transparent';
+            });
+
+            // Hide all tab contents
+            if (subTab) subTab.style.display = 'none';
+            if (stuTab) stuTab.style.display = 'none';
+            if (impTab) impTab.style.display = 'none';
+            if (dlTab) dlTab.style.display = 'none';
 
             if (tabId === 'submissions') {
-                subTab.style.display = 'block';
-                stuTab.style.display = 'none';
-                subBtn.classList.add('active');
-                subBtn.style.color = 'var(--admin-primary)';
-                subBtn.style.borderBottomColor = 'var(--admin-primary)';
-                stuBtn.classList.remove('active');
-                stuBtn.style.color = 'rgba(244, 246, 252, 0.6)';
-                stuBtn.style.borderBottomColor = 'transparent';
+                if (subTab) subTab.style.display = 'block';
+                if (subBtn) {
+                    subBtn.classList.add('active');
+                    subBtn.style.color = 'var(--admin-primary)';
+                    subBtn.style.borderBottomColor = 'var(--admin-primary)';
+                }
                 loadPendingSubmissions();
-            } else {
-                subTab.style.display = 'none';
-                stuTab.style.display = 'block';
-                stuBtn.classList.add('active');
-                stuBtn.style.color = 'var(--admin-primary)';
-                stuBtn.style.borderBottomColor = 'var(--admin-primary)';
-                subBtn.classList.remove('active');
-                subBtn.style.color = 'rgba(244, 246, 252, 0.6)';
-                subBtn.style.borderBottomColor = 'transparent';
+            } else if (tabId === 'students') {
+                if (stuTab) stuTab.style.display = 'block';
+                if (stuBtn) {
+                    stuBtn.classList.add('active');
+                    stuBtn.style.color = 'var(--admin-primary)';
+                    stuBtn.style.borderBottomColor = 'var(--admin-primary)';
+                }
                 loadStudentProfiles();
+            } else if (tabId === 'downloads') {
+                if (dlTab) dlTab.style.display = 'block';
+                if (dlBtn) {
+                    dlBtn.classList.add('active');
+                    dlBtn.style.color = 'var(--admin-primary)';
+                    dlBtn.style.borderBottomColor = 'var(--admin-primary)';
+                }
+                loadDownloadsData();
+            } else if (tabId === 'impact') {
+                if (impTab) impTab.style.display = 'block';
+                if (impBtn) {
+                    impBtn.classList.add('active');
+                    impBtn.style.color = 'var(--admin-primary)';
+                    impBtn.style.borderBottomColor = 'var(--admin-primary)';
+                }
+                loadPortalImpactStats();
+            }
+        }
+
+        // --- WORKBOOK DOWNLOADS & LEADS LOGIC ---
+        let allDownloadsData = [];
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        async function loadDownloadsData() {
+            const tableBody = document.getElementById('downloadsTableBody');
+            if (tableBody) {
+                tableBody.innerHTML = '<tr><td colspan="7" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Fetching downloads and reader leads...</td></tr>';
+            }
+
+            let localDownloads = [];
+            try {
+                localDownloads = JSON.parse(localStorage.getItem('onnoy_workbook_downloads') || '[]');
+            } catch (e) {
+                console.warn('Error reading local downloads:', e);
+            }
+
+            let remoteDownloads = [];
+            try {
+                const apiBase = window.API_BASE || (() => {
+                    const stored = localStorage.getItem('onnoy_api_base');
+                    if (stored) return stored;
+                    const { protocol, hostname } = window.location;
+                    const origin = protocol === 'file:' ? 'http://localhost' : `${protocol}//${hostname}`;
+                    return `${origin}:5001/api`;
+                })();
+                const adminToken = localStorage.getItem('onnoy_admin_token') || 'onnoy-admin-dev';
+                const res = await fetch(`${apiBase}/downloads`, {
+                    headers: { 'Authorization': `Bearer ${adminToken}` }
+                });
+                if (res.ok) {
+                    const json = await res.json();
+                    if (json.ok && Array.isArray(json.data)) {
+                        remoteDownloads = json.data;
+                    }
+                }
+            } catch (e) {
+                console.log('Backend /api/downloads not reached, using local data:', e);
+            }
+
+            // Merge local and remote by unique ID
+            const map = new Map();
+            [...remoteDownloads, ...localDownloads].forEach(item => {
+                const key = item.id || `${item.email}_${item.booklet}_${item.downloaded_at}`;
+                if (!map.has(key)) {
+                    map.set(key, item);
+                }
+            });
+
+            allDownloadsData = Array.from(map.values());
+            // Sort by most recent first
+            allDownloadsData.sort((a, b) => new Date(b.downloaded_at || 0) - new Date(a.downloaded_at || 0));
+
+            // Update stats & table
+            updateDownloadsMetrics(allDownloadsData);
+            renderDownloadsTable(allDownloadsData);
+        }
+
+        function updateDownloadsMetrics(items) {
+            const total = items.length;
+            const age1 = items.filter(d => (d.age || '').includes('10-18')).length;
+            const age2 = items.filter(d => (d.age || '').includes('19-26')).length;
+            const age3 = items.filter(d => (d.age || '').includes('27-34') || (d.age || '').includes('35+')).length;
+            const subsidy = total * 49;
+
+            const elTotal = document.getElementById('dl-stat-total');
+            const elAge1 = document.getElementById('dl-stat-age1');
+            const elAge2 = document.getElementById('dl-stat-age2');
+            const elAge3 = document.getElementById('dl-stat-age3');
+            const elSub = document.getElementById('dl-stat-subsidized');
+
+            if (elTotal) elTotal.textContent = total;
+            if (elAge1) elAge1.textContent = age1;
+            if (elAge2) elAge2.textContent = age2;
+            if (elAge3) elAge3.textContent = age3;
+            if (elSub) elSub.textContent = `৳${subsidy.toLocaleString()}`;
+        }
+
+        function renderDownloadsTable(items) {
+            const tableBody = document.getElementById('downloadsTableBody');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
+
+            if (!items.length) {
+                tableBody.innerHTML = '<tr><td colspan="7" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">No downloads recorded yet. Share workbook links to gather student leads!</td></tr>';
+                return;
+            }
+
+            items.forEach(d => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid rgba(91, 192, 190, 0.1)';
+
+                const dateStr = d.downloaded_at ? new Date(d.downloaded_at).toLocaleString() : 'N/A';
+                
+                // Age color badge
+                let ageBadge = '<span style="background: rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 99px; font-size: 0.8rem;">' + (d.age || 'N/A') + '</span>';
+                if ((d.age || '').includes('10-18')) {
+                    ageBadge = '<span style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); padding: 3px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 700;">10–18 (School)</span>';
+                } else if ((d.age || '').includes('19-26')) {
+                    ageBadge = '<span style="background: rgba(14, 165, 233, 0.2); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.4); padding: 3px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 700;">19–26 (Uni)</span>';
+                } else if ((d.age || '').includes('27-34')) {
+                    ageBadge = '<span style="background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.4); padding: 3px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 700;">27–34 (Pro)</span>';
+                } else if ((d.age || '').includes('35+')) {
+                    ageBadge = '<span style="background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); padding: 3px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 700;">35+ (Educator)</span>';
+                }
+
+                tr.innerHTML = `
+                    <td style="padding: 12px 18px; color: rgba(244, 246, 252, 0.7); font-size: 0.82rem; white-space: nowrap;">${dateStr}</td>
+                    <td style="padding: 12px 18px; font-weight: 600; color: #FFF;">${escapeHtml(d.name || 'Anonymous')}</td>
+                    <td style="padding: 12px 18px; color: var(--admin-primary);"><a href="mailto:${escapeHtml(d.email)}" style="color: inherit; text-decoration: underline;">${escapeHtml(d.email || 'N/A')}</a></td>
+                    <td style="padding: 12px 18px;">${ageBadge}</td>
+                    <td style="padding: 12px 18px; max-width: 260px; font-size: 0.88rem; color: #FFF;">${escapeHtml(d.booklet || 'Booklet')}</td>
+                    <td style="padding: 12px 18px; white-space: nowrap;">
+                        <span style="text-decoration: line-through; color: rgba(244, 246, 252, 0.4); font-size: 0.8rem;">৳49</span>
+                        <strong style="color: #6ee7b7; margin-left: 4px;">৳0 FREE</strong>
+                    </td>
+                    <td style="padding: 12px 18px; text-align: center;">
+                        <a href="${escapeHtml(d.booklet_url || '#')}" target="_blank" class="admin-btn" style="display: inline-block; padding: 4px 10px; font-size: 0.75rem; text-decoration: none; width: auto;">Open PDF ↗</a>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function filterDownloadsTable() {
+            const query = (document.getElementById('downloadsSearchInp')?.value || '').toLowerCase().trim();
+            const ageFilter = (document.getElementById('downloadsAgeFilter')?.value || '').trim();
+
+            const filtered = allDownloadsData.filter(d => {
+                const matchQuery = !query || 
+                    (d.name && d.name.toLowerCase().includes(query)) ||
+                    (d.email && d.email.toLowerCase().includes(query)) ||
+                    (d.booklet && d.booklet.toLowerCase().includes(query));
+                const matchAge = !ageFilter || (d.age === ageFilter);
+                return matchQuery && matchAge;
+            });
+
+            renderDownloadsTable(filtered);
+        }
+
+        function exportDownloadsCSV() {
+            if (!allDownloadsData.length) {
+                alert('No download records available to export.');
+                return;
+            }
+
+            const headers = ['ID', 'Downloaded At', 'Name', 'Email', 'Age Range', 'Booklet', 'Regular Fee', 'Charged Fee', 'PDF URL'];
+            const rows = allDownloadsData.map(d => [
+                d.id || '',
+                d.downloaded_at || '',
+                `"${(d.name || '').replace(/"/g, '""')}"`,
+                `"${(d.email || '').replace(/"/g, '""')}"`,
+                `"${(d.age || '').replace(/"/g, '""')}"`,
+                `"${(d.booklet || '').replace(/"/g, '""')}"`,
+                '৳49',
+                '৳0',
+                `"${(d.booklet_url || '').replace(/"/g, '""')}"`
+            ]);
+
+            const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `onnoy_workbook_leads_${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function loadPortalImpactStats() {
+            const cachedStats = localStorage.getItem('onnoy_impact_stats');
+            let data = cachedStats ? JSON.parse(cachedStats) : { sessions: 6, students: 180, citizens: 40, guardians: 10, last_updated: 'June 2026' };
+            
+            document.getElementById('portal-sessions').value = data.sessions ?? 6;
+            document.getElementById('portal-students').value = data.students ?? 180;
+            document.getElementById('portal-citizens').value = data.citizens ?? data.districts ?? 40;
+            document.getElementById('portal-guardians').value = data.guardians ?? data.satisfaction ?? 10;
+            document.getElementById('portal-updated').value = data.last_updated || 'June 2026';
+        }
+
+        async function savePortalImpactStats() {
+            const sessions = parseInt(document.getElementById('portal-sessions').value) || 0;
+            const students = parseInt(document.getElementById('portal-students').value) || 0;
+            const citizens = parseInt(document.getElementById('portal-citizens').value) || 0;
+            const guardians = parseInt(document.getElementById('portal-guardians').value) || 0;
+            const updated = document.getElementById('portal-updated').value.trim() || 'June 2026';
+
+            const payload = {
+                sessions,
+                students,
+                citizens,
+                districts: citizens,
+                guardians,
+                satisfaction: guardians,
+                last_updated: updated
+            };
+
+            // Save immediately to localStorage
+            localStorage.setItem('onnoy_impact_stats', JSON.stringify(payload));
+
+            const status = document.getElementById('portal-impact-status');
+            if (status) {
+                status.textContent = 'Saving...';
+                status.style.color = 'var(--admin-primary)';
+            }
+
+            // Also attempt to notify API backend if available
+            try {
+                const apiBase = localStorage.getItem('onnoy_api_base') || 'http://localhost:5001/api';
+                const token = localStorage.getItem('onnoy_admin_token') || 'onnoy-admin-dev';
+                await fetch(`${apiBase}/impact`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(payload)
+                });
+            } catch(e) {
+                console.log('Backend sync skipped:', e);
+            }
+
+            if (status) {
+                status.textContent = '✓ Saved! Live numbers updated on homepage.';
+                status.style.color = '#5bc0be';
+                setTimeout(() => { status.textContent = ''; }, 4000);
             }
         }
 

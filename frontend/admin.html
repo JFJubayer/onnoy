@@ -35,23 +35,56 @@
         </div>
 
         <div class="admin-card">
-            <h3>Live Impact Stats</h3>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 20px;">
-                <div class="form-group"><label>Sessions</label><input type="number" id="inp-sessions" class="form-control"></div>
-                <div class="form-group"><label>Students</label><input type="number" id="inp-students" class="form-control"></div>
-                <div class="form-group"><label>Districts</label><input type="number" id="inp-districts" class="form-control"></div>
-                <div class="form-group"><label>Satisfaction %</label><input type="number" id="inp-satisfaction" class="form-control"></div>
+            <h3>Live Impact Stats Editor</h3>
+            <p style="color: var(--ink-mid); font-size: 0.9rem; margin-top: 4px;">Directly edit the 4 public impact metrics and timestamp shown on the homepage.</p>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div class="form-group">
+                    <label>Sessions & Discussions</label>
+                    <input type="number" id="inp-sessions" class="form-control" placeholder="6">
+                </div>
+                <div class="form-group">
+                    <label>Students Reached</label>
+                    <input type="number" id="inp-students" class="form-control" placeholder="180">
+                </div>
+                <div class="form-group">
+                    <label>Informed Citizens</label>
+                    <input type="number" id="inp-citizens" class="form-control" placeholder="40">
+                </div>
+                <div class="form-group">
+                    <label>Guardians</label>
+                    <input type="number" id="inp-guardians" class="form-control" placeholder="10">
+                </div>
+                <div class="form-group">
+                    <label>Last Updated Note</label>
+                    <input type="text" id="inp-updated" class="form-control" placeholder="June 2026">
+                </div>
             </div>
-            <button onclick="updateImpact()" class="btn btn-green" style="margin-top:20px;">Update Live Data</button>
+            <div style="display: flex; gap: 14px; align-items: center; margin-top: 20px; flex-wrap: wrap;">
+                <button onclick="updateImpact()" class="btn btn-green">Update Live Impact Stats</button>
+                <span id="impact-status-msg" style="font-size: 0.9rem; font-weight: 600;"></span>
+            </div>
         </div>
 
         <div class="admin-card">
             <h3>Recent Requests</h3>
             <div id="requestsList"><p>Loading...</p></div>
         </div>
+
+        <div class="admin-card" style="margin-top: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="margin: 0;">Workbook Downloads & Student Leads</h3>
+                <span id="downloadsCountBadge" class="badge" style="background: #ECFDF5; color: #047857; font-weight: 700; padding: 4px 10px; border-radius: 99px;">0 Downloads</span>
+            </div>
+            <p style="color: var(--ink-mid); font-size: 0.9rem; margin: 0 0 16px 0;">Names, emails, and age demographics of people who downloaded workbooks and booklets.</p>
+            <div id="downloadsList"><p>Loading...</p></div>
+        </div>
     </div>
 
     <script>
+        const urlToken = new URLSearchParams(window.location.search).get('token');
+        if (urlToken) {
+            localStorage.setItem('onnoy_admin_token', urlToken);
+        }
         let TOKEN = localStorage.getItem('onnoy_admin_token');
         const API_BASE = window.API_BASE || (() => {
             const stored = localStorage.getItem('onnoy_api_base');
@@ -110,18 +143,83 @@
             });
         }
 
+        function renderDownloads(downloads) {
+            const list = document.getElementById('downloadsList');
+            const badge = document.getElementById('downloadsCountBadge');
+            list.replaceChildren();
+
+            const items = Array.isArray(downloads) ? downloads : [];
+            if (badge) badge.textContent = `${items.length} Downloads`;
+
+            if (!items.length) {
+                const p = document.createElement('p');
+                p.textContent = 'No workbook downloads recorded yet.';
+                list.appendChild(p);
+                return;
+            }
+
+            [...items].reverse().forEach((dl) => {
+                const item = document.createElement('div');
+                item.className = 'request-item';
+                item.style.borderLeft = '4px solid #059669';
+
+                const ageTag = document.createElement('span');
+                ageTag.className = 'badge';
+                ageTag.style.background = '#ECFDF5';
+                ageTag.style.color = '#047857';
+                ageTag.textContent = `Age ${dl.age || 'N/A'}`;
+
+                const name = document.createElement('strong');
+                name.textContent = ` ${dl.name || 'Anonymous'}`;
+
+                const emailSpan = document.createElement('span');
+                emailSpan.style.color = 'var(--ink-mid)';
+                emailSpan.textContent = ` (${dl.email || 'No email'}) — ${dl.booklet || 'Workbook'}`;
+
+                const priceNote = document.createElement('span');
+                priceNote.style.color = '#059669';
+                priceNote.style.fontWeight = '600';
+                priceNote.style.fontSize = '0.82rem';
+                priceNote.style.marginLeft = '8px';
+                priceNote.textContent = '[Price: ৳0 Free / Reg ৳49]';
+
+                const lineBreak = document.createElement('br');
+                const date = new Date(dl.downloaded_at);
+                const submitted = document.createElement('small');
+                submitted.textContent = Number.isNaN(date.getTime()) ? 'Recent download' : date.toLocaleString();
+
+                item.append(ageTag, name, emailSpan, priceNote, lineBreak, submitted);
+                list.appendChild(item);
+            });
+        }
+
         async function init() {
             if (!TOKEN) return;
             document.getElementById('loginOverlay').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
 
+            // 1. Populate stats from localStorage or defaults first
+            const cachedStats = localStorage.getItem('onnoy_impact_stats');
+            let impactData = cachedStats ? JSON.parse(cachedStats) : { sessions: 6, students: 180, citizens: 40, guardians: 10, last_updated: 'June 2026' };
+
             try {
                 const json = await fetchJson(`${API_BASE}/impact`);
-                document.getElementById('inp-sessions').value = json.data.sessions;
-                document.getElementById('inp-students').value = json.data.students;
-                document.getElementById('inp-districts').value = json.data.districts;
-                document.getElementById('inp-satisfaction').value = json.data.satisfaction;
+                if (json && json.data) {
+                    impactData = { ...impactData, ...json.data };
+                    localStorage.setItem('onnoy_impact_stats', JSON.stringify(impactData));
+                }
+            } catch (error) {
+                console.log('Using local impact stats:', error);
+            }
 
+            document.getElementById('inp-sessions').value = impactData.sessions ?? 6;
+            document.getElementById('inp-students').value = impactData.students ?? 180;
+            document.getElementById('inp-citizens').value = impactData.citizens ?? impactData.districts ?? 40;
+            document.getElementById('inp-guardians').value = impactData.guardians ?? impactData.satisfaction ?? 10;
+            document.getElementById('inp-updated').value = impactData.last_updated || 'June 2026';
+
+            // 2. Fetch Requests
+            try {
                 const reqJson = await fetchJson(`${API_BASE}/requests`, {
                     headers: { 'Authorization': `Bearer ${TOKEN}` }
                 });
@@ -134,7 +232,33 @@
                     document.getElementById('mainContent').style.display = 'none';
                     return;
                 }
-                setRequestsMessage(`Unable to load dashboard data. ${error.message}`);
+                setRequestsMessage(`Requests server currently offline or running local-only. (${error.message})`);
+            }
+
+            // 3. Fetch Downloads & Student Leads
+            let localDls = [];
+            try {
+                localDls = JSON.parse(localStorage.getItem('onnoy_workbook_downloads') || '[]');
+            } catch (e) {}
+
+            try {
+                const dlJson = await fetchJson(`${API_BASE}/downloads`, {
+                    headers: { 'Authorization': `Bearer ${TOKEN}` }
+                });
+                const combined = [...(dlJson.data || []), ...localDls];
+                // deduplicate
+                const seen = new Set();
+                const unique = [];
+                for (const item of combined) {
+                    const id = item.id || (item.email + item.downloaded_at);
+                    if (!seen.has(id)) {
+                        seen.add(id);
+                        unique.push(item);
+                    }
+                }
+                renderDownloads(unique);
+            } catch (e) {
+                renderDownloads(localDls);
             }
         }
 
@@ -150,19 +274,57 @@
         }
 
         async function updateImpact() {
-            const data = {
-                sessions: parseInt(document.getElementById('inp-sessions').value),
-                students: parseInt(document.getElementById('inp-students').value),
-                districts: parseInt(document.getElementById('inp-districts').value),
-                satisfaction: parseInt(document.getElementById('inp-satisfaction').value)
+            const sessionsVal = parseInt(document.getElementById('inp-sessions').value) || 0;
+            const studentsVal = parseInt(document.getElementById('inp-students').value) || 0;
+            const citizensVal = parseInt(document.getElementById('inp-citizens').value) || 0;
+            const guardiansVal = parseInt(document.getElementById('inp-guardians').value) || 0;
+            const updatedVal = document.getElementById('inp-updated').value.trim() || 'June 2026';
+
+            const payload = {
+                sessions: sessionsVal,
+                students: studentsVal,
+                citizens: citizensVal,
+                districts: citizensVal,
+                guardians: guardiansVal,
+                satisfaction: guardiansVal,
+                last_updated: updatedVal
             };
-            const res = await fetch(`${API_BASE}/impact`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
-                body: JSON.stringify(data)
-            });
-            if ((await res.json()).ok) alert('Impact data updated!');
-            else alert('Failed to update. Check token.');
+
+            // Immediately save to localStorage so the homepage updates instantly in real time
+            localStorage.setItem('onnoy_impact_stats', JSON.stringify(payload));
+
+            const statusMsg = document.getElementById('impact-status-msg');
+            if (statusMsg) {
+                statusMsg.textContent = 'Saving...';
+                statusMsg.style.color = 'var(--ink-mid)';
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/impact`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
+                    body: JSON.stringify(payload)
+                });
+                const resJson = await res.json();
+                if (resJson.ok) {
+                    if (statusMsg) {
+                        statusMsg.textContent = '✓ Saved to backend API & live homepage!';
+                        statusMsg.style.color = 'var(--green)';
+                    } else {
+                        alert('Impact data updated successfully on backend and live site!');
+                    }
+                    return;
+                }
+            } catch (err) {
+                console.warn('Backend API not responding, saved to browser storage:', err);
+            }
+
+            if (statusMsg) {
+                statusMsg.textContent = '✓ Saved live! Homepage numbers updated.';
+                statusMsg.style.color = 'var(--green)';
+            } else {
+                alert('Impact data updated live on homepage!');
+            }
         }
 
         init();

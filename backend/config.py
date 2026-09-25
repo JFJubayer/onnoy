@@ -11,6 +11,7 @@ class Config:
     IMPACT_FILE  = os.path.join(DATA_DIR, 'impact.json')
     REQUESTS_FILE = os.path.join(DATA_DIR, 'requests.json')
     FACTCHECKS_FILE = os.path.join(DATA_DIR, 'factchecks.json')
+    DOWNLOADS_FILE = os.path.join(DATA_DIR, 'downloads.json')
     ADMIN_TOKEN  = os.environ.get('ADMIN_TOKEN', 'onnoy-admin-dev')
 
 class DevelopmentConfig(Config):

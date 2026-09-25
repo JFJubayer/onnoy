@@ -3,7 +3,9 @@ const translations = {
   "nav-logo": { "en": "Onnoy-অন্বয়", "bn": "Onnoy-অন্বয়" },
   "nav-home": { "en": "Home", "bn": "মূল পাতা" },
   "nav-modules": { "en": "Modules", "bn": "মডিউল" },
+  "nav-courses": { "en": "Courses", "bn": "কোর্স" },
   "nav-resources": { "en": "Resources", "bn": "রিসোর্স" },
+  "nav-faq": { "en": "FAQ", "bn": "প্রশ্নোত্তর" },
   "nav-learn": { "en": "Learn", "bn": "শিখুন" },
   "nav-about": { "en": "About", "bn": "আমাদের সম্পর্কে" },
   "nav-contact": { "en": "Contact Us", "bn": "যোগাযোগ" },
@@ -26,31 +28,31 @@ const translations = {
 
   // Hero Section
   "hero-title": { 
-    "en": "Building Responsible Digital Citizens", 
-    "bn": "দায়িত্বশীল ডিজিটাল নাগরিক গড়ে তোলা" 
+    "en": "Empowering Independent Thinkers", 
+    "bn": "স্বাধীন চিন্তার বিকাশ ও সঠিক সিদ্ধান্ত গ্রহণ" 
   },
   "hero-brand": {
     "en": "Onnoy - অন্বয়",
     "bn": "অন্বয় - Onnoy"
   },
   "hero-tagline": {
-    "en": "A Responsible Digital Youth Initiative",
-    "bn": "একটি দায়িত্বশীল ডিজিটাল যুব উদ্যোগ"
+    "en": "Helping Bangladesh's youth think clearly, decide well, and use technology on their own terms.",
+    "bn": "তরুণ প্রজন্মকে স্পষ্ট চিন্তা, সঠিক সিদ্ধান্ত ও প্রযুক্তির সুস্থ ব্যবহারে সহায়তা।"
   },
   "hero-p": { 
-    "en": "A youth-led initiative in Mymensingh, Bangladesh. We teach students how to use technology responsibly, ethically, and safely.", 
-    "bn": "ময়মনসিংহ, বাংলাদেশের একটি যুব-নেতৃত্বাধীন উদ্যোগ। আমরা শিক্ষার্থীদের শেখাই কীভাবে দায়িত্বশীল, নৈতিক এবং নিরাপদভাবে প্রযুক্তি ব্যবহার করতে হয়।" 
+    "en": "A youth-led mentorship and decision-making platform in Bangladesh. We equip students, parents, and teachers with practical workbooks, courses, and tools to make sound life and digital choices.", 
+    "bn": "বাংলাদেশের একটি যুব-নেতৃত্বাধীন মেন্টরশিপ ও সিদ্ধান্ত গ্রহণ প্ল্যাটফর্ম। আমরা শিক্ষার্থী, অভিভাবক ও শিক্ষকদের বাস্তবসম্মত গাইডবুক, কোর্স ও মেন্টরিংয়ের মাধ্যমে জীবন ও প্রযুক্তির গুরুত্বপূর্ণ সিদ্ধান্ত স্বাধীনভাবে নিতে সহায়তা করি।" 
   },
   "hero-quiz-question": {
-    "en": "Are you a responsible digital citizen?",
-    "bn": "আপনি কি একজন দায়িত্বশীল ডিজিটাল নাগরিক?"
+    "en": "Ready to test your critical thinking & digital awareness?",
+    "bn": "আপনার বিশ্লেষণ ক্ষমতা ও ডিজিটাল সচেতনতা যাচাই করতে প্রস্তুত?"
   },
-  "btn-start": { "en": "Explore the Modules →", "bn": "মডিউলগুলো দেখুন →" },
-  "btn-quiz": { "en": "Take the Quiz", "bn": "কুইজে অংশ নিন" },
+  "btn-start": { "en": "Explore Workbooks & Booklets →", "bn": "ওয়ার্কবুক ও বুকলেট দেখুন →" },
+  "btn-quiz": { "en": "Take Self-Assessment", "bn": "স্ব-মূল্যায়ন করুন" },
   "stat-assessment": { "en": "Self Assessment", "bn": "স্ব-মূল্যায়ন" },
-  "stat-modules": { "en": "4 Modules", "bn": "৪টি মডিউল" },
-  "stat-missions": { "en": "4 Missions", "bn": "৪টি মিশন" },
-  "stat-badges": { "en": "3 Badges", "bn": "৩টি ব্যাজ" },
+  "stat-modules": { "en": "2 Video Courses", "bn": "২টি ভিডিও কোর্স" },
+  "stat-missions": { "en": "Workbooks & Booklets", "bn": "ওয়ার্কবুক ও বুকলেট" },
+  "stat-badges": { "en": "3 Verified Badges", "bn": "৩টি ভেরিফাইড ব্যাজ" },
 
   // FAQ Page
   "faq-title": { "en": "Frequently Asked Questions", "bn": "সাধারণ প্রশ্নোত্তর" },
@@ -90,13 +92,13 @@ const translations = {
   "about-title-sub": { "en": "We Are", "bn": "আমরা হলাম" },
   "about-title-main": { "en": "Onnoy - অন্বয়", "bn": "অন্বয় - Onnoy" },
   "about-p": {
-    "en": "Empowering Bangladesh's youth to think critically, use technology responsibly, and shape a safer, more resilient digital future for Bangladesh.",
-    "bn": "বাংলাদেশের যুবসমাজকে যুক্তিযুক্তভাবে চিন্তা করতে, প্রযুক্তির দায়িত্বশীল ব্যবহার করতে এবং বাংলাদেশের জন্য একটি নিরাপদ ও স্থিতিস্থাপক ডিজিটাল ভবিষ্যৎ গড়ে তুলতে ক্ষমতায়ন করা।"
+    "en": "Equipping Bangladesh's students, parents, and teachers with practical tools, mentorship, and workbooks to think independently and decide wisely on education, technology, and life.",
+    "bn": "বাংলাদেশের শিক্ষার্থী, অভিভাবক ও শিক্ষকদের বাস্তবমুখী টুলস, মেন্টরশিপ ও গাইডবুকের মাধ্যমে শিক্ষা, প্রযুক্তি ও জীবনের গুরুত্বপূর্ণ বিষয়ে স্বাধীন চিন্তা ও সঠিক সিদ্ধান্ত গ্রহণের সক্ষমতা তৈরি।"
   },
 
   // Footer
   "footer-tagline": { "en": "Onnoy - অন্বয় | Connecting Necessary Dots...", "bn": "Onnoy - অন্বয় | প্রয়োজনীয় বিন্দুগুলি সংযুক্ত করা..." },
-  "footer-address": { "en": "A Responsible Digital Youth Initiative", "bn": "একটি দায়িত্বশীল ডিজিটাল যুব উদ্যোগ" },
+  "footer-address": { "en": "Empowering Independent Thinkers for Bangladesh", "bn": "স্বাধীন চিন্তার বিকাশ ও সঠিক সিদ্ধান্ত গ্রহণে যুব উদ্যোগ" },
   "footer-location": { "en": "Mymensingh, Bangladesh", "bn": "ময়মনসিংহ, বাংলাদেশ" },
   "modules-title": { "en": "Learning Modules", "bn": "লার্নিং মডিউল" },
   "modules-subtitle": { "en": "Step-by-step guides to digital responsibility", "bn": "ডিজিটাল দায়িত্বশীলতার ধাপে ধাপে নির্দেশিকা" },
@@ -106,5 +108,26 @@ const translations = {
   "missions-login-to-proceed": {
     "en": "You need to log in to get the Unique ID and to go on. The Unique ID will be sent with the confirmation email.",
     "bn": "সামনে যাওয়ার জন্য এবং ইউনিক আইডি (Unique ID) পেতে আপনাকে লগইন করতে হবে। কনফার্মেশন ইমেলের সাথে ইউনিক আইডি পাঠানো হবে।"
+  },
+
+  // ChaBondhu & Community Support
+  "nav-support": { "en": "Support Us", "bn": "পাশে থাকুন" },
+  "chabondhu-btn": { "en": "Support on ChaBondhu ☕", "bn": "চাবন্ধুতে পাশে থাকুন ☕" },
+  "chabondhu-sponsor-btn": { "en": "Sponsor on ChaBondhu ☕", "bn": "চাবন্ধুতে স্পন্সর করুন ☕" },
+  "chabondhu-badge": { "en": "Community Powered", "bn": "জনগণের ভালোবাসায় পরিচালিত" },
+  "chabondhu-heading": { "en": "Help Us Keep Youth Education 100% Free", "bn": "শিক্ষার্থীদের শিক্ষা বিনামূল্যে রাখতে আমাদের পাশে থাকুন" },
+  "chabondhu-desc": {
+    "en": "Onnoy is run entirely by passionate youth volunteers in Bangladesh. We never charge schools or students. Treat our volunteer team to a cup of tea on ChaBondhu (৳50) to sponsor printed workbooks, regional school sessions, and student safety.",
+    "bn": "অন্বয় সম্পূর্ণ তরুণ স্বেচ্ছাসেবকদের প্রচেষ্টায় পরিচালিত। আমরা স্কুল বা শিক্ষার্থীদের কাছ থেকে কোনো ফি নিই না। চাবন্ধুতে আমাদের এক কাপ চায়ের বিনিময়ে (৳৫০) পাশে থেকে আপনি শিক্ষার্থীদের প্রিন্টেড ওয়ার্কবুক, আঞ্চলিক সেশন ও মানসিক সহায়তায় অংশ নিতে পারেন।"
+  },
+  "chabondhu-tier1-title": { "en": "৳50 · 1 Cup of Tea", "bn": "৳৫০ · এক কাপ চা" },
+  "chabondhu-tier1-desc": { "en": "Sponsors a printed decision-making workbook for 1 high-school student.", "bn": "১ জন শিক্ষার্থীর জন্য ১টি সম্পূর্ণ প্রিন্টেড সিদ্ধান্ত গ্রহণ সহায়িকা স্পন্সর করে।" },
+  "chabondhu-tier2-title": { "en": "৳150 · 3 Cups of Tea", "bn": "৳১৫০ · ৩ কাপ চা" },
+  "chabondhu-tier2-desc": { "en": "Equips a teacher or school mentor with complete discussion kits & guides.", "bn": "১ জন শিক্ষক বা মেন্টরের জন্য সম্পূর্ণ গাইড ও ক্লাসরুম কিট সরবরাহ করে।" },
+  "chabondhu-tier3-title": { "en": "৳500 · School Circle", "bn": "৳৫০০ · একটি সেশন" },
+  "chabondhu-tier3-desc": { "en": "Funds travel and classroom materials for volunteers to reach a regional school.", "bn": "আঞ্চলিক স্কুলে গিয়ে স্বেচ্ছাসেবকদের সেশন পরিচালনার যাতায়াত ও উপকরণ বহন করে।" },
+  "footer-chabondhu-text": {
+    "en": "Onnoy is an independent youth initiative in Bangladesh. We keep all our workshops, workbooks, and cyber support 100% free. Support our volunteer team with a cup of tea on ChaBondhu.",
+    "bn": "অন্বয় বাংলাদেশের একটি স্বাধীন যুব উদ্যোগ। শিক্ষার্থীদের জন্য আমাদের সকল ওয়ার্কবুক, সেশন ও সাইবার সুরক্ষা সম্পূর্ণ উন্মুক্ত। চাবন্ধুতে এক কাপ চায়ের বিনিময়ে আমাদের পাশে থাকুন।"
   }
 };
