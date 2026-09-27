@@ -183,12 +183,6 @@ html[lang="bn"] .en-only { display: none !important; }
 @keyframes word-rise { from { transform: translateY(110%); opacity: 0; } to { transform: none; opacity: 1; } }
 .js-ready .w > span { animation: word-rise 0.9s var(--ease-spring) both; animation-delay: calc(var(--i, 0) * 70ms + 80ms); }
 
-/* Ticker */
-.ticker { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.ticker-track { display: flex; gap: var(--s-8); width: max-content; animation: ticker 38s linear infinite; }
-.ticker:hover .ticker-track { animation-play-state: paused; }
-@keyframes ticker { to { transform: translateX(-50%); } }
-
 /* Nudging arrow */
 @keyframes nudge-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 .nudge { animation: nudge-y 1.6s ease-in-out infinite; }
@@ -200,7 +194,6 @@ html[lang="bn"] .en-only { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .js-ready .fade-in:not(.visible), .js-ready [data-reveal]:not(.visible) { opacity: 1; transform: none; }
   .js-ready .cascade > *, .js-ready .w > span, .nudge { animation: none; }
-  .ticker-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
 }
 
 /* ─── Misc content blocks ──────────────────────────────────────────────────── */
