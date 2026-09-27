@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Level 2 Missions" description="Start Onnoy Level 2 missions after completing the Digital Citizenship course.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>Level 2 Missions</h1><p>Apply what you learned. Official recognition is manually reviewed by Onnoy.</p></div></header>
+      <main class="container section-gap">
+          <section class="module-shell">
+              <div class="module-kicker">Mission Path</div>
+              <h2>Complete four missions</h2>
+              <p class="module-lead">Submit Missions 1, 2, and 3 with screenshots or files. Team Onnoy reviews all submissions manually at the end.</p>
+          </section>
+          <div class="mission-grid">
+              <a class="mission-card" href="/mission-spot-the-lie"><span>01</span><h3>Spot the Lie</h3><p>Upload 2 misinformation examples and your fact-check notes.</p></a>
+              <a class="mission-card" href="/mission-scam-alert"><span>02</span><h3>Scam Alert</h3><p>Upload 2 scam examples and explain your checks.</p></a>
+              <a class="mission-card" href="/mission-ai-integrity"><span>03</span><h3>AI Integrity</h3><p>Upload 2 AI-related misinformation examples and verification notes.</p></a>
+              <a class="mission-card" href="/mission-digital-guardian"><span>04</span><h3>Digital Guardian</h3><p>Invite 1-5 acquaintances to complete the course.</p></a>
+          </div>
+          <section class="module-content-card"><h3>Mission Progress</h3><ul id="missionProgress" class="module-progress-list"></ul></section>
+          <div class="module-page-nav"><a class="btn btn-outline module-outline" href="/module-ai-mindset">Back</a><a class="btn btn-green" href="/mission-spot-the-lie">Start Mission 1 →</a></div>
+      </main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

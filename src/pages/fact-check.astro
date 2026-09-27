@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/fact-check.css';
+---
+
+<BaseLayout title="Fact-Check" description="Submit a link, post, or message to Onnoy for verification. We help students in Bangladesh distinguish between real information and online rumors.">
+  <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1>Is This True?</h1>
+              <p>সন্দেহজনক তথ্য যাচাই করুন</p>
+              <p>Seen something online and not sure if it's true? Send it to us. Our team will verify it and get back to you.</p>
+          </div>
+      </header>
+  
+      <section class="section-gap container">
+          <h2 class="section-title text-center">How It Works</h2>
+          <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 50px;">
+              <div class="step-card">
+                  <div class="step-card-number">1</div>
+                  <div class="step-card-text">Paste the link or message below</div>
+              </div>
+              <div class="step-card">
+                  <div class="step-card-number">2</div>
+                  <div class="step-card-text">Our team researches and verifies</div>
+              </div>
+              <div class="step-card">
+                  <div class="step-card-number">3</div>
+                  <div class="step-card-text">We reply to your email with what we found</div>
+              </div>
+          </div>
+  
+          <!-- Form Section -->
+          <div class="form-card">
+              <form action="https://formspree.io/f/xwvyyoqr" method="POST">
+                  
+                  <div class="form-group">
+                      <label for="name" class="form-label">Your Name</label>
+                      <input type="text" id="name" name="name" class="form-control" placeholder="Optional — you can stay anonymous">
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="email" class="form-label">Your Email <span class="text-amber">*</span></label>
+                      <input type="email" id="email" name="email" class="form-control" placeholder="We'll reply here" required>
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="source" class="form-label">Where did you see this? <span class="text-amber">*</span></label>
+                      <select id="source" name="source" class="form-control" required>
+                          <option value="" disabled selected>Select an option</option>
+                          <option value="WhatsApp">WhatsApp</option>
+                          <option value="Facebook">Facebook</option>
+                          <option value="YouTube">YouTube</option>
+                          <option value="TikTok">TikTok</option>
+                          <option value="Twitter">Twitter</option>
+                          <option value="News website">News website</option>
+                          <option value="Other">Other</option>
+                      </select>
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="content" class="form-label">Paste the content or describe it <span class="text-amber">*</span></label>
+                      <textarea id="content" name="content" class="form-control" rows="6" placeholder="Paste the message, post, or describe what you saw..." required></textarea>
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="link" class="form-label">Link to the post</label>
+                      <input type="text" id="link" name="link" class="form-control" placeholder="https://... (if you have one)">
+                  </div>
+  
+                  <button type="submit" class="btn btn-green full-submit">Send for Verification &rarr;</button>
+              </form>
+  
+              <!-- Reassurance Note -->
+              <div class="reassurance-note text-center" style="margin-top: 35px;">
+                  Your submission is reviewed by the Onnoy team — real people, not a bot. We do not share your name or email with anyone. This is a free service for students.
+              </div>
+          </div>
+      </section>
+
+</BaseLayout>

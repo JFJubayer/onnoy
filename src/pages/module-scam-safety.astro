@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Scam Safety" description="Scam Safety lesson from Onnoy's Digital Citizenship course.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>Scam Safety</h1><p>Phishing, OTPs, fake links, and harmful online activity</p></div></header>
+      <main class="container section-gap" data-lesson="scams"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

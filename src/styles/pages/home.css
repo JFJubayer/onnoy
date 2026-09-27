@@ -1,0 +1,3 @@
+/* Home page only */
+.home-hero .hero-eyebrow { margin-bottom: var(--s-4); }
+.stat-item span { line-height: 1.2; }

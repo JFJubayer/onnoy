@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+---
+
+<BaseLayout title="Privacy Policy" description="How Onnoy collects, uses, and protects your information across our website, courses, and workbook downloads.">
+  <PageHero title="Privacy Policy" subtitle="Plain-language explanation of what we collect and why. Last updated September 2026." />
+
+  <main class="container container--narrow section-gap stack" style="--stack-gap: var(--s-6)">
+    <section>
+      <h2>Who we are</h2>
+      <p>Onnoy-অন্বয় is a volunteer-run youth initiative based in Mymensingh, Bangladesh. We run free school sessions, publish decision-making workbooks, and offer online courses on digital responsibility. Contact: <a href="https://wa.me/8801830900746" target="_blank" rel="noopener">WhatsApp</a>.</p>
+    </section>
+
+    <section>
+      <h2>What we collect</h2>
+      <ul class="points-list">
+        <li><strong>Account data</strong> — if you register: e-mail address, password (hashed by Supabase Auth), and an auto-generated Onnoy ID. Optionally your name, school, avatar and a social link you add on your profile.</li>
+        <li><strong>Learning progress</strong> — which modules and missions you complete, quiz outcomes, badges earned, and mission evidence you upload (screenshots and notes).</li>
+        <li><strong>Workbook downloads</strong> — name, e-mail and age group entered when unlocking a free PDF. We use this to report reach to our sponsors and never to send marketing.</li>
+        <li><strong>Forms</strong> — contact, session-request and fact-check submissions are processed by Formspree and forwarded to our team inbox.</li>
+        <li><strong>Preferences</strong> — theme and language are stored in your browser only (localStorage) and never sent to us.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What we do not do</h2>
+      <ul class="points-list">
+        <li>We do not sell or rent personal data.</li>
+        <li>We do not show advertising or use ad-tracking pixels.</li>
+        <li>We do not publish student e-mail addresses. Our public badge verifier only returns the Onnoy ID, name/school if provided, and badges earned.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Where data lives</h2>
+      <p>Accounts, progress and download records are stored in Supabase (hosted PostgreSQL) with row-level security so students can only read and edit their own records. Admin access is limited to verified Onnoy volunteers. The website itself is hosted on Vercel.</p>
+    </section>
+
+    <section>
+      <h2>Your choices</h2>
+      <p>You can edit your profile at any time from <a href="/profile">My Profile</a>. To delete your account and all associated data, message us on <a href="https://wa.me/8801830900746" target="_blank" rel="noopener">WhatsApp</a> with your registered e-mail address and we will remove it within 14 days.</p>
+    </section>
+
+    <section>
+      <h2>Children</h2>
+      <p>Our programmes target students in Classes 9–12. Students under 13 should only register with a parent or teacher. Schools that invite Onnoy for a session receive a facilitator note describing exactly what is collected.</p>
+    </section>
+  </main>
+</BaseLayout>

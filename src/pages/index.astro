@@ -1,0 +1,180 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import heroImg from '@/assets/images/youth-tech.jpg';
+import { SITE } from '@data/site';
+import '@/styles/pages/home.css';
+
+const pillars = [
+  {
+    accent: 'var(--green)', iconBg: 'var(--green-pale)', iconFg: 'var(--green)',
+    badge: 'Education & Career', badgeClass: '',
+    title: 'What to Study & Timeless Skills',
+    text: 'Step-by-step mentor workbooks for Class 9–12 students facing conflicting advice on subject selection, university admissions, and building skills that last in the age of AI.',
+    items: ['📖 <strong>Workbook:</strong> <em>Not Sure What to Study?</em>', '💡 <strong>Guide:</strong> <em>Learn What Lasts in the Age of AI</em>', '🧭 <strong>Tool:</strong> <em>Higher Education Trade-off Matrix</em>'],
+    cta: { href: '/workbooks', label: 'View & Download Workbooks', cls: 'btn-green' },
+    icon: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+  },
+  {
+    accent: 'var(--sky)', iconBg: 'var(--sky-pale)', iconFg: 'var(--sky)',
+    badge: 'Technology & AI', badgeClass: 'badge--sky',
+    title: 'AI & Tech on Your Own Terms',
+    text: 'Interactive Bangla video courses, instant timestamp re-learning, a digital well-being extension, and verified credentials to turn passive consumers into active, ethical builders.',
+    items: ['🤖 <strong>Course 1:</strong> <em>AI Acknowledgement (7 modules)</em>', '🛡️ <strong>Course 2:</strong> <em>Cyber Safety & Scams (5 modules)</em>', '⏱️ <strong>Extension:</strong> <em>Onnoy Timesave Focus Tool</em>'],
+    cta: { href: '/courses', label: 'Start Interactive Courses', cls: 'btn-amber' },
+    icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  },
+  {
+    accent: 'var(--amber)', iconBg: 'var(--amber-pale)', iconFg: 'var(--amber-dark)',
+    badge: 'Family & Well-being', badgeClass: 'badge--amber',
+    title: 'Screen Time & Family Harmony',
+    text: 'Turning screen-time conflicts into open conversations. Calming handbooks for parents and classroom facilitation kits for educators to guide teenagers with empathy.',
+    items: ['👨‍👩‍👧 <strong>Booklet:</strong> <em>The Child Behind the Screen</em>', '🏫 <strong>Teacher Kit:</strong> <em>Classroom Discussion Sets</em>', '💬 <strong>Dialogue:</strong> <em>Conflict-free Digital Contracts</em>'],
+    cta: { href: '/facilitator-guide', label: 'Facilitator & Parent Guides', cls: 'btn-secondary' },
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  },
+];
+
+const impact = [
+  { key: 'sessions', i18n: 'impact-sessions', label: 'Sessions & Discussions', value: 6 },
+  { key: 'students', i18n: 'impact-students', label: 'Students Reached', value: 180 },
+  { key: 'citizens', i18n: 'impact-citizens', label: 'Informed Citizens', value: 40 },
+  { key: 'guardians', i18n: 'impact-guardians', label: 'Guardians', value: 10 },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  inLanguage: ['en', 'bn'],
+  potentialAction: { '@type': 'SearchAction', target: `${SITE.url}/faq?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
+};
+---
+
+<BaseLayout title="Onnoy-অন্বয় | Empowering Independent Thinkers" description={SITE.description} jsonLd={jsonLd}>
+  <header class="hero home-hero" id="main" tabindex="-1">
+    <Image src={heroImg} alt="" class="hero-bg" widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" quality={70} />
+    <div class="container cascade">
+      <span class="hero-eyebrow"><span class="dot"></span> Youth-led · Mymensingh, Bangladesh</span>
+      <div class="hero-brand" data-i18n="hero-brand">Onnoy - অন্বয়</div>
+      <h1 data-i18n="hero-title" data-split-words>Empowering Independent Thinkers</h1>
+      <p data-i18n="hero-tagline">Helping Bangladesh's youth think clearly, decide well, and use technology on their own terms.</p>
+      <div class="hero-cta-section">
+        <a href="/workbooks" class="btn btn-amber btn-lg" data-i18n="btn-start">Explore Workbooks & Booklets →</a>
+        <a href="/quiz" class="btn btn-outline btn-lg" data-i18n="btn-quiz">Take Self-Assessment</a>
+      </div>
+      <ul class="hero-trust" role="list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>100% free, always</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Bangla &amp; English</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>For students, parents &amp; teachers</li>
+      </ul>
+    </div>
+    <a href="#pillars" class="hero-scroll-hint" aria-label="Scroll to content">
+      <span>Explore</span>
+      <svg class="nudge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      {Array.from({ length: 2 }).map(() => (
+        <>
+          <span>Think clearly</span><span class="tk-dot">✦</span>
+          <span>স্বাধীন চিন্তা</span><span class="tk-dot">✦</span>
+          <span>Spot the scam</span><span class="tk-dot">✦</span>
+          <span>Own your screen time</span><span class="tk-dot">✦</span>
+          <span>AI on your terms</span><span class="tk-dot">✦</span>
+          <span>তথ্য যাচাই করুন</span><span class="tk-dot">✦</span>
+          <span>Decide well</span><span class="tk-dot">✦</span>
+          <span>100% free</span><span class="tk-dot">✦</span>
+        </>
+      ))}
+    </div>
+  </div>
+
+  <div class="stat-bar">
+    <div class="stat-container" data-reveal-stagger="80">
+      <a href="/quiz" class="stat-item" data-reveal="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span data-i18n="stat-assessment">Self Assessment</span></a>
+      <a href="/courses" class="stat-item" data-reveal="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg><span data-i18n="stat-modules">2 Video Courses</span></a>
+      <a href="/workbooks" class="stat-item" data-reveal="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="stat-missions">Workbooks & Booklets</span></a>
+      <a href="/badges" class="stat-item" data-reveal="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg><span data-i18n="stat-badges">3 Verified Badges</span></a>
+    </div>
+  </div>
+
+  <section class="section-gap container" aria-labelledby="pillars-title" id="pillars">
+    <div class="section-head section-head--center" data-reveal="up">
+      <span class="section-label">Our Decision Framework</span>
+      <h2 class="section-title" id="pillars-title">The 3 Pillars of Independent Judgement</h2>
+      <p class="section-lead">Most students get plenty of pressure about their choices — what to study, how much screen time is too much, or whether AI will replace them — but very little guidance on <em>how to decide</em>. We fill that gap.</p>
+    </div>
+    <div class="cards-grid" data-reveal-stagger="120">
+      {pillars.map((p) => (
+        <article class="card card--accent card--tilt" data-reveal="up" style={`--card-accent:${p.accent};--card-icon-bg:${p.iconBg};--card-icon-fg:${p.iconFg}`}>
+          <div class="card-body">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={p.icon} /></div>
+            <span class={`badge ${p.badgeClass}`}>{p.badge}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <ul class="card-list" role="list">{p.items.map((it) => <li set:html={it} />)}</ul>
+          </div>
+          <a href={p.cta.href} class={`btn ${p.cta.cls} btn-block`}>{p.cta.label} →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="impact-section section-gap edge-top" aria-labelledby="impact-title" data-impact>
+    <div class="container">
+      <div class="section-head section-head--center" data-reveal="up">
+        <span class="section-label">Since 2025</span>
+        <h2 class="section-title" id="impact-title" data-i18n="impact-title">Our Impact</h2>
+      </div>
+      <div class="impact-grid" data-reveal-stagger="100">
+        {impact.map((m) => (
+          <div class="impact-card" data-reveal="zoom">
+            <div class="impact-number" data-key={m.key} data-target={m.value} data-suffix="+">{m.value}+</div>
+            <div class="impact-label" data-i18n={m.i18n}>{m.label}</div>
+          </div>
+        ))}
+      </div>
+      <p class="impact-note text-center" data-impact-note>Numbers updated after every session. Last updated: <span data-impact-updated>June 2026</span>.</p>
+    </div>
+  </section>
+
+  <section class="section-gap container" aria-labelledby="chabondhu-title">
+    <div class="chabondhu-card text-center" data-reveal="up">
+      <span class="chabondhu-eyebrow">☕ <span data-i18n="chabondhu-badge">Community Powered</span></span>
+      <h2 id="chabondhu-title" data-i18n="chabondhu-heading">Help Us Keep Youth Education 100% Free</h2>
+      <p data-i18n="chabondhu-desc">Onnoy is run entirely by passionate youth volunteers in Bangladesh. We never charge schools or students. Treat our volunteer team to a cup of tea on ChaBondhu (৳5) to sponsor printed workbooks, regional school sessions, and student safety.</p>
+      <div class="chabondhu-tiers-grid" data-reveal-stagger="110">
+        <div class="chabondhu-tier-item" data-reveal="left"><div class="chabondhu-tier-price" data-i18n="chabondhu-tier1-title">৳5 · 1 Cup of Tea</div><div class="chabondhu-tier-label" data-i18n="chabondhu-tier1-desc">Sponsors a printed decision-making workbook for 1 high-school student.</div></div>
+        <div class="chabondhu-tier-item" data-reveal="up"><div class="chabondhu-tier-price" data-i18n="chabondhu-tier2-title">৳15 · 3 Cups of Tea</div><div class="chabondhu-tier-label" data-i18n="chabondhu-tier2-desc">Equips a teacher or school mentor with complete discussion kits & guides.</div></div>
+        <div class="chabondhu-tier-item" data-reveal="right"><div class="chabondhu-tier-price" data-i18n="chabondhu-tier3-title">৳500 · School Circle</div><div class="chabondhu-tier-label" data-i18n="chabondhu-tier3-desc">Funds travel and classroom materials for volunteers to reach a regional school.</div></div>
+      </div>
+      <a href={SITE.chabondhu} target="_blank" rel="noopener" class="btn-chabondhu btn-lg" data-i18n="chabondhu-btn">Support on ChaBondhu ☕</a>
+      <div class="chabondhu-fineprint">Direct bKash / Nagad / card micro-donations via ChaBondhu · 100% used for youth educational outreach</div>
+    </div>
+  </section>
+
+  <section class="section-gap container" aria-labelledby="about-title">
+    <div class="about-teaser" data-reveal="zoom">
+      <div class="about-title-sub" data-i18n="about-title-sub">We Are</div>
+      <h2 class="about-title-main" id="about-title" data-i18n="about-title-main">Onnoy - অন্বয়</h2>
+      <p data-i18n="about-p">Equipping Bangladesh's students, parents, and teachers with practical tools, mentorship, and workbooks to think independently and decide wisely on education, technology, and life.</p>
+      <div class="cluster cluster--center">
+        <a href="/session-request" class="btn btn-green">Request a Session</a>
+        <a href={SITE.facebook} target="_blank" rel="noopener" class="btn social-btn social-btn-facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>Facebook
+        </a>
+        <a href={SITE.youtube} target="_blank" rel="noopener" class="btn social-btn social-btn-youtube">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import '@scripts/impact';
+  </script>
+</BaseLayout>

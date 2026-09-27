@@ -1,0 +1,63 @@
+---
+/**
+ * Site navigation. Rendered server-side from src/data/site.ts so every page
+ * ships identical, crawlable markup. Interactivity lives in scripts/site.ts.
+ */
+import { NAV, SITE } from '@data/site';
+import logo from '@/assets/images/logo-v2.jpeg';
+import { Image } from 'astro:assets';
+
+const path = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const isActive = (href: string) => href === path || (href !== '/' && path.startsWith(href + '/'));
+---
+
+<nav class="navbar" aria-label="Primary">
+  <div class="nav-container">
+    <a href="/" class="logo" aria-label={`${SITE.shortName} home`}>
+      <Image src={logo} alt="" width={40} height={40} densities={[1, 2]} loading="eager" />
+      <span data-i18n="nav-logo">{SITE.name}</span>
+    </a>
+
+    <div class="nav-links" id="primary-navigation">
+      {NAV.map((item) =>
+        item.children ? (
+          <div class={`dropdown${item.children.some((c) => isActive(c.href)) ? ' has-active' : ''}`}>
+            <a class="dropdown-toggle" href={item.href} data-i18n={item.i18n} aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </a>
+            <div class="dropdown-menu" role="menu">
+              {item.children.map((c) => (
+                <a href={c.href} role="menuitem" class={isActive(c.href) ? 'active' : undefined}>{c.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} data-i18n={item.i18n} class={isActive(item.href) ? 'active' : undefined} aria-current={isActive(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        )
+      )}
+      <a href={SITE.chabondhu} target="_blank" rel="noopener" class="nav-support-link" title="Support Onnoy on ChaBondhu">
+        ☕ <span data-i18n="nav-support">Support Us</span>
+      </a>
+      <a href="/session-request" class="nav-cta mobile-nav-cta" data-i18n="nav-cta">Request a Session</a>
+    </div>
+
+    <div class="nav-right">
+      <a href="/session-request" class="nav-cta" data-i18n="nav-cta">Request a Session</a>
+      <div id="nav-auth-container"></div>
+      <div class="nav-controls">
+        <button class="lang-toggle" type="button" aria-label="Switch language">BN</button>
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+      </div>
+      <button class="hamburger" type="button" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false">
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>

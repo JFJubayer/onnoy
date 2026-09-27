@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin-portal
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://onnoy.vercel.app/sitemap-index.xml
+

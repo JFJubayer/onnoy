@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Mission 4: Digital Guardian" description="Mission 4: Digital Guardian recognition claim for Onnoy students.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>Digital Guardian</h1><p>Mission 4</p></div></header>
+      <main class="container section-gap" data-mission="guardian"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

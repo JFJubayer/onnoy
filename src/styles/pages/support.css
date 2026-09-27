@@ -1,0 +1,30 @@
+/* Styles moved from support.html */
+.form-control {
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px var(--green-pale);
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--ink-mid);
+        }
+
+
+/* Support Page Styles */
+.trust-row div {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.trust-row svg {
+    width: 18px;
+    height: 18px;
+    color: var(--green);
+    flex-shrink: 0;
+}
+

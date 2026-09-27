@@ -1,0 +1,13 @@
+{
+  "name": "Onnoy-অন্বয়",
+  "short_name": "Onnoy",
+  "description": "Empowering Independent Thinkers — digital responsibility education for Bangladesh's youth.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#047857",
+  "icons": [
+    { "src": "/assets/favicon.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/assets/images/logo-v2.jpeg", "sizes": "512x512", "type": "image/jpeg" }
+  ]
+}

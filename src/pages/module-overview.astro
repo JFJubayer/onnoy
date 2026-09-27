@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Digital Citizenship Course" description="Start Onnoy's Digital Citizenship online course and prepare for Level 2 missions.">
+  <header class="hero module-hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1>Digital Citizenship</h1>
+              <p>Level 1 course overview</p>
+          </div>
+      </header>
+      <main class="container section-gap" data-lesson="overview"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

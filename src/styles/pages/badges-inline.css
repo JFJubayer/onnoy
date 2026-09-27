@@ -1,0 +1,72 @@
+/* Moved from legacy badges.html <style> */
+.badge-sample-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+.badge-sample-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+.badge-image-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.5) 100%);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    padding: 12px;
+}
+.badge-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+    transition: transform 0.3s ease;
+}
+.badge-sample-card:hover .badge-image-container img {
+    transform: scale(1.06);
+}
+.badge-tier-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+    width: fit-content;
+}
+.criteria-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-mid);
+}
+.criteria-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+}
+.criteria-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+}

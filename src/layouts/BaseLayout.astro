@@ -1,0 +1,135 @@
+---
+/**
+ * Base layout: <head> boilerplate (SEO/OG/Twitter/JSON-LD), fonts, theme
+ * pre-paint script, navbar, footer, WhatsApp button, and site-wide scripts.
+ */
+import { Font } from 'astro:assets';
+import { SITE } from '@data/site';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import WhatsAppFloat from '@components/WhatsAppFloat.astro';
+import '@/styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  /** Absolute or root-relative OG image. */
+  image?: string;
+  /** Prevent indexing (auth/admin pages). */
+  noindex?: boolean;
+  /** Additional classes for <body>. */
+  bodyClass?: string;
+  /** Hide chrome for focused flows (course player, admin). */
+  minimal?: boolean;
+  /** Extra JSON-LD to merge into the page. */
+  jsonLd?: Record<string, unknown>;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = SITE.ogImage,
+  noindex = false,
+  bodyClass = '',
+  minimal = false,
+  jsonLd,
+  ogType = 'website',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+const fullTitle = title.includes('Onnoy') ? title : `${title} · ${SITE.name}`;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: 'Onnoy — অন্বয়',
+  alternateName: 'Onnoy',
+  url: SITE.url,
+  logo: new URL('/assets/images/logo-v2.jpeg', SITE.url).href,
+  description: SITE.description,
+  address: { '@type': 'PostalAddress', addressLocality: 'Mymensingh', addressCountry: 'BD' },
+  sameAs: [SITE.facebook, SITE.youtube],
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="google-site-verification" content={SITE.googleSiteVerification} />
+    <meta name="author" content="Onnoy — অন্বয়" />
+    <meta name="theme-color" content="#047857" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#060B14" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/favicon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" preload />
+    <Font cssVariable="--font-bengali" />
+
+    {/* Pre-paint theme + language to avoid flashes. Kept inline and tiny on purpose. */}
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('onnoy_theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+          var l = localStorage.getItem('onnoy_lang');
+          if (l === 'bn' || l === 'en') document.documentElement.setAttribute('lang', l);
+        } catch (e) {}
+      })();
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ? [orgLd, jsonLd] : orgLd)} />
+
+    {SITE.gaId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`}></script>
+        <script is:inline define:vars={{ gaId: SITE.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        </script>
+      </>
+    )}
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Navbar />
+    <slot />
+    {!minimal && <Footer />}
+    {!minimal && <WhatsAppFloat />}
+    <script>
+      import '@scripts/site';
+      import '@scripts/auth-nav';
+    </script>
+    <slot name="scripts" />
+  </body>
+</html>

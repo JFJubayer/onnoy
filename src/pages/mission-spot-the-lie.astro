@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Mission 1: Spot the Lie" description="Mission 1: Spot the Lie, a Level 2 Onnoy mission.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>Spot the Lie</h1><p>Mission 1</p></div></header>
+      <main class="container section-gap" data-mission="spotLie"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

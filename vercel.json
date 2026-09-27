@@ -1,4 +1,44 @@
 {
-  "outputDirectory": "frontend",
-  "cleanUrls": true
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/workbooks-booklets", "destination": "/workbooks", "permanent": true },
+    { "source": "/workbooks-booklets.html", "destination": "/workbooks", "permanent": true },
+    { "source": "/admin", "destination": "/admin-portal", "permanent": true },
+    { "source": "/admin.html", "destination": "/admin-portal", "permanent": true },
+    { "source": "/fix-db.html", "destination": "/", "permanent": true },
+    { "source": "/resources", "destination": "/workbooks", "permanent": true },
+    { "source": "/resources.html", "destination": "/workbooks", "permanent": true },
+    { "source": "/about", "destination": "/", "permanent": true },
+    { "source": "/about.html", "destination": "/", "permanent": true },
+    { "source": "/contact", "destination": "/session-request", "permanent": true },
+    { "source": "/contact.html", "destination": "/session-request", "permanent": true },
+    { "source": "/scenario-cards", "destination": "/facilitator-guide", "permanent": true },
+    { "source": "/scenario-cards.html", "destination": "/facilitator-guide", "permanent": true },
+    { "source": "/courses/course-1.html", "destination": "/courses", "permanent": true },
+    { "source": "/courses/course-2.html", "destination": "/courses", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/:page.html", "destination": "/:page", "permanent": true },
+    { "source": "/courses/:page.html", "destination": "/courses/:page", "permanent": true },
+    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
 }

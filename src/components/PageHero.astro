@@ -1,0 +1,20 @@
+---
+/** Compact page hero for inner pages. */
+export interface Props {
+  title: string;
+  subtitle?: string;
+  eyebrow?: string;
+  titleI18n?: string;
+  subtitleI18n?: string;
+  class?: string;
+}
+const { title, subtitle, eyebrow, titleI18n, subtitleI18n, class: cls = '' } = Astro.props;
+---
+<header class={`hero hero--page ${cls}`} id="main" tabindex="-1">
+  <div class="container">
+    {eyebrow && <span class="hero-eyebrow"><span class="dot"></span>{eyebrow}</span>}
+    <h1 data-i18n={titleI18n}>{title}</h1>
+    {subtitle && <p data-i18n={subtitleI18n}>{subtitle}</p>}
+    <slot />
+  </div>
+</header>

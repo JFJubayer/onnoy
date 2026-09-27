@@ -1,0 +1,28 @@
+/* ── Admin dashboard (moved from admin.html inline <style>) ───────────────── */
+.admin-container { padding: 40px 0; }
+.admin-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+}
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.request-item { border-bottom: 1px solid var(--border); padding: 15px 0; }
+/* admin badges are compact square tags, not the green module pill */
+.admin-card .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 0;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--surface-soft);
+    color: var(--ink-mid);
+}
+.badge-pending { background: var(--warning-bg); color: var(--warning-fg); }
+.login-overlay { position: fixed; inset: 0; background: var(--paper); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.login-box { width: 100%; max-width: 400px; padding: 40px; text-align: center; }
+

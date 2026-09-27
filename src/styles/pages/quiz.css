@@ -1,0 +1,98 @@
+/* Styles moved from quiz.html */
+.progress-bar {
+            width: 100%;
+            height: 12px;
+            background-color: var(--green-pale);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: var(--green);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+        .option {
+            padding: 15px;
+            border: 2px solid var(--green-pale);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--white);
+            /* reset button defaults (options are <button> for a11y) */
+            width: 100%;
+            display: block;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+        }
+        .option:hover {
+            border-color: var(--green);
+        }
+        .option.selected {
+            border-color: var(--green);
+            background-color: var(--green-pale);
+        }
+        .next-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 24px;
+            background-color: var(--green);
+            color: #FFFFFF;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .next-btn:hover {
+            background-color: var(--green-light);
+        }
+        .results {
+            display: none;
+            text-align: center;
+        }
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--green);
+            margin: 20px 0;
+        }
+        .message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-secondary {
+            background-color: var(--ink-light);
+            color: #FFFFFF;
+        }
+        .btn-secondary:hover {
+            background-color: var(--ink);
+        }
+        .share-text {
+            margin-top: 30px;
+            font-style: italic;
+            color: var(--ink-mid);
+        }
+

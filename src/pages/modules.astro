@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Modules" description="Explore Onnoy's Digital Citizenship online course and Level 2 missions for students in Bangladesh.">
+  <!-- 1. Page Hero -->
+      <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1>Digital Citizenship Module</h1>
+              <p>Complete Level 1 online, then unlock Level 2 missions for responsible digital action.</p>
+          </div>
+      </header>
+  
+      <section class="section-gap container">
+          <div class="module-shell">
+              <div class="module-kicker">Level 1</div>
+              <h2>Online Course</h2>
+              <p class="module-lead">This course replaces the live session. Students complete five short pages with interactive checks. Progress is saved in this browser.</p>
+          </div>
+  
+          <div class="cards-grid module-course-grid">
+              <a class="card module-course-card" href="/module-overview">
+                  <div class="card-icon">00</div>
+                  <h3>Course Overview</h3>
+                  <p>See how Level 1 works and how Level 2 unlocks.</p>
+                  <span class="card-link">Start overview →</span>
+              </a>
+              <a class="card module-course-card" href="/module-attention-literacy">
+                  <div class="card-icon">01</div>
+                  <h3>Attention Literacy</h3>
+                  <p>Understand screen time, algorithms, and doomscrolling.</p>
+                  <span class="card-link">Open lesson →</span>
+              </a>
+              <a class="card module-course-card" href="/module-misinformation">
+                  <div class="card-icon">02</div>
+                  <h3>Misinformation</h3>
+                  <p>Learn misinfo, disinfo, Fact Watch examples, and SIFT.</p>
+                  <span class="card-link">Open lesson →</span>
+              </a>
+              <a class="card module-course-card" href="/module-scam-safety">
+                  <div class="card-icon">03</div>
+                  <h3>Scam Safety</h3>
+                  <p>Spot phishing, OTP traps, fake links, and scam patterns.</p>
+                  <span class="card-link">Open lesson →</span>
+              </a>
+              <a class="card module-course-card" href="/module-ai-mindset">
+                  <div class="card-icon">04</div>
+                  <h3>AI and Mindset</h3>
+                  <p>Use AI with verification, critical thinking, and human judgment.</p>
+                  <span class="card-link">Open lesson →</span>
+              </a>
+          </div>
+  
+          <section class="module-content-card">
+              <h3>Your Level 1 Progress</h3>
+              <ul id="courseProgress" class="module-progress-list"></ul>
+          </section>
+  
+          <section class="module-level-gate" id="level2Gate">
+              <div>
+                  <div class="module-kicker">Level 2</div>
+                  <h2>Missions</h2>
+                  <p>Finish all five Level 1 pages in this browser to unlock Level 2.</p>
+              </div>
+              <a href="/level-2-missions" class="btn btn-green">Open Level 2 →</a>
+          </section>
+      </section>
+  
+      <!-- 3. Key Messages Strip -->
+      <div class="messages-strip">
+          <div class="messages-grid">
+              <div class="message-box"> "You use the phone. Don't let it use you."</div>
+              <div class="message-box"> "Verify before you share."</div>
+              <div class="message-box"> "AI helps. Humans judge."</div>
+          </div>
+      </div>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

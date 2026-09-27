@@ -1,0 +1,152 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Onnoy design tokens
+   Single source of truth for colour, type, spacing, radius, elevation.
+   Light theme is the default; [data-theme="dark"] remaps the same tokens so
+   components never need per-theme overrides.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --green-deep: #064E3B;
+  --green-dark: #047857;
+  --green: #059669;
+  --green-light: #10B981;
+  --green-soft: #A7F3D0;
+  --green-pale: #ECFDF5;
+  --amber-dark: #B45309;
+  --amber: #F59E0B;
+  --amber-light: #FBBF24;
+  --amber-pale: #FEF3C7;
+  --sky: #0284C7;
+  --sky-pale: #E0F2FE;
+
+  /* Neutrals */
+  --ink: #0F172A;
+  --ink-mid: #475569;
+  --ink-light: #64748B;
+  --ink-muted: #94A3B8;
+  --white: #FFFFFF;
+  --paper: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-soft: #F1F5F9;
+  --surface-glass: rgba(255, 255, 255, 0.78);
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+
+  /* Semantic aliases */
+  --bg: var(--paper);
+  --bg-elevated: var(--surface);
+  --text: var(--ink);
+  --text-muted: var(--ink-mid);
+  --brand: var(--green);
+  --brand-contrast: #FFFFFF;
+  --accent: var(--amber);
+  --hero-bg: linear-gradient(160deg, #065F46 0%, #047857 55%, #059669 100%);
+  --footer-bg: #0B2A1A;
+
+  /* Status */
+  --success: #10B981; --success-bg: #ECFDF5; --success-fg: #047857;
+  --caution: #F59E0B; --caution-bg: #FEF3C7; --caution-fg: #B45309;
+  --warning: #F97316; --warning-bg: #FFEDD5; --warning-fg: #C2410C;
+  --danger:  #EF4444; --danger-bg:  #FEE2E2; --danger-fg:  #B91C1C;
+  --info:    #0284C7; --info-bg:    #E0F2FE; --info-fg:    #0369A1;
+
+  /* Typography — font-family vars are injected by Astro's Fonts API */
+  --font-sans: var(--font-body, Inter), var(--font-bengali, 'Noto Sans Bengali'), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: var(--font-display, 'Plus Jakarta Sans'), var(--font-bengali, 'Noto Sans Bengali'), system-ui, sans-serif;
+  --fs-hero: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+  --fs-h1: clamp(2.1rem, 1.4rem + 2.8vw, 3.4rem);
+  --fs-h2: clamp(1.7rem, 1.25rem + 1.8vw, 2.5rem);
+  --fs-h3: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.35vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-sm: 0.9rem;
+  --fs-xs: 0.8rem;
+  --lh-tight: 1.12;
+  --lh-snug: 1.3;
+  --lh-body: 1.65;
+
+  /* Spacing scale (4px base) */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-7: 32px; --s-8: 40px; --s-9: 48px; --s-10: 64px;
+  --s-11: 80px; --s-12: 96px;
+  --section-y: clamp(56px, 6vw + 24px, 96px);
+
+  /* Layout */
+  --container: 1120px;
+  --container-narrow: 760px;
+  --container-wide: 1280px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --nav-h: 64px;
+  --nav-gap: 12px;
+
+  /* Shape & elevation */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-soft: 0 2px 6px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.05);
+  --shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 20px 48px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12), 0 32px 72px rgba(15, 23, 42, 0.14);
+  --shadow-brand: 0 10px 28px rgba(5, 150, 105, 0.28);
+  --focus-ring: 0 0 0 3px rgba(16, 185, 129, 0.32);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur: 240ms;
+  --dur-slow: 480ms;
+  --dur-reveal: 720ms;
+  --transition-theme: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --green-deep: #022C22;
+  --green-dark: #10B981;
+  --green: #34D399;
+  --green-light: #6EE7B7;
+  --green-soft: #065F46;
+  --green-pale: #052E22;
+  --amber-dark: #FDE68A;
+  --amber: #FBBF24;
+  --amber-light: #FCD34D;
+  --amber-pale: #3B2A0A;
+  --sky: #38BDF8;
+  --sky-pale: #0C2A3A;
+
+  --ink: #F1F5F9;
+  --ink-mid: #CBD5E1;
+  --ink-light: #94A3B8;
+  --ink-muted: #64748B;
+  --white: #0F172A;
+  --paper: #060B14;
+  --surface: #0F172A;
+  --surface-soft: #16213A;
+  --surface-glass: rgba(15, 23, 42, 0.78);
+  --border: #1E293B;
+  --border-strong: #334155;
+
+  --brand-contrast: #052E22;
+  --hero-bg: linear-gradient(160deg, #052E22 0%, #064E3B 60%, #065F46 100%);
+  --footer-bg: #04150C;
+
+  --success: #34D399; --success-bg: #052E22; --success-fg: #A7F3D0;
+  --caution: #FBBF24; --caution-bg: #3B2A0A; --caution-fg: #FDE68A;
+  --warning: #FB923C; --warning-bg: #431407; --warning-fg: #FED7AA;
+  --danger:  #F87171; --danger-bg:  #450A0A; --danger-fg:  #FECACA;
+  --info:    #38BDF8; --info-bg:    #0C2A3A; --info-fg:    #BAE6FD;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.45), 0 20px 48px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55), 0 32px 72px rgba(0, 0, 0, 0.6);
+  --shadow-brand: 0 10px 28px rgba(52, 211, 153, 0.2);
+  --focus-ring: 0 0 0 3px rgba(52, 211, 153, 0.45);
+}

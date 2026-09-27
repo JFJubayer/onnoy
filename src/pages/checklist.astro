@@ -1,0 +1,155 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/checklist.css';
+---
+
+<BaseLayout title="Misinformation Red Flags" description="Use Onnoy's misinformation checklist to verify suspicious messages, posts, and digital content before sharing.">
+  <!-- 2. Hero Section -->
+      <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in visible">
+              <h1 style="display: inline-flex; align-items: center; gap: 12px; justify-content: center; width: 100%;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #D32F2F;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>Misinformation Red Flags</h1>
+              <p>মিথ্যা তথ্য চেনার উপায়</p>
+              <p>Read a post. Go through 8 questions. Find out if it's likely real or fake.</p>
+          </div>
+      </header>
+  
+      <!-- 3. Checklist Section -->
+      <section class="section-gap container">
+          <div style="max-width: 600px; margin: 0 auto;">
+              <div class="instructions-box">
+                  Read the post or message you received. Then answer these 8 questions honestly.
+              </div>
+  
+              <div class="checklist-container">
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Does the headline use ALL CAPS or excessive exclamation marks???</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Does it say "SHARE IMMEDIATELY" or create panic urgency?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Is there no author name or source mentioned?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Does the website URL look strange or misspelled?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Does it make an extraordinary claim with no evidence?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Does it trigger strong emotion — anger, fear, or disgust?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Can you NOT find this story on any trusted news site?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-item" data-checked="false">
+      <div class="flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+      <div class="item-text">Does it ask you to share before reading the full content?</div>
+      <div class="toggle-btns">
+        <button class="btn-yes" onclick="toggleItem(this, 'yes')">YES</button>
+        <button class="btn-no active" onclick="toggleItem(this, 'no')">NO</button>
+      </div>
+    </div>
+    <div class="checklist-result" id="checklist-result" aria-live="polite">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px; flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      <span>Select YES or NO for each item above</span>
+    </div>
+  </div>
+  
+              <div class="action-buttons">
+                  <a href="/fact-check" class="btn btn-green">Still not sure? Submit to Onnoy →</a>
+                  <a href="/modules" class="btn btn-secondary">View all modules →</a>
+              </div>
+          </div>
+      </section>
+
+  <Fragment slot="scripts">
+    <script is:inline>
+function toggleItem(btn, choice) {
+  const item = btn.closest('.checklist-item');
+  item.querySelectorAll('.btn-yes, .btn-no').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-checked', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-checked', 'true');
+  item.dataset.checked = choice === 'yes' ? 'true' : 'false';
+  updateResult();
+}
+
+// Accessibility: expose each YES/NO pair as a labelled radio group.
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.checklist-item').forEach(item => {
+    const text = item.querySelector('.item-text');
+    const group = item.querySelector('.toggle-btns');
+    if (group) {
+      group.setAttribute('role', 'radiogroup');
+      if (text) group.setAttribute('aria-label', text.textContent.trim());
+    }
+    item.querySelectorAll('.btn-yes, .btn-no').forEach(b => {
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', b.classList.contains('active') ? 'true' : 'false');
+    });
+  });
+});
+function updateResult() {
+  const yesCount = document.querySelectorAll('.checklist-item[data-checked="true"]').length;
+  const result = document.getElementById('checklist-result');
+  
+  const iconSafe = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px; flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
+  const iconCaution = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px; flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+  const iconMisinfo = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px; flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
+  const iconFake = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:26px; height:26px; flex-shrink:0;"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+
+  if (yesCount <= 2) {
+    result.innerHTML = `${iconSafe} <span><strong>Probably Safe</strong> — তবে সতর্ক থাকুন। This looks relatively trustworthy but always verify important information.</span>`;
+    result.className = 'checklist-result checklist-result--safe';
+  } else if (yesCount <= 4) {
+    result.innerHTML = `${iconCaution} <span><strong>Proceed with Caution</strong> — সতর্কতার সাথে যাচাই করুন। Several red flags present. Do not share without verifying.</span>`;
+    result.className = 'checklist-result checklist-result--caution';
+  } else if (yesCount <= 6) {
+    result.innerHTML = `${iconMisinfo} <span><strong>Likely Misinformation</strong> — এটা মিথ্যা তথ্য হতে পারে। This has too many warning signs. Do not share.</span>`;
+    result.className = 'checklist-result checklist-result--warning';
+  } else {
+    result.innerHTML = `${iconFake} <span><strong>Almost Certainly Fake</strong> — শেয়ার করবেন না। Stop. Do not share this. Report it if possible.</span>`;
+    result.className = 'checklist-result checklist-result--danger';
+  }
+}
+    </script>
+  </Fragment>
+</BaseLayout>

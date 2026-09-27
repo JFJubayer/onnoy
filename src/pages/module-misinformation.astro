@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Misinformation" description="Misinformation lesson from Onnoy's Digital Citizenship course.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>Misinformation</h1><p>Verification before sharing</p></div></header>
+      <main class="container section-gap" data-lesson="misinformation"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

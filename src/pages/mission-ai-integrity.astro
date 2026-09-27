@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="Mission 3: AI Integrity" description="Mission 3: AI Integrity Check, a Level 2 Onnoy mission.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>AI Integrity Check</h1><p>Mission 3</p></div></header>
+      <main class="container section-gap" data-mission="aiIntegrity"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>

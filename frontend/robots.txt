@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://onnoy.vercel.app/sitemap.xml

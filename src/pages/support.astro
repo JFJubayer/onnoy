@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/support.css';
+---
+
+<BaseLayout title="Support" description="Confidential support for students facing cyberbullying, leaked content, or online harassment. Reach out to Onnoy — we're here to help.">
+  <!-- 1. Page Hero -->
+      <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1 data-i18n="support-title">We're Here</h1>
+              <p data-i18n="support-p">You don't have to face this alone. Reach out to Onnoy — everything you share stays between us.</p>
+          </div>
+      </header>
+  
+      <div class="container section-gap">
+          
+          <!-- Empathy Message Box -->
+          <div class="reassurance-note">
+              Whether it's a photo shared without permission, a rumor spread online, or ongoing harassment — what happened to you is not your fault. We are here to listen and help where we can.
+          </div>
+  
+          <!-- Form Section -->
+          <div class="form-card">
+              <form action="https://formspree.io/f/xaqvvobg" method="POST">
+  
+                  <input type="hidden" name="_subject" value="Onnoy Student Support Request">
+                  
+                  <div class="form-group">
+                      <label for="name" class="form-label">Your Name</label>
+                      <input type="text" id="name" name="name" class="form-control" placeholder="You can leave this blank if you prefer">
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="contact" class="form-label">Your Email or Phone <span class="text-amber">*</span></label>
+                      <input type="text" id="contact" name="contact" class="form-control" placeholder="We'll reach out to you here" required>
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="issue" class="form-label">What happened? <span class="text-amber">*</span></label>
+                      <select id="issue" name="issue" class="form-control" required>
+                          <option value="" disabled selected>Select an option</option>
+                          <option value="My photo or video was shared without my permission">My photo or video was shared without my permission</option>
+                          <option value="I am being harassed online">I am being harassed online</option>
+                          <option value="A rumor is being spread about me">A rumor is being spread about me</option>
+                          <option value="I need advice about something online">I need advice about something online</option>
+                          <option value="Other">Other</option>
+                      </select>
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="content" class="form-label">Tell us what's going on <span class="text-amber">*</span></label>
+                      <textarea id="content" name="content" class="form-control" rows="8" placeholder="Share as much or as little as you're comfortable with. We will read every word." required></textarea>
+                  </div>
+  
+                  <div class="form-group">
+                      <label for="time" class="form-label">When did this happen?</label>
+                      <input type="text" id="time" name="time" class="form-control" placeholder="e.g. last week, a few days ago...">
+                  </div>
+  
+                  <button type="submit" class="btn btn-green full-submit">Send Message to Onnoy &rarr;</button>
+  
+              </form>
+          </div>
+  
+          <!-- Reassurance Strip -->
+          <div class="trust-row">
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Everything is confidential</div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> You can stay anonymous</div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> No judgment, ever</div>
+          </div>
+  
+      </div>
+
+</BaseLayout>

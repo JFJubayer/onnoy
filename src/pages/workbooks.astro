@@ -1,0 +1,541 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/workbooks-inline.css';
+---
+
+<BaseLayout title="Workbooks & Booklets" description="Official Onnoy decision-making workbooks, guidebooks, and illustrated story booklets for Bangladeshi students, parents, and educators. Free to read and download.">
+  <!-- 2. Hero Section -->
+      <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1>Workbooks & Booklets</h1>
+              <p>ওয়ার্কবুক ও বুকলেট</p>
+              <p>Practical decision-making workbooks, student guidebooks, and illustrated story booklets — designed for Bangladeshi youth, parents, and educators. Read directly or unlock your free download below.</p>
+          </div>
+      </header>
+  
+      <!-- 3. Workbooks Showcase Section -->
+      <section class="section-gap container">
+          <div class="text-center" style="max-width: 780px; margin: 0 auto 36px auto;">
+              <div class="section-label" style="text-transform: uppercase; font-weight: 700; letter-spacing: 1px; color: var(--green); margin-bottom: 8px;">Decision Tools For Bangladesh</div>
+              <h2 class="section-title">Published Workbooks & Materials</h2>
+              <p style="color: var(--ink-mid); font-size: 1.05rem; line-height: 1.6;">
+                  Most students and families face high-stakes choices with plenty of noise, but few structured frameworks. Read online for free, or download your PDF copy instantly.
+              </p>
+          </div>
+  
+          <!-- Empathetic Subsidy & ChaBondhu Banner -->
+          <div class="chabondhu-card" style="margin-bottom: 40px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 280px;">
+                  <div style="display: inline-flex; align-items: center; gap: 6px; color: #B45309; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 6px;">
+                      <span>☕</span>
+                      <span>100% Free Sponsored Grant · জনকল্যাণে উন্মুক্ত</span>
+                  </div>
+                  <h3 style="margin: 0 0 6px 0; font-size: 1.25rem; color: var(--ink);">Why are our workbooks free?</h3>
+                  <p style="margin: 0; color: var(--ink-mid); font-size: 0.92rem; line-height: 1.55;">
+                      We believe essential life guidance should never depend on a student's ability to pay. Every <strong><del>৳49</del> ৳0</strong> download is subsidized through community goodwill. If you are in a position to help, treat our volunteer creators to a cup of tea on ChaBondhu (৳5) to sponsor printed copies for rural students.
+                  </p>
+              </div>
+              <div style="flex-shrink: 0;">
+                  <a href="https://www.chabondhu.com/onnoy" target="_blank" rel="noopener" class="btn-chabondhu" style="padding: 12px 24px; font-size: 0.95rem;">
+                      Sponsor a Student's Booklet ☕
+                  </a>
+              </div>
+          </div>
+  
+          <div class="workbook-grid">
+  
+              <!-- Item 1: What to Study? -->
+              <div class="workbook-card" style="border-top: 5px solid #059669;">
+                  <div>
+                      <div class="wb-cover-wrapper">
+                          <div class="wb-price-pill">
+                              <del>৳49</del>
+                              <strong>৳0 FREE</strong>
+                          </div>
+                          <a href="/assets/docs/Onnoy-What-to-study-booklet.pdf" target="_blank" class="wb-cover-link" title="Click to Read Online">
+                              <img src="/assets/images/covers/cover-what-to-study.png" alt="Not Sure What to Study? Booklet Cover" class="wb-cover-img" loading="lazy">
+                              <span class="wb-cover-hover-hint">Read Online ↗</span>
+                          </a>
+                      </div>
+  
+                      <div class="wb-badge-row">
+                          <span class="wb-tag" style="background: #ECFDF5; color: #047857;">Decision Workbook</span>
+                          <span class="wb-audience">Class 9–12 · HSC Students</span>
+                      </div>
+                      <h3 class="wb-title">Not Sure What to Study?</h3>
+                      <div class="wb-subtitle" style="color: #059669;">কী নিয়ে পড়ব? — সাবজেক্ট ও ক্যারিয়ার চয়েস ওয়ার্কবুক</div>
+                      <p class="wb-desc">
+                          A structured mentor's workbook for secondary and higher-secondary students facing conflicting advice from relatives, peers, and social pressure. Helps students systematically evaluate university tradeoffs and strengths.
+                      </p>
+                      <ul class="wb-highlights">
+                          <li style="color: #047857;">Trade-off Matrix for Bangladeshi Universities & Subjects</li>
+                          <li style="color: #047857;">Family Discussion Framework on Passion vs. Practicality</li>
+                          <li style="color: #047857;">Self-Discovery & Real-World Aptitude Exercise</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <!-- Pricing row -->
+                      <div class="wb-pricing-row">
+                          <div class="wb-price-details">
+                              <span class="reg-price">৳49 Regular</span>
+                              <span class="free-price">৳0 FREE</span>
+                          </div>
+                          <span class="wb-sponsor-tag">Sponsored for Youth</span>
+                      </div>
+  
+                      <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
+                          <span>📄 PDF Format · 749 KB</span>
+                          <span style="color: #059669; font-weight: 600;">✓ Instant Access</span>
+                      </div>
+  
+                      <div class="wb-actions">
+                          <a href="/assets/docs/Onnoy-What-to-study-booklet.pdf" target="_blank" class="btn-read-online">Read Online ↗</a>
+                          <button type="button" onclick="openDownloadModal('Not Sure What to Study? (কী নিয়ে পড়ব?)', '/assets/docs/Onnoy-What-to-study-booklet.pdf', '/assets/images/covers/cover-what-to-study.png', 'Class 9–12 · HSC Students')" class="btn-download-free" style="background: #059669;">Download (৳0) ⬇</button>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- Item 2: Learn What Lasts in the Age of AI -->
+              <div class="workbook-card" style="border-top: 5px solid #0284C7;">
+                  <div>
+                      <div class="wb-cover-wrapper">
+                          <div class="wb-price-pill" style="border-color: #0284C7;">
+                              <del>৳49</del>
+                              <strong style="color: #0284C7;">৳0 FREE</strong>
+                          </div>
+                          <a href="/assets/docs/Onnoy-Learn-What-Lasts.pdf" target="_blank" class="wb-cover-link" title="Click to Read Online">
+                              <img src="/assets/images/covers/cover-learn-what-lasts.png" alt="Learn What Lasts Booklet Cover" class="wb-cover-img" loading="lazy">
+                              <span class="wb-cover-hover-hint">Read Online ↗</span>
+                          </a>
+                      </div>
+  
+                      <div class="wb-badge-row">
+                          <span class="wb-tag" style="background: #E0F2FE; color: #0369A1;">Guidebook</span>
+                          <span class="wb-audience">Students · Young Professionals</span>
+                      </div>
+                      <h3 class="wb-title">Learn What Lasts in the Age of AI</h3>
+                      <div class="wb-subtitle" style="color: #0284C7;">এআই যুগে যা চিরস্থায়ী — টাইমলেস স্কিলস গাইডবুক</div>
+                      <p class="wb-desc">
+                          A calm, realistic perspective on artificial intelligence for high school graduates and undergrads. Explains which foundational cognitive and interpersonal skills remain immune to machine obsolescence.
+                      </p>
+                      <ul class="wb-highlights">
+                          <li style="color: #0369A1;">The 4 Timeless Pillars: Deep Focus, Synthesis, Taste & Empathy</li>
+                          <li style="color: #0369A1;">Using AI as a Lever rather than a Crutch</li>
+                          <li style="color: #0369A1;">Building Sustainable Knowledge Architecture</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <!-- Pricing row -->
+                      <div class="wb-pricing-row" style="background: rgba(2, 132, 199, 0.06); border-color: rgba(2, 132, 199, 0.35);">
+                          <div class="wb-price-details">
+                              <span class="reg-price">৳49 Regular</span>
+                              <span class="free-price" style="color: #0284C7;">৳0 FREE</span>
+                          </div>
+                          <span class="wb-sponsor-tag" style="background: #E0F2FE; color: #0369A1;">Sponsored for Youth</span>
+                      </div>
+  
+                      <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
+                          <span>📄 PDF Format · 690 KB</span>
+                          <span style="color: #0284C7; font-weight: 600;">✓ Instant Access</span>
+                      </div>
+  
+                      <div class="wb-actions">
+                          <a href="/assets/docs/Onnoy-Learn-What-Lasts.pdf" target="_blank" class="btn-read-online">Read Online ↗</a>
+                          <button type="button" onclick="openDownloadModal('Learn What Lasts in the Age of AI (এআই যুগে যা চিরস্থায়ী)', '/assets/docs/Onnoy-Learn-What-Lasts.pdf', '/assets/images/covers/cover-learn-what-lasts.png', 'Students · Young Professionals')" class="btn-download-free" style="background: #0284C7;">Download (৳0) ⬇</button>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- Item 3: The Child Behind the Screen -->
+              <div class="workbook-card" style="border-top: 5px solid #D97706;">
+                  <div>
+                      <div class="wb-cover-wrapper">
+                          <div class="wb-price-pill" style="border-color: #D97706;">
+                              <del>৳49</del>
+                              <strong style="color: #D97706;">৳0 FREE</strong>
+                          </div>
+                          <a href="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" target="_blank" class="wb-cover-link" title="Click to Read Online">
+                              <img src="/assets/images/covers/cover-child-behind-screen.png" alt="The Child Behind the Screen Cover" class="wb-cover-img" loading="lazy">
+                              <span class="wb-cover-hover-hint">Read Online ↗</span>
+                          </a>
+                      </div>
+  
+                      <div class="wb-badge-row">
+                          <span class="wb-tag" style="background: #FEF3C7; color: #B45309;">Parent & Educator Guide</span>
+                          <span class="wb-audience">Parents · School Teachers</span>
+                      </div>
+                      <h3 class="wb-title">The Child Behind the Screen</h3>
+                      <div class="wb-subtitle" style="color: #D97706;">স্ক্রিনের পেছনের কিশোর মন — অভিভাবক ও শিক্ষক সহায়িকা</div>
+                      <p class="wb-desc">
+                          Written in compassionate language to help parents and teachers understand why teenagers retreat into screens, how algorithmic feeds capture attention, and how to build calm digital agreements.
+                      </p>
+                      <ul class="wb-highlights">
+                          <li style="color: #B45309;">Conflict-Free Digital Contract Template for Families</li>
+                          <li style="color: #B45309;">Spotting Signs of Digital Anxiety and Gaming Burnout</li>
+                          <li style="color: #B45309;">Classroom Facilitation Guide for Difficult Screen Discussions</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <!-- Pricing row -->
+                      <div class="wb-pricing-row" style="background: rgba(217, 119, 6, 0.06); border-color: rgba(217, 119, 6, 0.35);">
+                          <div class="wb-price-details">
+                              <span class="reg-price">৳49 Regular</span>
+                              <span class="free-price" style="color: #D97706;">৳0 FREE</span>
+                          </div>
+                          <span class="wb-sponsor-tag" style="background: #FEF3C7; color: #B45309;">Sponsored for Youth</span>
+                      </div>
+  
+                      <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
+                          <span>📄 PDF Format · 221 KB</span>
+                          <span style="color: #D97706; font-weight: 600;">✓ Instant Access</span>
+                      </div>
+  
+                      <div class="wb-actions">
+                          <a href="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" target="_blank" class="btn-read-online">Read Online ↗</a>
+                          <button type="button" onclick="openDownloadModal('The Child Behind the Screen (স্ক্রিনের পেছনের কিশোর মন)', '/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf', '/assets/images/covers/cover-child-behind-screen.png', 'Parents · School Teachers')" class="btn-download-free" style="background: #D97706;">Download (৳0) ⬇</button>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- Item 4: Anima Comic Story Booklet -->
+              <div class="workbook-card" style="border-top: 5px solid #7C3AED;">
+                  <div>
+                      <div class="wb-cover-wrapper">
+                          <div class="wb-price-pill" style="border-color: #7C3AED;">
+                              <del>৳49</del>
+                              <strong style="color: #7C3AED;">৳0 FREE</strong>
+                          </div>
+                          <a href="/assets/docs/Booklet_Publishable.pdf" target="_blank" class="wb-cover-link" title="Click to Read Online">
+                              <img src="/assets/images/covers/cover-onno-ek-onima.png" alt="অন্য এক অনিমা Cover" class="wb-cover-img" loading="lazy">
+                              <span class="wb-cover-hover-hint">Read Online ↗</span>
+                          </a>
+                      </div>
+  
+                      <div class="wb-badge-row">
+                          <span class="wb-tag" style="background: #F3E8FF; color: #7C3AED;">Illustrated Story Booklet</span>
+                          <span class="wb-audience">Children · Teens & Families</span>
+                      </div>
+                      <h3 class="wb-title">অন্য এক অনিমা</h3>
+                      <div class="wb-subtitle" style="color: #7C3AED;">একটি অনুভূতি ও আত্মবিশ্বাসের গল্প — আলফী শাহরীন</div>
+                      <p class="wb-desc">
+                          A moving and beautifully illustrated story booklet exploring screen habits, emotional presence, and self-confidence. Shows the subtle emotional distance when smartphones displace real conversation.
+                      </p>
+                      <ul class="wb-highlights">
+                          <li style="color: #7C3AED;">Full Color Graphic & Story Format (সচিত্র গল্পগ্রন্থ)</li>
+                          <li style="color: #7C3AED;">Perfect for Classroom Reading & Family Reflection</li>
+                          <li style="color: #7C3AED;">Written by Alfie Shahrin for Onnoy Initiatives</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <!-- Pricing row -->
+                      <div class="wb-pricing-row" style="background: rgba(124, 58, 237, 0.06); border-color: rgba(124, 58, 237, 0.35);">
+                          <div class="wb-price-details">
+                              <span class="reg-price">৳49 Regular</span>
+                              <span class="free-price" style="color: #7C3AED;">৳0 FREE</span>
+                          </div>
+                          <span class="wb-sponsor-tag" style="background: #F3E8FF; color: #7C3AED;">Sponsored for Youth</span>
+                      </div>
+  
+                      <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
+                          <span>📄 PDF Format · 11 MB</span>
+                          <span style="color: #7C3AED; font-weight: 600;">✓ Instant Access</span>
+                      </div>
+  
+                      <div class="wb-actions">
+                          <a href="/assets/docs/Booklet_Publishable.pdf" target="_blank" class="btn-read-online">Read Online ↗</a>
+                          <button type="button" onclick="openDownloadModal('অন্য এক অনিমা (Onno Ek Anima - Comic Story Booklet)', '/assets/docs/Booklet_Publishable.pdf', '/assets/images/covers/cover-onno-ek-onima.png', 'Children · Teens & Families')" class="btn-download-free" style="background: #7C3AED;">Download (৳0) ⬇</button>
+                      </div>
+                  </div>
+              </div>
+  
+          </div>
+  
+          <!-- Institutional Materials & Workshop Request -->
+          <div class="card" style="margin-top: 50px; background: linear-gradient(135deg, rgba(236, 253, 245, 0.7) 0%, rgba(240, 253, 250, 0.7) 100%); border: 1.5px solid var(--green); padding: 36px 32px; border-radius: var(--radius-lg);">
+              <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                  <div style="width: 56px; height: 56px; border-radius: 14px; background: var(--green); display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 1.8rem; flex-shrink: 0;">
+                      🏫
+                  </div>
+                  <div style="flex: 1; min-width: 260px;">
+                      <h3 style="font-size: 1.35rem; margin-bottom: 6px;">Want Printed Booklets for Your School or College?</h3>
+                      <p style="color: var(--ink-mid); font-size: 0.95rem; line-height: 1.55; margin: 0 0 12px 0;">
+                          We partner with high schools, colleges, and youth organizations across Bangladesh to deliver interactive workshops accompanied by physical printed booklets and workbooks for students.
+                      </p>
+                      <div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.85rem; font-weight: 600;">
+                          <a href="/assets/docs/Onnoy_Institution_Proposal.pdf" target="_blank" style="color: var(--green); text-decoration: underline;">Institutional Reachout Proposal ↗</a>
+                          <span style="color: var(--border);">|</span>
+                          <a href="/assets/docs/Onnoy_Sustainability_Plan.pdf" target="_blank" style="color: var(--green); text-decoration: underline;">Sustainability & Social Enterprise Plan ↗</a>
+                      </div>
+                  </div>
+                  <div>
+                      <a href="/session-request" class="btn btn-green">Invite Onnoy to Your Campus →</a>
+                  </div>
+              </div>
+          </div>
+  
+      </section>
+  
+      <!-- 4. Download Access Modal -->
+      <div id="downloadModal" class="onnoy-modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+          <div class="onnoy-modal-box" style="max-width: 520px; padding: 28px;">
+              <button class="modal-close-btn" onclick="closeDownloadModal()" aria-label="Close modal">&times;</button>
+              
+              <div id="modalFormContent">
+                  <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+                      <img id="modalCoverThumb" src="/assets/images/covers/cover-what-to-study.png" alt="Cover" style="width: 58px; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.08);">
+                      <div style="flex: 1; min-width: 0;">
+                          <span id="modalAudienceTag" style="font-size: 0.75rem; font-weight: 700; color: var(--green); text-transform: uppercase;">Class 9–12</span>
+                          <h3 id="modalBookletTitle" style="font-size: 1.15rem; margin: 2px 0 4px 0; color: var(--ink); line-height: 1.3;">Not Sure What to Study?</h3>
+                          <div style="display: flex; align-items: center; gap: 8px;">
+                              <span style="text-decoration: line-through; color: var(--ink-mid); font-size: 0.85rem;">Price: ৳49</span>
+                              <span style="background: #ECFDF5; color: #047857; font-weight: 800; font-size: 0.88rem; padding: 2px 8px; border-radius: 99px;">৳0 Free Grant</span>
+                          </div>
+                      </div>
+                  </div>
+  
+                  <div style="margin-bottom: 18px;">
+                      <h4 id="modalTitle" style="font-size: 1.05rem; margin: 0 0 6px 0; color: var(--ink);">Enter your details to claim free download</h4>
+                      <p style="font-size: 0.85rem; color: var(--ink-mid); margin: 0; line-height: 1.45;">
+                          We provide these materials free for Bangladeshi youth. Please share your info so we can track educational reach and improve future editions.
+                      </p>
+                  </div>
+  
+                  <form id="workbookLeadForm" onsubmit="handleDownloadSubmit(event)">
+                      <input type="hidden" id="modalTargetUrl" value="">
+                      <input type="hidden" id="modalTargetTitle" value="">
+  
+                      <!-- Full Name -->
+                      <div class="form-group" style="margin-bottom: 14px;">
+                          <label for="leadFullName" style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--ink);">Full Name / আপনার নাম <span style="color: #EF4444;">*</span></label>
+                          <input type="text" id="leadFullName" class="form-control" placeholder="e.g. Tanvir Ahmed" required autocomplete="name" style="width: 100%;">
+                      </div>
+  
+                      <!-- Email Address -->
+                      <div class="form-group" style="margin-bottom: 14px;">
+                          <label for="leadEmail" style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--ink);">Email Address / ইমেইল <span style="color: #EF4444;">*</span></label>
+                          <input type="email" id="leadEmail" class="form-control" placeholder="e.g. tanvir@example.com" required autocomplete="email" style="width: 100%;">
+                      </div>
+  
+                      <!-- Age Range -->
+                      <div class="form-group" style="margin-bottom: 20px;">
+                          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: var(--ink);">
+                              Select Age Range / বয়স সীমা <span style="color: #EF4444;">*</span>
+                          </label>
+                          <div class="age-options-grid">
+                              <label class="age-radio-card" id="age-card-10-18">
+                                  <input type="radio" name="age_range" value="10-18" required onchange="handleAgeSelect(this)">
+                                  <div>
+                                      <span class="age-label-main">10–18</span>
+                                      <span class="age-label-sub">School & College</span>
+                                  </div>
+                              </label>
+                              <label class="age-radio-card" id="age-card-19-26">
+                                  <input type="radio" name="age_range" value="19-26" onchange="handleAgeSelect(this)">
+                                  <div>
+                                      <span class="age-label-main">19–26</span>
+                                      <span class="age-label-sub">University & Graduates</span>
+                                  </div>
+                              </label>
+                              <label class="age-radio-card" id="age-card-27-34">
+                                  <input type="radio" name="age_range" value="27-34" onchange="handleAgeSelect(this)">
+                                  <div>
+                                      <span class="age-label-main">27–34</span>
+                                      <span class="age-label-sub">Professionals & Parents</span>
+                                  </div>
+                              </label>
+                              <label class="age-radio-card" id="age-card-35+">
+                                  <input type="radio" name="age_range" value="35+" onchange="handleAgeSelect(this)">
+                                  <div>
+                                      <span class="age-label-main">35+</span>
+                                      <span class="age-label-sub">Educators & Guardians</span>
+                                  </div>
+                              </label>
+                          </div>
+                      </div>
+  
+                      <!-- Pricing Summary Box -->
+                      <div style="background: var(--surface-alt); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 18px; border: 1px solid var(--border);">
+                          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--ink-mid); margin-bottom: 4px;">
+                              <span>Standard Booklet Fee:</span>
+                              <span style="text-decoration: line-through;">৳49</span>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #059669; font-weight: 600; margin-bottom: 4px;">
+                              <span>Youth Impact Subsidy:</span>
+                              <span>- ৳49</span>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 800; color: var(--ink); border-top: 1px solid var(--border); padding-top: 6px; margin-top: 4px;">
+                              <span>Amount Due Now:</span>
+                              <span style="color: #059669;">৳0 (FREE)</span>
+                          </div>
+                      </div>
+  
+                      <button type="submit" id="modalSubmitBtn" class="btn btn-green w-full" style="padding: 13px; font-size: 1rem; font-weight: 700; width: 100%;">
+                          Claim Free Access & Download PDF ⬇
+                      </button>
+                      <p style="font-size: 0.76rem; color: var(--ink-light); text-align: center; margin: 10px 0 0 0;">
+                          🔒 No payment required. Your information is safe and will never be shared.
+                      </p>
+                  </form>
+              </div>
+  
+              <!-- Instant Success State -->
+              <div id="modalSuccessContent" style="display: none; text-align: center; padding: 20px 10px;">
+                  <div style="width: 64px; height: 64px; background: #ECFDF5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; color: #059669; font-size: 2rem;">
+                      ✓
+                  </div>
+                  <h3 style="font-size: 1.35rem; margin-bottom: 8px; color: var(--ink);">Download Started!</h3>
+                  <p style="color: var(--ink-mid); font-size: 0.95rem; line-height: 1.55; margin-bottom: 20px;">
+                      Thank you for joining Onnoy's learning movement. If your download doesn't trigger automatically in a few seconds, click the button below:
+                  </p>
+                  <a id="manualDownloadLink" href="#" download class="btn btn-green" style="margin-bottom: 14px; display: inline-block;">
+                      Click to Download PDF ⬇
+                  </a>
+                  <div>
+                      <button type="button" onclick="closeDownloadModal()" class="btn btn-secondary" style="font-size: 0.88rem;">Close</button>
+                  </div>
+              </div>
+  
+          </div>
+      </div>
+
+  <Fragment slot="scripts">
+    <script is:inline>
+        const downloadModal = document.getElementById('downloadModal');
+        const modalFormContent = document.getElementById('modalFormContent');
+        const modalSuccessContent = document.getElementById('modalSuccessContent');
+        const manualDownloadLink = document.getElementById('manualDownloadLink');
+
+        function openDownloadModal(title, pdfUrl, coverImg, audience) {
+            document.getElementById('modalBookletTitle').textContent = title;
+            document.getElementById('modalTargetTitle').value = title;
+            document.getElementById('modalTargetUrl').value = pdfUrl;
+            document.getElementById('modalCoverThumb').src = coverImg || '/assets/images/covers/cover-what-to-study.png';
+            document.getElementById('modalAudienceTag').textContent = audience || 'Youth & Students';
+            manualDownloadLink.href = pdfUrl;
+
+            // Pre-fill previously entered user details
+            const savedName = localStorage.getItem('onnoy_user_name');
+            const savedEmail = localStorage.getItem('onnoy_user_email');
+            const savedAge = localStorage.getItem('onnoy_user_age');
+
+            if (savedName) document.getElementById('leadFullName').value = savedName;
+            if (savedEmail) document.getElementById('leadEmail').value = savedEmail;
+            if (savedAge) {
+                const radio = document.querySelector(`input[name="age_range"][value="${savedAge}"]`);
+                if (radio) {
+                    radio.checked = true;
+                    handleAgeSelect(radio);
+                }
+            }
+
+            modalFormContent.style.display = 'block';
+            modalSuccessContent.style.display = 'none';
+            downloadModal.classList.add('active');
+            downloadModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDownloadModal() {
+            downloadModal.classList.remove('active');
+            downloadModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && downloadModal.classList.contains('active')) {
+                closeDownloadModal();
+            }
+        });
+
+        // Close when clicking backdrop
+        downloadModal.addEventListener('click', (e) => {
+            if (e.target === downloadModal) {
+                closeDownloadModal();
+            }
+        });
+
+        function handleAgeSelect(radioInput) {
+            document.querySelectorAll('.age-radio-card').forEach(card => card.classList.remove('selected'));
+            const parent = radioInput.closest('.age-radio-card');
+            if (parent) parent.classList.add('selected');
+        }
+
+        async function handleDownloadSubmit(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('modalSubmitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing Free Access...';
+
+            const fullName = document.getElementById('leadFullName').value.trim();
+            const email = document.getElementById('leadEmail').value.trim();
+            const ageRadio = document.querySelector('input[name="age_range"]:checked');
+            const ageRange = ageRadio ? ageRadio.value : 'Not specified';
+            const bookletTitle = document.getElementById('modalTargetTitle').value;
+            const bookletUrl = document.getElementById('modalTargetUrl').value;
+
+            // Remember user profile for convenience
+            localStorage.setItem('onnoy_user_name', fullName);
+            localStorage.setItem('onnoy_user_email', email);
+            localStorage.setItem('onnoy_user_age', ageRange);
+
+            const leadRecord = {
+                id: 'DL-' + Date.now(),
+                name: fullName,
+                email: email,
+                age: ageRange,
+                booklet: bookletTitle,
+                booklet_url: bookletUrl,
+                regular_price: '৳49',
+                price_charged: '৳0',
+                downloaded_at: new Date().toISOString()
+            };
+
+            // 1. Save to localStorage
+            try {
+                const existing = JSON.parse(localStorage.getItem('onnoy_workbook_downloads') || '[]');
+                existing.unshift(leadRecord);
+                localStorage.setItem('onnoy_workbook_downloads', JSON.stringify(existing));
+            } catch (err) {
+                console.error('LocalStorage error:', err);
+            }
+
+            // 2. Record the lead in Supabase (public insert policy; admins read it in the portal)
+            if (window.supabaseClient) {
+                window.supabaseClient.from('download_leads').insert({
+                    name: fullName,
+                    email: email,
+                    age_group: ageRange,
+                    booklet: bookletTitle,
+                    booklet_url: bookletUrl,
+                    regular_price: '৳49',
+                    price_charged: '৳0',
+                    source: 'workbooks-page'
+                }).then(({ error }) => { if (error) console.warn('Lead sync skipped:', error.message); });
+            }
+
+            // 3. Trigger immediate file download
+            const tempLink = document.createElement('a');
+            tempLink.href = bookletUrl;
+            tempLink.download = bookletUrl.split('/').pop() || 'Onnoy-Booklet.pdf';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+
+            // 4. Show success screen in modal
+            modalFormContent.style.display = 'none';
+            modalSuccessContent.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Claim Free Access & Download PDF ⬇';
+        }
+
+        // Auto-open modal if requested via URL (?download=1)
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('download') === '1' || params.get('modal') === '1') {
+                openDownloadModal('Not Sure What to Study? (কী নিয়ে পড়ব?)', '/assets/docs/Onnoy-What-to-study-booklet.pdf', '/assets/images/covers/cover-what-to-study.png', 'Class 9–12 · HSC Students');
+            }
+        });
+    </script>
+  </Fragment>
+</BaseLayout>

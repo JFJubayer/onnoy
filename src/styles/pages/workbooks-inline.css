@@ -1,0 +1,302 @@
+/* Moved from legacy workbooks.html <style> */
+.workbook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    margin-top: 36px;
+}
+.workbook-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+.workbook-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
+}
+
+/* Cover Styling */
+.wb-cover-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 22px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.08) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+.wb-cover-link {
+    display: block;
+    position: relative;
+    max-width: 220px;
+    width: 100%;
+    transition: transform 0.3s ease;
+    border-radius: 6px;
+    box-shadow: -4px 6px 16px rgba(0, 0, 0, 0.18), 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+.wb-cover-link:hover {
+    transform: scale(1.03) rotate(-0.5deg);
+}
+.wb-cover-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.wb-cover-hover-hint {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.85);
+    color: #FFF;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 99px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
+.wb-cover-link:hover .wb-cover-hover-hint {
+    opacity: 1;
+}
+
+/* Pricing Tag & Badges */
+.wb-price-pill {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: #FFFFFF;
+    border: 1.5px solid #059669;
+    border-radius: 99px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(5, 150, 105, 0.18);
+    z-index: 2;
+}
+.wb-price-pill del {
+    color: #94A3B8;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.wb-price-pill strong {
+    color: #059669;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+
+.wb-badge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.wb-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 4px 10px;
+    border-radius: 99px;
+}
+.wb-audience {
+    font-size: 0.78rem;
+    color: var(--ink-mid);
+    font-weight: 600;
+}
+.wb-title {
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    margin: 0 0 6px 0;
+    color: var(--ink);
+    line-height: 1.3;
+}
+.wb-subtitle {
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+}
+.wb-desc {
+    color: var(--ink-mid);
+    font-size: 0.91rem;
+    line-height: 1.58;
+    margin-bottom: 16px;
+}
+.wb-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    font-size: 0.86rem;
+    color: var(--ink);
+}
+.wb-highlights li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 7px;
+    line-height: 1.42;
+}
+.wb-highlights li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+
+/* Pricing Breakdown row inside card */
+.wb-pricing-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: rgba(5, 150, 105, 0.06);
+    border-radius: var(--radius);
+    border: 1px dashed rgba(5, 150, 105, 0.35);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.wb-price-details {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+.wb-price-details .reg-price {
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    text-decoration: line-through;
+}
+.wb-price-details .free-price {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #059669;
+}
+.wb-sponsor-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: #ECFDF5;
+    color: #047857;
+    padding: 3px 8px;
+    border-radius: 99px;
+    text-transform: uppercase;
+}
+
+.wb-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 8px;
+}
+.btn-read-online {
+    background-color: var(--surface);
+    color: var(--ink) !important;
+    border: 1.5px solid var(--border);
+    font-weight: 700;
+    text-align: center;
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.btn-read-online:hover {
+    border-color: var(--green);
+    color: var(--green) !important;
+    background: #ECFDF5;
+}
+.btn-download-free {
+    color: #FFFFFF !important;
+    border: none;
+    font-weight: 700;
+    text-align: center;
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.btn-download-free:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+@media (max-width: 480px) {
+    .wb-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Modal Form Styles */
+.age-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+}
+@media (max-width: 420px) {
+    .age-options-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.age-radio-card {
+    position: relative;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    background: var(--surface);
+}
+.age-radio-card:hover {
+    border-color: var(--green);
+    background: var(--surface-alt);
+}
+.age-radio-card input[type="radio"] {
+    accent-color: var(--green);
+    margin: 0;
+    width: 17px;
+    height: 17px;
+}
+.age-radio-card.selected {
+    border-color: var(--green);
+    background: #ECFDF5;
+}
+.age-label-main {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--ink);
+    display: block;
+}
+.age-label-sub {
+    font-size: 0.75rem;
+    color: var(--ink-mid);
+    display: block;
+}

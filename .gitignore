@@ -11,3 +11,12 @@ tests/
 /laws-*.png
 /onnoy-index-current.png
 chrome-profile/
+node_modules
+
+# Astro / Node
+node_modules/
+dist/
+.astro/
+.vercel/
+.env.local
+.env.*.local

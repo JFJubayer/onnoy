@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/stories.css';
+---
+
+<BaseLayout title="Student Stories" description="Real anonymous stories from Bangladeshi students about screen addiction, misinformation, and academic honesty. By Onnoy, Mymensingh.">
+  <!-- 2. Hero Section -->
+      <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1>Student Stories</h1>
+              <p>সত্যিকারের গল্প</p>
+              <p>Real experiences. Anonymous voices. You are not alone.</p>
+          </div>
+      </header>
+  
+      <!-- 3. Stories Section -->
+      <section class="section-gap container">
+          <div class="intro-paragraph">
+              These are real stories shared by students across Bangladesh — with names and details changed to protect privacy. We share them because isolation makes these experiences harder. Knowing others have been through it — and come out the other side — makes them easier.
+          </div>
+  
+          <div class="stories-container">
+              <!-- Story 1 -->
+              <div class="story-card">
+                  <div class="story-category"> Screen Time</div>
+                  <div class="story-title">I lost three months to my phone — and barely noticed</div>
+                  <div class="story-preview">I was in Class 11. I had plans — study, sleep, exercise. But somehow every evening disappeared into YouTube and Facebook. It wasn't until my first test results came back that I realized...</div>
+                  <button class="story-toggle-btn" onclick="toggleStory(0, this)">Read Story →</button>
+                  <div class="story-full" id="story-0">
+                      I was in Class 11. I had big plans — study by 6pm, sleep by 11pm, exercise in the morning. But every evening I'd sit down with my phone 'just for a minute' and look up to find it was midnight. I wasn't sad or anxious — I was just... absent. It wasn't until my first test results came back that I realized three months had passed and I had almost nothing to show for them. The scariest part wasn't the grades. It was that I hadn't noticed time passing. I started leaving my phone in another room while studying. Just that one change made everything different. — Student, Mymensingh, Class 12
+                  </div>
+              </div>
+  
+              <!-- Story 2 -->
+              <div class="story-card">
+                  <div class="story-category"> Misinformation</div>
+                  <div class="story-title">I shared something that wasn't true. Here's what I learned.</div>
+                  <div class="story-preview">A video came through our class WhatsApp group. A famous person had supposedly said something terrible. I watched 20 seconds of it and forwarded it to three other groups...</div>
+                  <button class="story-toggle-btn" onclick="toggleStory(1, this)">Read Story →</button>
+                  <div class="story-full" id="story-1">
+                      A video came through our class WhatsApp group. A famous person had supposedly said something terrible. I watched 20 seconds of it and forwarded it to three other groups before even finishing it. By the next day, 200 people had seen it through my share. Two days later someone posted proof that the video was edited — completely fabricated. I felt sick. I went back and sent corrections to every group I could. But most of the shares had already moved past me. I couldn't undo it. Now I have a rule: I do not share anything that I haven't finished reading or watching, and I check at least one other source first. It takes two minutes. It's worth it. — Student, Dhaka, Class 11
+                  </div>
+              </div>
+  
+              <!-- Story 3 -->
+              <div class="story-card">
+                  <div class="story-category">Academic Honesty</div>
+                  <div class="story-title">I copied my way through assignments — until the exam</div>
+                  <div class="story-preview">For the first six months of Class 11, I had a system. Find the assignment topic on Google, rearrange some sentences, submit. I was getting decent marks...</div>
+                  <button class="story-toggle-btn" onclick="toggleStory(2, this)">Read Story →</button>
+                  <div class="story-full" id="story-2">
+                      For the first six months of Class 11, I had a system. Find the assignment topic on Google, rearrange some sentences, submit. I was getting decent marks. I thought I was being smart. Then the half-yearly exam arrived. I sat down and stared at questions I had technically 'answered' in assignments — but I had no idea what the answers actually were. I had submitted words. I had never learned ideas. I failed two subjects. That summer I had to re-learn six months of content from scratch. The copying hadn't saved me time — it had just delayed the cost. — Student, Mymensingh, Class 12
+                  </div>
+              </div>
+          </div>
+  
+          <div class="submission-box">
+              <div class="submission-text">
+                  Want to share your story? It will be published anonymously and may help another student going through the same thing.
+              </div>
+              <a href="https://wa.me/8801830900746" target="_blank" rel="noopener" class="submission-btn">Share Your Story →</a>
+          </div>
+      </section>
+
+  <Fragment slot="scripts">
+    <script is:inline>
+        function toggleStory(storyId, btn) {
+            const storyElement = document.getElementById('story-' + storyId);
+            
+            storyElement.classList.toggle('show');
+            
+            if (storyElement.classList.contains('show')) {
+                btn.textContent = 'Hide Story ↑';
+            } else {
+                btn.textContent = 'Read Story →';
+            }
+        }
+    </script>
+  </Fragment>
+</BaseLayout>

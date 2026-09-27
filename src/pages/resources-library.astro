@@ -1,0 +1,273 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/resources-library.css';
+---
+
+<BaseLayout title="Resource Library" description="Onnoy's resource library with tools, guides, and links for students learning digital responsibility and ethical technology use.">
+  <!-- 2. Hero Section -->
+      <header class="hero" id="main" tabindex="-1">
+          <div class="container fade-in">
+              <h1>Resource Library</h1>
+              <p>সহায়ক তথ্যভান্ডার</p>
+              <p>Trusted tools, websites, and guides — curated for Bangladeshi students.</p>
+          </div>
+      </header>
+  
+      <!-- 3. Resources Section -->
+      <section class="section-gap container">
+          <div style="max-width: 780px; margin: 0 auto;">
+              
+              <!-- Section 0: Workbooks & Booklets -->
+              <h2 id="workbooks-booklets" class="resource-section-title" style="color: var(--green); display: flex; align-items: center; gap: 8px;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  Workbooks & Booklets
+              </h2>
+              <p style="color: var(--ink-mid); margin-bottom: 16px; font-size: 0.95rem;">
+                  Official Onnoy decision-making workbooks, student guidebooks, and illustrated story booklets. Free for students, parents, and teachers to read and download.
+              </p>
+              <div style="background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.25); border-radius: 10px; padding: 12px 18px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
+                  <div style="font-size: 0.88rem; color: var(--ink-mid);">
+                      ☕ <strong>Free for all youth:</strong> Subsidized through community goodwill. Help sponsor our next student copy on <a href="https://www.chabondhu.com/onnoy" target="_blank" rel="noopener" style="color: #D97706; font-weight: 700; text-decoration: underline;">ChaBondhu (৳5) ↗</a>
+                  </div>
+                  <a href="https://www.chabondhu.com/onnoy" target="_blank" rel="noopener" class="btn-chabondhu" style="padding: 6px 14px; font-size: 0.82rem;">Support ☕</a>
+              </div>
+              <div class="resources-grid" style="margin-bottom: 30px;">
+                  <div class="resource-card" style="border-left: 4px solid #059669; display: flex; gap: 16px; align-items: flex-start;">
+                      <a href="/workbooks" style="flex-shrink: 0;">
+                          <img src="/assets/images/covers/cover-what-to-study.png" alt="Cover" style="width: 70px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.08);">
+                      </a>
+                      <div style="flex: 1; min-width: 0;">
+                          <div class="resource-header" style="margin-bottom: 6px;">
+                              <div>
+                                  <div class="resource-name" style="font-size: 1.05rem; font-weight: 700;">Not Sure What to Study?</div>
+                                  <div class="resource-description">কী নিয়ে পড়ব? A structured mentor's workbook for Class 9–12 students.</div>
+                              </div>
+                              <div class="resource-category" style="background: #ECFDF5; color: #047857;">Workbook</div>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                              <span style="font-size: 0.8rem; color: #059669; font-weight: 700;"><del style="color:#94A3B8;">৳49</del> ৳0 Free</span>
+                              <div style="display: flex; gap: 10px;">
+                                  <a href="/assets/docs/Onnoy-What-to-study-booklet.pdf" target="_blank" class="resource-link" style="color: var(--ink-mid); font-size: 0.85rem;">Read ↗</a>
+                                  <a href="/workbooks" class="resource-link" style="color: var(--green); font-weight: 700; font-size: 0.85rem;">Download Free ⬇</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+  
+                  <div class="resource-card" style="border-left: 4px solid #0284C7; display: flex; gap: 16px; align-items: flex-start;">
+                      <a href="/workbooks" style="flex-shrink: 0;">
+                          <img src="/assets/images/covers/cover-learn-what-lasts.png" alt="Cover" style="width: 70px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.08);">
+                      </a>
+                      <div style="flex: 1; min-width: 0;">
+                          <div class="resource-header" style="margin-bottom: 6px;">
+                              <div>
+                                  <div class="resource-name" style="font-size: 1.05rem; font-weight: 700;">Learn What Lasts in the Age of AI</div>
+                                  <div class="resource-description">এআই যুগে যা চিরস্থায়ী — A calm guide on foundational human skills.</div>
+                              </div>
+                              <div class="resource-category" style="background: #E0F2FE; color: #0369A1;">Guidebook</div>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                              <span style="font-size: 0.8rem; color: #0284C7; font-weight: 700;"><del style="color:#94A3B8;">৳49</del> ৳0 Free</span>
+                              <div style="display: flex; gap: 10px;">
+                                  <a href="/assets/docs/Onnoy-Learn-What-Lasts.pdf" target="_blank" class="resource-link" style="color: var(--ink-mid); font-size: 0.85rem;">Read ↗</a>
+                                  <a href="/workbooks" class="resource-link" style="color: #0284C7; font-weight: 700; font-size: 0.85rem;">Download Free ⬇</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+  
+                  <div class="resource-card" style="border-left: 4px solid #D97706; display: flex; gap: 16px; align-items: flex-start;">
+                      <a href="/workbooks" style="flex-shrink: 0;">
+                          <img src="/assets/images/covers/cover-child-behind-screen.png" alt="Cover" style="width: 70px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.08);">
+                      </a>
+                      <div style="flex: 1; min-width: 0;">
+                          <div class="resource-header" style="margin-bottom: 6px;">
+                              <div>
+                                  <div class="resource-name" style="font-size: 1.05rem; font-weight: 700;">The Child Behind the Screen</div>
+                                  <div class="resource-description">স্ক্রিনের পেছনের কিশোর মন — A guide for parents & teachers.</div>
+                              </div>
+                              <div class="resource-category" style="background: #FEF3C7; color: #B45309;">Parent Guide</div>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                              <span style="font-size: 0.8rem; color: #D97706; font-weight: 700;"><del style="color:#94A3B8;">৳49</del> ৳0 Free</span>
+                              <div style="display: flex; gap: 10px;">
+                                  <a href="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" target="_blank" class="resource-link" style="color: var(--ink-mid); font-size: 0.85rem;">Read ↗</a>
+                                  <a href="/workbooks" class="resource-link" style="color: #D97706; font-weight: 700; font-size: 0.85rem;">Download Free ⬇</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+  
+                  <div class="resource-card" style="border-left: 4px solid #8B5CF6; display: flex; gap: 16px; align-items: flex-start;">
+                      <a href="/workbooks" style="flex-shrink: 0;">
+                          <img src="/assets/images/covers/cover-onno-ek-onima.png" alt="Cover" style="width: 70px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.08);">
+                      </a>
+                      <div style="flex: 1; min-width: 0;">
+                          <div class="resource-header" style="margin-bottom: 6px;">
+                              <div>
+                                  <div class="resource-name" style="font-size: 1.05rem; font-weight: 700;">অন্য এক অনিমা (Story Booklet)</div>
+                                  <div class="resource-description">একটি অনুভূতি ও আত্মবিশ্বাসের গল্প — সচিত্র কমিক ও গল্পগ্রন্থ।</div>
+                              </div>
+                              <div class="resource-category" style="background: #F3E8FF; color: #7C3AED;">Story Booklet</div>
+                          </div>
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                              <span style="font-size: 0.8rem; color: #7C3AED; font-weight: 700;"><del style="color:#94A3B8;">৳49</del> ৳0 Free</span>
+                              <div style="display: flex; gap: 10px;">
+                                  <a href="/assets/docs/Booklet_Publishable.pdf" target="_blank" class="resource-link" style="color: var(--ink-mid); font-size: 0.85rem;">Read ↗</a>
+                                  <a href="/workbooks" class="resource-link" style="color: #7C3AED; font-weight: 700; font-size: 0.85rem;">Download Free ⬇</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div style="text-align: center; margin-bottom: 40px;">
+                  <a href="/workbooks" class="btn btn-outline" style="font-size: 0.9rem;">View Dedicated Workbooks & Booklets Portal →</a>
+              </div>
+              
+              <!-- Section 1: Fact Checking Sites -->
+              <h2 class="resource-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Fact Checking Sites</h2>
+              <div class="resources-grid">
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Boom Live</div>
+                              <div class="resource-description">India and Bangladesh focused fact-checking</div>
+                          </div>
+                          <div class="resource-category">Fact Check</div>
+                      </div>
+                      <a href="https://boomlive.in" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Rumor Scanner</div>
+                              <div class="resource-description">Bangladesh's own fact-checking platform</div>
+                          </div>
+                          <div class="resource-category">Fact Check</div>
+                      </div>
+                      <a href="https://rumorscanner.com" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Snopes</div>
+                              <div class="resource-description">One of the world's oldest fact-checking sites</div>
+                          </div>
+                          <div class="resource-category">Fact Check</div>
+                      </div>
+                      <a href="https://snopes.com" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">AFP Fact Check</div>
+                              <div class="resource-description">International fact-checking by AFP news agency</div>
+                          </div>
+                          <div class="resource-category">Fact Check</div>
+                      </div>
+                      <a href="https://factcheck.afp.com" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+              </div>
+  
+              <!-- Section 2: Digital Safety -->
+              <h2 class="resource-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Digital Safety</h2>
+              <div class="resources-grid">
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Bangladesh Telecommunication Regulatory Commission</div>
+                              <div class="resource-description">Official cybercrime reporting in Bangladesh</div>
+                          </div>
+                          <div class="resource-category">Safety</div>
+                      </div>
+                      <a href="https://btrc.gov.bd" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Cyber Help Bangladesh</div>
+                              <div class="resource-description">Local digital support resource</div>
+                          </div>
+                          <div class="resource-category">Safety</div>
+                      </div>
+                      <span class="resource-link resource-link-disabled" aria-disabled="true">Listing pending</span>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Google Safety Center</div>
+                              <div class="resource-description">How to protect your Google account and data</div>
+                          </div>
+                          <div class="resource-category">Safety</div>
+                      </div>
+                      <a href="https://safety.google" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Digital Safety Laws in Bangladesh</div>
+                              <div class="resource-description">A guided reference to cyber safety, online harm, AI abuse, copyright, and privacy laws</div>
+                          </div>
+                          <div class="resource-category">Law</div>
+                      </div>
+                      <a href="/digital-safety-laws" class="resource-link">Read guide →</a>
+                  </div>
+              </div>
+  
+              <!-- Section 3: Academic Integrity -->
+              <h2 class="resource-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>Academic Integrity</h2>
+              <div class="resources-grid">
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Grammarly Plagiarism Checker</div>
+                              <div class="resource-description">Check your writing for unintentional plagiarism</div>
+                          </div>
+                          <div class="resource-category">Academic</div>
+                      </div>
+                      <a href="https://grammarly.com" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Cite This For Me</div>
+                              <div class="resource-description">Free and easy reference generator</div>
+                          </div>
+                          <div class="resource-category">Academic</div>
+                      </div>
+                      <a href="https://citethisforme.com" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+              </div>
+  
+              <!-- Section 4: Screen Time & Digital Wellbeing -->
+              <h2 class="resource-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Screen Time & Digital Wellbeing</h2>
+              <div class="resources-grid">
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Google Digital Wellbeing</div>
+                              <div class="resource-description">Tools to understand your phone habits</div>
+                          </div>
+                          <div class="resource-category">Wellbeing</div>
+                      </div>
+                      <a href="https://wellbeing.google" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+                  <div class="resource-card">
+                      <div class="resource-header">
+                          <div>
+                              <div class="resource-name">Common Sense Media</div>
+                              <div class="resource-description">Guides for healthy technology use</div>
+                          </div>
+                          <div class="resource-category">Wellbeing</div>
+                      </div>
+                      <a href="https://commonsense.org" target="_blank" class="resource-link">Visit →</a>
+                  </div>
+              </div>
+  
+              <div class="disclaimer">
+                  Onnoy does not own or control these external websites. Links are provided for educational purposes only.
+              </div>
+          </div>
+      </section>
+
+</BaseLayout>

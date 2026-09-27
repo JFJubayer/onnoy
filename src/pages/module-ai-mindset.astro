@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import '@/styles/pages/module-course.css';
+---
+
+<BaseLayout title="AI and Mindset" description="AI and Mindset lesson from Onnoy's Digital Citizenship course.">
+  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>AI and Mindset</h1><p>Human judgment in the AI era</p></div></header>
+      <main class="container section-gap" data-lesson="ai"></main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/assets/js/module-course.js"></script>
+  </Fragment>
+</BaseLayout>
