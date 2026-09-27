@@ -23,12 +23,11 @@
   backdrop-filter: blur(18px) saturate(1.5);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-soft);
-  transition: width var(--dur-slow) var(--ease-spring), height var(--dur-slow) var(--ease-spring),
+  transition: height var(--dur-slow) var(--ease-spring),
               box-shadow var(--dur) ease, background-color var(--dur) ease;
 }
 .js-ready .nav-container { animation: pill-drop 0.6s var(--ease-spring) both; }
 .navbar.is-scrolled .nav-container {
-  width: min(100% - 2 * var(--gutter), 1040px);
   height: calc(var(--nav-h) - 8px);
   box-shadow: var(--shadow);
 }
@@ -134,7 +133,7 @@
 .auth-menu-head b { color: var(--green-dark); font-weight: 700; }
 [data-theme="dark"] .auth-menu-head b { color: var(--green); }
 .auth-dropdown .dropdown-menu { display: block; }
-#nav-auth-container { display: flex; align-items: center; min-width: 40px; }
+#nav-auth-container { display: flex; align-items: center; min-width: 40px; flex-shrink: 0; }
 #nav-auth-container:empty::before {
   content: ""; width: 88px; height: 40px; border-radius: var(--radius-pill);
   background: var(--surface-soft); animation: pulse 1.2s ease-in-out infinite;
@@ -142,8 +141,8 @@
 @keyframes pulse { 50% { opacity: 0.5; } }
 
 /* Right cluster */
-.nav-right { display: flex; align-items: center; gap: var(--s-2); margin-left: var(--s-2); }
-.nav-controls { display: flex; align-items: center; gap: 6px; }
+.nav-right { display: flex; align-items: center; gap: var(--s-2); margin-left: var(--s-2); flex-shrink: 0; }
+.nav-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
 .nav-cta {
   display: inline-flex; align-items: center; justify-content: center;
@@ -208,8 +207,8 @@
 .nav-links > .mobile-nav-cta { display: none; }
 
 /* ─── Tablet / mobile ──────────────────────────────────────────────────────── */
-@media (max-width: 1080px) {
-  .nav-links > a, .nav-links .dropdown-toggle { padding: 8px 9px; font-size: 0.9rem; }
+@media (max-width: 1180px) {
+  .nav-links > a, .nav-links .dropdown-toggle { padding: 8px 8px; font-size: 0.88rem; }
   .nav-cta { display: none; }
 }
 

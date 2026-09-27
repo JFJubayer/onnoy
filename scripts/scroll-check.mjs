@@ -19,8 +19,8 @@ try {
   const send = (method, params = {}) => new Promise((r) => { pending.set(++id, r); ws.send(JSON.stringify({ id, method, params })); });
   const ev = async (expr) => (await send('Runtime.evaluate', { expression: expr, returnByValue: true })).result.value;
 
-  await send('Page.enable');
-  await send('Page.navigate', { url: `http://localhost:4321${route}` });
+  const base = process.env.BASE ?? 'http://localhost:4322';
+  await send('Page.navigate', { url: `${base}${route}` });
   await sleep(2500);
   console.log('before', await ev(`JSON.stringify({navH: document.querySelector('.nav-container').getBoundingClientRect().height, hidden: document.querySelectorAll('[data-reveal]:not(.visible), .fade-in:not(.visible)').length})`));
   await ev(`scrollTo(0, ${y})`);
