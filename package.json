@@ -9,6 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "publications:donation": "node scripts/add-donation-pages.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
@@ -18,6 +19,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@types/qrcode": "^1.5.6",
+    "jsqr": "^1.4.0",
+    "pdf-lib": "^1.17.1",
+    "playwright-core": "^1.63.0",
+    "qrcode": "^1.5.4",
     "sharp": "^0.35.5",
     "typescript": "^5.8.3"
   },

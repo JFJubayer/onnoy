@@ -1,0 +1,140 @@
+.donation-page {
+  letter-spacing: 0;
+  background-image: linear-gradient(90deg, color-mix(in srgb, var(--border) 28%, transparent) 1px, transparent 1px);
+  background-size: 80px 100%;
+}
+
+.donation-page [hidden] { display: none !important; }
+
+.donation-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.85fr);
+  gap: 64px;
+  padding-block: 48px 56px;
+}
+
+.donation-note, .donation-reading { min-width: 0; }
+.donation-back { color: var(--ink-mid); font-size: 0.85rem; text-decoration: underline; text-underline-offset: 4px; }
+.donation-eyebrow { margin: 32px 0 12px; color: var(--green-dark); font-size: 0.85rem; font-weight: 700; }
+.donation-note h1 { margin: 0 0 20px; font-size: 2.75rem; line-height: 1.2; overflow-wrap: anywhere; }
+.donation-lead { max-width: 540px; margin-bottom: 20px; font-size: 1.35rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+.donation-story { max-width: 540px; margin-bottom: 16px; color: var(--ink-mid); font-size: 1rem; line-height: 1.8; }
+.donation-actions { margin-top: 28px; }
+.donation-actions .btn { max-width: 100%; white-space: normal; text-align: center; }
+.donation-optional { max-width: 400px; margin-top: 12px; color: var(--ink-light); font-size: 0.82rem; line-height: 1.65; }
+.donation-signature { display: flex; flex-direction: column; gap: 3px; margin-top: 28px; font-size: 0.9rem; }
+.donation-signature p { margin: 0; color: var(--ink-mid); }
+.donation-signature span { color: var(--ink-light); font-size: 0.8rem; }
+.donation-reading { padding-top: 54px; }
+
+.donation-download {
+  padding: 24px;
+  border: 1px solid var(--border-strong);
+  border-top: 3px solid var(--sky);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.donation-download h2 { margin: 0 0 20px; font-size: 1.15rem; line-height: 1.4; }
+.donation-publication-details { display: grid; grid-template-columns: 86px minmax(0, 1fr); align-items: center; gap: 18px; margin-bottom: 24px; }
+.donation-cover { width: 86px; height: 122px; object-fit: contain; object-position: left center; filter: drop-shadow(0 4px 4px rgba(15, 23, 42, 0.12)); }
+.donation-file-type { color: var(--sky); font-size: 0.75rem; font-weight: 700; }
+.donation-publication h3 { margin: 6px 0; font-size: 1.05rem; line-height: 1.45; overflow-wrap: anywhere; }
+.donation-publication-details p { margin: 0; color: var(--ink-mid); font-size: 0.8rem; line-height: 1.6; }
+.donation-download-button { width: 100%; min-height: 48px; white-space: normal; text-align: center; }
+.donation-read-link { display: block; width: fit-content; margin: 14px auto 0; color: var(--ink-mid); font-size: 0.85rem; text-decoration: underline; text-underline-offset: 4px; text-align: center; }
+.donation-download-status { margin: 16px 0 0; color: var(--green-dark); font-size: 0.82rem; line-height: 1.5; }
+.donation-fallback-links { padding-left: 18px; font-size: 0.9rem; }
+.donation-fallback-links li { margin-block: 10px; }
+.donation-fallback-links a { text-decoration: underline; }
+
+.donation-book-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: end; }
+.donation-book-row a { display: block; min-width: 0; }
+.donation-book-row img { width: 100%; height: 150px; object-fit: contain; object-position: bottom; filter: drop-shadow(0 5px 5px rgba(15, 23, 42, 0.12)); }
+.donation-library { padding-block: 24px; }
+.donation-qr { display: grid; grid-template-columns: 152px minmax(0, 1fr); align-items: center; gap: 18px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
+.donation-qr img { width: 152px; height: 152px; background: #fff; }
+.donation-qr h2 { margin: 0 0 12px; font-size: 1.05rem; line-height: 1.5; }
+.donation-url { color: var(--green-dark); font-size: 0.82rem; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.donation-qr p { margin: 10px 0 0; color: var(--ink-light); font-size: 0.75rem; line-height: 1.6; }
+
+.donation-purpose { padding-block: 36px; border-block: 1px solid var(--border); background: var(--surface); }
+.donation-purpose h2 { margin: 0 0 28px; font-size: 1.35rem; line-height: 1.4; }
+.donation-purpose-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.donation-purpose-grid > div { min-width: 0; }
+.donation-purpose-number { display: block; margin-bottom: 10px; color: var(--amber-dark); font-weight: 700; font-size: 0.8rem; }
+.donation-purpose-grid h3 { margin: 0 0 10px; font-size: 1rem; line-height: 1.5; }
+.donation-purpose-grid p { margin: 0; color: var(--ink-mid); font-size: 0.9rem; line-height: 1.75; }
+.donation-thanks { max-width: 720px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; color: var(--ink-mid); font-size: 0.85rem; line-height: 1.75; }
+.donation-print { display: none; }
+
+@media (max-width: 900px) {
+  .donation-grid { grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr); gap: 32px; }
+  .donation-note h1 { font-size: 2.25rem; }
+  .donation-qr { grid-template-columns: 120px minmax(0, 1fr); gap: 12px; }
+  .donation-qr img { width: 120px; height: 120px; }
+}
+
+@media (max-width: 700px) {
+  .donation-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 28px 36px; }
+  .donation-eyebrow { margin-top: 24px; }
+  .donation-note h1 { font-size: 2rem; }
+  .donation-lead { font-size: 1.2rem; }
+  .donation-reading { padding-top: 0; }
+  .donation-download { padding: 20px; }
+  .donation-qr { grid-template-columns: 132px minmax(0, 1fr); gap: 16px; }
+  .donation-qr img { width: 132px; height: 132px; }
+  .donation-purpose-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .donation-purpose-grid > div { padding-left: 20px; border-left: 2px solid var(--border); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .donation-note, .donation-reading { animation: donation-arrive 450ms ease-out both; }
+  .donation-reading { animation-delay: 80ms; }
+  @keyframes donation-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+}
+
+@media print {
+  @page { margin: 0; }
+  html, body.donation-body { margin: 0; padding: 0; background: #fff; color: #0F172A; }
+  body.donation-body > * { display: none !important; }
+  body.donation-body > .donation-print {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    padding: 28px;
+    text-align: center;
+    background: #fff;
+    color: #0F172A;
+    break-inside: avoid;
+  }
+  .donation-print-brand { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .donation-print-brand img { width: 40px; height: 40px; object-fit: contain; }
+  .donation-print-brand p { margin: 0; font-size: 12px; line-height: 1.6; text-align: left; }
+  .donation-print-brand span { font-size: 10px; color: #475569; }
+  .donation-print h2 { max-width: 500px; margin: 0; font-size: 28px; line-height: 1.25; color: #064E3B; }
+  .donation-print-heading-bn { max-width: 500px; margin: 8px 0 0; font-size: 16px; line-height: 1.6; color: #064E3B; }
+  .donation-print-body { max-width: 500px; margin: 16px 0 0; font-size: 12.5px; line-height: 1.65; }
+  .donation-print-body + .donation-print-body { margin-top: 8px; }
+  .donation-print-link { display: block; margin-top: 20px; }
+  .donation-print-link img { display: block; width: 144px; height: 144px; }
+  .donation-print-url { margin-top: 8px; color: #064E3B; font-size: 12px; line-height: 1.4; text-decoration: underline; }
+  .donation-print-thanks { max-width: 480px; margin: 14px 0 0; font-size: 10px; line-height: 1.65; color: #475569; }
+
+  [data-pdf-format="compact"] .donation-print { padding: 8px; }
+  [data-pdf-format="compact"] .donation-print-brand { gap: 6px; margin-bottom: 6px; }
+  [data-pdf-format="compact"] .donation-print-brand img { width: 16px; height: 16px; }
+  [data-pdf-format="compact"] .donation-print-brand p { font-size: 8px; }
+  [data-pdf-format="compact"] .donation-print-brand span { display: none; }
+  [data-pdf-format="compact"] .donation-print h2 { font-size: 12px; line-height: 1.25; }
+  [data-pdf-format="compact"] .donation-print-heading-bn { margin-top: 4px; font-size: 8.5px; line-height: 1.4; }
+  [data-pdf-format="compact"] .donation-print-body { display: none; }
+  [data-pdf-format="compact"] .donation-print-link { margin-top: 6px; }
+  [data-pdf-format="compact"] .donation-print-link img { width: 88px; height: 88px; }
+  [data-pdf-format="compact"] .donation-print-url { margin-top: 4px; font-size: 8.5px; }
+  [data-pdf-format="compact"] .donation-print-thanks { margin-top: 4px; font-size: 7.5px; line-height: 1.4; }
+}

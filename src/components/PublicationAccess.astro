@@ -1,0 +1,60 @@
+---
+import type { Publication } from '@lib/publications';
+import '@/styles/components/publication-access.css';
+
+interface Props {
+  publications: Publication[];
+}
+
+const { publications } = Astro.props;
+---
+
+<div id="readerAccessCatalog" hidden>
+  {publications.map((publication) => (
+    <span data-reader-publication={publication.pdf} data-reader-url={publication.downloadUrl} data-reader-title={publication.title} data-reader-cover={publication.cover}></span>
+  ))}
+</div>
+
+<dialog id="readerAccessDialog" class="reader-access-dialog" aria-labelledby="readerAccessTitle" aria-describedby="readerAccessDescription">
+  <button id="readerAccessClose" class="reader-access-close" type="button" aria-label="Close reader form" title="Close">&times;</button>
+  <div class="reader-access-publication">
+    <img id="readerAccessCover" src="/assets/images/covers/cover-what-to-study.png" alt="Selected publication" width="48" height="68" />
+    <div>
+      <span>Onnoy / PDF</span>
+      <h2 id="readerAccessPublication">Not Sure What to Study?</h2>
+    </div>
+  </div>
+  <h3 id="readerAccessTitle" data-i18n="reader-title">A little about you</h3>
+  <p id="readerAccessDescription" class="reader-access-description" data-i18n="reader-description">Your details help us understand which schools and districts our resources reach.</p>
+
+  <form id="readerAccessForm">
+    <div class="reader-access-field">
+      <label for="readerFullName"><span data-i18n="reader-name">Full name</span> <span aria-hidden="true">*</span></label>
+      <input id="readerFullName" name="name" type="text" class="form-control" required maxlength="120" autocomplete="name" />
+    </div>
+    <div class="reader-access-field">
+      <label for="readerSchool"><span data-i18n="reader-school">School / institution</span> <span aria-hidden="true">*</span></label>
+      <input id="readerSchool" name="school" type="text" class="form-control" required maxlength="160" autocomplete="organization" />
+    </div>
+    <div class="reader-access-field-grid">
+      <div class="reader-access-field">
+        <label for="readerAge"><span data-i18n="reader-age">Age</span> <span aria-hidden="true">*</span></label>
+        <input id="readerAge" name="age" type="number" class="form-control" required min="1" max="120" step="1" inputmode="numeric" />
+      </div>
+      <div class="reader-access-field">
+        <label for="readerDistrict"><span data-i18n="reader-district">District</span> <span aria-hidden="true">*</span></label>
+        <input id="readerDistrict" name="district" type="text" class="form-control" required maxlength="80" autocomplete="address-level2" />
+      </div>
+    </div>
+    <button id="readerAccessSubmit" type="submit" class="btn btn-green reader-access-submit" data-i18n="reader-continue-download">Continue to download</button>
+    <p class="reader-access-privacy" data-i18n="reader-privacy">These details are used for Onnoy's educational reach records. No payment is required.</p>
+  </form>
+</dialog>
+
+<noscript>
+  <p class="reader-access-unavailable" data-i18n="reader-unavailable">The reader details form is unavailable.</p>
+</noscript>
+
+<script>
+  import '@scripts/publication-access';
+</script>

@@ -124,7 +124,7 @@ import '@/styles/pages/admin-portal-inline.css';
               <!-- Summary Stats -->
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
                   <div class="admin-glass-card" style="padding: 20px;">
-                      <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--admin-primary); font-weight: 700; letter-spacing: 0.5px;">Total Downloads</div>
+                      <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--admin-primary); font-weight: 700; letter-spacing: 0.5px;">Reader Requests</div>
                       <div id="dl-stat-total" style="font-size: 2rem; font-weight: 800; color: #FFF; margin-top: 4px;">0</div>
                       <div style="font-size: 0.75rem; color: rgba(244, 246, 252, 0.6); margin-top: 4px;">Lead access requests</div>
                   </div>
@@ -154,12 +154,13 @@ import '@/styles/pages/admin-portal-inline.css';
               <div class="admin-glass-card" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap;">
                   <div>
                       <h3 style="margin: 0 0 4px 0; color: var(--admin-primary);">Workbook Downloads & Reader Leads</h3>
-                      <p style="margin: 0; color: rgba(244, 246, 252, 0.6); font-size: 0.85rem;">Registered names, emails, and age demographics of people who downloaded Onnoy materials.</p>
+                      <p style="margin: 0; color: rgba(244, 246, 252, 0.6); font-size: 0.85rem;">Names, schools, ages, and districts of readers who requested Onnoy materials.</p>
                   </div>
                   <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                      <input type="text" id="downloadsSearchInp" oninput="filterDownloadsTable()" class="admin-input" placeholder="Search by name, email, or booklet..." style="width: 250px; font-size: 0.88rem; padding: 8px 12px; margin: 0;">
+                      <input type="text" id="downloadsSearchInp" oninput="filterDownloadsTable()" class="admin-input" placeholder="Search name, school, district, or booklet..." style="width: 250px; font-size: 0.88rem; padding: 8px 12px; margin: 0;">
                       <select id="downloadsAgeFilter" onchange="filterDownloadsTable()" class="admin-input" style="width: 140px; font-size: 0.88rem; padding: 8px 12px; margin: 0; background: rgba(11, 19, 43, 0.9);">
                           <option value="">All Ages</option>
+                          <option value="Under 10">Under 10</option>
                           <option value="10-18">10–18</option>
                           <option value="19-26">19–26</option>
                           <option value="27-34">27–34</option>
@@ -176,8 +177,11 @@ import '@/styles/pages/admin-portal-inline.css';
                           <tr style="border-bottom: 2px solid var(--admin-border); color: var(--admin-primary);">
                               <th style="padding: 14px 18px;">Date & Time</th>
                               <th style="padding: 14px 18px;">Name</th>
+                              <th class="reader-lead-header">School / Institution</th>
                               <th style="padding: 14px 18px;">Email Address</th>
-                              <th style="padding: 14px 18px;">Age Range</th>
+                              <th style="padding: 14px 18px;">Age</th>
+                              <th class="reader-lead-header">District</th>
+                              <th class="reader-lead-header">Access</th>
                               <th style="padding: 14px 18px;">Booklet / Workbook</th>
                               <th style="padding: 14px 18px;">Fee Status</th>
                               <th style="padding: 14px 18px; text-align: center;">Document</th>
@@ -185,7 +189,7 @@ import '@/styles/pages/admin-portal-inline.css';
                       </thead>
                       <tbody id="downloadsTableBody">
                           <tr>
-                              <td colspan="7" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Loading downloads records...</td>
+                              <td colspan="10" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Loading reader records...</td>
                           </tr>
                       </tbody>
                   </table>
@@ -608,18 +612,18 @@ import '@/styles/pages/admin-portal-inline.css';
         async function loadDownloadsData() {
             const tableBody = document.getElementById('downloadsTableBody');
             if (tableBody) {
-                tableBody.innerHTML = '<tr><td colspan="7" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Fetching downloads and reader leads...</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="10" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">Fetching downloads and reader leads...</td></tr>';
             }
 
             const { data, error } = await supabaseClient
                 .from('download_leads')
-                .select('id, name, email, age_group, booklet, booklet_url, regular_price, price_charged, created_at')
+                .select('id, name, email, school, age, district, access_mode, age_group, booklet, booklet_url, regular_price, price_charged, created_at')
                 .order('created_at', { ascending: false })
                 .limit(2000);
 
             if (error) {
                 console.error('download_leads:', error.message);
-                if (tableBody) tableBody.innerHTML = `<tr><td colspan="7" style="padding: 30px; text-align: center; color: #fca5a5;">Could not load leads: ${escapeHtml(error.message)}. Has migration 005 been applied?</td></tr>`;
+                if (tableBody) tableBody.innerHTML = `<tr><td colspan="10" style="padding: 30px; text-align: center; color: #fca5a5;">Could not load leads: ${escapeHtml(error.message)}. Have migrations 005 and 006 been applied?</td></tr>`;
                 allDownloadsData = [];
                 updateDownloadsMetrics([]);
                 return;
@@ -629,7 +633,11 @@ import '@/styles/pages/admin-portal-inline.css';
                 id: d.id,
                 name: d.name,
                 email: d.email,
+                school: d.school || '',
                 age: d.age_group || '',
+                exact_age: d.age ?? null,
+                district: d.district || '',
+                access_mode: d.access_mode || 'download',
                 booklet: d.booklet,
                 booklet_url: d.booklet_url,
                 downloaded_at: d.created_at
@@ -665,7 +673,7 @@ import '@/styles/pages/admin-portal-inline.css';
             tableBody.innerHTML = '';
 
             if (!items.length) {
-                tableBody.innerHTML = '<tr><td colspan="7" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">No downloads recorded yet. Share workbook links to gather student leads!</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="10" style="padding: 30px; text-align: center; color: rgba(244, 246, 252, 0.5);">No reader requests recorded yet.</td></tr>';
                 return;
             }
 
@@ -690,8 +698,11 @@ import '@/styles/pages/admin-portal-inline.css';
                 tr.innerHTML = `
                     <td style="padding: 12px 18px; color: rgba(244, 246, 252, 0.7); font-size: 0.82rem; white-space: nowrap;">${dateStr}</td>
                     <td style="padding: 12px 18px; font-weight: 600; color: #FFF;">${escapeHtml(d.name || 'Anonymous')}</td>
-                    <td style="padding: 12px 18px; color: var(--admin-primary);"><a href="mailto:${escapeHtml(d.email)}" style="color: inherit; text-decoration: underline;">${escapeHtml(d.email || 'N/A')}</a></td>
-                    <td style="padding: 12px 18px;">${ageBadge}</td>
+                    <td class="reader-lead-cell">${escapeHtml(d.school || 'N/A')}</td>
+                    <td style="padding: 12px 18px; color: var(--admin-primary);">${d.email ? `<a href="mailto:${escapeHtml(d.email)}" class="reader-lead-email">${escapeHtml(d.email)}</a>` : 'N/A'}</td>
+                    <td style="padding: 12px 18px;">${d.exact_age != null ? escapeHtml(String(d.exact_age)) : ageBadge}</td>
+                    <td class="reader-lead-cell">${escapeHtml(d.district || 'N/A')}</td>
+                    <td class="reader-lead-cell">${d.access_mode === 'read' ? 'Read' : 'Download'}</td>
                     <td style="padding: 12px 18px; max-width: 260px; font-size: 0.88rem; color: #FFF;">${escapeHtml(d.booklet || 'Booklet')}</td>
                     <td style="padding: 12px 18px; white-space: nowrap;">
                         <span style="text-decoration: line-through; color: rgba(244, 246, 252, 0.4); font-size: 0.8rem;">৳49</span>
@@ -713,6 +724,8 @@ import '@/styles/pages/admin-portal-inline.css';
                 const matchQuery = !query || 
                     (d.name && d.name.toLowerCase().includes(query)) ||
                     (d.email && d.email.toLowerCase().includes(query)) ||
+                    (d.school && d.school.toLowerCase().includes(query)) ||
+                    (d.district && d.district.toLowerCase().includes(query)) ||
                     (d.booklet && d.booklet.toLowerCase().includes(query));
                 const matchAge = !ageFilter || (d.age === ageFilter);
                 return matchQuery && matchAge;
@@ -727,20 +740,29 @@ import '@/styles/pages/admin-portal-inline.css';
                 return;
             }
 
-            const headers = ['ID', 'Downloaded At', 'Name', 'Email', 'Age Range', 'Booklet', 'Regular Fee', 'Charged Fee', 'PDF URL'];
+            const headers = ['ID', 'Requested At', 'Name', 'School / Institution', 'Email', 'Age', 'Age Group', 'District', 'Access', 'Booklet', 'Regular Fee', 'Charged Fee', 'PDF URL'];
             const rows = allDownloadsData.map(d => [
                 d.id || '',
                 d.downloaded_at || '',
-                `"${(d.name || '').replace(/"/g, '""')}"`,
-                `"${(d.email || '').replace(/"/g, '""')}"`,
-                `"${(d.age || '').replace(/"/g, '""')}"`,
-                `"${(d.booklet || '').replace(/"/g, '""')}"`,
+                d.name || '',
+                d.school || '',
+                d.email || '',
+                d.exact_age ?? '',
+                d.age || '',
+                d.district || '',
+                d.access_mode || 'download',
+                d.booklet || '',
                 '৳49',
                 '৳0',
-                `"${(d.booklet_url || '').replace(/"/g, '""')}"`
+                d.booklet_url || ''
             ]);
 
-            const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+            const csvCell = (value) => {
+                const content = String(value);
+                const safe = /^[=+\-@\t\r]/.test(content) ? `'${content}` : content;
+                return `"${safe.replace(/"/g, '""')}"`;
+            };
+            const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(row => row.map(csvCell).join(','))].join('\r\n');
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');

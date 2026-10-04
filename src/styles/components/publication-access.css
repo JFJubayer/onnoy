@@ -1,0 +1,41 @@
+.reader-access-dialog {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 28px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
+  letter-spacing: 0;
+}
+
+.reader-access-dialog:not([open]) { display: none; }
+.reader-access-dialog::backdrop { background: rgba(15, 23, 42, 0.65); }
+.reader-access-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink-mid); font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.reader-access-close:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.reader-access-publication { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: center; margin: 0 24px 20px 0; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.reader-access-publication img { width: 48px; height: 68px; object-fit: contain; }
+.reader-access-publication span { font-size: 0.75rem; font-weight: 700; color: var(--green-dark); }
+.reader-access-publication h2 { margin: 4px 0 0; font-size: 1rem; line-height: 1.5; overflow-wrap: anywhere; }
+.reader-access-dialog h3 { margin: 0 0 8px; font-size: 1.2rem; line-height: 1.4; }
+.reader-access-description { margin: 0 0 20px; color: var(--ink-mid); font-size: 0.88rem; line-height: 1.7; }
+.reader-access-field { min-width: 0; margin-bottom: 16px; }
+.reader-access-field label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 600; }
+.reader-access-field label > span[aria-hidden] { color: var(--danger); }
+.reader-access-field .form-control { width: 100%; min-width: 0; min-height: 44px; border-radius: var(--radius-sm); font-size: 1rem; }
+.reader-access-field-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 16px; }
+.reader-access-submit { width: 100%; min-height: 48px; margin-top: 4px; white-space: normal; text-align: center; }
+.reader-access-privacy { margin: 12px 0 0; color: var(--ink-light); font-size: 0.78rem; line-height: 1.7; text-align: center; }
+.reader-access-unavailable { margin: 24px auto; max-width: var(--container-narrow); color: var(--ink-mid); text-align: center; }
+
+@media (max-width: 420px) {
+  .reader-access-dialog { padding: 20px; }
+  .reader-access-field-grid { gap: 12px; }
+}
+
+@media print {
+  .reader-access-dialog, .reader-access-unavailable { display: none !important; }
+}

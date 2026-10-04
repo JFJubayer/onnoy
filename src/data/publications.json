@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Not Sure What to Study?",
+    "titleBn": "কী নিয়ে পড়ব?",
+    "pdf": "/assets/docs/Onnoy-What-to-study-booklet.pdf",
+    "cover": "/assets/images/covers/cover-what-to-study.png"
+  },
+  {
+    "title": "Learn What Lasts in the Age of AI",
+    "titleBn": "এআই যুগে যা চিরস্থায়ী",
+    "pdf": "/assets/docs/Onnoy-Learn-What-Lasts.pdf",
+    "cover": "/assets/images/covers/cover-learn-what-lasts.png"
+  },
+  {
+    "title": "The Child Behind the Screen",
+    "titleBn": "স্ক্রিনের পেছনের কিশোর মন",
+    "pdf": "/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf",
+    "cover": "/assets/images/covers/cover-child-behind-screen.png"
+  },
+  {
+    "title": "Onno Ek Anima",
+    "titleBn": "অন্য এক অনিমা",
+    "pdf": "/assets/docs/Booklet_Publishable.pdf",
+    "cover": "/assets/images/covers/cover-onno-ek-onima.png"
+  }
+]

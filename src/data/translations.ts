@@ -132,7 +132,57 @@ export const translations: Dict = {
   "footer-chabondhu-text": {
     "en": "Onnoy is an independent youth initiative in Bangladesh. We keep all our workshops, workbooks, and cyber support 100% free. Support our volunteer team with a cup of tea on ChaBondhu.",
     "bn": "অন্বয় বাংলাদেশের একটি স্বাধীন যুব উদ্যোগ। শিক্ষার্থীদের জন্য আমাদের সকল ওয়ার্কবুক, সেশন ও সাইবার সুরক্ষা সম্পূর্ণ উন্মুক্ত। চাবন্ধুতে এক কাপ চায়ের বিনিময়ে আমাদের পাশে থাকুন।"
-  }
+  },
+  "donation-back": { "en": "Back to workbooks", "bn": "ওয়ার্কবুক পাতায় ফিরুন" },
+  "donation-eyebrow": { "en": "A little kindness, passed on", "bn": "একটু ভালোবাসা, আরও একজনের জন্য" },
+  "donation-title": { "en": "Support Onnoy", "bn": "অন্বয়ের পাশে থাকুন" },
+  "donation-lead": { "en": "A young person shouldn't have to figure everything out alone.", "bn": "একজন তরুণকে সব কঠিন প্রশ্নের উত্তর একা খুঁজতে হবে কেন?" },
+  "donation-story": {
+    "en": "A subject to choose. A future that feels uncertain. A conversation at home that is hard to begin. We make these resources for those moments, when a little guidance can mean a lot.",
+    "bn": "কোন বিষয়ে পড়ব? ভবিষ্যৎটা কেমন হবে? পরিবারের সঙ্গে কথাটা শুরু করব কীভাবে? এসব মুহূর্তের জন্যই আমরা এই উপকরণ তৈরি করি, যখন একটু দিকনির্দেশনা অনেক বড় ভরসা হয়ে ওঠে।"
+  },
+  "donation-invite": {
+    "en": "If these pages have been useful to you, help us create the next ones. Your contribution supports the time, care, and work behind Onnoy's booklets and learning sessions.",
+    "bn": "এই পাতাগুলো আপনার কাজে লাগলে, পরের পাতাগুলো তৈরিতে আমাদের পাশে থাকুন। আপনার সহায়তা অন্বয়ের বই ও শিক্ষামূলক সেশনের পেছনের সময়, যত্ন ও শ্রমকে এগিয়ে নিতে সাহায্য করে।"
+  },
+  "donation-button": { "en": "Donate on ChaBondhu", "bn": "চাবন্ধুতে অনুদান দিন" },
+  "donation-optional": { "en": "Give what feels right. A donation is not required to download this PDF.", "bn": "সামর্থ্য ও ইচ্ছা অনুযায়ী পাশে থাকুন। এই পিডিএফ ডাউনলোড করতে অনুদান দেওয়া বাধ্যতামূলক নয়।" },
+  "donation-gratitude": { "en": "With gratitude,", "bn": "কৃতজ্ঞতায়," },
+  "donation-team": { "en": "The Onnoy volunteers", "bn": "অন্বয়ের স্বেচ্ছাসেবকেরা" },
+  "donation-ready": { "en": "Your PDF is ready", "bn": "আপনার পিডিএফ প্রস্তুত" },
+  "donation-download": { "en": "Download PDF", "bn": "পিডিএফ ডাউনলোড করুন" },
+  "donation-read": { "en": "Read online", "bn": "অনলাইনে পড়ুন" },
+  "donation-download-status": { "en": "Download requested. Thank you for reading.", "bn": "ডাউনলোডের অনুরোধ পাঠানো হয়েছে। পড়ার জন্য ধন্যবাদ।" },
+  "donation-library": { "en": "Explore the workbooks & booklets", "bn": "ওয়ার্কবুক ও বুকলেট দেখুন" },
+  "donation-qr-heading": { "en": "A small gesture. A shared future.", "bn": "ছোট্ট একটি উদ্যোগ। সবার জন্য সুন্দর ভবিষ্যৎ।" },
+  "donation-payment": { "en": "Contributions are handled on ChaBondhu.", "bn": "অনুদানের লেনদেন চাবন্ধুতে সম্পন্ন হয়।" },
+  "donation-purpose": { "en": "What your support makes possible", "bn": "আপনার সহায়তায় যা এগিয়ে যায়" },
+  "donation-purpose-resources": { "en": "Better learning resources", "bn": "আরও ভালো শিক্ষামূলক উপকরণ" },
+  "donation-purpose-resources-text": { "en": "Time to write, illustrate, and improve thoughtful guidance for students and families.", "bn": "শিক্ষার্থী ও পরিবারের জন্য যত্ন নিয়ে লেখা, আঁকা ও সহায়িকাগুলো উন্নত করার সময়।" },
+  "donation-purpose-sessions": { "en": "More meaningful conversations", "bn": "আরও অর্থবহ কথোপকথন" },
+  "donation-purpose-sessions-text": { "en": "Materials and preparation for learning sessions with schools and communities.", "bn": "শিক্ষাপ্রতিষ্ঠান ও কমিউনিটিতে শিক্ষামূলক সেশনের প্রস্তুতি ও প্রয়োজনীয় উপকরণ।" },
+  "donation-purpose-volunteers": { "en": "An independent youth initiative", "bn": "একটি স্বাধীন যুব উদ্যোগ" },
+  "donation-purpose-volunteers-text": { "en": "Practical support for the volunteers who keep this work moving.", "bn": "এই কাজ এগিয়ে নেওয়া স্বেচ্ছাসেবকদের জন্য বাস্তব সহায়তা।" },
+  "donation-thanks": { "en": "Whether you give, share something helpful, or simply use these pages well: thank you for being part of Onnoy.", "bn": "অনুদান দিন, দরকারি কিছু অন্যের সঙ্গে ভাগ করুন, কিংবা এই পাতাগুলো নিজের জীবনে কাজে লাগান: অন্বয়ের সঙ্গে থাকার জন্য ধন্যবাদ।" },
+  "donation-print-heading": { "en": "You reached the last page. Help someone begin their first.", "bn": "আপনি শেষ পাতায় পৌঁছেছেন। আরেকজনের নতুন শুরুতে পাশে থাকুন।" },
+  "donation-print-body": {
+    "en": "If this booklet helped you pause, think, or start a conversation, consider supporting the people behind it. Your kindness helps us make thoughtful resources for more young people and families in Bangladesh.",
+    "bn": "এই বইটি যদি আপনাকে ভাবতে বা নতুন কথোপকথন শুরু করতে সাহায্য করে থাকে, অন্বয়ের পাশে থাকুন। আপনার সহায়তা আরও তরুণ ও পরিবারের জন্য এমন উপকরণ তৈরি করতে আমাদের শক্তি জোগাবে।"
+  },
+  "donation-print-thanks": { "en": "Your support is voluntary. Thank you for reading.", "bn": "অনুদান সম্পূর্ণ ঐচ্ছিক। পড়ার জন্য ধন্যবাদ।" },
+  "reader-title": { "en": "A little about you", "bn": "আপনার কিছু তথ্য" },
+  "reader-description": { "en": "Your details help us understand which schools and districts our resources reach.", "bn": "আমাদের উপকরণ কোন শিক্ষাপ্রতিষ্ঠান ও জেলার পাঠকদের কাছে পৌঁছাচ্ছে, আপনার তথ্য তা বুঝতে সাহায্য করে।" },
+  "reader-name": { "en": "Full name", "bn": "আপনার পুরো নাম" },
+  "reader-school": { "en": "School / institution", "bn": "স্কুল / শিক্ষাপ্রতিষ্ঠান" },
+  "reader-age": { "en": "Age", "bn": "বয়স" },
+  "reader-district": { "en": "District", "bn": "জেলা" },
+  "reader-continue-read": { "en": "Continue to read", "bn": "পড়তে এগিয়ে যান" },
+  "reader-continue-download": { "en": "Continue to download", "bn": "ডাউনলোড করতে এগিয়ে যান" },
+  "reader-preparing": { "en": "Preparing access...", "bn": "প্রস্তুত করা হচ্ছে..." },
+  "reader-required": { "en": "Please enter this detail.", "bn": "অনুগ্রহ করে এই তথ্যটি দিন।" },
+  "reader-age-invalid": { "en": "Enter a whole-number age between 1 and 120.", "bn": "১ থেকে ১২০-এর মধ্যে পূর্ণসংখ্যায় বয়স লিখুন।" },
+  "reader-privacy": { "en": "These details are used for Onnoy's educational reach records. No payment is required.", "bn": "অন্বয়ের শিক্ষামূলক কার্যক্রমের বিস্তার বোঝার জন্য এই তথ্য ব্যবহার করা হয়। কোনো অর্থ দেওয়া বাধ্যতামূলক নয়।" },
+  "reader-unavailable": { "en": "The reader details form is unavailable.", "bn": "পাঠকের তথ্য দেওয়ার ফর্মটি এখন পাওয়া যাচ্ছে না।" }
 };
 
 if (typeof window !== 'undefined') (window as any).translations = translations;

@@ -1,4 +1,8 @@
 /* Moved from legacy admin-portal.html <style> */
+.reader-lead-header { padding: 14px 18px; }
+.reader-lead-cell { padding: 12px 18px; max-width: 240px; overflow-wrap: anywhere; }
+.reader-lead-email { color: inherit; text-decoration: underline; }
+
 :root {
             --admin-bg: #0b132b;
             --admin-card-bg: rgba(28, 37, 65, 0.4);
