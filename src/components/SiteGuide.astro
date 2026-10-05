@@ -1,5 +1,8 @@
 ---
-import { Check, ChevronLeft, ChevronRight, Crosshair, RotateCcw, Settings2, X } from '@lucide/astro';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { ArrowDown, Check, ChevronLeft, ChevronRight, Crosshair, RotateCcw, Settings2, X } from '@lucide/astro';
 import { translations } from '@data/translations';
 import { getPageGuide } from '@data/site-guide';
 import '@/styles/components/site-guide.css';
@@ -8,6 +11,11 @@ interface Props { allowAuto?: boolean }
 const { allowAuto = true } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const guide = getPageGuide(path);
+const [characterOpen, characterBlink] = await Promise.all(['open', 'blink'].map(async (expression) => {
+  const asset = `/assets/images/guide/bindu-${expression}.webp`;
+  const version = createHash('sha256').update(await readFile(resolve('public', `.${asset}`))).digest('hex').slice(0, 12);
+  return `${asset}?v=${version}`;
+}));
 ---
 
 <div id="siteGuide" class="site-guide" data-guide-route={path} data-guide-auto={allowAuto && guide.auto ? 'true' : 'false'} hidden>
@@ -16,32 +24,35 @@ const guide = getPageGuide(path);
   </div>
   <button id="siteGuideLauncher" class="site-guide__launcher" type="button" aria-controls="siteGuidePanel" aria-expanded="false" data-guide-label="guide-open" title={translations['guide-open'].en} aria-label={translations['guide-open'].en}>
     <span class="site-guide__character" aria-hidden="true">
-      <img src="/assets/images/guide/bindu-open.webp" width="512" height="512" alt="" loading="lazy" />
-      <img class="site-guide__blink" src="/assets/images/guide/bindu-blink.webp" width="512" height="512" alt="" loading="lazy" />
+      <img src={characterOpen} width="512" height="512" alt="" loading="lazy" />
+      <img class="site-guide__blink" src={characterBlink} width="512" height="512" alt="" loading="lazy" />
     </span>
     <span class="site-guide__launcher-label" data-i18n="guide-launcher">{translations['guide-launcher'].en}</span>
   </button>
   <section id="siteGuidePanel" class="site-guide__panel" role="dialog" aria-modal="false" aria-labelledby="siteGuideTitle" aria-describedby="siteGuideBody" hidden>
-    <header class="site-guide__header">
-      <span class="site-guide__character" aria-hidden="true">
-        <img src="/assets/images/guide/bindu-open.webp" width="512" height="512" alt="" />
-        <img class="site-guide__blink" src="/assets/images/guide/bindu-blink.webp" width="512" height="512" alt="" />
+    <div class="site-guide__stage" aria-hidden="true">
+      <span class="site-guide__character site-guide__character--host">
+        <img src={characterOpen} width="512" height="512" alt="" />
+        <img class="site-guide__blink" src={characterBlink} width="512" height="512" alt="" />
       </span>
+    </div>
+    <div class="site-guide__bubble">
+    <header class="site-guide__header">
       <div class="site-guide__identity"><p data-i18n="guide-name">{translations['guide-name'].en}</p><span data-i18n="guide-role">{translations['guide-role'].en}</span></div>
       <div class="site-guide__tools">
         <button id="siteGuideRestart" class="site-guide__icon" type="button" data-guide-label="guide-restart" title={translations['guide-restart'].en} aria-label={translations['guide-restart'].en}><RotateCcw size={17} /></button>
+        <button id="siteGuideFind" class="site-guide__icon" type="button" data-guide-label="guide-show-section" title={translations['guide-show-section'].en} aria-label={translations['guide-show-section'].en}><Crosshair size={18} /></button>
         <button id="siteGuideSettingsToggle" class="site-guide__icon" type="button" aria-controls="siteGuideSettings" aria-expanded="false" data-guide-label="guide-settings" title={translations['guide-settings'].en} aria-label={translations['guide-settings'].en}><Settings2 size={17} /></button>
         <button id="siteGuideClose" class="site-guide__icon" type="button" data-guide-label="guide-hide" title={translations['guide-hide'].en} aria-label={translations['guide-hide'].en}><X size={19} /></button>
       </div>
     </header>
-    <div class="site-guide__copy" aria-live="polite" aria-atomic="true">
+    <div class="site-guide__copy" role="region" tabindex="0" aria-labelledby="siteGuideTitle" aria-live="polite" aria-atomic="true">
       <p id="siteGuideCount" class="site-guide__count"></p>
       <h2 id="siteGuideTitle" tabindex="-1"></h2>
       <p id="siteGuideBody"></p>
     </div>
     <div class="site-guide__step-actions">
       <a id="siteGuideAction" class="site-guide__action" hidden></a>
-      <button id="siteGuideFind" class="site-guide__icon" type="button" data-guide-label="guide-show-section" title={translations['guide-show-section'].en} aria-label={translations['guide-show-section'].en}><Crosshair size={18} /></button>
     </div>
     <div id="siteGuideSettings" class="site-guide__settings" hidden>
       <label for="siteGuideAuto"><input id="siteGuideAuto" type="checkbox" /><span data-i18n="guide-auto">{translations['guide-auto'].en}</span></label>
@@ -52,7 +63,9 @@ const guide = getPageGuide(path);
       <button id="siteGuideNext" class="site-guide__next" type="button"><span id="siteGuideNextText" data-i18n="guide-next">{translations['guide-next'].en}</span><ChevronRight class="site-guide__next-icon" size={18} /><Check class="site-guide__done-icon" size={18} /></button>
       <button id="siteGuideSkip" class="site-guide__skip" type="button" data-i18n="guide-skip">{translations['guide-skip'].en}</button>
     </footer>
+    </div>
   </section>
+  <div id="siteGuidePointer" class="site-guide__pointer" aria-hidden="true" hidden><ArrowDown size={42} stroke-width={3} /></div>
 </div>
 
 <script>

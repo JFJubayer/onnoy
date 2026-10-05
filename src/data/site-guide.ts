@@ -19,7 +19,7 @@ const guides: Record<string, GuideStep[]> = {
   ],
   '/workbooks': [
     { title: 'guide-booklets-title', body: 'guide-booklets-body', target: '.workbook-grid' },
-    { title: 'guide-reader-title', body: 'guide-reader-body', target: '.workbook-card .wb-actions' },
+    { title: 'guide-reader-title', body: 'guide-reader-body', target: '.workbook-card .wb-actions a' },
     { title: 'guide-sponsor-title', body: 'guide-sponsor-body', target: '.chabondhu-card' },
   ],
   '/modules': [

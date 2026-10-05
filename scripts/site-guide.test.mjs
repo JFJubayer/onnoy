@@ -78,13 +78,31 @@ test('new routes still receive a usable fallback', () => {
   assert.ok(guide.steps.every((step) => translations[step.title] && translations[step.body]));
 });
 
+test('tutorial presentation preserves accessible non-modal tour controls', async () => {
+  const markup = await readFile(new URL('../src/components/SiteGuide.astro', import.meta.url), 'utf8');
+  assert.match(markup, /role="dialog" aria-modal="false"/);
+  assert.match(markup, /class="site-guide__stage" aria-hidden="true"/);
+  assert.match(markup, /class="site-guide__bubble"/);
+  assert.match(markup, /id="siteGuidePointer"[^>]*aria-hidden="true" hidden/);
+  for (const control of ['Launcher', 'Back', 'Next', 'Skip', 'Close', 'Restart', 'SettingsToggle', 'Auto']) {
+    assert.ok(markup.includes(`id="siteGuide${control}"`), control);
+  }
+});
+
 test('both character expressions are web-ready transparent images', async () => {
+  const expressions = [];
   for (const expression of ['open', 'blink']) {
     const path = new URL(`../public/assets/images/guide/bindu-${expression}.webp`, import.meta.url);
-    const image = await sharp(await readFile(path)).metadata();
+    const bitmap = await readFile(path);
+    expressions.push(bitmap);
+    const image = await sharp(bitmap).metadata();
     assert.equal(image.format, 'webp');
     assert.equal(image.width, 512);
     assert.equal(image.height, 512);
     assert.equal(image.hasAlpha, true);
+    const { channels } = await sharp(bitmap).stats();
+    assert.equal(channels[3].min, 0);
+    assert.equal(channels[3].max, 255);
   }
+  assert.equal(expressions[0].equals(expressions[1]), false);
 });
