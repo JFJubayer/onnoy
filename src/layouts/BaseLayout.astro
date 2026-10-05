@@ -39,7 +39,8 @@ const {
   ogType = 'website',
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), SITE.url).href;
+const path = Astro.routePattern || Astro.url.pathname.replace(/\.html$/, '').replace(/^\/index$/, '/');
+const canonical = new URL(path, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 const fullTitle = title.includes('Onnoy') ? title : `${title} · ${SITE.name}`;
 
@@ -123,7 +124,7 @@ const orgLd = {
     <slot name="head" />
   </head>
   <body class={bodyClass}>
-    {Astro.url.pathname === '/' && !minimal && !noindex && <OpeningIntro />}
+    {path === '/' && !minimal && !noindex && <OpeningIntro />}
     <a href="#main" class="skip-link">Skip to content</a>
     <Navbar />
     <slot />

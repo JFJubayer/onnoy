@@ -72,6 +72,14 @@ test('clean URLs and legacy HTML URLs share guide content', () => {
   }
 });
 
+test('homepage presentation uses the page route rather than its static output filename', async () => {
+  const layout = await readFile(new URL('../src/layouts/BaseLayout.astro', import.meta.url), 'utf8');
+  const guide = await readFile(new URL('../src/components/SiteGuide.astro', import.meta.url), 'utf8');
+  assert.match(layout, /const path = Astro\.routePattern/);
+  assert.match(layout, /path === '\/' && !minimal && !noindex && <OpeningIntro/);
+  assert.match(guide, /Astro\.routePattern \|\| Astro\.url\.pathname/);
+});
+
 test('new routes still receive a usable fallback', () => {
   const guide = getPageGuide('/a-future-page');
   assert.equal(guide.steps.length, 2);

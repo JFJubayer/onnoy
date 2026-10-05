@@ -9,7 +9,7 @@ import '@/styles/components/site-guide.css';
 
 interface Props { allowAuto?: boolean }
 const { allowAuto = true } = Astro.props;
-const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const path = (Astro.routePattern || Astro.url.pathname).replace(/\.html$/, '').replace(/\/$/, '').replace(/^\/index$/, '/') || '/';
 const guide = getPageGuide(path);
 const [characterOpen, characterBlink] = await Promise.all(['open', 'blink'].map(async (expression) => {
   const asset = `/assets/images/guide/bindu-${expression}.webp`;
