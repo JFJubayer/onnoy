@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PublicForm from '@components/PublicForm.astro';
 import '@/styles/pages/session-request.css';
 ---
 
@@ -30,8 +31,7 @@ import '@/styles/pages/session-request.css';
       <!-- 3. Form Section -->
       <main class="container">
           <div class="form-container-boxed">
-              <form action="https://formspree.io/f/xpqbbkgw" method="POST" class="fade-in">
-                  <input type="hidden" name="_subject" value="Onnoy Session Request — New College">
+              <PublicForm kind="session" class="fade-in">
                   
                   <!-- Section 1: Primary Contact -->
                   <div class="form-section">
@@ -106,7 +106,7 @@ import '@/styles/pages/session-request.css';
                       <button type="submit" class="btn btn-green full-submit">Submit Session Request →</button>
                       <p class="form-disclaimer">By submitting, you agree to our team contacting you via phone or email.</p>
                   </div>
-              </form>
+              </PublicForm>
           </div>
       </main>
   

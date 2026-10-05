@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PublicForm from '@components/PublicForm.astro';
 import '@/styles/pages/support.css';
 ---
 
@@ -21,9 +22,7 @@ import '@/styles/pages/support.css';
   
           <!-- Form Section -->
           <div class="form-card">
-              <form action="https://formspree.io/f/xaqvvobg" method="POST">
-  
-                  <input type="hidden" name="_subject" value="Onnoy Student Support Request">
+              <PublicForm kind="support">
                   
                   <div class="form-group">
                       <label for="name" class="form-label">Your Name</label>
@@ -59,7 +58,7 @@ import '@/styles/pages/support.css';
   
                   <button type="submit" class="btn btn-green full-submit">Send Message to Onnoy &rarr;</button>
   
-              </form>
+              </PublicForm>
           </div>
   
           <!-- Reassurance Strip -->

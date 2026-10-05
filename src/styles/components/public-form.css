@@ -1,0 +1,33 @@
+.public-form-honeypot { display: none; }
+.public-form-status {
+  display: none;
+  flex-basis: 100%;
+  width: 100%;
+  margin: var(--s-4) 0 0;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  overflow-wrap: anywhere;
+}
+.public-form-status:target,
+.public-form-status[data-state="success"] {
+  display: block;
+  background: var(--success-bg);
+  color: var(--success-fg);
+}
+.public-form-status[data-state="sending"] {
+  display: block;
+  background: var(--info-bg);
+  color: var(--info-fg);
+}
+.public-form-status[data-state="error"] {
+  display: block;
+  background: var(--danger-bg);
+  color: var(--danger-fg);
+}
+.public-form [type="submit"] { max-width: 100%; min-height: 44px; white-space: normal; }
+.public-form [type="submit"]:disabled { opacity: 0.65; cursor: wait; }
+.public-form.email-form { flex-wrap: wrap; }
+.public-form.email-form .email-input { min-width: 0; flex: 1 1 200px; }
+.public-form-captcha { flex-basis: 100%; min-height: 70px; margin-top: var(--s-4); max-width: 100%; }

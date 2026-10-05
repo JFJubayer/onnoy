@@ -1,19 +1,22 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PublicationAccess from '@components/PublicationAccess.astro';
+import { translations } from '@data/translations';
 import { getPublications, publicationAccessUrl } from '@lib/publications';
 import '@/styles/pages/workbooks-inline.css';
 
 const publications = await getPublications();
+const brainReset = publications.find((publication) => publication.pdf === '/assets/docs/Brain_Reset_Booklet_Publishable.pdf');
+if (!brainReset) throw new Error('Brain Reset is missing from the publication catalog.');
 ---
 
-<BaseLayout title="Workbooks & Booklets" description="Official Onnoy decision-making workbooks, guidebooks, and illustrated story booklets for Bangladeshi students, parents, and educators. Free to read and download.">
+<BaseLayout title="Workbooks & Booklets" description="Official Onnoy decision-making workbooks, guidebooks, and illustrated story booklets for Bangladeshi students, parents, and educators.">
   <!-- 2. Hero Section -->
       <header class="hero" id="main" tabindex="-1">
           <div class="container fade-in">
               <h1>Workbooks & Booklets</h1>
               <p>ওয়ার্কবুক ও বুকলেট</p>
-              <p>Practical decision-making workbooks, student guidebooks, and illustrated story booklets — designed for Bangladeshi youth, parents, and educators. Read directly or unlock your free download below.</p>
+              <p>Practical decision-making workbooks, student guidebooks, and illustrated story booklets — designed for Bangladeshi youth, parents, and educators. Read directly or unlock your download below.</p>
           </div>
       </header>
   
@@ -23,20 +26,15 @@ const publications = await getPublications();
               <div class="section-label" style="text-transform: uppercase; font-weight: 700; letter-spacing: 1px; color: var(--green); margin-bottom: 8px;">Decision Tools For Bangladesh</div>
               <h2 class="section-title">Published Workbooks & Materials</h2>
               <p style="color: var(--ink-mid); font-size: 1.05rem; line-height: 1.6;">
-                  Most students and families face high-stakes choices with plenty of noise, but few structured frameworks. Read online for free, or download your PDF copy instantly.
+                  Most students and families face high-stakes choices with plenty of noise, but few structured frameworks. Read online, or download your PDF copy instantly.
               </p>
           </div>
   
-          <!-- Empathetic Subsidy & ChaBondhu Banner -->
           <div class="chabondhu-card" style="margin-bottom: 40px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
               <div style="flex: 1; min-width: 280px;">
-                  <div style="display: inline-flex; align-items: center; gap: 6px; color: #B45309; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 6px;">
-                      <span>☕</span>
-                      <span>100% Free Sponsored Grant · জনকল্যাণে উন্মুক্ত</span>
-                  </div>
-                  <h3 style="margin: 0 0 6px 0; font-size: 1.25rem; color: var(--ink);">Why are our workbooks free?</h3>
+                  <h3 style="margin: 0 0 6px 0; font-size: 1.25rem; color: var(--ink);">Sponsor a Student's Booklet</h3>
                   <p style="margin: 0; color: var(--ink-mid); font-size: 0.92rem; line-height: 1.55;">
-                      We believe essential life guidance should never depend on a student's ability to pay. Every <strong><del>৳49</del> ৳0</strong> download is subsidized through community goodwill. If you are in a position to help, treat our volunteer creators to a cup of tea on ChaBondhu (৳5) to sponsor printed copies for rural students.
+                      If you are in a position to help, treat our volunteer creators to a cup of tea on ChaBondhu (৳5) to sponsor printed copies for rural students.
                   </p>
               </div>
               <div style="flex-shrink: 0;">
@@ -52,10 +50,6 @@ const publications = await getPublications();
               <div class="workbook-card" style="border-top: 5px solid #059669;">
                   <div>
                       <div class="wb-cover-wrapper">
-                          <div class="wb-price-pill">
-                              <del>৳49</del>
-                              <strong>৳0 FREE</strong>
-                          </div>
                           <a href={publicationAccessUrl('/assets/docs/Onnoy-What-to-study-booklet.pdf', 'read')} data-reader-resource="/assets/docs/Onnoy-What-to-study-booklet.pdf" data-reader-action="read" class="wb-cover-link" title="Read Online">
                               <img src="/assets/images/covers/cover-what-to-study.png" alt="Not Sure What to Study? Booklet Cover" class="wb-cover-img" loading="lazy">
                               <span class="wb-cover-hover-hint">Read Online ↗</span>
@@ -78,15 +72,6 @@ const publications = await getPublications();
                       </ul>
                   </div>
                   <div>
-                      <!-- Pricing row -->
-                      <div class="wb-pricing-row">
-                          <div class="wb-price-details">
-                              <span class="reg-price">৳49 Regular</span>
-                              <span class="free-price">৳0 FREE</span>
-                          </div>
-                          <span class="wb-sponsor-tag">Sponsored for Youth</span>
-                      </div>
-  
                       <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
                           <span>📄 PDF Format</span>
                           <span style="color: #059669; font-weight: 600;">✓ Instant Access</span>
@@ -94,7 +79,7 @@ const publications = await getPublications();
   
                       <div class="wb-actions">
                           <a href={publicationAccessUrl('/assets/docs/Onnoy-What-to-study-booklet.pdf', 'read')} data-reader-resource="/assets/docs/Onnoy-What-to-study-booklet.pdf" data-reader-action="read" class="btn-read-online">Read Online ↗</a>
-                          <button type="button" data-reader-resource="/assets/docs/Onnoy-What-to-study-booklet.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #059669;">Download (৳0) ⬇</button>
+                          <button type="button" data-reader-resource="/assets/docs/Onnoy-What-to-study-booklet.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #059669;"><span data-i18n="donation-download">Download PDF</span> ⬇</button>
                       </div>
                   </div>
               </div>
@@ -103,10 +88,6 @@ const publications = await getPublications();
               <div class="workbook-card" style="border-top: 5px solid #0284C7;">
                   <div>
                       <div class="wb-cover-wrapper">
-                          <div class="wb-price-pill" style="border-color: #0284C7;">
-                              <del>৳49</del>
-                              <strong style="color: #0284C7;">৳0 FREE</strong>
-                          </div>
                           <a href={publicationAccessUrl('/assets/docs/Onnoy-Learn-What-Lasts.pdf', 'read')} data-reader-resource="/assets/docs/Onnoy-Learn-What-Lasts.pdf" data-reader-action="read" class="wb-cover-link" title="Read Online">
                               <img src="/assets/images/covers/cover-learn-what-lasts.png" alt="Learn What Lasts Booklet Cover" class="wb-cover-img" loading="lazy">
                               <span class="wb-cover-hover-hint">Read Online ↗</span>
@@ -129,15 +110,6 @@ const publications = await getPublications();
                       </ul>
                   </div>
                   <div>
-                      <!-- Pricing row -->
-                      <div class="wb-pricing-row" style="background: rgba(2, 132, 199, 0.06); border-color: rgba(2, 132, 199, 0.35);">
-                          <div class="wb-price-details">
-                              <span class="reg-price">৳49 Regular</span>
-                              <span class="free-price" style="color: #0284C7;">৳0 FREE</span>
-                          </div>
-                          <span class="wb-sponsor-tag" style="background: #E0F2FE; color: #0369A1;">Sponsored for Youth</span>
-                      </div>
-  
                       <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
                           <span>📄 PDF Format</span>
                           <span style="color: #0284C7; font-weight: 600;">✓ Instant Access</span>
@@ -145,7 +117,7 @@ const publications = await getPublications();
   
                       <div class="wb-actions">
                           <a href={publicationAccessUrl('/assets/docs/Onnoy-Learn-What-Lasts.pdf', 'read')} data-reader-resource="/assets/docs/Onnoy-Learn-What-Lasts.pdf" data-reader-action="read" class="btn-read-online">Read Online ↗</a>
-                          <button type="button" data-reader-resource="/assets/docs/Onnoy-Learn-What-Lasts.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #0284C7;">Download (৳0) ⬇</button>
+                          <button type="button" data-reader-resource="/assets/docs/Onnoy-Learn-What-Lasts.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #0284C7;"><span data-i18n="donation-download">Download PDF</span> ⬇</button>
                       </div>
                   </div>
               </div>
@@ -154,10 +126,6 @@ const publications = await getPublications();
               <div class="workbook-card" style="border-top: 5px solid #D97706;">
                   <div>
                       <div class="wb-cover-wrapper">
-                          <div class="wb-price-pill" style="border-color: #D97706;">
-                              <del>৳49</del>
-                              <strong style="color: #D97706;">৳0 FREE</strong>
-                          </div>
                           <a href={publicationAccessUrl('/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf', 'read')} data-reader-resource="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" data-reader-action="read" class="wb-cover-link" title="Read Online">
                               <img src="/assets/images/covers/cover-child-behind-screen.png" alt="The Child Behind the Screen Cover" class="wb-cover-img" loading="lazy">
                               <span class="wb-cover-hover-hint">Read Online ↗</span>
@@ -180,15 +148,6 @@ const publications = await getPublications();
                       </ul>
                   </div>
                   <div>
-                      <!-- Pricing row -->
-                      <div class="wb-pricing-row" style="background: rgba(217, 119, 6, 0.06); border-color: rgba(217, 119, 6, 0.35);">
-                          <div class="wb-price-details">
-                              <span class="reg-price">৳49 Regular</span>
-                              <span class="free-price" style="color: #D97706;">৳0 FREE</span>
-                          </div>
-                          <span class="wb-sponsor-tag" style="background: #FEF3C7; color: #B45309;">Sponsored for Youth</span>
-                      </div>
-  
                       <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
                           <span>📄 PDF Format</span>
                           <span style="color: #D97706; font-weight: 600;">✓ Instant Access</span>
@@ -196,7 +155,7 @@ const publications = await getPublications();
   
                       <div class="wb-actions">
                           <a href={publicationAccessUrl('/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf', 'read')} data-reader-resource="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" data-reader-action="read" class="btn-read-online">Read Online ↗</a>
-                          <button type="button" data-reader-resource="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #D97706;">Download (৳0) ⬇</button>
+                          <button type="button" data-reader-resource="/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #D97706;"><span data-i18n="donation-download">Download PDF</span> ⬇</button>
                       </div>
                   </div>
               </div>
@@ -205,10 +164,6 @@ const publications = await getPublications();
               <div class="workbook-card" style="border-top: 5px solid #7C3AED;">
                   <div>
                       <div class="wb-cover-wrapper">
-                          <div class="wb-price-pill" style="border-color: #7C3AED;">
-                              <del>৳49</del>
-                              <strong style="color: #7C3AED;">৳0 FREE</strong>
-                          </div>
                           <a href={publicationAccessUrl('/assets/docs/Booklet_Publishable.pdf', 'read')} data-reader-resource="/assets/docs/Booklet_Publishable.pdf" data-reader-action="read" class="wb-cover-link" title="Read Online">
                               <img src="/assets/images/covers/cover-onno-ek-onima.png" alt="অন্য এক অনিমা Cover" class="wb-cover-img" loading="lazy">
                               <span class="wb-cover-hover-hint">Read Online ↗</span>
@@ -231,15 +186,6 @@ const publications = await getPublications();
                       </ul>
                   </div>
                   <div>
-                      <!-- Pricing row -->
-                      <div class="wb-pricing-row" style="background: rgba(124, 58, 237, 0.06); border-color: rgba(124, 58, 237, 0.35);">
-                          <div class="wb-price-details">
-                              <span class="reg-price">৳49 Regular</span>
-                              <span class="free-price" style="color: #7C3AED;">৳0 FREE</span>
-                          </div>
-                          <span class="wb-sponsor-tag" style="background: #F3E8FF; color: #7C3AED;">Sponsored for Youth</span>
-                      </div>
-  
                       <div style="font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 10px; display: flex; justify-content: space-between;">
                           <span>📄 PDF Format</span>
                           <span style="color: #7C3AED; font-weight: 600;">✓ Instant Access</span>
@@ -247,11 +193,43 @@ const publications = await getPublications();
   
                       <div class="wb-actions">
                           <a href={publicationAccessUrl('/assets/docs/Booklet_Publishable.pdf', 'read')} data-reader-resource="/assets/docs/Booklet_Publishable.pdf" data-reader-action="read" class="btn-read-online">Read Online ↗</a>
-                          <button type="button" data-reader-resource="/assets/docs/Booklet_Publishable.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #7C3AED;">Download (৳0) ⬇</button>
+                          <button type="button" data-reader-resource="/assets/docs/Booklet_Publishable.pdf" data-reader-action="download" data-reader-next="donate" class="btn-download-free" style="background: #7C3AED;"><span data-i18n="donation-download">Download PDF</span> ⬇</button>
                       </div>
                   </div>
               </div>
   
+              <article class="workbook-card workbook-card--brain-reset">
+                  <div>
+                      <div class="wb-cover-wrapper">
+                          <a href={publicationAccessUrl(brainReset.pdf, 'read')} data-reader-resource={brainReset.pdf} data-reader-action="read" class="wb-cover-link" title="Read Online">
+                              <img src={brainReset.cover} alt="The Brain Reset booklet cover" class="wb-cover-img" width="620" height="877" loading="lazy">
+                              <span class="wb-cover-hover-hint" data-i18n="donation-read">{translations['donation-read'].en}</span>
+                          </a>
+                      </div>
+                      <div class="wb-badge-row">
+                          <span class="wb-tag" data-i18n="brain-reset-tag">{translations['brain-reset-tag'].en}</span>
+                          <span class="wb-audience" data-i18n="brain-reset-audience">{translations['brain-reset-audience'].en}</span>
+                      </div>
+                      <h3 class="wb-title" data-i18n="brain-reset-title">{brainReset.title}</h3>
+                      <p class="wb-subtitle" data-i18n="brain-reset-subtitle">{translations['brain-reset-subtitle'].en}</p>
+                      <p class="wb-desc" data-i18n="brain-reset-description">{translations['brain-reset-description'].en}</p>
+                      <ul class="wb-highlights">
+                          <li data-i18n="brain-reset-lessons">{translations['brain-reset-lessons'].en}</li>
+                          <li data-i18n="brain-reset-worksheet">{translations['brain-reset-worksheet'].en}</li>
+                          <li data-i18n="brain-reset-evidence">{translations['brain-reset-evidence'].en}</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <div class="wb-file-info">
+                          <span data-i18n="brain-reset-format">{translations['brain-reset-format'].en}</span>
+                          <span data-i18n="brain-reset-edition">{translations['brain-reset-edition'].en}</span>
+                      </div>
+                      <div class="wb-actions">
+                          <a href={publicationAccessUrl(brainReset.pdf, 'read')} data-reader-resource={brainReset.pdf} data-reader-action="read" class="btn-read-online" data-i18n="donation-read">{translations['donation-read'].en}</a>
+                          <button type="button" data-reader-resource={brainReset.pdf} data-reader-action="download" data-reader-next="donate" class="btn-download-free" data-i18n="donation-download">{translations['donation-download'].en}</button>
+                      </div>
+                  </div>
+              </article>
           </div>
   
           <!-- Institutional Materials & Workshop Request -->

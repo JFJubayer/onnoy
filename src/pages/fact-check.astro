@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PublicForm from '@components/PublicForm.astro';
 import '@/styles/pages/fact-check.css';
 ---
 
@@ -31,7 +32,7 @@ import '@/styles/pages/fact-check.css';
   
           <!-- Form Section -->
           <div class="form-card">
-              <form action="https://formspree.io/f/xwvyyoqr" method="POST">
+              <PublicForm kind="fact_check">
                   
                   <div class="form-group">
                       <label for="name" class="form-label">Your Name</label>
@@ -68,7 +69,7 @@ import '@/styles/pages/fact-check.css';
                   </div>
   
                   <button type="submit" class="btn btn-green full-submit">Send for Verification &rarr;</button>
-              </form>
+              </PublicForm>
   
               <!-- Reassurance Note -->
               <div class="reassurance-note text-center" style="margin-top: 35px;">

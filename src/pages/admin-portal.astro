@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import AdminInbox from '@components/AdminInbox.astro';
 import '@/styles/pages/admin-portal-inline.css';
 ---
 
-<BaseLayout title="Admin Portal" description="Admin Portal for Onnoy (অন্বয়) — Secure administrative management and monitoring interface." noindex>
+<BaseLayout title="Admin Portal" description="Admin Portal for Onnoy (অন্বয়) — Secure administrative management and monitoring interface." bodyClass="admin-body" minimal noindex>
       <div id="admin-floating-scroll" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
           <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: var(--admin-primary); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: #0b132b; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-size: 24px; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.background='var(--admin-primary-hover)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='var(--admin-primary)'; this.style.transform='scale(1)'">&#8593;</button>
           <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" style="background: var(--admin-primary); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: #0b132b; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-size: 24px; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.background='var(--admin-primary-hover)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='var(--admin-primary)'; this.style.transform='scale(1)'">&#8595;</button>
@@ -13,8 +14,7 @@ import '@/styles/pages/admin-portal-inline.css';
       </div>
       <div id="loginSection" class="admin-login-wrapper" style="display: none;">
           <div class="admin-glass-card admin-login-card">
-              <h2>Admin Portal</h2>
-              <p>Access pending student missions review board.</p>
+              <h2 data-i18n="admin-title">Admin Portal</h2>
               <div id="loginAlert" class="admin-alert admin-alert-error"></div>
               <form id="adminLoginForm">
                   <div class="admin-input-group">
@@ -33,8 +33,7 @@ import '@/styles/pages/admin-portal-inline.css';
       <div id="dashboardSection" class="admin-dashboard-container">
           <div class="dashboard-header">
               <div>
-                  <h1>Submissions Review Board</h1>
-                  <p style="margin: 5px 0 0; color: rgba(244, 246, 252, 0.6);">Approve Level 2 missions to unlock full access.</p>
+                  <h1 data-i18n="admin-title">Admin Portal</h1>
               </div>
               <button onclick="handleLogout()" class="logout-btn">Log Out</button>
           </div>
@@ -45,6 +44,8 @@ import '@/styles/pages/admin-portal-inline.css';
               <button onclick="switchTab('students')" id="tab-students" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Student Badges Board</button>
               <button onclick="switchTab('downloads')" id="tab-downloads" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Workbook Downloads</button>
               <button onclick="switchTab('impact')" id="tab-impact" class="admin-tab-btn" style="background: transparent; border: none; color: rgba(244, 246, 252, 0.6); font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 5px 15px; border-bottom: 3px solid transparent; transition: all 0.2s;">Live Impact Stats</button>
+              <button type="button" onclick="switchTab('requests')" id="tab-requests" class="admin-tab-btn admin-inbox-tab" data-i18n="inbox-title">Requests</button>
+              <button type="button" onclick="switchTab('subscribers')" id="tab-subscribers" class="admin-tab-btn admin-inbox-tab" data-i18n="inbox-guide-title">Guide signups</button>
           </div>
   
           <div id="submissionsTabContent">
@@ -195,6 +196,7 @@ import '@/styles/pages/admin-portal-inline.css';
                   </table>
               </div>
           </div>
+          <AdminInbox />
       </div>
   
       <!-- Image Preview Modal -->
@@ -362,18 +364,20 @@ import '@/styles/pages/admin-portal-inline.css';
                     let mediaHtml = '';
                     if (sub.screenshot_urls && sub.screenshot_urls.length > 0) {
                         let thumbs = '';
-                        sub.screenshot_urls.forEach(url => {
-                            if (url.toLowerCase().endsWith('.pdf')) {
+                        sub.screenshot_urls.forEach(value => {
+                            const url = safeDocumentUrl(value);
+                            if (!url) return;
+                            if (new URL(url).pathname.toLowerCase().endsWith('.pdf')) {
                                 thumbs += `
-                                    <a class="media-thumb" href="${url}" target="_blank" title="View PDF">
+                                    <a class="media-thumb" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" title="View PDF">
                                         <div class="media-pdf-icon">PDF</div>
                                     </a>
                                 `;
                             } else {
                                 thumbs += `
-                                    <div class="media-thumb" onclick="previewImage('${url}')">
-                                        <img src="${url}" alt="Screenshot">
-                                    </div>
+                                    <button type="button" class="media-thumb" data-preview-url="${escapeHtml(url)}" aria-label="Preview evidence">
+                                        <img src="${escapeHtml(url)}" alt="Screenshot">
+                                    </button>
                                 `;
                             }
                         });
@@ -409,26 +413,30 @@ import '@/styles/pages/admin-portal-inline.css';
 
                     card.innerHTML = `
                         <div class="sub-details">
-                            <h3 style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px;">${sub.mission_title || 'Level 2 Mission'} ${badgesHtml}</h3>
+                            <h3 style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px;">${escapeHtml(sub.mission_title || 'Level 2 Mission')} ${badgesHtml}</h3>
                             <div class="sub-meta">
-                                <span><strong>Name:</strong> ${sub.student_name}</span>
-                                <span><strong>Email:</strong> ${sub.student_email}</span>
-                                <span><strong>ID:</strong> ${sub.unique_id}</span>
+                                <span><strong>Name:</strong> ${escapeHtml(sub.student_name)}</span>
+                                <span><strong>Email:</strong> ${escapeHtml(sub.student_email)}</span>
+                                <span><strong>ID:</strong> ${escapeHtml(sub.unique_id)}</span>
                                 <span><strong>Date:</strong> ${dateStr}</span>
                             </div>
-                            <div class="notes-box">${sub.evidence_notes}</div>
+                            <div class="notes-box">${escapeHtml(sub.evidence_notes)}</div>
                         </div>
                         <div style="display: flex; flex-direction: column; justify-content: space-between;">
                             ${mediaHtml}
-                            <button id="approve-btn-${sub.id}" onclick="approveSubmission('${sub.id}', '${sub.unique_id}', '${sub.mission_title}')" class="approve-action-btn">
+                            <button type="button" id="approve-btn-${sub.id}" class="approve-action-btn">
                                 ${btnText} →
                             </button>
                         </div>
                     `;
+                    card.querySelector('.approve-action-btn').addEventListener('click', () => approveSubmission(sub.id, sub.unique_id, sub.mission_title));
+                    card.querySelectorAll('[data-preview-url]').forEach(button => {
+                        button.addEventListener('click', () => previewImage(button.dataset.previewUrl));
+                    });
                     submissionsContainer.appendChild(card);
                 });
             } catch (err) {
-                submissionsContainer.innerHTML = `<div class="no-submissions" style="color:#ef476f;">Error loading data: ${err.message || err}</div>`;
+                submissionsContainer.innerHTML = `<div class="no-submissions" style="color:#ef476f;">Error loading data: ${escapeHtml(err.message || err)}</div>`;
             }
         }
 
@@ -537,6 +545,7 @@ import '@/styles/pages/admin-portal-inline.css';
 
         let activeTab = 'submissions';
         async function switchTab(tabId) {
+            if (!['submissions', 'students', 'impact', 'downloads', 'requests', 'subscribers'].includes(tabId)) tabId = 'submissions';
             activeTab = tabId;
             const subTab = document.getElementById('submissionsTabContent');
             const stuTab = document.getElementById('studentsTabContent');
@@ -546,9 +555,13 @@ import '@/styles/pages/admin-portal-inline.css';
             const stuBtn = document.getElementById('tab-students');
             const impBtn = document.getElementById('tab-impact');
             const dlBtn = document.getElementById('tab-downloads');
+            const reqTab = document.getElementById('requestsTabContent');
+            const guideTab = document.getElementById('subscribersTabContent');
+            const reqBtn = document.getElementById('tab-requests');
+            const guideBtn = document.getElementById('tab-subscribers');
 
             // Reset all buttons
-            [subBtn, stuBtn, impBtn, dlBtn].forEach(btn => {
+            [subBtn, stuBtn, impBtn, dlBtn, reqBtn, guideBtn].forEach(btn => {
                 if (!btn) return;
                 btn.classList.remove('active');
                 btn.style.color = 'rgba(244, 246, 252, 0.6)';
@@ -560,6 +573,8 @@ import '@/styles/pages/admin-portal-inline.css';
             if (stuTab) stuTab.style.display = 'none';
             if (impTab) impTab.style.display = 'none';
             if (dlTab) dlTab.style.display = 'none';
+            if (reqTab) reqTab.hidden = true;
+            if (guideTab) guideTab.hidden = true;
 
             if (tabId === 'submissions') {
                 if (subTab) subTab.style.display = 'block';
@@ -593,11 +608,31 @@ import '@/styles/pages/admin-portal-inline.css';
                     impBtn.style.borderBottomColor = 'var(--admin-primary)';
                 }
                 loadPortalImpactStats();
+            } else if (tabId === 'requests' || tabId === 'subscribers') {
+                const panel = tabId === 'requests' ? reqTab : guideTab;
+                const button = tabId === 'requests' ? reqBtn : guideBtn;
+                if (panel) panel.hidden = false;
+                if (button) {
+                    button.classList.add('active');
+                    button.style.color = 'var(--admin-primary)';
+                    button.style.borderBottomColor = 'var(--admin-primary)';
+                }
             }
+            document.dispatchEvent(new CustomEvent('onnoy:admin-tab', { detail: { tab: tabId } }));
         }
 
         // --- WORKBOOK DOWNLOADS & LEADS LOGIC ---
         let allDownloadsData = [];
+
+        function safeDocumentUrl(value) {
+            if (typeof value !== 'string' || !value.trim()) return '';
+            try {
+                const url = new URL(value, window.location.origin);
+                return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+            } catch {
+                return '';
+            }
+        }
 
         function escapeHtml(str) {
             if (!str) return '';
@@ -709,7 +744,7 @@ import '@/styles/pages/admin-portal-inline.css';
                         <strong style="color: #6ee7b7; margin-left: 4px;">৳0 FREE</strong>
                     </td>
                     <td style="padding: 12px 18px; text-align: center;">
-                        <a href="${escapeHtml(d.booklet_url || '#')}" target="_blank" class="admin-btn" style="display: inline-block; padding: 4px 10px; font-size: 0.75rem; text-decoration: none; width: auto;">Open PDF ↗</a>
+                        <a href="${escapeHtml(safeDocumentUrl(d.booklet_url) || '#')}" target="_blank" rel="noopener noreferrer" class="admin-btn" style="display: inline-block; padding: 4px 10px; font-size: 0.75rem; text-decoration: none; width: auto;">Open PDF ↗</a>
                     </td>
                 `;
                 tableBody.appendChild(tr);
@@ -834,7 +869,7 @@ import '@/styles/pages/admin-portal-inline.css';
 
                 renderStudentsTable(allProfiles);
             } catch (err) {
-                tableBody.innerHTML = `<tr><td colspan="5" style="padding: 30px; text-align: center; color: #ef476f;">Error loading profiles: ${err.message || err}</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="5" style="padding: 30px; text-align: center; color: #ef476f;">Error loading profiles: ${escapeHtml(err.message || err)}</td></tr>`;
             }
         }
 
@@ -887,7 +922,7 @@ import '@/styles/pages/admin-portal-inline.css';
                 }
                 badgesHtml += '</div>';
 
-                let emailHtml = p.email || 'N/A';
+                let emailHtml = escapeHtml(p.email || 'N/A');
                 if (p.role === 'admin') {
                     emailHtml += ' <span style="background: #5bc0be; color: #0b132b; font-size: 0.65rem; font-weight: 700; padding: 1px 5px; border-radius: 4px; margin-left: 5px; vertical-align: middle;">ADMIN</span>';
                 }
@@ -922,8 +957,8 @@ import '@/styles/pages/admin-portal-inline.css';
 
                 row.innerHTML = `
                     <td style="padding: 12px 20px; font-weight: 600;">${emailHtml}</td>
-                    <td style="padding: 12px 20px; font-family: monospace; font-size: 0.85rem; color: var(--admin-primary);">${p.unique_id || 'N/A'}</td>
-                    <td style="padding: 12px 20px;"><span style="background: rgba(91, 192, 190, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(91, 192, 190, 0.2); font-size: 0.85rem;">${p.status || 'pending'}</span></td>
+                    <td style="padding: 12px 20px; font-family: monospace; font-size: 0.85rem; color: var(--admin-primary);">${escapeHtml(p.unique_id || 'N/A')}</td>
+                    <td style="padding: 12px 20px;"><span style="background: rgba(91, 192, 190, 0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(91, 192, 190, 0.2); font-size: 0.85rem;">${escapeHtml(p.status || 'pending')}</span></td>
                     <td style="padding: 12px 20px;">${progressHtml}</td>
                     <td style="padding: 12px 20px;">${badgesHtml}</td>
                     <td style="padding: 12px 20px; color: rgba(244, 246, 252, 0.5);">${dateStr}</td>

@@ -1,0 +1,16 @@
+---
+import { translations } from '@data/translations';
+import '@/styles/components/opening-intro.css';
+---
+
+<div id="openingIntro" class="opening-intro" role="dialog" aria-modal="true" aria-labelledby="openingIntroLabel" hidden>
+  <span id="openingIntroLabel" class="sr-only" data-i18n="opening-label">{translations['opening-label'].en}</span>
+  <video id="openingIntroVideo" class="opening-intro__video" width="1440" height="810" data-src="/assets/videos/onnoy-opening.mp4" data-poster="/assets/videos/onnoy-opening-poster.webp" muted playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
+  <button id="openingIntroSkip" class="opening-intro__skip" type="button">
+    <span class="sr-only" data-i18n="opening-skip">{translations['opening-skip'].en}</span>
+  </button>
+</div>
+
+<script>
+  import '@scripts/opening-intro';
+</script>

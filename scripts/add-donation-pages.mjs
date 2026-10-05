@@ -9,7 +9,10 @@ import { chromium } from 'playwright-core';
 import sharp from 'sharp';
 import jsQR from 'jsqr';
 
-const publications = JSON.parse(await readFile(new URL('../src/data/publications.json', import.meta.url), 'utf8'));
+const catalog = JSON.parse(await readFile(new URL('../src/data/publications.json', import.meta.url), 'utf8'));
+const selectedPdf = process.argv[2];
+const publications = selectedPdf ? catalog.filter((publication) => publication.pdf === selectedPdf) : catalog;
+assert.ok(publications.length, `No publication matches ${selectedPdf}`);
 const baseUrl = process.env.BASE ?? 'http://127.0.0.1:4321';
 const chromePath = process.env.CHROME_PATH ?? execFileSync('which', ['google-chrome'], { encoding: 'utf8' }).trim();
 const marker = PDFName.of('OnnoyDonationPage');

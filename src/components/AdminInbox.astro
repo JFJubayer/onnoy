@@ -1,0 +1,110 @@
+---
+import { translations } from '@data/translations';
+import '@/styles/components/admin-inbox.css';
+
+const requestStatuses = ['new', 'in_progress', 'resolved', 'archived'];
+const guideStatuses = ['subscribed', 'notified', 'archived'];
+---
+
+<section id="requestsTabContent" class="admin-inbox-panel" hidden>
+  <div class="admin-inbox-heading">
+    <h2 data-i18n="inbox-title">Requests</h2>
+    <span id="requestCount" role="status" aria-live="polite"></span>
+  </div>
+  <form id="requestFilters" class="admin-inbox-toolbar" role="search">
+    <label><span data-i18n="inbox-search">Search</span><input id="requestSearch" class="admin-input" type="search" maxlength="120" data-i18n-placeholder="inbox-search-placeholder" placeholder="Name, contact, institution, or message" /></label>
+    <label><span data-i18n="inbox-type">Type</span><select id="requestKind" class="admin-input">
+      <option value="" data-i18n="inbox-all-types">All types</option>
+      <option value="session" data-i18n="inbox-kind-session">Session</option>
+      <option value="fact_check" data-i18n="inbox-kind-fact_check">Fact-check</option>
+      <option value="support" data-i18n="inbox-kind-support">Support</option>
+    </select></label>
+    <label><span data-i18n="inbox-status">Status</span><select id="requestStatus" class="admin-input">
+      <option value="" data-i18n="inbox-all-statuses">All statuses</option>
+      {requestStatuses.map((status) => <option value={status} data-i18n={`inbox-status-${status}`}>{translations[`inbox-status-${status}`].en}</option>)}
+    </select></label>
+    <button id="requestRefresh" type="button" class="btn btn-secondary" data-i18n="inbox-refresh">Refresh</button>
+    <button id="requestExport" type="button" class="btn btn-secondary" data-i18n="inbox-export">Export CSV</button>
+  </form>
+  <p id="requestMessage" class="admin-inbox-message" role="status" aria-live="polite"></p>
+  <div class="admin-inbox-table-scroll">
+    <table class="admin-inbox-table">
+      <thead><tr>
+        <th scope="col" data-i18n="inbox-received">Received</th>
+        <th scope="col" data-i18n="inbox-type">Type</th>
+        <th scope="col" data-i18n="inbox-name">Name</th>
+        <th scope="col" data-i18n="inbox-contact">Contact</th>
+        <th scope="col" data-i18n="inbox-status">Status</th>
+        <th scope="col" data-i18n="inbox-alert">Staff alert</th>
+        <th scope="col" data-i18n="inbox-actions">Actions</th>
+      </tr></thead>
+      <tbody id="requestRows"></tbody>
+    </table>
+  </div>
+  <div class="admin-inbox-pagination">
+    <button id="requestPrevious" type="button" class="btn btn-secondary" data-i18n="inbox-previous" disabled>Previous</button>
+    <span id="requestPage" aria-live="polite"></span>
+    <button id="requestNext" type="button" class="btn btn-secondary" data-i18n="inbox-next" disabled>Next</button>
+  </div>
+</section>
+
+<section id="subscribersTabContent" class="admin-inbox-panel" hidden>
+  <div class="admin-inbox-heading">
+    <h2 data-i18n="inbox-guide-title">Guide signups</h2>
+    <span id="subscriberCount" role="status" aria-live="polite"></span>
+  </div>
+  <form id="subscriberFilters" class="admin-inbox-toolbar" role="search">
+    <label><span data-i18n="inbox-email">Email</span><input id="subscriberSearch" class="admin-input" type="search" maxlength="120" data-i18n-placeholder="inbox-email-search" placeholder="Search email" /></label>
+    <label><span data-i18n="inbox-status">Status</span><select id="subscriberStatus" class="admin-input">
+      <option value="" data-i18n="inbox-all-statuses">All statuses</option>
+      {guideStatuses.map((status) => <option value={status} data-i18n={`inbox-status-${status}`}>{translations[`inbox-status-${status}`].en}</option>)}
+    </select></label>
+    <button id="subscriberRefresh" type="button" class="btn btn-secondary" data-i18n="inbox-refresh">Refresh</button>
+    <button id="subscriberExport" type="button" class="btn btn-secondary" data-i18n="inbox-export">Export CSV</button>
+  </form>
+  <p id="subscriberMessage" class="admin-inbox-message" role="status" aria-live="polite"></p>
+  <div class="admin-inbox-table-scroll">
+    <table class="admin-inbox-table">
+      <thead><tr>
+        <th scope="col" data-i18n="inbox-received">Received</th>
+        <th scope="col" data-i18n="inbox-email">Email</th>
+        <th scope="col" data-i18n="inbox-status">Status</th>
+        <th scope="col" data-i18n="inbox-alert">Staff alert</th>
+        <th scope="col" data-i18n="inbox-actions">Actions</th>
+      </tr></thead>
+      <tbody id="subscriberRows"></tbody>
+    </table>
+  </div>
+  <div class="admin-inbox-pagination">
+    <button id="subscriberPrevious" type="button" class="btn btn-secondary" data-i18n="inbox-previous" disabled>Previous</button>
+    <span id="subscriberPage" aria-live="polite"></span>
+    <button id="subscriberNext" type="button" class="btn btn-secondary" data-i18n="inbox-next" disabled>Next</button>
+  </div>
+</section>
+
+<dialog id="adminRequestDialog" class="admin-request-dialog" aria-labelledby="adminRequestTitle">
+  <div class="admin-request-dialog-header">
+    <h2 id="adminRequestTitle" data-i18n="inbox-detail">Request details</h2>
+    <button id="adminRequestClose" type="button" class="btn btn-secondary" data-i18n="inbox-close">Close</button>
+  </div>
+  <p id="adminRequestMessage" class="admin-inbox-message" role="status" aria-live="polite"></p>
+  <dl id="adminRequestDetails" class="admin-request-details"></dl>
+  <div id="adminRequestContactActions" class="admin-request-contact-actions"></div>
+  <form id="adminRequestForm" class="admin-request-edit">
+    <label for="adminRequestAssignee" data-i18n="inbox-assignee">Assigned to</label>
+    <select id="adminRequestAssignee" class="admin-input">
+      <option value="" data-i18n="inbox-unassigned">Unassigned</option>
+    </select>
+    <label for="adminRequestStatus" data-i18n="inbox-status">Status</label>
+    <select id="adminRequestStatus" class="admin-input">
+      {requestStatuses.map((status) => <option value={status} data-i18n={`inbox-status-${status}`}>{translations[`inbox-status-${status}`].en}</option>)}
+    </select>
+    <label for="adminRequestNotes" data-i18n="inbox-private-notes">Private team notes</label>
+    <textarea id="adminRequestNotes" class="admin-input" rows="4" maxlength="5000"></textarea>
+    <button id="adminRequestSave" type="submit" class="btn btn-green" data-i18n="inbox-save">Save changes</button>
+  </form>
+</dialog>
+
+<script>
+  import '@scripts/admin-inbox';
+</script>

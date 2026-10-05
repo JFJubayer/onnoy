@@ -33,3 +33,7 @@
 .step h4 { margin-bottom: 10px; color: var(--ink); font-size: 1.1rem; }
 .step p { font-size: 0.95rem; color: var(--ink-mid); line-height: 1.5; }
 
+@media (max-width: 600px) {
+    .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); padding: 0; }
+}
+

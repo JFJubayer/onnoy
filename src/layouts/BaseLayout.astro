@@ -8,6 +8,7 @@ import { SITE } from '@data/site';
 import Navbar from '@components/Navbar.astro';
 import Footer from '@components/Footer.astro';
 import WhatsAppFloat from '@components/WhatsAppFloat.astro';
+import OpeningIntro from '@components/OpeningIntro.astro';
 import '@/styles/global.css';
 
 export interface Props {
@@ -121,6 +122,7 @@ const orgLd = {
     <slot name="head" />
   </head>
   <body class={bodyClass}>
+    {Astro.url.pathname === '/' && !minimal && !noindex && <OpeningIntro />}
     <a href="#main" class="skip-link">Skip to content</a>
     <Navbar />
     <slot />

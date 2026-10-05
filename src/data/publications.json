@@ -22,5 +22,11 @@
     "titleBn": "অন্য এক অনিমা",
     "pdf": "/assets/docs/Booklet_Publishable.pdf",
     "cover": "/assets/images/covers/cover-onno-ek-onima.png"
+  },
+  {
+    "title": "The Brain Reset",
+    "titleBn": "ব্রেইন রিসেট",
+    "pdf": "/assets/docs/Brain_Reset_Booklet_Publishable.pdf",
+    "cover": "/assets/images/covers/cover-brain-reset.webp"
   }
 ]

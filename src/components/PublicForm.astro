@@ -1,0 +1,32 @@
+---
+import { translations } from '@data/translations';
+import type { PublicFormKind } from '../../supabase/functions/_shared/public-forms';
+import '@/styles/components/public-form.css';
+
+interface Props {
+  kind: PublicFormKind;
+  class?: string;
+}
+
+const { kind, class: className } = Astro.props;
+const url = import.meta.env.PUBLIC_SUPABASE_URL;
+const endpoint = url ? new URL('/functions/v1/public-forms', url).href : undefined;
+const captchaKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const successKey = `form-success-${kind.replace('_', '-')}`;
+---
+
+<form action={endpoint} method="POST" data-public-form={kind} class:list={['public-form', className]}>
+  <input type="hidden" name="kind" value={kind} />
+  <div class="public-form-honeypot" aria-hidden="true">
+    <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" maxlength="200" /></label>
+  </div>
+  <slot />
+  {captchaKey && <div class="cf-turnstile public-form-captcha" data-sitekey={captchaKey} data-action="public_forms"></div>}
+  <p id="request-received" class="public-form-status" role="status" aria-live="polite" data-i18n={successKey}>{translations[successKey].en}</p>
+</form>
+
+{captchaKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+<script>
+  import '@scripts/public-forms';
+</script>

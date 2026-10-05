@@ -23,6 +23,31 @@
     box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
 }
 
+.workbook-card--brain-reset {
+    border-top: 5px solid var(--green-dark);
+}
+.workbook-card--brain-reset .wb-tag {
+    background: var(--green-pale);
+    color: var(--green-dark);
+}
+.workbook-card--brain-reset .wb-subtitle,
+.workbook-card--brain-reset .wb-highlights {
+    color: var(--green-dark);
+}
+.workbook-card--brain-reset .btn-download-free {
+    background: var(--green-dark);
+    color: var(--brand-contrast) !important;
+}
+.wb-file-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-bottom: var(--s-2);
+    color: var(--ink-mid);
+    font-size: var(--fs-xs);
+}
+
 /* Cover Styling */
 .wb-cover-wrapper {
     position: relative;

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PublicForm from '@components/PublicForm.astro';
 import '@/styles/pages/facilitator-guide.css';
 ---
 
@@ -61,11 +62,10 @@ import '@/styles/pages/facilitator-guide.css';
               <div class="coming-soon-badge">PDF Guide — Coming Soon</div>
               <p>The facilitator guide is being prepared. Enter your email below to get notified the moment it's ready.</p>
               
-              <form action="https://formspree.io/f/xaqvvobg" method="POST" class="email-form">
-                  <input type="hidden" name="_subject" value="Onnoy Facilitator Guide — Notify Me">
+              <PublicForm kind="guide" class="email-form">
                   <input type="email" name="email" class="email-input" placeholder="Your email address" required>
                   <button type="submit" class="notify-btn">Notify Me</button>
-              </form>
+              </PublicForm>
               
               <div class="attribution">
                   This guide is free to use, adapt, and share with attribution to Onnoy (অন্বয়), Mymensingh, Bangladesh.

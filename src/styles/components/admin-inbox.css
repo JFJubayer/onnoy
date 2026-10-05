@@ -1,0 +1,42 @@
+.admin-inbox-tab { background: transparent; border: 0; border-bottom: 3px solid transparent; color: var(--admin-text); font-size: 1.1rem; padding: 5px 15px; cursor: pointer; }
+.admin-inbox-panel { color: var(--admin-text); min-width: 0; }
+.admin-inbox-heading { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+.admin-inbox-heading h2 { font-size: 1.35rem; margin: 0; color: var(--admin-primary); }
+.admin-inbox-toolbar { display: flex; align-items: end; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-4); }
+.admin-inbox-toolbar label { display: grid; gap: var(--s-2); font-size: var(--fs-sm); flex: 1 1 150px; min-width: 0; color: var(--admin-text); }
+.admin-inbox-toolbar label:first-child { flex-basis: 260px; }
+.admin-inbox-toolbar .admin-input { margin: 0; min-height: 44px; }
+.admin-inbox-toolbar select option, .admin-inbox-table select option, .admin-request-edit select option { background: var(--admin-bg); color: var(--admin-text); }
+.admin-inbox-panel .btn, .admin-request-dialog .btn { min-height: 44px; border-radius: var(--radius-sm); white-space: normal; }
+.admin-inbox-message { min-height: 1.5em; font-size: var(--fs-sm); margin: var(--s-3) 0; overflow-wrap: anywhere; }
+.admin-inbox-message[data-error="true"] { color: var(--danger); }
+.admin-inbox-table-scroll { overflow-x: auto; max-width: 100%; border-top: 1px solid var(--admin-border); }
+.admin-inbox-table { width: 100%; min-width: 740px; border-collapse: collapse; text-align: left; font-size: var(--fs-sm); }
+.admin-inbox-table th, .admin-inbox-table td { padding: var(--s-3); border-bottom: 1px solid var(--admin-border); vertical-align: top; max-width: 250px; overflow-wrap: anywhere; }
+.admin-inbox-table th { color: var(--admin-primary); font-weight: 600; }
+.admin-inbox-table a { color: var(--admin-primary); }
+.admin-inbox-contact { white-space: pre-line; }
+.admin-inbox-table .admin-input { min-width: 145px; font-size: var(--fs-sm); padding: var(--s-2); }
+.admin-inbox-badge { display: inline-block; padding: var(--s-1) var(--s-2); border-radius: var(--radius-sm); font-size: var(--fs-xs); background: var(--info-bg); color: var(--info-fg); }
+.admin-inbox-badge[data-status="new"], .admin-inbox-badge[data-status="pending"] { background: var(--caution-bg); color: var(--caution-fg); }
+.admin-inbox-badge[data-status="resolved"], .admin-inbox-badge[data-status="notified"], .admin-inbox-badge[data-status="sent"] { background: var(--success-bg); color: var(--success-fg); }
+.admin-inbox-badge[data-status="failed"] { background: var(--danger-bg); color: var(--danger-fg); }
+.admin-inbox-pagination { display: flex; gap: var(--s-3); align-items: center; justify-content: flex-end; flex-wrap: wrap; margin: var(--s-5) 0; }
+.admin-request-dialog { width: min(720px, calc(100% - 24px)); max-height: calc(100dvh - 32px); padding: var(--s-6); border-radius: var(--radius-sm); border: 1px solid var(--admin-border); background: var(--admin-bg); color: var(--admin-text); overflow-y: auto; }
+.admin-request-dialog::backdrop { background: rgba(0, 0, 0, 0.65); }
+.admin-request-dialog-header { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--s-3); }
+.admin-request-dialog h2 { font-size: 1.35rem; margin: 0; color: var(--admin-primary); }
+.admin-request-details { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: var(--s-3); margin: var(--s-5) 0; }
+.admin-request-details dt { font-weight: 600; color: var(--admin-primary); }
+.admin-request-details dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.admin-request-contact-actions { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+.admin-request-edit { display: grid; gap: var(--s-3); border-top: 1px solid var(--admin-border); padding-top: var(--s-5); }
+.admin-request-edit label { color: var(--admin-text); }
+.admin-request-edit textarea { resize: vertical; }
+.admin-request-edit .btn { justify-self: start; }
+@media (max-width: 600px) {
+  .admin-body #admin-floating-scroll { display: none !important; }
+  .admin-request-dialog { padding: var(--s-4); }
+  .admin-request-details { grid-template-columns: 1fr; gap: var(--s-2); }
+  .admin-request-details dd { margin-bottom: var(--s-3); }
+}

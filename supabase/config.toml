@@ -1,0 +1,4 @@
+project_id = "onnoy"
+
+[functions.public-forms]
+verify_jwt = false
