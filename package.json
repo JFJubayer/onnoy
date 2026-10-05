@@ -10,12 +10,15 @@
     "preview": "astro preview",
     "check": "astro check",
     "test:forms": "node --test scripts/public-forms.test.mjs",
+    "test:guide": "node --test scripts/site-guide.test.mjs",
+    "guide:assets": "node scripts/generate-guide-character.mjs",
     "publications:donation": "node scripts/add-donation-pages.mjs",
     "publications:brain-reset": "node scripts/prepare-brain-reset.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@lucide/astro": "^1.52.0",
     "@supabase/supabase-js": "^2.117.2",
     "astro": "^7.3.5"
   },

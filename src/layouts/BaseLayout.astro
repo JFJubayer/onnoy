@@ -9,6 +9,7 @@ import Navbar from '@components/Navbar.astro';
 import Footer from '@components/Footer.astro';
 import WhatsAppFloat from '@components/WhatsAppFloat.astro';
 import OpeningIntro from '@components/OpeningIntro.astro';
+import SiteGuide from '@components/SiteGuide.astro';
 import '@/styles/global.css';
 
 export interface Props {
@@ -126,6 +127,7 @@ const orgLd = {
     <a href="#main" class="skip-link">Skip to content</a>
     <Navbar />
     <slot />
+    <SiteGuide allowAuto={!minimal && !noindex} />
     {!minimal && <Footer />}
     {!minimal && <WhatsAppFloat />}
     <script>
