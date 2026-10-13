@@ -11,9 +11,11 @@
     "check": "astro check",
     "test:forms": "node --test scripts/public-forms.test.mjs",
     "test:guide": "node --test scripts/site-guide.test.mjs",
-    "guide:assets": "node scripts/generate-guide-character.mjs",
+    "test:learning": "node --test scripts/learning-experience.test.mjs",
+    "test:security": "node --test scripts/security-hardening.test.mjs",
+    "test:accessibility": "node --test scripts/accessibility-structure.test.mjs",
+    "guide:assets": "node scripts/generate-onima-guide-character.mjs",
     "publications:donation": "node scripts/add-donation-pages.mjs",
-    "publications:brain-reset": "node scripts/prepare-brain-reset.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {

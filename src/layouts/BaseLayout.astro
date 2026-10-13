@@ -23,6 +23,12 @@ export interface Props {
   bodyClass?: string;
   /** Hide chrome for focused flows (course player, admin). */
   minimal?: boolean;
+  /** Hide floating guide/contact controls where they would cover focused UI. */
+  hideFloating?: boolean;
+  /** Keep only the legal footer row on focused workflows. */
+  compactFooter?: boolean;
+  /** Wrap a legacy page's default slot in its main landmark. */
+  wrapMain?: boolean;
   /** Extra JSON-LD to merge into the page. */
   jsonLd?: Record<string, unknown>;
   ogType?: 'website' | 'article';
@@ -35,6 +41,9 @@ const {
   noindex = false,
   bodyClass = '',
   minimal = false,
+  hideFloating = false,
+  compactFooter = false,
+  wrapMain = false,
   jsonLd,
   ogType = 'website',
 } = Astro.props;
@@ -127,10 +136,10 @@ const orgLd = {
     {path === '/' && !minimal && !noindex && <OpeningIntro />}
     <a href="#main" class="skip-link">Skip to content</a>
     <Navbar />
-    <slot />
-    <SiteGuide allowAuto={!minimal && !noindex} />
-    {!minimal && <Footer />}
-    {!minimal && <WhatsAppFloat />}
+    {wrapMain ? <main id="main" tabindex="-1"><slot /></main> : <slot />}
+    {!hideFloating && <SiteGuide allowAuto={!minimal && !noindex} />}
+    {!minimal && <Footer compact={compactFooter} />}
+    {!minimal && !hideFloating && <WhatsAppFloat />}
     <script>
       import '@scripts/site';
       import '@scripts/auth-nav';

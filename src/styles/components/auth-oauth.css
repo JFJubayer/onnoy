@@ -1,0 +1,95 @@
+.auth-oauth {
+  margin-top: var(--s-6);
+}
+
+.auth-oauth-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+  color: var(--ink-light);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+.auth-oauth-divider::before,
+.auth-oauth-divider::after {
+  height: 1px;
+  background: var(--border);
+  content: '';
+}
+
+.auth-oauth-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+.auth-provider-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 var(--s-4);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease, transform var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+
+.auth-provider-button:hover {
+  border-color: var(--green);
+  background: var(--surface-soft);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xs);
+}
+
+.auth-provider-button:focus-visible {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: var(--focus-ring);
+}
+
+.auth-provider-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+
+.auth-provider-mark {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.auth-provider-mark--google { background: #4285F4; }
+.auth-provider-mark--facebook { background: #1877F2; font-size: 1.2rem; }
+
+.auth-oauth-note {
+  margin: var(--s-3) auto 0;
+  max-width: 380px;
+  color: var(--ink-light);
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .auth-oauth-options { grid-template-columns: 1fr; }
+}

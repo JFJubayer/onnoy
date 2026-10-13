@@ -29,6 +29,7 @@
 .reader-access-field-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 16px; }
 .reader-access-submit { width: 100%; min-height: 48px; margin-top: 4px; white-space: normal; text-align: center; }
 .reader-access-privacy { margin: 12px 0 0; color: var(--ink-light); font-size: 0.78rem; line-height: 1.7; text-align: center; }
+.reader-access-privacy a { color: var(--green-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .reader-access-unavailable { margin: 24px auto; max-width: var(--container-narrow); color: var(--ink-mid); text-align: center; }
 
 @media (max-width: 420px) {

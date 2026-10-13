@@ -1,23 +1,18 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
 import PublicForm from '@components/PublicForm.astro';
 import '@/styles/pages/support.css';
 ---
 
-<BaseLayout title="Support" description="Confidential support for students facing cyberbullying, leaked content, or online harassment. Reach out to Onnoy — we're here to help.">
-  <!-- 1. Page Hero -->
-      <header class="hero" id="main" tabindex="-1">
-          <div class="container fade-in">
-              <h1 data-i18n="support-title">We're Here</h1>
-              <p data-i18n="support-p">You don't have to face this alone. Reach out to Onnoy — everything you share stays between us.</p>
-          </div>
-      </header>
+<BaseLayout title="Support" description="Private support requests for students facing cyberbullying, leaked content, or online harassment. Reach out to Onnoy for a response from an authorized administrator." hideFloating wrapMain>
+    <PageHero title="We're Here" subtitle="You do not have to face this alone. Your request is limited to authorized Onnoy administrators, and we use your contact only to respond." titleI18n="support-title" subtitleI18n="support-p" mainTarget={false} />
   
-      <div class="container section-gap">
+    <div class="container section-gap support-content">
           
           <!-- Empathy Message Box -->
           <div class="reassurance-note">
-              Whether it's a photo shared without permission, a rumor spread online, or ongoing harassment — what happened to you is not your fault. We are here to listen and help where we can.
+              Whether it is a photo shared without permission, a rumor, or ongoing harassment — what happened is not your fault. A small authorized Onnoy admin group reviews these requests. Your name is optional, but we need an email or phone number so we can reply.
           </div>
   
           <!-- Form Section -->
@@ -57,14 +52,15 @@ import '@/styles/pages/support.css';
                   </div>
   
                   <button type="submit" class="btn btn-green full-submit">Send Message to Onnoy &rarr;</button>
+                  <p class="support-safety-note">Onnoy is not an emergency service. If you are in immediate danger, contact a trusted adult and the appropriate local emergency or law-enforcement service.</p>
   
               </PublicForm>
           </div>
   
           <!-- Reassurance Strip -->
           <div class="trust-row">
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Everything is confidential</div>
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> You can stay anonymous</div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Authorized admins only</div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Name optional · contact required</div>
               <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> No judgment, ever</div>
           </div>
   

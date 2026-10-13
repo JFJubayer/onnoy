@@ -16,6 +16,22 @@ const courseLessons = {
     eyebrow: 'Digital Citizenship',
     title: 'Level 1: Digital Citizenship Course',
     subtitle: 'A colorful self-paced course that prepares students for safer, wiser, and more responsible digital life.',
+    objectives: [
+      { en: 'Name the four digital skills covered in Level 1.', bn: 'লেভেল ১-এর চারটি ডিজিটাল দক্ষতার নাম বলতে পারবেন।' },
+      { en: 'Explain how lesson progress and Level 2 unlocking work.', bn: 'পাঠের অগ্রগতি ও লেভেল ২ কীভাবে খুলবে তা বুঝতে পারবেন।' },
+      { en: 'Choose one digital habit you want to improve.', bn: 'নিজের একটি ডিজিটাল অভ্যাস উন্নত করার লক্ষ্য ঠিক করবেন।' }
+    ],
+    scenario: {
+      title: 'Speed-run or learn?',
+      titleBn: 'দ্রুত শেষ, নাকি সত্যি শেখা?',
+      prompt: 'A friend says, “Just click the first answer on every page so Level 2 unlocks.” What would make the course useful instead?',
+      promptBn: 'এক বন্ধু বলল, “প্রতি পাতায় প্রথম উত্তরটায় ক্লিক করলেই লেভেল ২ খুলবে।” কোর্সটি সত্যি কাজে লাগাতে কী করবেন?',
+      options: [
+        { text: 'Click quickly and forget the lesson', textBn: 'দ্রুত ক্লিক করে পাঠ ভুলে যাব', impact: 'risky', feedback: 'Unlocking a page is not the same as building a skill. The missions will be difficult without practice.', feedbackBn: 'পাতা খোলা আর দক্ষতা তৈরি এক নয়। অনুশীলন ছাড়া মিশনগুলো কঠিন হবে।' },
+        { text: 'Work through each scenario and explain one idea in my own words', textBn: 'প্রতিটি পরিস্থিতি বুঝে একটি ধারণা নিজের ভাষায় বলব', impact: 'strong', feedback: 'That turns information into a usable habit. Explaining an idea is a strong check that you understood it.', feedbackBn: 'এতে তথ্য ব্যবহারযোগ্য অভ্যাসে বদলায়। নিজের ভাষায় বোঝাতে পারা সত্যি বোঝার ভালো প্রমাণ।' },
+        { text: 'Read only the headings and return later', textBn: 'শুধু শিরোনাম পড়ে পরে ফিরব', impact: 'partial', feedback: 'A preview can help, but decide when you will return and practice so “later” does not become “never.”', feedbackBn: 'আগে দেখে নেওয়া কাজে লাগে, তবে কখন ফিরে অনুশীলন করবেন তা ঠিক করুন—নইলে “পরে” আর নাও আসতে পারে।' }
+      ]
+    },
     nextHref: '/module-attention-literacy',
     callout: {
       label: 'Course Map',
@@ -49,6 +65,10 @@ const courseLessons = {
     checks: [
       {
         question: 'What is the main goal of Level 1?',
+        hint: 'Think about what students should be able to do differently online, not what they should collect or avoid forever.',
+        hintBn: 'শিক্ষার্থীরা অনলাইনে কী ভিন্নভাবে করতে পারবে তা ভাবুন—কী সংগ্রহ করবে বা চিরদিন কী এড়িয়ে চলবে তা নয়।',
+        explanation: 'Level 1 builds practical habits for attention, verification, scam safety, and responsible AI use before the missions.',
+        explanationBn: 'লেভেল ১ মিশনের আগে মনোযোগ, যাচাই, স্ক্যাম নিরাপত্তা ও দায়িত্বশীল এআই ব্যবহারের বাস্তব অভ্যাস গড়ে।',
         options: [
           ['Build safer digital habits and prepare for Level 2 missions', true],
           ['Collect social media passwords', false],
@@ -57,6 +77,10 @@ const courseLessons = {
       },
       {
         question: 'When does Level 2 unlock in this browser?',
+        hint: 'The gate checks every Level 1 lesson saved in this browser.',
+        hintBn: 'গেটটি এই ব্রাউজারে সংরক্ষিত প্রতিটি লেভেল ১ পাঠ যাচাই করে।',
+        explanation: 'All five lesson checks must be completed in the same browser before Level 2 unlocks.',
+        explanationBn: 'লেভেল ২ খুলতে একই ব্রাউজারে পাঁচটি পাঠের check শেষ করতে হবে।',
         options: [
           ['After all five Level 1 pages are completed', true],
           ['After opening only the overview page', false],
@@ -70,6 +94,22 @@ const courseLessons = {
     eyebrow: 'Lesson 1',
     title: 'Attention Literacy',
     subtitle: 'Learn how screens, feeds, and algorithms compete for your attention.',
+    objectives: [
+      { en: 'Recognize design features that remove stopping points.', bn: 'থামার স্বাভাবিক জায়গা সরিয়ে দেওয়া design feature চিনবেন।' },
+      { en: 'Notice the trigger behind an automatic phone check.', bn: 'অজান্তে ফোন ধরার পেছনের trigger খেয়াল করবেন।' },
+      { en: 'Use one small boundary to protect focused time.', bn: 'মনোযোগের সময় বাঁচাতে একটি ছোট boundary ব্যবহার করবেন।' }
+    ],
+    scenario: {
+      title: 'The notification test',
+      titleBn: 'নোটিফিকেশনের পরীক্ষা',
+      prompt: 'You planned to study for 25 minutes. Three minutes in, your phone vibrates. What do you do?',
+      promptBn: 'আপনি ২৫ মিনিট পড়ার পরিকল্পনা করেছেন। তিন মিনিট পর ফোন vibrate করল। কী করবেন?',
+      options: [
+        { text: 'Open it for “just one second”', textBn: '“এক সেকেন্ডের জন্য” খুলব', impact: 'risky', feedback: 'One check creates a new attention loop. Returning to the same depth of focus can take much longer than the notification.', feedbackBn: 'একবার দেখলেই নতুন attention loop শুরু হয়। আগের গভীর মনোযোগে ফিরতে notification-এর চেয়ে অনেক বেশি সময় লাগতে পারে।' },
+        { text: 'Turn it face down and finish the 25-minute block', textBn: 'ফোন উল্টো রেখে ২৫ মিনিট শেষ করব', impact: 'strong', feedback: 'You created a visible stopping rule without needing perfect willpower. Check the phone when the planned block ends.', feedbackBn: 'নিখুঁত ইচ্ছাশক্তি ছাড়াই আপনি স্পষ্ট stopping rule বানালেন। নির্ধারিত সময় শেষে ফোন দেখুন।' },
+        { text: 'Switch the phone off for the whole day', textBn: 'সারাদিন ফোন বন্ধ রাখব', impact: 'partial', feedback: 'A strong boundary can help, but an extreme rule may be hard to repeat. A smaller focus block is often more sustainable.', feedbackBn: 'কঠিন boundary কাজে লাগতে পারে, তবে চরম নিয়ম বারবার মানা কঠিন। ছোট focus block সাধারণত বেশি টেকসই।' }
+      ]
+    },
     prevHref: '/module-overview',
     nextHref: '/module-misinformation',
     image: '/assets/images/modules/algorithm-loop.png',
@@ -106,6 +146,10 @@ const courseLessons = {
     checks: [
       {
         question: 'Which habit trains your feed in a healthier direction?',
+        hint: 'Feeds learn from deliberate searches, watch time, follows, and feedback such as “Not interested.”',
+        hintBn: 'Feed আপনার search, watch time, follow ও “Not interested” feedback থেকে শেখে।',
+        explanation: 'Intentional searches and feedback give the recommendation system better signals than opening every emotional post.',
+        explanationBn: 'ইচ্ছাকৃত search ও feedback recommendation system-কে emotional post খোলার চেয়ে ভালো signal দেয়।',
         options: [
           ['Searching for topics you want to learn', true],
           ['Opening every shocking post immediately', false],
@@ -114,6 +158,10 @@ const courseLessons = {
       },
       {
         question: 'What makes infinite scroll risky?',
+        hint: 'Think about what normally tells your brain that an activity has ended.',
+        hintBn: 'সাধারণত কোন সংকেত আপনার মস্তিষ্ককে বলে একটি কাজ শেষ হয়েছে তা ভাবুন।',
+        explanation: 'Infinite scroll removes page endings, making it harder to notice time and decide consciously to stop.',
+        explanationBn: 'Infinite scroll পাতার শেষ সরিয়ে দেয়, তাই সময় বোঝা ও সচেতনভাবে থামা কঠিন হয়।',
         options: [
           ['It removes natural stopping points', true],
           ['It blocks all videos', false],
@@ -122,6 +170,10 @@ const courseLessons = {
       },
       {
         question: 'What is a good first step when your phone use feels automatic?',
+        hint: 'Awareness comes before changing a habit.',
+        hintBn: 'অভ্যাস বদলানোর আগে সচেতন হওয়া দরকার।',
+        explanation: 'A short pause reveals the trigger—boredom, stress, a notification, or a real task—so you can choose the next action.',
+        explanationBn: 'ছোট বিরতিতে trigger—একঘেয়েমি, stress, notification বা সত্যিকারের কাজ—বোঝা যায়, তারপর পরের কাজ বেছে নেওয়া যায়।',
         options: [
           ['Pause and ask why you picked it up', true],
           ['Open more apps quickly', false],
@@ -135,6 +187,22 @@ const courseLessons = {
     eyebrow: 'Lesson 2',
     title: 'Misinformation',
     subtitle: 'Separate mistakes from manipulation, then verify before sharing.',
+    objectives: [
+      { en: 'Distinguish misinformation from deliberate disinformation.', bn: 'ভুল misinformation ও ইচ্ছাকৃত disinformation আলাদা করবেন।' },
+      { en: 'Use SIFT before sharing an emotional claim.', bn: 'আবেগ তৈরি করা claim share করার আগে SIFT ব্যবহার করবেন।' },
+      { en: 'Trace an image or claim back to its original context.', bn: 'ছবি বা claim-এর মূল context খুঁজবেন।' }
+    ],
+    scenario: {
+      title: 'The urgent flood photo',
+      titleBn: 'জরুরি বন্যার ছবি',
+      prompt: 'A cousin sends a dramatic flood photo labelled “Mymensingh right now—share urgently.” You do not recognize the source.',
+      promptBn: 'এক cousin নাটকীয় বন্যার ছবি পাঠাল—“ময়মনসিংহে এখনই, জরুরি share করুন।” Source চেনেন না।',
+      options: [
+        { text: 'Forward it with a question mark', textBn: 'Question mark দিয়ে forward করব', impact: 'risky', feedback: 'A question mark does not stop the image spreading. People may remember the alarming claim, not your uncertainty.', feedbackBn: 'Question mark ছবি ছড়ানো থামায় না। মানুষ আপনার সন্দেহ নয়, ভয়ংকর claim-টাই মনে রাখতে পারে।' },
+        { text: 'Check the date, reverse-search the image, and look for reliable local coverage', textBn: 'তারিখ দেখব, image reverse-search করব, reliable local coverage খুঁজব', impact: 'strong', feedback: 'This follows SIFT: stop, investigate, find better coverage, and trace the image to its original context.', feedbackBn: 'এটাই SIFT: থামুন, source দেখুন, ভালো coverage খুঁজুন, ছবির মূল context বের করুন।' },
+        { text: 'Do not share it, but do not check either', textBn: 'Share করব না, check-ও করব না', impact: 'partial', feedback: 'Not spreading it prevents harm. Checking can also help you correct the claim for family members who already received it.', feedbackBn: 'না ছড়ালে ক্ষতি কমে। Check করলে যারা আগেই পেয়েছে তাদের ভুলটাও ধরিয়ে দিতে পারবেন।' }
+      ]
+    },
     prevHref: '/module-attention-literacy',
     nextHref: '/module-scam-safety',
     image: '/assets/images/modules/sift.png',
@@ -171,6 +239,10 @@ const courseLessons = {
     checks: [
       {
         question: 'What should you do first when a post makes you angry or scared?',
+        hint: 'The first letter in SIFT is the first action.',
+        hintBn: 'SIFT-এর প্রথম অক্ষরটিই প্রথম কাজ।',
+        explanation: 'Stop before reacting. Strong emotion is a signal to slow down and investigate, not proof that a claim is true.',
+        explanationBn: 'প্রতিক্রিয়ার আগে থামুন। তীব্র আবেগ ধীরে যাচাই করার signal, claim সত্য হওয়ার প্রমাণ নয়।',
         options: [
           ['Stop before sharing', true],
           ['Forward it with a question mark', false],
@@ -179,6 +251,10 @@ const courseLessons = {
       },
       {
         question: 'What is disinformation?',
+        hint: 'Intent is the key difference.',
+        hintBn: 'মূল পার্থক্য হলো উদ্দেশ্য।',
+        explanation: 'Disinformation is false or manipulated information created deliberately to deceive, influence, or harm.',
+        explanationBn: 'Disinformation হলো প্রতারণা, প্রভাব বা ক্ষতির উদ্দেশ্যে ইচ্ছাকৃতভাবে বানানো ভুল বা বিকৃত তথ্য।',
         options: [
           ['False information created to deceive or harm', true],
           ['Any post with a long caption', false],
@@ -187,6 +263,10 @@ const courseLessons = {
       },
       {
         question: 'Which action is part of SIFT?',
+        hint: 'A screenshot may hide where a claim originally came from.',
+        hintBn: 'Screenshot claim-এর মূল source লুকিয়ে রাখতে পারে।',
+        explanation: 'Tracing a claim to the original post, report, image, or study reveals missing dates, edits, and context.',
+        explanationBn: 'Claim-এর মূল post, report, image বা study খুঁজলে হারানো তারিখ, edit ও context দেখা যায়।',
         options: [
           ['Trace the claim to its original context', true],
           ['Share first and check later', false],
@@ -200,6 +280,22 @@ const courseLessons = {
     eyebrow: 'Lesson 3',
     title: 'Scam Safety',
     subtitle: 'Spot phishing links, OTP traps, hacked-friend scams, and fake websites.',
+    objectives: [
+      { en: 'Recognize urgency, rewards, and authority as scam pressure signals.', bn: 'Urgency, reward ও authority-কে scam pressure signal হিসেবে চিনবেন।' },
+      { en: 'Read a domain from right to left before trusting a link.', bn: 'Link বিশ্বাসের আগে domain ডান দিক থেকে পড়বেন।' },
+      { en: 'Verify money requests through a separate trusted channel.', bn: 'টাকার অনুরোধ আলাদা trusted channel-এ যাচাই করবেন।' }
+    ],
+    scenario: {
+      title: 'A friend needs money now',
+      titleBn: 'বন্ধুর এখনই টাকা দরকার',
+      prompt: 'A close friend messages from their usual account: “Emergency—send ৳2,000 now. I cannot call.” The tone feels unusual.',
+      promptBn: 'ঘনিষ্ঠ বন্ধুর usual account থেকে message: “Emergency—এখনই ৳২,০০০ পাঠাও। Call করতে পারব না।” ভাষা অস্বাভাবিক লাগছে।',
+      options: [
+        { text: 'Call the friend on a number you already know before sending anything', textBn: 'আগে থেকে জানা নম্বরে বন্ধুকে call করে তারপর সিদ্ধান্ত নেব', impact: 'strong', feedback: 'A separate trusted channel breaks the scammer’s control of the chat. Do not use a number supplied in the suspicious message.', feedbackBn: 'আলাদা trusted channel scammer-এর chat control ভেঙে দেয়। Suspicious message-এর দেওয়া নম্বর ব্যবহার করবেন না।' },
+        { text: 'Ask for proof in the same chat', textBn: 'একই chat-এ প্রমাণ চাইব', impact: 'partial', feedback: 'A hacker controlling the account can answer questions or use old messages. A separate call is much stronger verification.', feedbackBn: 'Account hacker প্রশ্নের উত্তর বা পুরোনো message ব্যবহার করতে পারে। আলাদা call অনেক শক্ত verification।' },
+        { text: 'Send a smaller amount first', textBn: 'আগে অল্প টাকা পাঠাব', impact: 'risky', feedback: 'A smaller loss is still a loss and confirms you are responsive. Verify first; urgency is part of the pressure.', feedbackBn: 'অল্প ক্ষতিও ক্ষতি, আর আপনি respond করেন তা scammer বুঝবে। আগে verify করুন; urgency চাপ তৈরির অংশ।' }
+      ]
+    },
     prevHref: '/module-misinformation',
     nextHref: '/module-ai-mindset',
     image: '/assets/images/modules/fake-link.png',
@@ -236,6 +332,10 @@ const courseLessons = {
     checks: [
       {
         question: 'A friend messages "Claim 5,000 diamonds free" and asks you to log in. Best response?',
+        hint: 'A trusted-looking account can still be hacked.',
+        hintBn: 'চেনা account-ও hack হতে পারে।',
+        explanation: 'Do not use the login link. Contact the friend separately and use the game’s official app or site to check any offer.',
+        explanationBn: 'Login link ব্যবহার করবেন না। বন্ধুর সঙ্গে আলাদাভাবে যোগাযোগ করুন এবং offer check করতে official app/site ব্যবহার করুন।',
         options: [
           ['Do not log in; verify with the friend directly', true],
           ['Enter your password quickly before offer ends', false],
@@ -244,6 +344,10 @@ const courseLessons = {
       },
       {
         question: 'Which link sign is suspicious?',
+        hint: 'Page colors are easy to copy; ownership is shown in the domain.',
+        hintBn: 'Page-এর রং copy করা সহজ; মালিকানা domain-এ বোঝা যায়।',
+        explanation: 'Misspellings, look-alike characters, and misleading subdomains are common ways to imitate trusted sites.',
+        explanationBn: 'ভুল বানান, দেখতে একই character ও misleading subdomain দিয়ে trusted site নকল করা হয়।',
         options: [
           ['Misspellings or number substitutions in the domain', true],
           ['A familiar color scheme', false],
@@ -252,6 +356,10 @@ const courseLessons = {
       },
       {
         question: 'What should you do with an OTP?',
+        hint: 'An OTP is a temporary key, not a customer-support code.',
+        hintBn: 'OTP অস্থায়ী চাবি, customer-support code নয়।',
+        explanation: 'Anyone with your OTP may approve a login or transaction. Legitimate support should never ask you to reveal it.',
+        explanationBn: 'OTP পেলে কেউ login বা transaction approve করতে পারে। Legitimate support কখনো এটি জানতে চাইবে না।',
         options: [
           ['Keep it private and never share it', true],
           ['Send it to anyone who says they are support', false],
@@ -265,6 +373,22 @@ const courseLessons = {
     eyebrow: 'Lesson 4',
     title: 'AI and Mindset',
     subtitle: 'Use AI as a tool, not a replacement for judgment.',
+    objectives: [
+      { en: 'Explain why fluent AI output can still be wrong.', bn: 'সাবলীল AI output-ও কেন ভুল হতে পারে তা বুঝবেন।' },
+      { en: 'Verify an AI claim or citation outside the AI tool.', bn: 'AI claim বা citation tool-এর বাইরে যাচাই করবেন।' },
+      { en: 'Use AI for support while keeping human responsibility.', bn: 'মানবিক দায়িত্ব রেখে AI-কে সহায়ক হিসেবে ব্যবহার করবেন।' }
+    ],
+    scenario: {
+      title: 'The perfect-looking citation',
+      titleBn: 'নিখুঁত দেখানো citation',
+      prompt: 'An AI gives you a polished paragraph and a journal citation for tomorrow’s assignment. The citation sounds real.',
+      promptBn: 'AI আগামীকালের assignment-এর জন্য polished paragraph ও journal citation দিল। Citation-টি সত্যি মনে হচ্ছে।',
+      options: [
+        { text: 'Search the title, author, and DOI in a trusted database before using it', textBn: 'ব্যবহারের আগে trusted database-এ title, author ও DOI খুঁজব', impact: 'strong', feedback: 'Verification outside the model checks whether the source exists and whether it actually supports the claim.', feedbackBn: 'Model-এর বাইরে verification করলে source সত্যি আছে কি না এবং claim সমর্থন করে কি না বোঝা যায়।' },
+        { text: 'Ask the same AI, “Are you sure?”', textBn: 'একই AI-কে জিজ্ঞেস করব, “তুমি নিশ্চিত?”', impact: 'partial', feedback: 'The model may repeat the same fabrication more confidently. Ask for evidence, then verify that evidence independently.', feedbackBn: 'Model একই বানানো তথ্য আরও আত্মবিশ্বাসে বলতে পারে। Evidence চান, তারপর আলাদাভাবে verify করুন।' },
+        { text: 'Submit it because academic language means it is reliable', textBn: 'Academic ভাষা বলে submit করে দেব', impact: 'risky', feedback: 'Style is not evidence. AI can imitate scholarly language and invent authors, journals, links, or statistics.', feedbackBn: 'লেখার style প্রমাণ নয়। AI scholarly ভাষা নকল করে author, journal, link বা statistics বানাতে পারে।' }
+      ]
+    },
     prevHref: '/module-scam-safety',
     nextHref: '/level-2-missions',
     image: '/assets/images/modules/ai-dark-side.png',
@@ -301,6 +425,10 @@ const courseLessons = {
     checks: [
       {
         question: 'What is safest when AI gives an important fact?',
+        hint: 'Confidence and truth are different properties.',
+        hintBn: 'আত্মবিশ্বাস ও সত্য আলাদা বিষয়।',
+        explanation: 'Important claims should be checked against primary or trusted sources outside the AI response.',
+        explanationBn: 'গুরুত্বপূর্ণ claim AI response-এর বাইরে primary বা trusted source-এ যাচাই করা উচিত।',
         options: [
           ['Verify it with trusted sources', true],
           ['Trust it because it sounds confident', false],
@@ -309,6 +437,10 @@ const courseLessons = {
       },
       {
         question: 'What is an AI hallucination?',
+        hint: 'The output can sound polished even when its facts or sources do not exist.',
+        hintBn: 'তথ্য বা source না থাকলেও output polished শোনাতে পারে।',
+        explanation: 'A hallucination is plausible-sounding output containing false, unsupported, or invented information.',
+        explanationBn: 'Hallucination হলো বিশ্বাসযোগ্য শোনানো কিন্তু ভুল, unsupported বা বানানো তথ্যসহ output।',
         options: [
           ['A confident answer that includes false or invented information', true],
           ['A verified source list from a library', false],
@@ -317,6 +449,10 @@ const courseLessons = {
       },
       {
         question: 'What is the best role for AI in student work?',
+        hint: 'The student remains responsible for evidence, meaning, and the final submission.',
+        hintBn: 'Evidence, অর্থ ও final submission-এর দায়িত্ব শিক্ষার্থীরই।',
+        explanation: 'AI can help brainstorm, organize, explain, or draft, but the student must understand, verify, revise, and disclose use when required.',
+        explanationBn: 'AI brainstorm, organize, explain বা draft-এ সাহায্য করতে পারে; শিক্ষার্থীকে বুঝতে, যাচাই, revise ও প্রয়োজন হলে ব্যবহার disclose করতে হবে।',
         options: [
           ['Helper for drafts and ideas, with human checking', true],
           ['Replacement for all judgment', false],
@@ -397,14 +533,52 @@ const lessonOrder = ['overview', 'attention', 'misinformation', 'scams', 'ai'];
 const missionOrder = ['spotLie', 'scamAlert', 'aiIntegrity', 'guardian'];
 
 function isComplete(key) {
-  return localStorage.getItem(key) === 'complete';
+  try {
+    return localStorage.getItem(key) === 'complete';
+  } catch {
+    return false;
+  }
 }
 
 function setComplete(key) {
-  localStorage.setItem(key, 'complete');
+  try {
+    localStorage.setItem(key, 'complete');
+  } catch {}
   if (typeof syncLocalBadgesToDatabase === 'function') {
     syncLocalBadgesToDatabase();
   }
+}
+
+function lessonLanguage() {
+  return document.documentElement.lang === 'bn' ? 'bn' : 'en';
+}
+
+function lessonText(english, bangla) {
+  return lessonLanguage() === 'bn' && bangla ? bangla : english;
+}
+
+function readLearningState(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || 'null');
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveLearningState(key, state) {
+  try {
+    localStorage.setItem(key, JSON.stringify(state));
+  } catch {}
+}
+
+function shuffledLessonOptions(options) {
+  const shuffled = [...options];
+  for (let index = shuffled.length - 1; index > 0; index--) {
+    const swapWith = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapWith]] = [shuffled[swapWith], shuffled[index]];
+  }
+  return shuffled;
 }
 
 function buildPageNav(prevHref, nextHref, nextText = 'Next') {
@@ -420,6 +594,15 @@ function renderLesson() {
   if (!root) return;
   const lesson = courseLessons[root.dataset.lesson];
   if (!lesson) return;
+  const learningKey = `${lesson.storageKey}_learning_v2`;
+  const learningState = {
+    slideIndex: 0,
+    explored: false,
+    practiced: false,
+    scenarioChoice: null,
+    reflection: '',
+    ...readLearningState(learningKey)
+  };
 
   const status = isComplete(lesson.storageKey) ? 'Complete' : 'Not complete';
   root.innerHTML = `
@@ -431,7 +614,29 @@ function renderLesson() {
       </div>
       <div class="module-status-pill">${status}</div>
     </section>
+    <section class="module-learning-status" aria-label="Lesson progress">
+      <span data-learning-stage="explore"><b>1</b>${lessonText('Explore', 'দেখুন')}</span>
+      <span data-learning-stage="practice"><b>2</b>${lessonText('Practice', 'অনুশীলন')}</span>
+      <span data-learning-stage="check"><b>3</b>${lessonText('Check', 'যাচাই')}</span>
+    </section>
+    <section class="module-objectives" aria-labelledby="lesson-objectives-title">
+      <div class="module-kicker">${lessonText('Learning goals', 'শেখার লক্ষ্য')}</div>
+      <h3 id="lesson-objectives-title">${lessonText('By the end, you can…', 'শেষে আপনি যা করতে পারবেন…')}</h3>
+      <ul>${lesson.objectives.map((objective) => `<li>${lessonText(objective.en, objective.bn)}</li>`).join('')}</ul>
+    </section>
   `;
+
+  const updateLearningStatus = () => {
+    const states = {
+      explore: !!learningState.explored,
+      practice: !!learningState.practiced,
+      check: isComplete(lesson.storageKey)
+    };
+    Object.entries(states).forEach(([stage, complete]) => {
+      root.querySelector(`[data-learning-stage="${stage}"]`)?.classList.toggle('is-complete', complete);
+    });
+  };
+  updateLearningStatus();
 
   if (lesson.callout) {
     const callout = document.createElement('section');
@@ -444,17 +649,84 @@ function renderLesson() {
     root.appendChild(callout);
   }
 
-  lesson.sections.forEach((section) => {
-    const block = document.createElement('section');
-    block.className = 'module-content-card';
-    block.innerHTML = `
+  const presentation = document.createElement('section');
+  presentation.className = 'module-presentation';
+  presentation.setAttribute('aria-labelledby', 'lesson-presentation-title');
+  presentation.innerHTML = `
+    <header class="module-presentation-header">
+      <div>
+        <div class="module-kicker">${lessonText('Interactive lesson', 'ইন্টারঅ্যাকটিভ পাঠ')}</div>
+        <h3 id="lesson-presentation-title">${lessonText('Learn one idea at a time', 'একবারে একটি ধারণা শিখুন')}</h3>
+      </div>
+      <strong class="module-slide-count" aria-live="polite"></strong>
+    </header>
+    <div class="module-presentation-progress" aria-hidden="true"><span></span></div>
+    <div class="module-slide-tabs" role="tablist" aria-label="Lesson sections"></div>
+    <div class="module-slides"></div>
+    <nav class="module-presentation-nav" aria-label="Presentation controls">
+      <button type="button" class="module-slide-back">← ${lessonText('Previous', 'আগেরটি')}</button>
+      <button type="button" class="module-slide-next">${lessonText('Next idea', 'পরের ধারণা')} →</button>
+    </nav>
+  `;
+  const slides = presentation.querySelector('.module-slides');
+  const tabs = presentation.querySelector('.module-slide-tabs');
+  lesson.sections.forEach((section, index) => {
+    const tab = document.createElement('button');
+    tab.type = 'button';
+    tab.id = `lesson-tab-${index}`;
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-controls', `lesson-slide-${index}`);
+    tab.textContent = section.label || String(index + 1).padStart(2, '0');
+    tabs.appendChild(tab);
+
+    const slide = document.createElement('article');
+    slide.className = 'module-slide';
+    slide.id = `lesson-slide-${index}`;
+    slide.setAttribute('role', 'tabpanel');
+    slide.setAttribute('aria-labelledby', tab.id);
+    slide.tabIndex = -1;
+    slide.innerHTML = `
       <div class="module-section-label">${section.label || ''}</div>
       <h3>${section.title}</h3>
       <p>${section.body}</p>
       <ul>${section.points.map((point) => `<li>${point}</li>`).join('')}</ul>
     `;
-    root.appendChild(block);
+    slides.appendChild(slide);
   });
+  root.appendChild(presentation);
+
+  const slideElements = Array.from(presentation.querySelectorAll('.module-slide'));
+  const tabElements = Array.from(presentation.querySelectorAll('[role="tab"]'));
+  const slideBack = presentation.querySelector('.module-slide-back');
+  const slideNext = presentation.querySelector('.module-slide-next');
+  const slideCount = presentation.querySelector('.module-slide-count');
+  const slideProgress = presentation.querySelector('.module-presentation-progress span');
+  let activeSlide = Math.max(0, Math.min(Number(learningState.slideIndex) || 0, slideElements.length - 1));
+
+  const showSlide = (nextIndex, moveFocus = false) => {
+    activeSlide = Math.max(0, Math.min(nextIndex, slideElements.length - 1));
+    slideElements.forEach((slide, index) => { slide.hidden = index !== activeSlide; });
+    tabElements.forEach((tab, index) => {
+      tab.setAttribute('aria-selected', String(index === activeSlide));
+      tab.tabIndex = index === activeSlide ? 0 : -1;
+    });
+    slideBack.disabled = activeSlide === 0;
+    slideNext.disabled = activeSlide === slideElements.length - 1;
+    slideNext.textContent = activeSlide === slideElements.length - 1
+      ? lessonText('Ideas reviewed ✓', 'ধারণাগুলো দেখা হয়েছে ✓')
+      : `${lessonText('Next idea', 'পরের ধারণা')} →`;
+    slideCount.textContent = `${activeSlide + 1} / ${slideElements.length}`;
+    slideProgress.style.width = `${((activeSlide + 1) / slideElements.length) * 100}%`;
+    learningState.slideIndex = activeSlide;
+    if (activeSlide === slideElements.length - 1) learningState.explored = true;
+    saveLearningState(learningKey, learningState);
+    updateLearningStatus();
+    if (moveFocus) slideElements[activeSlide].focus({ preventScroll: true });
+  };
+  slideBack.addEventListener('click', () => showSlide(activeSlide - 1, true));
+  slideNext.addEventListener('click', () => showSlide(activeSlide + 1, true));
+  tabElements.forEach((tab, index) => tab.addEventListener('click', () => showSlide(index, true)));
+  showSlide(activeSlide);
 
   if (lesson.image) {
     const figure = document.createElement('figure');
@@ -463,16 +735,79 @@ function renderLesson() {
     root.appendChild(figure);
   }
 
+  if (lesson.scenario) {
+    const scenario = document.createElement('section');
+    scenario.className = 'module-scenario';
+    scenario.innerHTML = `
+      <div class="module-kicker">${lessonText('Decision lab', 'সিদ্ধান্তের অনুশীলন')}</div>
+      <h3>${lessonText(lesson.scenario.title, lesson.scenario.titleBn)}</h3>
+      <p class="module-scenario-prompt">${lessonText(lesson.scenario.prompt, lesson.scenario.promptBn)}</p>
+      <div class="module-scenario-options"></div>
+      <div class="module-scenario-feedback" aria-live="polite" hidden></div>
+    `;
+    const scenarioOptions = scenario.querySelector('.module-scenario-options');
+    const scenarioFeedback = scenario.querySelector('.module-scenario-feedback');
+    const chooseScenario = (button, option, index) => {
+      scenarioOptions.querySelectorAll('button').forEach((choice) => {
+        choice.classList.remove('is-strong', 'is-partial', 'is-risky');
+        choice.setAttribute('aria-pressed', 'false');
+      });
+      button.classList.add(`is-${option.impact}`);
+      button.setAttribute('aria-pressed', 'true');
+      scenarioFeedback.className = `module-scenario-feedback is-${option.impact}`;
+      scenarioFeedback.innerHTML = `<strong>${lessonText(option.impact === 'strong' ? 'Strong response' : option.impact === 'partial' ? 'Useful, but incomplete' : 'Pause and reconsider', option.impact === 'strong' ? 'শক্ত সিদ্ধান্ত' : option.impact === 'partial' ? 'কাজের, তবে অসম্পূর্ণ' : 'থেমে আবার ভাবুন')}</strong><p>${lessonText(option.feedback, option.feedbackBn)}</p>`;
+      scenarioFeedback.hidden = false;
+      learningState.scenarioChoice = index;
+      learningState.practiced = true;
+      saveLearningState(learningKey, learningState);
+      updateLearningStatus();
+    };
+    lesson.scenario.options.forEach((option, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.setAttribute('aria-pressed', 'false');
+      button.innerHTML = `<span>${String.fromCharCode(65 + index)}</span>${lessonText(option.text, option.textBn)}`;
+      button.addEventListener('click', () => chooseScenario(button, option, index));
+      scenarioOptions.appendChild(button);
+    });
+    root.appendChild(scenario);
+    if (Number.isInteger(learningState.scenarioChoice) && lesson.scenario.options[learningState.scenarioChoice]) {
+      const option = lesson.scenario.options[learningState.scenarioChoice];
+      const button = scenarioOptions.children[learningState.scenarioChoice];
+      chooseScenario(button, option, learningState.scenarioChoice);
+    }
+  }
+
   if (lesson.activity) {
     const activity = document.createElement('section');
-    activity.className = 'module-activity';
+    activity.className = 'module-reflection';
     activity.innerHTML = `
-      <div class="module-activity-icon" aria-hidden="true">?</div>
-      <div>
-        <h3>${lesson.activity.title}</h3>
-        <p>${lesson.activity.body}</p>
+      <div class="module-reflection-copy">
+        <div class="module-activity-icon" aria-hidden="true">✎</div>
+        <div>
+          <div class="module-kicker">${lessonText('Your reflection', 'আপনার ভাবনা')}</div>
+          <h3>${lesson.activity.title}</h3>
+          <p>${lesson.activity.body}</p>
+        </div>
       </div>
+      <label for="lessonReflection">${lessonText('Write a short note for yourself', 'নিজের জন্য ছোট একটি নোট লিখুন')}</label>
+      <textarea id="lessonReflection" maxlength="500" rows="4" placeholder="${lessonText('Keep it practical and specific…', 'বাস্তব ও নির্দিষ্ট করে লিখুন…')}"></textarea>
+      <div class="module-reflection-footer">
+        <p>${lessonText('Saved only in this browser. Do not include names, passwords, OTPs, or private messages.', 'শুধু এই ব্রাউজারে থাকবে। নাম, password, OTP বা private message লিখবেন না।')}</p>
+        <button type="button">${lessonText('Save reflection', 'ভাবনা সংরক্ষণ করুন')}</button>
+      </div>
+      <p class="module-reflection-status" aria-live="polite"></p>
     `;
+    const reflection = activity.querySelector('textarea');
+    const saveReflection = activity.querySelector('button');
+    const reflectionStatus = activity.querySelector('.module-reflection-status');
+    reflection.value = typeof learningState.reflection === 'string' ? learningState.reflection : '';
+    reflection.addEventListener('input', () => { reflectionStatus.textContent = ''; });
+    saveReflection.addEventListener('click', () => {
+      learningState.reflection = reflection.value.trim();
+      saveLearningState(learningKey, learningState);
+      reflectionStatus.textContent = lessonText('Saved on this device.', 'এই device-এ সংরক্ষিত হয়েছে।');
+    });
     root.appendChild(activity);
   }
 
@@ -480,7 +815,7 @@ function renderLesson() {
   check.className = 'module-check';
   const checks = lesson.checks || [lesson.check];
   const answered = new Set();
-  check.innerHTML = `<h3>Quick Check</h3><p>Answer all questions correctly to complete this lesson.</p><div class="module-quiz"></div><p class="module-feedback" aria-live="polite"></p>`;
+  check.innerHTML = `<div class="module-kicker">${lessonText('Apply what you learned', 'শেখা বিষয় কাজে লাগান')}</div><h3>${lessonText('Quick Check', 'দ্রুত যাচাই')}</h3><p>${lessonText('Choose carefully. Every answer gives a hint or explains why it works.', 'ভেবে উত্তর দিন। প্রতিটি উত্তর hint দেবে বা কেন ঠিক তা বোঝাবে।')}</p><div class="module-quiz"></div><p class="module-feedback" aria-live="polite"></p>`;
   const quiz = check.querySelector('.module-quiz');
   const feedback = check.querySelector('.module-feedback');
 
@@ -490,36 +825,47 @@ function renderLesson() {
     question.innerHTML = `
       <p class="module-question-text">${index + 1}. ${item.question}</p>
       <div class="module-options"></div>
+      <p class="module-question-feedback" aria-live="polite"></p>
     `;
     const options = question.querySelector('.module-options');
+    const questionFeedback = question.querySelector('.module-question-feedback');
 
-    item.options.forEach(([text, correct]) => {
+    shuffledLessonOptions(item.options).forEach(([text, correct]) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = text;
+      button.setAttribute('aria-pressed', 'false');
       button.addEventListener('click', () => {
         question.querySelectorAll('button').forEach((btn) => {
-          btn.classList.remove('is-correct', 'is-wrong');
+          if (!btn.disabled) btn.classList.remove('is-wrong');
+          if (!btn.disabled) btn.setAttribute('aria-pressed', 'false');
         });
 
         if (!correct) {
           button.classList.add('is-wrong');
-          feedback.textContent = 'Try again. Pause, reread the lesson, and choose the safest answer.';
-          feedback.className = 'module-feedback danger';
+          button.setAttribute('aria-pressed', 'true');
+          questionFeedback.textContent = `${lessonText('Not yet', 'এখনো নয়')}: ${lessonText(item.hint, item.hintBn)}`;
+          questionFeedback.className = 'module-question-feedback danger';
           return;
         }
 
         button.classList.add('is-correct');
+        button.setAttribute('aria-pressed', 'true');
         answered.add(index);
         question.querySelectorAll('button').forEach((btn) => {
           btn.disabled = true;
         });
+        questionFeedback.textContent = `${lessonText('Why it works', 'কেন ঠিক')}: ${lessonText(item.explanation, item.explanationBn)}`;
+        questionFeedback.className = 'module-question-feedback success';
 
         if (answered.size === checks.length) {
+          const newlyCompleted = !isComplete(lesson.storageKey);
           setComplete(lesson.storageKey);
-          feedback.textContent = 'Completed. Progress saved in this browser.';
+          feedback.textContent = lessonText('Lesson complete. You explored, practiced, and checked your understanding. Progress is saved in this browser.', 'পাঠ শেষ। আপনি দেখেছেন, অনুশীলন করেছেন এবং নিজের বোঝা যাচাই করেছেন। অগ্রগতি এই ব্রাউজারে সংরক্ষিত।');
           feedback.className = 'module-feedback success';
           root.querySelector('.module-status-pill').textContent = 'Complete';
+          updateLearningStatus();
+          if (newlyCompleted) window.onnoyTrack?.('lesson_complete', { lesson_id: root.dataset.lesson || 'unknown' });
           
           if (lesson.storageKey === 'onnoy_lesson_overview') {
             triggerOverviewCompletionFlow();
@@ -527,7 +873,7 @@ function renderLesson() {
           return;
         }
 
-        feedback.textContent = `${answered.size} of ${checks.length} correct. Keep going.`;
+        feedback.textContent = lessonText(`${answered.size} of ${checks.length} understood. Keep going.`, `${checks.length}টির মধ্যে ${answered.size}টি বোঝা হয়েছে। চালিয়ে যান।`);
         feedback.className = 'module-feedback success';
       });
       options.appendChild(button);
@@ -537,22 +883,25 @@ function renderLesson() {
   });
   root.appendChild(check);
   root.appendChild(buildPageNav(lesson.prevHref, lesson.nextHref));
+
+  if (!root.dataset.languageListener) {
+    root.dataset.languageListener = 'true';
+    document.addEventListener('onnoy:langchange', renderLesson);
+  }
 }
 
 function renderHubProgress() {
-  const courseList = document.getElementById('courseProgress');
-  if (courseList) {
-    courseList.innerHTML = lessonOrder.map((id) => {
-      const lesson = courseLessons[id];
-      let lessonUrl = '/module-overview';
-      if (id === 'attention') lessonUrl = '/module-attention-literacy';
-      else if (id === 'misinformation') lessonUrl = '/module-misinformation';
-      else if (id === 'scams') lessonUrl = '/module-scam-safety';
-      else if (id === 'ai') lessonUrl = '/module-ai-mindset';
-      
-      return `<li style="padding: 0;"><a href="${lessonUrl}" style="display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 14px 0 14px 24px; text-decoration: none; color: inherit;"><span>${lesson.title}</span><strong style="color: var(--green);">${isComplete(lesson.storageKey) ? 'Complete' : 'Open →'}</strong></a></li>`;
-    }).join('');
-  }
+  document.querySelectorAll('[data-lesson-card]').forEach((card) => {
+    const id = card.dataset.lessonCard;
+    const lesson = courseLessons[id];
+    const status = card.querySelector('[data-lesson-status]');
+    if (!lesson || !status) return;
+    const complete = isComplete(lesson.storageKey);
+    const started = !complete && !!localStorage.getItem(`${lesson.storageKey}_learning_v2`);
+    card.classList.toggle('is-complete', complete);
+    card.classList.toggle('is-in-progress', started);
+    status.textContent = complete ? 'Complete' : started ? 'Continue' : 'Start';
+  });
 
   const level2Gate = document.getElementById('level2Gate');
   if (level2Gate) {
@@ -790,8 +1139,8 @@ function buildMissionForm(mission, referralMode) {
   section.appendChild(alertBox);
 
   const form = document.createElement('form');
-  form.action = mission.formAction;
-  form.method = 'POST';
+  form.action = '/login';
+  form.method = 'GET';
   form.enctype = 'multipart/form-data';
   form.innerHTML = `
     <input type="hidden" name="_subject" value="${mission.title}">
@@ -811,8 +1160,8 @@ function buildMissionForm(mission, referralMode) {
       <div class="file-drop-zone" id="file_drop_zone">
         <svg width="32" height="32" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <p class="file-drop-label">Drag &amp; drop files here, or <span class="file-drop-browse">browse</span></p>
-        <p class="mission-upload-help" style="margin:4px 0 0;">Images and PDFs only. Video links go in the notes box below.</p>
-        <input class="form-control" id="evidence_files" name="evidence_files" type="file" accept="image/*,.pdf" multiple required style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
+        <p class="mission-upload-help" style="margin:4px 0 0;">JPG, PNG, WebP, or PDF only. Maximum 10 files and 10 MB per file. Video links go in the notes box below.</p>
+        <input class="form-control" id="evidence_files" name="evidence_files" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf" multiple required style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
       </div>
       <ul class="file-list" id="file_list"></ul>
     </div>
@@ -945,6 +1294,13 @@ function buildMissionForm(mission, referralMode) {
               hintText.innerHTML = `Your Unique ID is visible in the <strong>top-right navbar dropdown</strong> next to your email.`;
             }
           }
+        } else {
+          alertBox.innerHTML = 'Sign in before submitting private mission evidence. <a href="/login">Log in securely →</a>';
+          alertBox.style.backgroundColor = 'var(--caution-bg)';
+          alertBox.style.color = 'var(--caution-fg)';
+          alertBox.style.borderColor = 'var(--caution-fg)';
+          alertBox.style.display = 'block';
+          submitBtn.disabled = true;
         }
       } else {
         setTimeout(prefillUserDetails, 200);
@@ -956,14 +1312,27 @@ function buildMissionForm(mission, referralMode) {
   prefillUserDetails();
 
   form.addEventListener('submit', async (e) => {
-    // If Supabase is not configured, fallback to standard Formspree action
+    e.preventDefault();
     if (!window.supabaseClient) {
-      console.warn("Supabase client not initialized. Falling back to Formspree submit.");
-      return; // Let browser do the standard form POST
+      alertBox.textContent = 'Secure mission submission is unavailable right now. Please try again later.';
+      alertBox.style.backgroundColor = 'var(--danger-bg)';
+      alertBox.style.color = 'var(--danger-fg)';
+      alertBox.style.borderColor = 'var(--danger-fg)';
+      alertBox.style.display = 'block';
+      return;
     }
 
-    e.preventDefault();
     alertBox.style.display = 'none';
+
+    const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
+    if (!session?.user) {
+      alertBox.innerHTML = 'Your session has expired. <a href="/login">Log in again →</a>';
+      alertBox.style.backgroundColor = 'var(--caution-bg)';
+      alertBox.style.color = 'var(--caution-fg)';
+      alertBox.style.borderColor = 'var(--caution-fg)';
+      alertBox.style.display = 'block';
+      return;
+    }
 
     const uniqueId = form.querySelector('#unique_id').value.trim();
     const name = form.querySelector('#student_name').value.trim();
@@ -972,8 +1341,21 @@ function buildMissionForm(mission, referralMode) {
     const fileInput = form.querySelector('#evidence_files');
     const files = fileInput ? fileInput.files : [];
 
-    if (!uniqueId || !name || !email || !notes || files.length === 0) {
-      alertBox.textContent = "Please fill in all required fields and select at least one file.";
+    if (!uniqueId || !name || !email || !notes || files.length === 0 || files.length > 10) {
+      alertBox.textContent = "Please complete every field and select between 1 and 10 evidence files.";
+      alertBox.style.backgroundColor = 'var(--danger-bg)';
+      alertBox.style.color = 'var(--danger-fg)';
+      alertBox.style.borderColor = 'var(--danger-fg)';
+      alertBox.style.display = 'block';
+      return;
+    }
+
+    const allowedTypes = new Map([
+      ['image/jpeg', 'jpg'], ['image/png', 'png'], ['image/webp', 'webp'], ['application/pdf', 'pdf']
+    ]);
+    const invalidFile = Array.from(files).find((file) => !allowedTypes.has(file.type) || file.size <= 0 || file.size > 10 * 1024 * 1024);
+    if (invalidFile) {
+      alertBox.textContent = `${invalidFile.name} is not an allowed JPG, PNG, WebP, or PDF under 10 MB.`;
       alertBox.style.backgroundColor = 'var(--danger-bg)';
       alertBox.style.color = 'var(--danger-fg)';
       alertBox.style.borderColor = 'var(--danger-fg)';
@@ -989,42 +1371,34 @@ function buildMissionForm(mission, referralMode) {
     alertBox.style.borderColor = 'var(--caution-fg)';
     alertBox.style.display = 'block';
 
+    const evidencePaths = [];
     try {
-      const fileUrls = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-        const filePath = `${uniqueId}/${Date.now()}_${cleanFileName}`;
+        const extension = allowedTypes.get(file.type);
+        const filePath = `${session.user.id}/${crypto.randomUUID()}.${extension}`;
         
         const { data, error } = await window.supabaseClient.storage
           .from('mission-screenshots')
-          .upload(filePath, file);
+          .upload(filePath, file, { cacheControl: '3600', upsert: false });
 
         if (error) throw error;
-
-        const { data: { publicUrl } } = window.supabaseClient.storage
-          .from('mission-screenshots')
-          .getPublicUrl(filePath);
-
-        fileUrls.push(publicUrl);
+        evidencePaths.push(data.path);
       }
 
       alertBox.textContent = 'Saving submission data to Supabase database...';
-
-      const { data: { session } } = await window.supabaseClient.auth.getSession().catch(() => ({ data: { session: null } }));
-      const userId = session?.user?.id || null;
 
       const { error: insertError } = await window.supabaseClient
         .from('submissions')
         .insert([
           {
-            user_id: userId,
+            user_id: session.user.id,
             unique_id: uniqueId,
             student_name: name,
             student_email: email,
             mission_title: mission.title,
             evidence_notes: notes,
-            screenshot_urls: fileUrls
+            screenshot_urls: evidencePaths
           }
         ]);
 
@@ -1053,6 +1427,9 @@ function buildMissionForm(mission, referralMode) {
       `;
     } catch (err) {
       console.error("Submission error:", err);
+      if (evidencePaths.length > 0) {
+        await window.supabaseClient.storage.from('mission-screenshots').remove(evidencePaths).catch(() => null);
+      }
       alertBox.textContent = `Submission failed: ${err.message || err}`;
       alertBox.style.backgroundColor = 'var(--danger-bg)';
       alertBox.style.color = 'var(--danger-fg)';
@@ -1475,9 +1852,9 @@ const addBadgeToDatabase = async (badgeName) => {
 
 
 function renderBadgesDisplay() {
-  const progressCard = document.getElementById('courseProgress')?.closest('.module-content-card') || 
-                       document.getElementById('missionProgress')?.closest('.module-content-card');
-  if (!progressCard) return;
+  const progressAnchor = document.getElementById('courseProgressAnchor') ||
+                         document.getElementById('missionProgress')?.closest('.module-content-card');
+  if (!progressAnchor) return;
 
   let badgesCard = document.getElementById('badges-achievements-card');
   const basePath = window.location.pathname.includes('/courses/') ? '../' : '';
@@ -1527,7 +1904,7 @@ function renderBadgesDisplay() {
     badgesCard.className = 'module-content-card';
     badgesCard.id = 'badges-achievements-card';
     badgesCard.style.marginBottom = '24px';
-    progressCard.parentNode.insertBefore(badgesCard, progressCard);
+    progressAnchor.parentNode.insertBefore(badgesCard, progressAnchor);
   }
 
   badgesCard.innerHTML = `

@@ -109,6 +109,7 @@ function initializeForm(form: HTMLFormElement) {
       requestId = '';
       fingerprint = '';
       show(`form-success-${kind.replace('_', '-')}`, 'success');
+      window.onnoyTrack?.('public_form_success', { form_kind: kind });
     } else if (failed?.error === 'validation' && failed.code) {
       invalid(failed.code, failed.field);
     } else {

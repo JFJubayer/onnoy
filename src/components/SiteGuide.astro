@@ -12,7 +12,7 @@ const { allowAuto = true } = Astro.props;
 const path = (Astro.routePattern || Astro.url.pathname).replace(/\.html$/, '').replace(/\/$/, '').replace(/^\/index$/, '/') || '/';
 const guide = getPageGuide(path);
 const [characterOpen, characterBlink] = await Promise.all(['open', 'blink'].map(async (expression) => {
-  const asset = `/assets/images/guide/bindu-${expression}.webp`;
+  const asset = `/assets/images/guide/onima-${expression}.webp`;
   const version = createHash('sha256').update(await readFile(resolve('public', `.${asset}`))).digest('hex').slice(0, 12);
   return `${asset}?v=${version}`;
 }));
@@ -53,6 +53,7 @@ const [characterOpen, characterBlink] = await Promise.all(['open', 'blink'].map(
     </div>
     <div class="site-guide__step-actions">
       <a id="siteGuideAction" class="site-guide__action" hidden></a>
+      <button id="siteGuideAbout" class="site-guide__about" type="button" aria-pressed="false" data-i18n="guide-who-onima">{translations['guide-who-onima'].en}</button>
     </div>
     <div id="siteGuideSettings" class="site-guide__settings" hidden>
       <label for="siteGuideAuto"><input id="siteGuideAuto" type="checkbox" /><span data-i18n="guide-auto">{translations['guide-auto'].en}</span></label>

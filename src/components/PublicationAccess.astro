@@ -18,7 +18,7 @@ const { publications } = Astro.props;
 <dialog id="readerAccessDialog" class="reader-access-dialog" aria-labelledby="readerAccessTitle" aria-describedby="readerAccessDescription">
   <button id="readerAccessClose" class="reader-access-close" type="button" aria-label="Close reader form" title="Close">&times;</button>
   <div class="reader-access-publication">
-    <img id="readerAccessCover" src="/assets/images/covers/cover-what-to-study.png" alt="Selected publication" width="48" height="68" />
+    <img id="readerAccessCover" src="/assets/images/covers/cover-onima-complete.png" alt="Selected publication" width="48" height="68" />
     <div>
       <span>Onnoy / PDF</span>
       <h2 id="readerAccessPublication">Not Sure What to Study?</h2>
@@ -31,6 +31,10 @@ const { publications } = Astro.props;
     <div class="reader-access-field">
       <label for="readerFullName"><span data-i18n="reader-name">Full name</span> <span aria-hidden="true">*</span></label>
       <input id="readerFullName" name="name" type="text" class="form-control" required maxlength="120" autocomplete="name" />
+    </div>
+    <div class="reader-access-field">
+      <label for="readerEmail" data-i18n="reader-email">Email address (optional)</label>
+      <input id="readerEmail" name="email" type="email" class="form-control" maxlength="254" autocomplete="email" />
     </div>
     <div class="reader-access-field">
       <label for="readerSchool"><span data-i18n="reader-school">School / institution</span> <span aria-hidden="true">*</span></label>
@@ -47,7 +51,7 @@ const { publications } = Astro.props;
       </div>
     </div>
     <button id="readerAccessSubmit" type="submit" class="btn btn-green reader-access-submit" data-i18n="reader-continue-download">Continue to download</button>
-    <p class="reader-access-privacy" data-i18n="reader-privacy">These details are used for Onnoy's educational reach records. No payment is required.</p>
+    <p class="reader-access-privacy"><span data-i18n="reader-privacy">These details are used for Onnoy's educational reach records. No payment is required.</span> <a href="/privacy" data-i18n="reader-privacy-link">Privacy details</a></p>
   </form>
 </dialog>
 

@@ -1,0 +1,44 @@
+---
+import type { Publication } from '@lib/publications';
+import { publicationAccessUrl } from '@lib/publications';
+
+interface Props {
+  publication: Publication;
+}
+
+const { publication } = Astro.props;
+const readUrl = publicationAccessUrl(publication.pdf, 'read');
+---
+
+<article id={publication.id || undefined} class:list={['workbook-card', `workbook-card--${publication.theme}`]}>
+  <div>
+    <div class="wb-cover-wrapper">
+      <a href={readUrl} data-reader-resource={publication.pdf} data-reader-action="read" class="wb-cover-link" title="Read Online">
+        <img src={publication.cover} alt={`${publication.cardTitle} cover`} class="wb-cover-img" loading="lazy" />
+        <span class="wb-cover-hover-hint">Read Online ↗</span>
+      </a>
+    </div>
+
+    <div class="wb-badge-row">
+      <span class="wb-tag">{publication.kind}</span>
+      <span class="wb-audience">{publication.audience}</span>
+    </div>
+    <h3 class="wb-title">{publication.cardTitle}</h3>
+    <div class="wb-subtitle">{publication.subtitle}</div>
+    <p class="wb-desc">{publication.description}</p>
+    <ul class="wb-highlights">
+      {publication.highlights.map((highlight) => <li>{highlight}</li>)}
+    </ul>
+  </div>
+
+  <div>
+    <div class="wb-file-info">
+      <span>PDF Format</span>
+      <span class="wb-instant-access">Instant access</span>
+    </div>
+    <div class="wb-actions">
+      <a href={readUrl} data-reader-resource={publication.pdf} data-reader-action="read" class="btn-read-online">Read Online ↗</a>
+      <button type="button" data-reader-resource={publication.pdf} data-reader-action="download" data-reader-next="donate" class="btn-download-free"><span data-i18n="donation-download">Download PDF</span> ↓</button>
+    </div>
+  </div>
+</article>

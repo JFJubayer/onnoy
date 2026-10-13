@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PublicationAccess from '@components/PublicationAccess.astro';
+import { Copy } from '@lucide/astro';
 import { SITE } from '@data/site';
 import { translations } from '@data/translations';
 import { getPublications, publicationAccessUrl } from '@lib/publications';
@@ -21,15 +22,48 @@ const qrCode = await QRCode.toDataURL(SITE.chabondhu, {
     <div class="container donation-grid">
       <section class="donation-note" aria-labelledby="donation-title">
         <a href="/workbooks" class="donation-back" data-i18n="donation-back">Back to workbooks</a>
-        <p class="donation-eyebrow" data-i18n="donation-eyebrow">A little kindness, passed on</p>
-        <h1 id="donation-title" data-i18n="donation-title">Support Onnoy</h1>
+        <div class="donation-onima-intro">
+          <img src="/assets/images/guide/onima-open.webp" width="112" height="112" alt="Onima waving" />
+          <div>
+            <p class="donation-eyebrow" data-i18n="donation-eyebrow">A note from Onima</p>
+            <h1 id="donation-title" data-i18n="donation-title">Help another voice be heard</h1>
+          </div>
+        </div>
         <p class="donation-lead" data-i18n="donation-lead">A young person shouldn't have to figure everything out alone.</p>
         <p class="donation-story" data-i18n="donation-story">A subject to choose. A future that feels uncertain. A conversation at home that is hard to begin. We make these resources for those moments, when a little guidance can mean a lot.</p>
         <p class="donation-story" data-i18n="donation-invite">If these pages have been useful to you, help us create the next ones. Your contribution supports the time, care, and work behind Onnoy's booklets and learning sessions.</p>
         <div class="donation-actions">
-          <a id="donation-link" href={SITE.chabondhu} target="_blank" rel="noopener noreferrer" class="btn btn-green btn-lg" data-i18n="donation-button">Donate on ChaBondhu</a>
+          <a id="donation-link" href={SITE.chabondhu} target="_blank" rel="noopener noreferrer" class="btn btn-green btn-lg" data-donation-option="chabondhu" data-i18n="donation-button">Quick support on ChaBondhu</a>
           <p class="donation-optional" data-i18n="donation-optional">Give what feels right. A donation is not required to download this PDF.</p>
         </div>
+        <section id="direct-donation" class="donation-direct" aria-labelledby="direct-donation-title">
+          <p class="donation-direct-eyebrow" data-i18n="donation-direct-eyebrow">Want to give a different amount?</p>
+          <h2 id="direct-donation-title" data-i18n="donation-direct-title">Send any amount with bKash or Nagad</h2>
+          <p class="donation-direct-description" data-i18n="donation-direct-description">Use Send Money in your own app. This is a manual transfer; this website does not process or verify it.</p>
+          <div class="donation-amount-control">
+            <label for="directDonationAmount" data-i18n="donation-amount-label">Amount you plan to send</label>
+            <div class="donation-amount-input">
+              <span aria-hidden="true">৳</span>
+              <input id="directDonationAmount" type="number" min="1" step="1" value="500" inputmode="numeric" />
+            </div>
+            <div class="donation-presets" role="group" aria-label="Suggested donation amounts">
+              {[100, 500, 1000, 2500].map((amount) => <button type="button" data-donation-amount={amount} aria-pressed={amount === 500 ? 'true' : 'false'}>৳{amount}</button>)}
+            </div>
+            <button type="button" class="donation-copy-amount" data-donation-copy="amount"><Copy size={16} /><span data-i18n="donation-copy-amount">Copy amount</span></button>
+          </div>
+          <div class="donation-methods">
+            {['bKash', 'Nagad'].map((method) => (
+              <div class:list={['donation-method', `donation-method--${method.toLowerCase()}`]}>
+                <div class="donation-method-name"><strong>{method}</strong><span data-i18n="donation-personal-account">Personal · Send Money</span></div>
+                <code>{SITE.donationNumber}</code>
+                <button type="button" data-donation-copy="number" data-copy-value={SITE.donationNumber} aria-label={`Copy ${method} number`}><Copy size={16} /><span data-i18n="donation-copy-number">Copy number</span></button>
+              </div>
+            ))}
+          </div>
+          <p class="donation-direct-steps" data-i18n="donation-direct-steps">Open your app → Send Money → enter the number → enter your amount → review and confirm.</p>
+          <p class="donation-direct-safety" data-i18n="donation-direct-safety">Never share your PIN, OTP, or app password with Onnoy or anyone else.</p>
+          <p id="directDonationStatus" class="donation-direct-status" role="status" aria-live="polite"></p>
+        </section>
         <div class="donation-signature">
           <p data-i18n="donation-gratitude">With gratitude,</p>
           <strong data-i18n="donation-team">The Onnoy volunteers</strong>
@@ -69,12 +103,12 @@ const qrCode = await QRCode.toDataURL(SITE.chabondhu, {
         </div>
 
         <div class="donation-qr">
-          <a href={SITE.chabondhu} target="_blank" rel="noopener noreferrer" aria-label="Support Onnoy on ChaBondhu">
+          <a href={SITE.chabondhu} target="_blank" rel="noopener noreferrer" aria-label="Support Onnoy on ChaBondhu" data-donation-option="chabondhu">
             <img id="donation-qr" src={qrCode} width="152" height="152" alt="QR code for Onnoy's ChaBondhu donation page" />
           </a>
           <div>
             <h2 data-i18n="donation-qr-heading">A small gesture.<br />A shared future.</h2>
-            <a href={SITE.chabondhu} target="_blank" rel="noopener noreferrer" class="donation-url">chabondhu.com/onnoy</a>
+            <a href={SITE.chabondhu} target="_blank" rel="noopener noreferrer" class="donation-url" data-donation-option="chabondhu">chabondhu.com/onnoy</a>
             <p data-i18n="donation-payment">Contributions are handled on ChaBondhu.</p>
           </div>
         </div>
@@ -153,4 +187,8 @@ const qrCode = await QRCode.toDataURL(SITE.chabondhu, {
   document.addEventListener('publication:download', () => {
     if (downloadStatus) downloadStatus.hidden = false;
   });
+</script>
+
+<script>
+  import '@scripts/direct-donation';
 </script>

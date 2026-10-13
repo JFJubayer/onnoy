@@ -10,6 +10,7 @@ export const SITE = {
   ogImage: '/assets/og-image.png',
   whatsapp: `https://wa.me/${import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '8801830900746'}`,
   chabondhu: import.meta.env.PUBLIC_CHABONDHU_URL ?? 'https://www.chabondhu.com/onnoy',
+  donationNumber: import.meta.env.PUBLIC_DONATION_NUMBER ?? '01830900746',
   facebook: 'https://www.facebook.com/profile.php?id=61589327446397',
   youtube: 'https://www.youtube.com/@ONNOY-%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%AC%E0%A6%AF%E0%A6%BC',
   gaId: import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '',
@@ -27,8 +28,8 @@ export interface NavLink {
 
 export const NAV: NavLink[] = [
   { href: '/', label: 'Home', i18n: 'nav-home' },
-  { href: '/modules', label: 'Modules', i18n: 'nav-modules' },
-  { href: '/courses', label: 'Courses', i18n: 'nav-courses' },
+  { href: '/modules', label: 'Interactive Lessons', i18n: 'nav-modules' },
+  { href: '/courses', label: 'Video Courses', i18n: 'nav-courses' },
   {
     href: '/workbooks',
     label: 'Resources',
@@ -46,7 +47,6 @@ export const NAV: NavLink[] = [
     i18n: 'nav-faq',
     children: [
       { href: '/faq', label: 'Frequently Asked Questions' },
-      { href: '/facilitator-guide', label: 'Facilitator Guide' },
     ],
   },
 ];
@@ -55,7 +55,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   {
     title: 'Learn',
     links: [
-      { href: '/modules', label: 'Digital Citizenship Modules' },
+      { href: '/modules', label: 'Interactive Digital Citizenship Lessons' },
       { href: '/courses', label: 'Video Courses' },
       { href: '/level-2-missions', label: 'Level 2 Missions' },
       { href: '/quiz', label: 'Self-Assessment Quiz' },
@@ -69,7 +69,6 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
       { href: '/resources-library', label: 'Resource Library' },
       { href: '/checklist', label: 'Misinformation Checklist' },
       { href: '/digital-safety-laws', label: 'Digital Safety Laws' },
-      { href: '/facilitator-guide', label: 'Facilitator Guide' },
     ],
   },
   {

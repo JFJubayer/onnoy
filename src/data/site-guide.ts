@@ -13,13 +13,14 @@ export interface PageGuide {
 
 const guides: Record<string, GuideStep[]> = {
   '/': [
-    { title: 'guide-home-title', body: 'guide-home-body', target: '.hero-content', href: '/workbooks', action: 'guide-explore-booklets' },
+    { title: 'guide-home-title', body: 'guide-home-body', target: '.hero-content' },
     { title: 'guide-paths-title', body: 'guide-paths-body', target: '#pillars', href: '/modules', action: 'guide-open-modules' },
     { title: 'guide-your-pace-title', body: 'guide-your-pace-body', target: '.stat-bar' },
   ],
   '/workbooks': [
     { title: 'guide-booklets-title', body: 'guide-booklets-body', target: '.workbook-grid' },
     { title: 'guide-reader-title', body: 'guide-reader-body', target: '.workbook-card .wb-actions a' },
+    { title: 'guide-onima-story-title', body: 'guide-onima-story-body', target: '#onima-booklet', href: '/workbooks?resource=%2Fassets%2Fdocs%2FOnima_Complete_Book_Publishable.pdf&action=download', action: 'guide-read-onima' },
     { title: 'guide-sponsor-title', body: 'guide-sponsor-body', target: '.chabondhu-card' },
   ],
   '/modules': [
@@ -37,6 +38,7 @@ const guides: Record<string, GuideStep[]> = {
   ],
   '/donate': [
     { title: 'guide-donate-title', body: 'guide-donate-body', target: '.donation-note' },
+    { title: 'guide-donate-options-title', body: 'guide-donate-options-body', target: '#direct-donation' },
     { title: 'guide-donate-reader-title', body: 'guide-donate-reader-body', target: '.donation-reading', href: '/workbooks', action: 'guide-explore-booklets' },
   ],
   '/resources-library': [

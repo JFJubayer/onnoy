@@ -66,6 +66,21 @@ Defined in `src/styles/components/`:
 
 Page-specific CSS lives in `src/styles/pages/*.css` and is imported only by that page.
 
+Shared Astro UI ownership:
+
+| Component | Owns |
+|---|---|
+| `PageHero.astro` | Inner-page heading, subtitle, eyebrow and optional layout-owned main target |
+| `PublicationCard.astro` | Manifest-driven workbook cover, metadata, highlights and read/download actions |
+| `BadgeCriteriaCard.astro` | Badge tier artwork, criteria and progression CTA |
+| `StatusMessage.astro` | Accessible live status and alert regions |
+| `AuthExperience.astro` | Login/register panel layout, Onima input reactions and route-switch animation |
+| `ResourceLibraryControls.astro` | Resource search, category filters and result count |
+| `MissionFallback.astro` | Server-rendered mission overview, preparation steps and no-JavaScript notice |
+
+Prefer these owners over reproducing their markup or inline styles in pages. Per-item inline
+styles remain acceptable only for documented CSS custom properties such as card accents.
+
 ## Motion
 
 `--dur-fast` 150 ms, `--dur` 240 ms, `--dur-slow` 480 ms with `--ease-out`. Reveal-on-scroll

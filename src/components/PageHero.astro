@@ -7,10 +7,11 @@ export interface Props {
   titleI18n?: string;
   subtitleI18n?: string;
   class?: string;
+  mainTarget?: boolean;
 }
-const { title, subtitle, eyebrow, titleI18n, subtitleI18n, class: cls = '' } = Astro.props;
+const { title, subtitle, eyebrow, titleI18n, subtitleI18n, class: cls = '', mainTarget = true } = Astro.props;
 ---
-<header class={`hero hero--page ${cls}`} id="main" tabindex="-1">
+<header class={`hero hero--page ${cls}`} id={mainTarget ? 'main' : undefined} tabindex={mainTarget ? '-1' : undefined}>
   <div class="container">
     {eyebrow && <span class="hero-eyebrow"><span class="dot"></span>{eyebrow}</span>}
     <h1 data-i18n={titleI18n}>{title}</h1>

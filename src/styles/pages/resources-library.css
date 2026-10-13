@@ -83,6 +83,66 @@
 
 
 /* Resource Library Styles */
+.resource-library-content {
+    width: min(100%, 780px);
+    margin-inline: auto;
+}
+
+.resource-intro {
+    margin-bottom: 16px;
+    color: var(--ink-mid);
+    font-size: 0.95rem;
+}
+
+.resource-section-title--primary { margin-top: 0; }
+
+.resource-tools {
+    display: grid;
+    gap: 14px;
+    margin: 8px 0 34px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow-xs);
+}
+
+.resource-search {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    align-items: center;
+    gap: 4px 10px;
+    margin: 0;
+}
+
+.resource-search > span { font-size: var(--fs-xs); color: var(--ink-mid); }
+.resource-search > svg { grid-row: 1 / 3; color: var(--green); }
+.resource-search input {
+    min-width: 0;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+}
+.resource-search input:focus { outline: none; border-color: var(--green); box-shadow: var(--focus-ring); }
+
+.resource-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.resource-filters button {
+    min-height: 36px;
+    padding: 6px 11px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface-soft);
+    color: var(--ink-mid);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+}
+.resource-filters button[aria-pressed="true"] { border-color: var(--green); background: var(--green-pale); color: var(--green-dark); }
+.resource-results-status { min-height: 20px; margin: 0; color: var(--ink-light); font-size: var(--fs-xs); }
+
 .resource-section-title {
     display: flex;
     align-items: center;
@@ -94,6 +154,42 @@
     font-weight: 700;
     padding-bottom: 10px;
     border-bottom: 3px solid var(--green-pale);
+}
+
+.resource-workbooks-gateway {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    align-items: center;
+    gap: 28px;
+    margin: 24px 0 40px;
+    padding: 24px;
+    border: 1px solid var(--border-strong);
+    border-left: 4px solid var(--green);
+    border-radius: 8px;
+    background: var(--surface);
+}
+
+.resource-workbooks-covers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: end;
+    gap: 5px;
+}
+
+.resource-workbooks-covers img {
+    width: 100%;
+    height: 104px;
+    object-fit: contain;
+    object-position: bottom;
+    filter: drop-shadow(0 4px 4px rgba(15, 23, 42, 0.14));
+}
+
+.resource-workbooks-gateway h3 { margin: 0; color: var(--ink); font-size: 1.18rem; letter-spacing: 0; }
+.resource-workbooks-gateway p { margin: 8px 0 16px; color: var(--ink-mid); font-size: 0.9rem; line-height: 1.65; }
+
+@media (max-width: 640px) {
+    .resource-workbooks-gateway { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .resource-workbooks-covers { max-width: 240px; }
 }
 .resource-section-title svg {
     width: 24px;

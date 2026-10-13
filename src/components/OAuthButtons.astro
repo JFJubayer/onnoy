@@ -1,0 +1,24 @@
+---
+import '@/styles/components/auth-oauth.css';
+---
+
+<div class="auth-oauth" data-oauth-root hidden aria-labelledby="auth-oauth-label">
+  <div class="auth-oauth-divider">
+    <span id="auth-oauth-label" data-i18n="auth-or-continue">Or continue with</span>
+  </div>
+  <div class="auth-oauth-options">
+    <button type="button" class="auth-provider-button" data-oauth-provider="google">
+      <span class="auth-provider-mark auth-provider-mark--google" aria-hidden="true">G</span>
+      <span data-oauth-label data-i18n="auth-google">Google</span>
+    </button>
+    <button type="button" class="auth-provider-button" data-oauth-provider="facebook">
+      <span class="auth-provider-mark auth-provider-mark--facebook" aria-hidden="true">f</span>
+      <span data-oauth-label data-i18n="auth-facebook">Facebook</span>
+    </button>
+  </div>
+  <p class="auth-oauth-note" data-i18n="auth-oauth-note">New users get an Onnoy account automatically. We never receive your Google or Facebook password.</p>
+</div>
+
+<script>
+  import '@scripts/oauth-auth';
+</script>

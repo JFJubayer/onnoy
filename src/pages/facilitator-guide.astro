@@ -4,9 +4,9 @@ import PublicForm from '@components/PublicForm.astro';
 import '@/styles/pages/facilitator-guide.css';
 ---
 
-<BaseLayout title="Facilitator Guide" description="Onnoy facilitator guide for teachers and youth leaders delivering workshops on digital responsibility and academic honesty.">
+<BaseLayout title="Facilitator Guide" description="Onnoy facilitator guide for teachers and youth leaders delivering workshops on digital responsibility and academic honesty." wrapMain>
   <!-- 2. Hero Section -->
-      <header class="hero" id="main" tabindex="-1">
+    <header class="hero">
           <div class="container fade-in">
               <h1>Facilitator Guide</h1>
               <p data-i18n="facilitator-subtitle" class="bn-only">সেশন পরিচালনার গাইড</p>
@@ -63,7 +63,8 @@ import '@/styles/pages/facilitator-guide.css';
               <p>The facilitator guide is being prepared. Enter your email below to get notified the moment it's ready.</p>
               
               <PublicForm kind="guide" class="email-form">
-                  <input type="email" name="email" class="email-input" placeholder="Your email address" required>
+                  <label for="guide-email" class="visually-hidden">Email address</label>
+                  <input id="guide-email" type="email" name="email" class="email-input" placeholder="Your email address" required>
                   <button type="submit" class="notify-btn">Notify Me</button>
               </PublicForm>
               

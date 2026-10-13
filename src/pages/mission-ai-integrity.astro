@@ -1,11 +1,16 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import MissionFallback from '@components/MissionFallback.astro';
+import { missionFallbacks } from '@data/mission-fallbacks';
 import '@/styles/pages/module-course.css';
+
+const mission = missionFallbacks.aiIntegrity;
 ---
 
 <BaseLayout title="Mission 3: AI Integrity" description="Mission 3: AI Integrity Check, a Level 2 Onnoy mission.">
-  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>AI Integrity Check</h1><p>Mission 3</p></div></header>
-      <main class="container section-gap" data-mission="aiIntegrity"></main>
+  <PageHero title={mission.title} subtitle={`Mission ${mission.number}`} class="module-hero" />
+  <main class="container section-gap" data-mission="aiIntegrity"><MissionFallback mission={mission} /></main>
 
   <Fragment slot="scripts">
     <script is:inline src="/assets/js/module-course.js"></script>

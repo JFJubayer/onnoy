@@ -9,6 +9,7 @@ function initializeSiteGuide() {
   const description = document.querySelector<HTMLElement>('#siteGuideBody');
   const count = document.querySelector<HTMLElement>('#siteGuideCount');
   const action = document.querySelector<HTMLAnchorElement>('#siteGuideAction');
+  const about = document.querySelector<HTMLButtonElement>('#siteGuideAbout');
   const find = document.querySelector<HTMLButtonElement>('#siteGuideFind');
   const back = document.querySelector<HTMLButtonElement>('#siteGuideBack');
   const next = document.querySelector<HTMLButtonElement>('#siteGuideNext');
@@ -18,7 +19,7 @@ function initializeSiteGuide() {
   const settingsToggle = document.querySelector<HTMLButtonElement>('#siteGuideSettingsToggle');
   const pointer = document.querySelector<HTMLElement>('#siteGuidePointer');
   const copy = document.querySelector<HTMLElement>('.site-guide__copy');
-  if (!widget || !panel || !launcher || !heading || !description || !count || !action || !find || !back || !next || !nextText || !auto || !settings || !settingsToggle || !pointer || !copy) return;
+  if (!widget || !panel || !launcher || !heading || !description || !count || !action || !about || !find || !back || !next || !nextText || !auto || !settings || !settingsToggle || !pointer || !copy) return;
 
   const text = (key: string) => translations[key]?.[document.documentElement.lang === 'bn' ? 'bn' : 'en'] ?? '';
   const steps: GuideStep[] = Array.from(widget.querySelectorAll<HTMLElement>('[data-guide-title]')).map((element) => ({
@@ -27,8 +28,8 @@ function initializeSiteGuide() {
   }));
   if (!steps.length) return;
   const route = widget.dataset.guideRoute || '/';
-  const seenKey = 'onnoy_guide_seen_v1';
-  const progressKey = 'onnoy_guide_progress_v1';
+  const seenKey = 'onnoy_guide_seen_v2';
+  const progressKey = 'onnoy_guide_progress_v2';
   const autoKey = 'onnoy_guide_auto_v1';
   const read = (key: string, storage: 'localStorage' | 'sessionStorage'): unknown => {
     try { return JSON.parse(window[storage].getItem(key) || 'null'); } catch { return null; }
@@ -41,7 +42,11 @@ function initializeSiteGuide() {
   const savedProgress = read(progressKey, 'sessionStorage');
   const progress: Record<string, number> = savedProgress && typeof savedProgress === 'object' && !Array.isArray(savedProgress)
     ? Object.fromEntries(Object.entries(savedProgress).filter(([, value]) => typeof value === 'number' && Number.isInteger(value) && value >= 0)) : {};
-  let index = Math.min(progress[route] || 0, steps.length - 1);
+  const requestedStory = new URLSearchParams(window.location.search).get('story') === 'onima';
+  const storyIndex = steps.findIndex((step) => step.title === 'guide-onima-story-title');
+  let storyPending = requestedStory && storyIndex >= 0;
+  let index = storyPending ? storyIndex : Math.min(progress[route] || 0, steps.length - 1);
+  let aboutMode = false;
   let autoEnabled = read(autoKey, 'localStorage') !== false;
   let autoTimer: number | undefined;
   let closeTimer: number | undefined;
@@ -50,7 +55,7 @@ function initializeSiteGuide() {
 
   const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clearHighlight = () => { highlighted?.classList.remove('site-guide-highlight'); highlighted = null; pointer.hidden = true; };
-  const busy = () => document.documentElement.classList.contains('opening-intro-active') || document.body.classList.contains('nav-open') || !!document.querySelector('dialog[open]') || !!document.fullscreenElement;
+  const busy = () => document.documentElement.classList.contains('opening-intro-active') || document.body.classList.contains('nav-open') || document.body.classList.contains('assessment-active') || !!document.querySelector('dialog[open]') || !!document.fullscreenElement;
   const getTarget = () => steps[index].target ? document.querySelector(steps[index].target!) : null;
   const markSeen = () => { seen.add(route); write(seenKey, [...seen], 'sessionStorage'); };
   const saveProgress = () => { progress[route] = index; write(progressKey, progress, 'sessionStorage'); };
@@ -79,19 +84,23 @@ function initializeSiteGuide() {
     widget.querySelectorAll<HTMLElement>('[data-guide-label]').forEach((element) => {
       const label = text(element.dataset.guideLabel || ''); element.setAttribute('aria-label', label); element.title = label;
     });
-    heading.textContent = text(steps[index].title);
-    description.textContent = text(steps[index].body);
-    count.textContent = `${index + 1} / ${steps.length}`;
-    back.disabled = index === 0;
+    heading.textContent = text(aboutMode ? 'guide-about-onima-title' : steps[index].title);
+    description.textContent = text(aboutMode ? 'guide-about-onima-body' : steps[index].body);
+    count.textContent = aboutMode ? text('guide-about-onima-label') : `${index + 1} / ${steps.length}`;
+    back.disabled = aboutMode || index === 0;
     const last = index === steps.length - 1;
-    widget.dataset.guideLast = String(last);
+    widget.dataset.guideLast = String(!aboutMode && last);
+    widget.dataset.guideAbout = String(aboutMode);
     nextText.dataset.i18n = last ? 'guide-done' : 'guide-next';
     nextText.textContent = text(nextText.dataset.i18n);
-    action.hidden = !steps[index].href || !steps[index].action;
-    const actionGroup = action.closest<HTMLElement>('.site-guide__step-actions');
-    if (actionGroup) actionGroup.hidden = action.hidden;
-    if (!action.hidden) { action.href = steps[index].href!; action.textContent = text(steps[index].action!); }
-    find.disabled = !getTarget();
+    const actionHref = aboutMode ? '/workbooks?story=onima' : steps[index].href;
+    const actionKey = aboutMode ? 'guide-open-onima-story' : steps[index].action;
+    action.hidden = !actionHref || !actionKey;
+    if (!action.hidden) { action.href = actionHref!; action.textContent = text(actionKey!); }
+    about.dataset.i18n = aboutMode ? 'guide-back-to-guide' : 'guide-who-onima';
+    about.textContent = text(about.dataset.i18n);
+    about.setAttribute('aria-pressed', String(aboutMode));
+    find.disabled = aboutMode || !getTarget();
     auto.checked = autoEnabled;
     copy.scrollTop = 0;
     if (!panel.hidden && !reducedMotion()) copy.animate([{ opacity: .2, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 180, easing: 'ease-out' });
@@ -116,6 +125,7 @@ function initializeSiteGuide() {
   };
   const finishClose = () => {
     panel.hidden = true; panel.inert = false; panel.classList.remove('is-leaving');
+    document.documentElement.classList.remove('site-guide-panel-open');
     launcher.hidden = false;
     if (!busy()) launcher.focus({ preventScroll: true });
   };
@@ -130,17 +140,20 @@ function initializeSiteGuide() {
   const open = (automatic = false) => {
     if (busy() || document.hidden) return;
     window.clearTimeout(autoTimer); window.clearTimeout(closeTimer); markSeen();
+    aboutMode = false;
     panel.inert = false; panel.classList.remove('is-leaving');
     refreshText(); panel.hidden = false; launcher.hidden = true; launcher.setAttribute('aria-expanded', 'true');
+    document.documentElement.classList.add('site-guide-panel-open');
     highlightTarget();
     if (!automatic) heading.focus({ preventScroll: true });
   };
   const scheduleAutomatic = () => {
     window.clearTimeout(autoTimer);
-    if (!autoEnabled || seen.has(route) || widget.dataset.guideAuto !== 'true' || document.hidden || busy() || !panel.hidden) return;
+    if ((!autoEnabled && !storyPending) || (!storyPending && seen.has(route)) || widget.dataset.guideAuto !== 'true' || document.hidden || busy() || !panel.hidden) return;
     autoTimer = window.setTimeout(() => {
       const active = document.activeElement;
       if (active instanceof HTMLElement && (active.matches('input, textarea, select, [contenteditable="true"]') || active.closest('form'))) { markSeen(); return; }
+      storyPending = false;
       open(true);
     }, 900);
   };
@@ -152,12 +165,19 @@ function initializeSiteGuide() {
   };
 
   launcher.addEventListener('click', () => open());
+  about.addEventListener('click', () => {
+    aboutMode = !aboutMode;
+    if (aboutMode) clearHighlight();
+    refreshText();
+    if (!aboutMode) highlightTarget();
+    heading.focus({ preventScroll: true });
+  });
   widget.querySelector('#siteGuideClose')?.addEventListener('click', close);
   widget.querySelector('#siteGuideSkip')?.addEventListener('click', close);
-  back.addEventListener('click', () => { if (index === 0) return; index--; saveProgress(); refreshText(); showTarget(); heading.focus({ preventScroll: true }); });
-  next.addEventListener('click', () => { if (index === steps.length - 1) { close(); return; } index++; saveProgress(); refreshText(); showTarget(); heading.focus({ preventScroll: true }); });
+  back.addEventListener('click', () => { if (aboutMode || index === 0) return; index--; saveProgress(); refreshText(); showTarget(); heading.focus({ preventScroll: true }); });
+  next.addEventListener('click', () => { if (aboutMode) return; if (index === steps.length - 1) { close(); return; } index++; saveProgress(); refreshText(); showTarget(); heading.focus({ preventScroll: true }); });
   find.addEventListener('click', showTarget);
-  widget.querySelector('#siteGuideRestart')?.addEventListener('click', () => { index = 0; saveProgress(); refreshText(); highlightTarget(); heading.focus({ preventScroll: true }); });
+  widget.querySelector('#siteGuideRestart')?.addEventListener('click', () => { aboutMode = false; index = 0; saveProgress(); refreshText(); highlightTarget(); heading.focus({ preventScroll: true }); });
   settingsToggle.addEventListener('click', () => { settings.hidden = !settings.hidden; settingsToggle.setAttribute('aria-expanded', String(!settings.hidden)); });
   auto.addEventListener('change', () => { autoEnabled = auto.checked; write(autoKey, autoEnabled, 'localStorage'); if (!autoEnabled) window.clearTimeout(autoTimer); });
   widget.querySelector('#siteGuideReset')?.addEventListener('click', () => { seen.clear(); Object.keys(progress).forEach((key) => delete progress[key]); index = 0; markSeen(); saveProgress(); refreshText(); highlightTarget(); });

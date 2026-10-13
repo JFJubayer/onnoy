@@ -3,7 +3,7 @@ import { translations } from '@data/translations';
 
 type AccessMode = 'read' | 'download';
 type NextStep = 'file' | 'donate';
-type ReaderDetails = { name: string; school: string; age: number; district: string };
+type ReaderDetails = { name: string; email: string; school: string; age: number; district: string };
 type Publication = { pdf: string; url: string; title: string; cover: string };
 type AccessRequest = { publication: Publication; action: AccessMode; next: NextStep };
 
@@ -40,6 +40,7 @@ function initializeReaderAccess() {
   const dialog = document.querySelector<HTMLDialogElement>('#readerAccessDialog');
   const form = document.querySelector<HTMLFormElement>('#readerAccessForm');
   const nameInput = document.querySelector<HTMLInputElement>('#readerFullName');
+  const emailInput = document.querySelector<HTMLInputElement>('#readerEmail');
   const schoolInput = document.querySelector<HTMLInputElement>('#readerSchool');
   const ageInput = document.querySelector<HTMLInputElement>('#readerAge');
   const districtInput = document.querySelector<HTMLInputElement>('#readerDistrict');
@@ -47,7 +48,7 @@ function initializeReaderAccess() {
   const closeButton = document.querySelector<HTMLButtonElement>('#readerAccessClose');
   const cover = document.querySelector<HTMLImageElement>('#readerAccessCover');
   const publicationTitle = document.getElementById('readerAccessPublication');
-  if (!dialog || !form || !nameInput || !schoolInput || !ageInput || !districtInput || !submitButton || !closeButton || !cover || !publicationTitle) return;
+  if (!dialog || !form || !nameInput || !emailInput || !schoolInput || !ageInput || !districtInput || !submitButton || !closeButton || !cover || !publicationTitle) return;
 
   const publications = new Map<string, Publication>();
   document.querySelectorAll<HTMLElement>('[data-reader-publication]').forEach((item) => {
@@ -76,16 +77,18 @@ function initializeReaderAccess() {
     if (saved && typeof saved === 'object') {
       const details = saved as Partial<ReaderDetails>;
       if (typeof details.name === 'string') nameInput.value = details.name;
+      if (typeof details.email === 'string') emailInput.value = details.email;
       if (typeof details.school === 'string') schoolInput.value = details.school;
       if (typeof details.age === 'number') ageInput.value = String(details.age);
       if (typeof details.district === 'string') districtInput.value = details.district;
     }
-    [nameInput, schoolInput, ageInput, districtInput].forEach((input) => input.setCustomValidity(''));
+    [nameInput, emailInput, schoolInput, ageInput, districtInput].forEach((input) => input.setCustomValidity(''));
     dialog.showModal();
     nameInput.focus({ preventScroll: true });
   };
 
   function continueAccess(request: AccessRequest) {
+    window.onnoyTrack?.('publication_access', { publication: request.publication.title, access_mode: request.action });
     if (request.next === 'donate') {
       const destination = new URL('/donate', window.location.origin);
       destination.searchParams.set('resource', request.publication.pdf);
@@ -137,7 +140,7 @@ function initializeReaderAccess() {
     const bounds = dialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
   });
-  [nameInput, schoolInput, ageInput, districtInput].forEach((input) => {
+  [nameInput, emailInput, schoolInput, ageInput, districtInput].forEach((input) => {
     input.addEventListener('input', () => input.setCustomValidity(''));
   });
 
@@ -152,9 +155,11 @@ function initializeReaderAccess() {
     const age = Number(ageInput.value);
     ageInput.setCustomValidity(Number.isInteger(age) && age >= 1 && age <= 120 ? '' : text('reader-age-invalid'));
     if (!form.reportValidity()) return;
-    const details: ReaderDetails = { name: nameInput.value, school: schoolInput.value, age, district: districtInput.value };
+    emailInput.value = emailInput.value.trim();
+    const details: ReaderDetails = { name: nameInput.value, email: emailInput.value, school: schoolInput.value, age, district: districtInput.value };
     const lead = {
       ...details,
+      email: details.email || null,
       age_group: ageGroup(age),
       booklet: request.publication.title,
       booklet_url: request.publication.url,

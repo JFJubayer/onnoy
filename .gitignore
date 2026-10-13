@@ -13,6 +13,12 @@ tests/
 chrome-profile/
 node_modules
 
+# Local publication source exports and voice references (deployed copies live in public/)
+/Documents/OnimaPart2_Publishable.*
+/Documents/Onima_Complete_Book_Publishable.pdf
+/Documents/Onnoy_*PRINT-3mm-bleed.pdf
+/Documents/WhatsApp Ptt *.ogg
+
 # Astro / Node
 node_modules/
 dist/

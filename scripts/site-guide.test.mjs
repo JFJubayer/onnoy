@@ -80,6 +80,18 @@ test('homepage presentation uses the page route rather than its static output fi
   assert.match(guide, /Astro\.routePattern \|\| Astro\.url\.pathname/);
 });
 
+test('homepage opening is visibly skippable, brief, and remembered across tabs', async () => {
+  const [markup, controller] = await Promise.all([
+    readFile(new URL('../src/components/OpeningIntro.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/scripts/opening-intro.ts', import.meta.url), 'utf8'),
+  ]);
+  assert.match(markup, /class="opening-intro__skip-label"[^>]*data-i18n="opening-skip"/);
+  assert.match(controller, /localStorage\.getItem\(storageKey\)/);
+  assert.match(controller, /7 \* 24 \* 60 \* 60 \* 1000/);
+  assert.match(controller, /video\.playbackRate = 1\.8/);
+  assert.match(controller, /window\.setTimeout\(dismiss, 5000\)/);
+});
+
 test('new routes still receive a usable fallback', () => {
   const guide = getPageGuide('/a-future-page');
   assert.equal(guide.steps.length, 2);
@@ -88,19 +100,25 @@ test('new routes still receive a usable fallback', () => {
 
 test('tutorial presentation preserves accessible non-modal tour controls', async () => {
   const markup = await readFile(new URL('../src/components/SiteGuide.astro', import.meta.url), 'utf8');
+  const controller = await readFile(new URL('../src/scripts/site-guide.ts', import.meta.url), 'utf8');
+  const styles = await readFile(new URL('../src/styles/components/site-guide.css', import.meta.url), 'utf8');
   assert.match(markup, /role="dialog" aria-modal="false"/);
   assert.match(markup, /class="site-guide__stage" aria-hidden="true"/);
   assert.match(markup, /class="site-guide__bubble"/);
   assert.match(markup, /id="siteGuidePointer"[^>]*aria-hidden="true" hidden/);
-  for (const control of ['Launcher', 'Back', 'Next', 'Skip', 'Close', 'Restart', 'SettingsToggle', 'Auto']) {
+  assert.match(controller, /classList\.add\('site-guide-panel-open'\)/);
+  assert.match(controller, /classList\.remove\('site-guide-panel-open'\)/);
+  assert.match(styles, /html\.site-guide-panel-open \.whatsapp-float/);
+  assert.match(styles, /@media \(max-width: 640px\)[\s\S]*\.site-guide__stage \{ display: none; \}/);
+  for (const control of ['Launcher', 'About', 'Back', 'Next', 'Skip', 'Close', 'Restart', 'SettingsToggle', 'Auto']) {
     assert.ok(markup.includes(`id="siteGuide${control}"`), control);
   }
 });
 
-test('both character expressions are web-ready transparent images', async () => {
+test('both Onima expressions are web-ready transparent images', async () => {
   const expressions = [];
   for (const expression of ['open', 'blink']) {
-    const path = new URL(`../public/assets/images/guide/bindu-${expression}.webp`, import.meta.url);
+    const path = new URL(`../public/assets/images/guide/onima-${expression}.webp`, import.meta.url);
     const bitmap = await readFile(path);
     expressions.push(bitmap);
     const image = await sharp(bitmap).metadata();
@@ -113,4 +131,31 @@ test('both character expressions are web-ready transparent images', async () => 
     assert.equal(channels[3].max, 255);
   }
   assert.equal(expressions[0].equals(expressions[1]), false);
+});
+
+test('Onima guides readers from her story to optional support', async () => {
+  const home = getPageGuide('/').steps[0];
+  assert.equal(home.action, undefined);
+  assert.equal(home.href, undefined);
+
+  const workbookSteps = getPageGuide('/workbooks').steps;
+  assert.equal(workbookSteps[0].title, 'guide-booklets-title');
+  const story = workbookSteps.find((step) => step.title === 'guide-onima-story-title');
+  assert.ok(story);
+  const storyUrl = new URL(story.href, 'https://onnoy.example');
+  assert.equal(story.target, '#onima-booklet');
+  assert.equal(storyUrl.searchParams.get('resource'), '/assets/docs/Onima_Complete_Book_Publishable.pdf');
+  assert.equal(storyUrl.searchParams.get('action'), 'download');
+  assert.ok(getPageGuide('/donate').steps.some((step) => step.target === '#direct-donation'));
+
+  const markup = await readFile(new URL('../src/components/SiteGuide.astro', import.meta.url), 'utf8');
+  const controller = await readFile(new URL('../src/scripts/site-guide.ts', import.meta.url), 'utf8');
+  assert.match(markup, /assets\/images\/guide\/onima-/);
+  assert.match(markup, /id="siteGuideAbout"/);
+  assert.doesNotMatch(markup, /bindu-/i);
+  assert.match(controller, /\/workbooks\?story=onima/);
+  for (const key of ['guide-who-onima', 'guide-back-to-guide', 'guide-about-onima-title', 'guide-about-onima-body', 'guide-open-onima-story']) {
+    assert.ok(translations[key]?.en.trim(), key);
+    assert.ok(translations[key]?.bn.trim(), key);
+  }
 });

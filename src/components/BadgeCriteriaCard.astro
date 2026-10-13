@@ -1,0 +1,34 @@
+---
+interface Props {
+  theme: 'green' | 'sky' | 'rose';
+  tier: string;
+  title: string;
+  titleBn: string;
+  image: string;
+  description: string;
+  criteria: string[];
+  ctaHref: string;
+  ctaLabel: string;
+}
+
+const { theme, tier, title, titleBn, image, description, criteria, ctaHref, ctaLabel } = Astro.props;
+---
+
+<article class:list={['badge-sample-card', `badge-sample-card--${theme}`]}>
+  <div>
+    <div class="badge-image-container">
+      <img src={image} alt={`${title} Badge Sample`} loading="lazy" />
+    </div>
+    <div class="badge-card-heading">
+      <span class="badge-tier-tag">{tier}</span>
+      <h3>{title}</h3>
+      <p class="badge-title-bn" lang="bn">{titleBn}</p>
+    </div>
+    <p class="badge-description">{description}</p>
+    <h4 class="badge-criteria-title">Earning criteria</h4>
+    <ul class="criteria-list">
+      {criteria.map((criterion) => <li set:html={criterion} />)}
+    </ul>
+  </div>
+  <a href={ctaHref} class="btn badge-card-cta">{ctaLabel}</a>
+</article>

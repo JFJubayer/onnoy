@@ -16,6 +16,10 @@
 
 
 /* Support Page Styles */
+.support-content {
+    max-width: 760px;
+}
+
 .trust-row div {
     display: inline-flex;
     align-items: center;
@@ -26,5 +30,15 @@
     height: 18px;
     color: var(--green);
     flex-shrink: 0;
+}
+
+.support-safety-note {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid var(--amber);
+    background: var(--caution-bg);
+    color: var(--caution-fg);
+    font-size: 0.84rem;
+    line-height: 1.6;
 }
 

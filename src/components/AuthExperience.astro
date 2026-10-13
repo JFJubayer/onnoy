@@ -1,0 +1,49 @@
+---
+import { EyeOff } from '@lucide/astro';
+import { translations } from '@data/translations';
+import '@/styles/components/auth-experience.css';
+
+interface Props {
+  mode: 'login' | 'register';
+}
+
+const { mode } = Astro.props;
+const isLogin = mode === 'login';
+const switchHref = isLogin ? '/register' : '/login';
+const switchMode = isLogin ? 'register' : 'login';
+const welcomeBodyKey = isLogin ? 'auth-no-account' : 'auth-have-account';
+const switchLabelKey = isLogin ? 'nav-register' : 'nav-login';
+const formTitleKey = isLogin ? 'auth-login-title' : 'auth-register-title';
+const formSubtitleKey = isLogin ? 'auth-login-subtitle' : 'auth-register-subtitle';
+---
+
+<section class:list={['auth-experience', `auth-experience--${mode}`]} data-auth-experience data-auth-mode={mode} aria-labelledby="auth-form-title">
+  <aside class="auth-welcome" aria-labelledby="auth-welcome-title">
+    <div class="auth-welcome-art" aria-hidden="true">
+      <div class="auth-mascot" data-auth-mascot>
+        <img class="auth-mascot__open" src="/assets/images/guide/onima-open.webp" width="512" height="512" alt="" />
+        <img class="auth-mascot__blink" src="/assets/images/guide/onima-blink.webp" width="512" height="512" alt="" />
+        <span class="auth-mascot__privacy"><EyeOff size={22} stroke-width={2.5} /></span>
+      </div>
+    </div>
+    <div class="auth-welcome-copy">
+      <span class="auth-welcome-kicker" data-i18n="auth-welcome-kicker">Onnoy account</span>
+      <h1 id="auth-welcome-title" data-i18n="auth-welcome-title">Hello, welcome!</h1>
+      <p data-i18n={welcomeBodyKey}>{translations[welcomeBodyKey].en}</p>
+      <a href={switchHref} class="auth-switch-link" data-auth-switch data-target-mode={switchMode} data-i18n={switchLabelKey}>{translations[switchLabelKey].en}</a>
+    </div>
+  </aside>
+
+  <div class="auth-form-panel">
+    <header class="auth-form-heading">
+      <span data-i18n="auth-secure-kicker">Secure access</span>
+      <h2 id="auth-form-title" data-i18n={formTitleKey}>{translations[formTitleKey].en}</h2>
+      <p data-i18n={formSubtitleKey}>{translations[formSubtitleKey].en}</p>
+    </header>
+    <slot />
+  </div>
+</section>
+
+<script>
+  import '@scripts/auth-experience';
+</script>

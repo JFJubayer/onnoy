@@ -1,11 +1,16 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHero from '@components/PageHero.astro';
+import MissionFallback from '@components/MissionFallback.astro';
+import { missionFallbacks } from '@data/mission-fallbacks';
 import '@/styles/pages/module-course.css';
+
+const mission = missionFallbacks.guardian;
 ---
 
 <BaseLayout title="Mission 4: Digital Guardian" description="Mission 4: Digital Guardian recognition claim for Onnoy students.">
-  <header class="hero module-hero" id="main" tabindex="-1"><div class="container fade-in"><h1>Digital Guardian</h1><p>Mission 4</p></div></header>
-      <main class="container section-gap" data-mission="guardian"></main>
+  <PageHero title={mission.title} subtitle={`Mission ${mission.number}`} class="module-hero" />
+  <main class="container section-gap" data-mission="guardian"><MissionFallback mission={mission} /></main>
 
   <Fragment slot="scripts">
     <script is:inline src="/assets/js/module-course.js"></script>

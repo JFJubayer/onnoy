@@ -77,3 +77,15 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--green); width:
 .auth-message { margin-top: var(--s-4); font-size: var(--fs-sm); font-weight: 600; min-height: 1.4em; }
 .auth-message.ok { color: var(--success-fg); }
 .auth-message.err { color: var(--danger-fg); }
+.auth-page-section { padding-block: var(--section-y); }
+.auth-page-section .auth-card { margin-inline: auto; }
+.auth-alert { display: none; }
+.auth-password-group { margin-bottom: 30px; }
+.auth-password-field { position: relative; display: flex; align-items: center; }
+.auth-password-field .form-control { padding-right: 50px; }
+.auth-password-toggle { position: absolute; right: 14px; display: flex; align-items: center; justify-content: center; padding: 0; color: var(--ink-light); }
+.auth-password-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.auth-success { padding-block: var(--s-5); text-align: center; }
+.auth-success-icon { display: inline-flex; width: 60px; height: 60px; align-items: center; justify-content: center; margin-bottom: var(--s-5); border-radius: 50%; background: var(--success-bg); color: var(--success-fg); }
+.auth-success h3 { margin-bottom: var(--s-3); }
+.auth-success p { margin-bottom: var(--s-6); color: var(--ink-mid); font-size: 0.95rem; line-height: 1.6; }

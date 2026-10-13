@@ -6,8 +6,12 @@
     margin-top: 36px;
 }
 .workbook-card {
+    --publication-accent: var(--green);
+    --publication-pale: var(--green-pale);
+    --publication-fg: var(--green-dark);
     background: var(--surface);
     border: 1px solid var(--border);
+    border-top: 5px solid var(--publication-accent);
     border-radius: var(--radius-lg);
     padding: 28px 24px;
     box-shadow: var(--shadow-sm);
@@ -18,6 +22,10 @@
     position: relative;
     overflow: hidden;
 }
+.workbook-card--green { --publication-accent: var(--green); --publication-pale: var(--green-pale); --publication-fg: var(--green-dark); }
+.workbook-card--sky { --publication-accent: var(--sky); --publication-pale: var(--sky-pale); --publication-fg: var(--info-fg); }
+.workbook-card--amber { --publication-accent: var(--amber); --publication-pale: var(--amber-pale); --publication-fg: var(--amber-dark); }
+.workbook-card--story { --publication-accent: var(--story); --publication-pale: var(--story-pale); --publication-fg: var(--story); }
 .workbook-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
@@ -142,6 +150,8 @@
     letter-spacing: 0.6px;
     padding: 4px 10px;
     border-radius: 99px;
+    background: var(--publication-pale);
+    color: var(--publication-fg);
 }
 .wb-audience {
     font-size: 0.78rem;
@@ -155,6 +165,7 @@
     line-height: 1.3;
 }
 .wb-subtitle {
+    color: var(--publication-accent);
     font-weight: 600;
     font-size: 0.92rem;
     margin-bottom: 12px;
@@ -170,7 +181,7 @@
     padding: 0;
     margin: 0 0 20px 0;
     font-size: 0.86rem;
-    color: var(--ink);
+    color: var(--publication-fg);
 }
 .wb-highlights li {
     padding-left: 18px;
@@ -231,6 +242,7 @@
     gap: 10px;
     margin-top: 8px;
 }
+.wb-instant-access { color: var(--publication-fg); font-weight: 700; }
 .btn-read-online {
     background-color: var(--surface);
     color: var(--ink) !important;
@@ -252,6 +264,7 @@
     background: #ECFDF5;
 }
 .btn-download-free {
+    background: var(--publication-accent);
     color: #FFFFFF !important;
     border: none;
     font-weight: 700;
@@ -275,6 +288,22 @@
         grid-template-columns: 1fr;
     }
 }
+
+.workbooks-intro { max-width: 780px; margin: 0 auto 36px; text-align: center; }
+.workbooks-intro .section-label { margin-bottom: 8px; color: var(--green); font-weight: 700; text-transform: uppercase; }
+.workbooks-intro p { color: var(--ink-mid); font-size: 1.05rem; line-height: 1.6; }
+.workbooks-support { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin: 0 auto 40px; padding: 24px 28px; }
+.workbooks-support-copy { flex: 1; min-width: min(280px, 100%); }
+.workbooks-support h3 { margin: 0 0 6px; color: var(--ink); font-size: 1.25rem; }
+.workbooks-support p { margin: 0; color: var(--ink-mid); font-size: 0.92rem; line-height: 1.55; }
+.workbooks-support-action { flex-shrink: 0; }
+.institution-callout { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 50px; padding: 36px 32px; border: 1.5px solid var(--green); border-radius: var(--radius-lg); background: linear-gradient(135deg, color-mix(in srgb, var(--green-pale) 70%, var(--surface)), var(--surface)); }
+.institution-callout__icon { display: grid; width: 56px; height: 56px; flex: 0 0 56px; place-items: center; border-radius: 14px; background: var(--green); color: var(--brand-contrast); font-size: 1.8rem; }
+.institution-callout__copy { flex: 1; min-width: min(260px, 100%); }
+.institution-callout h3 { margin-bottom: 6px; font-size: 1.35rem; }
+.institution-callout p { margin: 0 0 12px; color: var(--ink-mid); font-size: 0.95rem; line-height: 1.55; }
+.institution-callout__links { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 0.85rem; font-weight: 600; }
+.institution-callout__links a { color: var(--green-dark); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Modal Form Styles */
 .age-options-grid {

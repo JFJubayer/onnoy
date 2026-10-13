@@ -45,7 +45,7 @@ public/
   assets/docs/               workbook PDFs
   assets/images/             optimized rasters referenced by legacy scripts/CSS
   assets/js/                 legacy course engine (course-data, course-player, module-course, …)
-supabase/migrations/         001–007 SQL, run in order in the Supabase SQL editor
+supabase/migrations/         001–008 SQL, run in order in the Supabase SQL editor
 supabase/functions/          public-forms intake, validation, optional staff email alerts
 scripts/                     one-off migration + tooling helpers (see below)
 design-system/onnoy/MASTER.md  design intent; tokens.css is the source of truth
@@ -54,10 +54,35 @@ design-system/onnoy/MASTER.md  design intent; tokens.css is the source of truth
 ## Supabase setup
 
 1. Create a project; copy URL + anon key into `.env`.
-2. Run `supabase/migrations/001…007` in order in the SQL editor.
+2. Run `supabase/migrations/001…008` in order in the SQL editor.
 3. Promote an admin: `update public.profiles set role = 'admin' where email = 'you@example.com';`
    (only admins can change roles — enforced by a trigger).
 4. Storage buckets `avatars` and `mission-screenshots` are created by migration 003.
+
+### Google and Facebook sign-in
+
+The login and registration pages discover enabled Supabase OAuth providers at runtime. Provider
+buttons stay hidden until their backend configuration is complete, then appear without another
+frontend deployment. E-mail/password authentication remains available.
+
+1. In Supabase **Authentication → URL Configuration**, set the site URL to
+  `https://onnoy.vercel.app` and allow these redirects:
+  - `https://onnoy.vercel.app/login`
+  - `http://localhost:4321/login`
+  - `http://127.0.0.1:4321/login`
+2. Copy the callback URL shown by Supabase. It has this form:
+  `https://<project-ref>.supabase.co/auth/v1/callback`.
+3. For Google, create a Web OAuth client in Google Cloud, add the Supabase callback as an
+  authorized redirect URI, then enter its client ID and secret under Supabase
+  **Authentication → Providers → Google**.
+4. For Facebook, configure Facebook Login in a Meta developer app, add the same Supabase callback
+  as a valid OAuth redirect URI, provide the production site and privacy-policy URLs, then enter
+  the app ID and secret under Supabase **Authentication → Providers → Facebook**.
+5. Enable each provider only after its consent screen/app is ready for public use. Confirm the
+  provider returns an e-mail address because Onnoy profiles and mission submissions depend on it.
+
+Keep Google and Facebook client secrets only in their provider consoles and Supabase. They are not
+`PUBLIC_*` frontend variables and must never be committed to this repository.
 
 Tables: `profiles`, `submissions`, `impact_stats` (home page numbers), `download_leads`
 (workbook unlock form), `public_requests`, `guide_subscribers`, and backend-only
@@ -81,9 +106,11 @@ e-mails are never exposed.
 | `npm run check` | Astro + TypeScript diagnostics |
 | `npm run test:forms` | Public-form validation, endpoint behavior, and isolated PostgreSQL permission tests |
 | `npm run test:guide` | Whole-site guide coverage, translations, route safety, and character assets |
-| `npm run guide:assets` | Regenerate Bindu's original transparent character and blink images |
+| `npm run test:learning` | Interactive lesson content, explanations, assessment balance, and page wiring |
+| `npm run test:security` | Private mission-evidence RLS, uploader paths, and signed admin previews |
+| `npm run test:accessibility` | Main landmarks, labels, semantic actions, and canonical journey structure |
+| `npm run guide:assets` | Regenerate Onima's transparent open/blink character images |
 | `npm run publications:donation` | Append or refresh the donation closing page in the published PDFs |
-| `npm run publications:brain-reset` | Rebuild the revised Brain Reset PDF and cover from its original HTML/artwork |
 | `SRC=path npm run optimize:images` | Re-encode a folder of source rasters → `public/assets/images` (+ .webp) |
 | `scripts/shot.sh /route …` | Desktop + mobile screenshots to `/tmp/onnoy-shots` (needs Chrome) |
 
@@ -93,24 +120,26 @@ The homepage uses a silent crop of `Documents/onnoy_animation.mp4`, approximatel
 1.4-7.7 seconds from the original. The published H.264 clip is 6.33 seconds and
 about 447 KB, stored with its poster in `public/assets/videos/`.
 
-`OpeningIntro.astro` and `src/scripts/opening-intro.ts` play it once per tab on `/`.
-Visitors can click or tap anywhere, or use Escape/Enter/Space, to skip. It closes
-automatically at the end and restores page focus and interaction. Reduced-motion
+`OpeningIntro.astro` and `src/scripts/opening-intro.ts` play it at 1.8x speed on `/`,
+at most once every seven days in the same browser. Visitors can use the visible skip
+control, click or tap anywhere, or use Escape/Enter/Space. It closes automatically
+after about 3.5 seconds and restores page focus and interaction. Reduced-motion
 preferences, rejected playback, and a timeout keep the homepage accessible; deep
 links and pages without JavaScript are not blocked. The Documents original is unchanged.
 
-### Bindu page guide
+### Onima page guide
 
-Bindu is a scripted, bilingual character guide, not an AI chat service. Every current
+Onima is a scripted, bilingual story character and guide, not an AI chat service. Every current
 page has an introduction through `src/data/site-guide.ts`, with UI copy in
 `src/data/translations.ts`. The shared `SiteGuide.astro` supplies the launcher and
 non-modal panel; `src/scripts/site-guide.ts` handles steps, highlighting, skip,
 resume, restart, and preferences. Lucide icons provide the control symbols.
 
-An original female mentor appears at the lower left with a speech bubble, gentle
-entry/exit animation, and blinking expressions. Visible tour targets receive a
-direction arrow without blocking page interaction. This adapts character-led
-game onboarding to the site without using Clash of Clans artwork or dialogue.
+Onima appears at the lower left with a speech bubble, a natural waving hand, gentle
+entry/exit animation, and blinking expressions. She starts as the ordinary page guide;
+a right-aligned **Who is Onima?** option opens her first-person introduction only when
+the visitor asks. Its action points to the complete booklet and optional support/download
+flow. Visible tour targets receive a direction arrow without blocking page interaction.
 
 Introductions appear once per page per tab, after the opening animation. Visitors
 can skip them, reopen the character, restart a page tour, or disable automatic
@@ -121,12 +150,38 @@ Its animation respects reduced-motion preferences and does not block page use.
 Only guide preferences and route progress are stored in the visitor's browser.
 The guide does not read form answers, contact a model API, or alter account/RLS
 permissions. Clearing browser storage resets its preferences. Character assets
-are original WebP images generated by `scripts/generate-guide-character.mjs`.
+are original WebP images generated by `scripts/generate-onima-guide-character.mjs`.
 Their URLs include content hashes so updated artwork bypasses older cached copies.
+
+The support page keeps downloads available without payment. ChaBondhu provides a
+quick small-support option; larger arbitrary amounts can be sent manually to the
+published personal bKash/Nagad number. The site never collects a PIN, OTP, app
+password, transaction ID, or payment credential and does not verify manual transfers.
 
 Run `npm run test:guide`, `npm run check`, and `npm run build` after changing guide
 content or controls. Browser checks should also cover skip/reopen, next/back,
 language changes, small screens, blocked storage, intro timing, and reader dialogs.
+
+### Interactive learning
+
+The five Level 1 pages use one data-driven experience in
+`public/assets/js/module-course.js`. Each lesson now moves through explicit learning
+goals, a keyboard-accessible three-part presentation, a bilingual real-life decision
+lab with consequence feedback, a private browser-only reflection, and shuffled checks
+that teach with hints and answer explanations. Lesson and reflection progress stays on
+the current device; no reflection text is sent to Supabase.
+
+The `/quiz` route is a learning-oriented self-assessment rather than a pass/fail quiz.
+Ten bilingual scenarios cover attention, verification, scam safety, AI judgment, and
+digital respect. Every choice explains its consequence. Results show five skill areas,
+recommend one lesson, and provide a review of all answers. Only anonymous skill totals
+and a completion time are stored in the browser; individual answers are not submitted.
+
+This browser-native presentation is the primary learning format because it works on
+mobile, supports live language changes, and gives immediate feedback. Narrated video
+can be added later from the same lesson model without making video playback a learning
+or accessibility requirement. Run `npm run test:learning` after changing lessons,
+assessment scenarios, or their controllers.
 
 ### Public forms and admin inbox
 
@@ -212,27 +267,25 @@ Poppler's `pdftoppm`; set `BASE` or `CHROME_PATH` when using a non-default serve
 Pass a catalog PDF path to update only that publication:
 
 ```bash
-npm run publications:donation -- /assets/docs/Brain_Reset_Booklet_Publishable.pdf
+npm run publications:donation -- /assets/docs/Onima_Complete_Book_Publishable.pdf
 ```
 
-### Brain Reset booklet
+### Private mission evidence
 
-The revised Brain Reset edition preserves the original illustrations, uses clearer
-educational wording, and includes a seven-day worksheet plus evidence/support notes.
-It has 11 content pages; the shared sponsorship closing page makes 12 published pages.
-The original Downloads PDF and artwork are not modified.
-
-Rebuild with `npm run publications:brain-reset`, then run the single-publication
-donation command above. The publisher defaults to the original HTML under
-`~/Downloads/brain_reset_assets/brain_reset_booklet.html`; pass another source HTML
-path as its first argument when needed. Local illustration URLs in that HTML must
-remain available. The publisher embeds compressed illustrations, validates page fit,
-and generates the website cover from the finished PDF's first page.
+Migration `008_private_mission_evidence.sql` changes the mission screenshot bucket from
+public to private. Apply it before deploying the matching frontend. Mission uploads then
+require a signed-in student, use generated filenames under that user's storage folder,
+accept at most ten allowlisted image/PDF files of 10 MB each, and store object paths rather
+than public URLs. Owners and administrators can read evidence; the admin portal creates
+short-lived signed preview links. Existing stored public URLs are normalized to their object
+paths for admin review. Run `npm run test:security` after changing evidence storage or RLS.
 
 ## Deployment
 
-Vercel detects Astro automatically. `vercel.json` adds security headers, long-cache for
-`/assets`, and 301s from every old `*.html` URL to its clean-URL equivalent.
+Vercel detects Astro automatically. `vercel.json` adds HSTS and other security headers,
+stages Content Security Policy in report-only mode, sets a long cache for `/assets`, and
+redirects every old `*.html` URL to its clean-URL equivalent. Review CSP reports before
+moving the policy from report-only to enforcement.
 
 ## Contributing
 

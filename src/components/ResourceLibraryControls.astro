@@ -1,0 +1,23 @@
+---
+import { Search } from '@lucide/astro';
+---
+
+<div class="resource-tools" data-resource-tools>
+  <label class="resource-search" for="resourceSearch">
+    <Search size={18} aria-hidden="true" />
+    <span>Search resources</span>
+    <input id="resourceSearch" type="search" placeholder="Try fact-checking, safety, citation…" autocomplete="off" />
+  </label>
+  <div class="resource-filters" role="group" aria-label="Filter resource categories">
+    <button type="button" data-resource-filter="all" aria-pressed="true">All</button>
+    <button type="button" data-resource-filter="fact-check" aria-pressed="false">Fact-checking</button>
+    <button type="button" data-resource-filter="safety" aria-pressed="false">Safety</button>
+    <button type="button" data-resource-filter="academic" aria-pressed="false">Academic</button>
+    <button type="button" data-resource-filter="wellbeing" aria-pressed="false">Wellbeing</button>
+  </div>
+  <p id="resourceResultsStatus" class="resource-results-status" role="status" aria-live="polite">Showing all 12 resources.</p>
+</div>
+
+<script>
+  import '@scripts/resource-library';
+</script>

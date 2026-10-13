@@ -4,7 +4,7 @@ import AdminInbox from '@components/AdminInbox.astro';
 import '@/styles/pages/admin-portal-inline.css';
 ---
 
-<BaseLayout title="Admin Portal" description="Admin Portal for Onnoy (অন্বয়) — Secure administrative management and monitoring interface." bodyClass="admin-body" minimal noindex>
+<BaseLayout title="Admin Portal" description="Admin Portal for Onnoy (অন্বয়) — Secure administrative management and monitoring interface." bodyClass="admin-body" minimal noindex wrapMain>
       <div id="admin-floating-scroll" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
           <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: var(--admin-primary); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: #0b132b; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-size: 24px; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.background='var(--admin-primary-hover)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='var(--admin-primary)'; this.style.transform='scale(1)'">&#8593;</button>
           <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" style="background: var(--admin-primary); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; color: #0b132b; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-size: 24px; font-weight: bold; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.background='var(--admin-primary-hover)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='var(--admin-primary)'; this.style.transform='scale(1)'">&#8595;</button>
@@ -352,6 +352,10 @@ import '@/styles/pages/admin-portal-inline.css';
                     return;
                 }
 
+                await Promise.all(submissions.map(async sub => {
+                    sub.__evidenceUrls = await resolveMissionEvidence(sub.screenshot_urls);
+                }));
+
                 submissionsContainer.innerHTML = '';
                 submissions.forEach(sub => {
                     const card = document.createElement('div');
@@ -362,11 +366,9 @@ import '@/styles/pages/admin-portal-inline.css';
                     
                     // Render screenshots
                     let mediaHtml = '';
-                    if (sub.screenshot_urls && sub.screenshot_urls.length > 0) {
+                    if (sub.__evidenceUrls && sub.__evidenceUrls.length > 0) {
                         let thumbs = '';
-                        sub.screenshot_urls.forEach(value => {
-                            const url = safeDocumentUrl(value);
-                            if (!url) return;
+                        sub.__evidenceUrls.forEach(url => {
                             if (new URL(url).pathname.toLowerCase().endsWith('.pdf')) {
                                 thumbs += `
                                     <a class="media-thumb" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" title="View PDF">
@@ -632,6 +634,36 @@ import '@/styles/pages/admin-portal-inline.css';
             } catch {
                 return '';
             }
+        }
+
+        function missionEvidencePath(value) {
+            if (typeof value !== 'string' || !value.trim()) return '';
+            const raw = value.trim();
+            try {
+                const url = new URL(raw);
+                const markers = [
+                    '/storage/v1/object/public/mission-screenshots/',
+                    '/storage/v1/object/sign/mission-screenshots/'
+                ];
+                const marker = markers.find(value => url.pathname.includes(value));
+                if (!marker) return '';
+                return decodeURIComponent(url.pathname.split(marker)[1] || '');
+            } catch {
+                const path = raw.replace(/^\/+/, '');
+                return path && !path.split('/').includes('..') ? path : '';
+            }
+        }
+
+        async function resolveMissionEvidence(values) {
+            if (!Array.isArray(values) || !window.supabaseClient) return [];
+            const paths = [...new Set(values.map(missionEvidencePath).filter(Boolean))];
+            const urls = await Promise.all(paths.map(async path => {
+                const { data, error } = await window.supabaseClient.storage
+                    .from('mission-screenshots')
+                    .createSignedUrl(path, 600);
+                return error ? '' : safeDocumentUrl(data?.signedUrl);
+            }));
+            return urls.filter(Boolean);
         }
 
         function escapeHtml(str) {

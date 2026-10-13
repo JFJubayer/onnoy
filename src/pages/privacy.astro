@@ -4,7 +4,7 @@ import PageHero from '@components/PageHero.astro';
 ---
 
 <BaseLayout title="Privacy Policy" description="How Onnoy collects, uses, and protects your information across our website, courses, and workbook downloads.">
-  <PageHero title="Privacy Policy" subtitle="Plain-language explanation of what we collect and why. Last updated September 2026." />
+  <PageHero title="Privacy Policy" subtitle="Plain-language explanation of what we collect and why. Last updated October 2026." />
 
   <main class="container container--narrow section-gap stack" style="--stack-gap: var(--s-6)">
     <section>
@@ -15,11 +15,15 @@ import PageHero from '@components/PageHero.astro';
     <section>
       <h2>What we collect</h2>
       <ul class="points-list">
-        <li><strong>Account data</strong> — if you register: e-mail address, password (hashed by Supabase Auth), and an auto-generated Onnoy ID. Optionally your name, school, avatar and a social link you add on your profile.</li>
-        <li><strong>Learning progress</strong> — which modules and missions you complete, quiz outcomes, badges earned, and mission evidence you upload (screenshots and notes).</li>
-        <li><strong>Workbook downloads</strong> — name, e-mail and age group entered when unlocking a free PDF. We use this to report reach to our sponsors and never to send marketing.</li>
-        <li><strong>Forms</strong> — contact, session-request and fact-check submissions are processed by Formspree and forwarded to our team inbox.</li>
-        <li><strong>Preferences</strong> — theme and language are stored in your browser only (localStorage) and never sent to us.</li>
+        <li><strong>Account data</strong> — if you register with e-mail: your e-mail address, password hashed by Supabase Auth, and an auto-generated Onnoy ID. If you choose Google or Facebook sign-in, Supabase receives the account identifier, e-mail and basic profile details that provider makes available; Onnoy never receives your Google or Facebook password. You may optionally add your name, school, avatar and a social link to your profile.</li>
+        <li><strong>Learning and assessment</strong> — Level 1 progress, private reflection notes and self-assessment totals are stored in your browser. Reflection text and individual assessment answers are not sent to Onnoy. If you sign in, eligible badge and completion data may sync to your profile.</li>
+        <li><strong>Workbook access records</strong> — name, school or institution, exact age, district, optional e-mail, selected booklet and whether you chose read or download. Authorized admins use this to understand educational reach; it is not a marketing signup.</li>
+        <li><strong>Public requests</strong> — session requests, fact-check requests and support messages are validated by a Supabase Edge Function and stored in private Supabase tables. The fields depend on the form. Support names are optional, but contact details are required so we can respond.</li>
+        <li><strong>Guide signup</strong> — the facilitator-guide notification form stores only the submitted e-mail address in Supabase.</li>
+        <li><strong>Mission submissions</strong> — signed-in students submit their Onnoy ID, name, account e-mail, evidence notes, mission name and private evidence files. Evidence is stored in a private bucket and opened by authorized reviewers through short-lived signed links.</li>
+        <li><strong>Digital Guardian referral claims</strong> — this Level 2 claim currently sends the names and contact details entered in that form to Formspree for manual review. Do not enter anyone's contact without their permission.</li>
+        <li><strong>Preferences</strong> — theme, language, Onima guide state and other interface preferences are stored in your browser.</li>
+        <li><strong>Basic analytics</strong> — when Google Analytics is configured, it records page usage and limited interaction events such as learning completion or the selected sign-in provider, with IP anonymization. These events do not contain form messages, reflection text, assessment answers or payment credentials. We do not use advertising pixels.</li>
       </ul>
     </section>
 
@@ -29,22 +33,28 @@ import PageHero from '@components/PageHero.astro';
         <li>We do not sell or rent personal data.</li>
         <li>We do not show advertising or use ad-tracking pixels.</li>
         <li>We do not publish student e-mail addresses. Our public badge verifier only returns the Onnoy ID, name/school if provided, and badges earned.</li>
+        <li>We do not collect bKash or Nagad PINs, OTPs, passwords or transaction IDs. Manual transfers happen in your own payment app; ChaBondhu follows its own privacy terms.</li>
       </ul>
     </section>
 
     <section>
       <h2>Where data lives</h2>
-      <p>Accounts, progress and download records are stored in Supabase (hosted PostgreSQL) with row-level security so students can only read and edit their own records. Admin access is limited to verified Onnoy volunteers. The website itself is hosted on Vercel.</p>
+      <p>Accounts, profiles, workbook access records, public requests and mission records are stored in Supabase. Row-level security limits private records to the relevant user or authorized Onnoy administrators. Private mission files use short-lived signed links. The website is hosted on Vercel. Digital Guardian referral claims currently use Formspree. Optional contributions use ChaBondhu or your own bKash/Nagad app.</p>
+    </section>
+
+    <section>
+      <h2>Retention and access</h2>
+      <p>Onnoy keeps records while they are needed to provide the requested service, review learning missions, maintain badges, understand educational reach, or meet legitimate operational and legal needs. There is not yet one automatic deletion schedule for every record type. Access is limited to the small group of administrators who need it. We review deletion requests manually.</p>
     </section>
 
     <section>
       <h2>Your choices</h2>
-      <p>You can edit your profile at any time from <a href="/profile">My Profile</a>. To delete your account and all associated data, message us on <a href="https://wa.me/8801830900746" target="_blank" rel="noopener">WhatsApp</a> with your registered e-mail address and we will remove it within 14 days.</p>
+      <p>You can edit your profile from <a href="/profile">My Profile</a>, clear browser-only learning data through your browser settings, and choose not to provide optional fields. To request access, correction or deletion, message us on <a href="https://wa.me/8801830900746" target="_blank" rel="noopener">WhatsApp</a> from a contact we can verify. We may need to retain limited records where required for security, abuse prevention or legal obligations.</p>
     </section>
 
     <section>
       <h2>Children</h2>
-      <p>Our programmes target students in Classes 9–12. Students under 13 should only register with a parent or teacher. Schools that invite Onnoy for a session receive a facilitator note describing exactly what is collected.</p>
+      <p>Our programmes primarily target students in Classes 9–12. Students under 13 should only register or submit personal information with a parent, guardian or teacher. Never upload private chats, passwords, OTPs, identity documents, payment details or another person's contact information without permission.</p>
     </section>
   </main>
 </BaseLayout>

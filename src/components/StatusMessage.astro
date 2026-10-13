@@ -1,0 +1,15 @@
+---
+interface Props {
+  id: string;
+  class?: string;
+  role?: 'status' | 'alert';
+  live?: 'polite' | 'assertive';
+  focusable?: boolean;
+}
+
+const { id, class: className, role = 'status', live = role === 'alert' ? 'assertive' : 'polite', focusable = false } = Astro.props;
+---
+
+<div id={id} class:list={['status-message', className]} role={role} aria-live={live} tabindex={focusable ? '-1' : undefined}>
+  <slot />
+</div>

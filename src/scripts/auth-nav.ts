@@ -3,9 +3,11 @@
  * the user's Supabase profile. Admin UI is gated by profiles.role (RLS-enforced),
  * not by a hardcoded email list.
  */
-import type { Session } from '@supabase/supabase-js';
-import { supabase, isAdminUser } from '@lib/supabase';
+import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import { translations } from '@data/translations';
+
+let supabase: SupabaseClient | null = null;
+let checkAdmin: (userId: string) => Promise<boolean> = async () => false;
 
 const PROGRESS_KEYS = [
   'onnoy_lesson_overview', 'onnoy_lesson_attention', 'onnoy_lesson_misinformation',
@@ -36,7 +38,7 @@ function renderLoggedOut(el: HTMLElement) {
 async function renderLoggedIn(el: HTMLElement, session: Session) {
   const user = session.user;
   const email = user.email ?? '';
-  const isAdmin = await isAdminUser(user.id);
+  const isAdmin = await checkAdmin(user.id);
 
   el.innerHTML = `
     <div class="dropdown auth-dropdown">
@@ -59,10 +61,10 @@ async function renderLoggedIn(el: HTMLElement, session: Session) {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
           Admin Dashboard</a>` : ''}
         <div class="divider"></div>
-        <a href="#" id="navSignOutBtn" role="menuitem" class="danger">
+        <button type="button" id="navSignOutBtn" role="menuitem" class="danger">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           ${t('nav-signout', 'Sign Out')}
-        </a>
+        </button>
       </div>
     </div>`;
 
@@ -199,13 +201,25 @@ async function syncLocalBadgesToDatabase(session: Session) {
   }
 }
 
-function init() {
-  if (!supabase) { const el = container(); if (el) renderLoggedOut(el); return; }
-  supabase.auth.getSession().then(({ data }) => render(data.session)).catch(() => render(null));
+async function initializeAuth() {
+  const backend = await import('@lib/supabase').catch(() => null);
+  if (!backend?.supabase) return;
+  supabase = backend.supabase;
+  checkAdmin = backend.isAdminUser;
+  await supabase.auth.getSession().then(({ data }) => render(data.session)).catch(() => render(null));
   supabase.auth.onAuthStateChange((_e, session) => { render(session); });
   document.addEventListener('onnoy:langchange', () => {
-    supabase!.auth.getSession().then(({ data }) => render(data.session));
+    supabase?.auth.getSession().then(({ data }) => render(data.session));
   });
+}
+
+function init() {
+  const el = container();
+  if (el) renderLoggedOut(el);
+  const scheduleIdle = typeof window.requestIdleCallback === 'function'
+    ? (callback: () => void) => window.requestIdleCallback(callback, { timeout: 1200 })
+    : (callback: () => void) => globalThis.setTimeout(callback, 200);
+  scheduleIdle(() => { void initializeAuth(); });
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

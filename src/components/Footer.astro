@@ -2,10 +2,16 @@
 import { FOOTER_COLUMNS, SITE } from '@data/site';
 import logo from '@/assets/images/logo-v2.jpeg';
 import { Image } from 'astro:assets';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
+<footer class:list={['site-footer', { 'site-footer--compact': compact }]}>
   <div class="footer-support">
     <div class="container">
       <div>

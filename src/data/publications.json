@@ -1,32 +1,74 @@
 [
   {
+    "id": "onima-booklet",
+    "title": "Onima: The Complete Story",
+    "titleBn": "অন্য এক অনিমা",
+    "pdf": "/assets/docs/Onima_Complete_Book_Publishable.pdf",
+    "cover": "/assets/images/covers/cover-onima-complete.png",
+    "cardTitle": "অন্য এক অনিমা",
+    "kind": "Parent & Family Storybook",
+    "audience": "Parents · Future Parents",
+    "subtitle": "অভিভাবক ও হতে চলেছেন এমন মানুষদের জন্য — thoughtful gift item",
+    "description": "A fully illustrated story about childhood, attention, and feeling heard. A thoughtful read for parents and expecting parents, and a meaningful gift for families.",
+    "highlights": [
+      "Complete illustrated story in one book",
+      "For parents and those preparing for parenthood",
+      "A warm gift for a growing family"
+    ],
+    "theme": "story"
+  },
+  {
+    "id": "study-workbook",
     "title": "Not Sure What to Study?",
     "titleBn": "কী নিয়ে পড়ব?",
-    "pdf": "/assets/docs/Onnoy-What-to-study-booklet.pdf",
-    "cover": "/assets/images/covers/cover-what-to-study.png"
+    "pdf": "/assets/docs/Onnoy-Not-Sure-What-to-Study.pdf",
+    "cover": "/assets/images/covers/cover-not-sure-study.png",
+    "cardTitle": "Not Sure What to Study?",
+    "kind": "Decision Workbook",
+    "audience": "Class 9–12 · HSC Students",
+    "subtitle": "কী নিয়ে পড়ব? — সাবজেক্ট ও ক্যারিয়ার চয়েস ওয়ার্কবুক",
+    "description": "A structured mentor's workbook for secondary and higher-secondary students facing conflicting advice from relatives, peers, and social pressure. Helps students systematically evaluate university tradeoffs and strengths.",
+    "highlights": [
+      "Trade-off Matrix for Bangladeshi Universities & Subjects",
+      "Family Discussion Framework on Passion vs. Practicality",
+      "Self-Discovery & Real-World Aptitude Exercise"
+    ],
+    "theme": "green"
   },
   {
-    "title": "Learn What Lasts in the Age of AI",
-    "titleBn": "এআই যুগে যা চিরস্থায়ী",
-    "pdf": "/assets/docs/Onnoy-Learn-What-Lasts.pdf",
-    "cover": "/assets/images/covers/cover-learn-what-lasts.png"
+    "id": "cv-guide",
+    "title": "Stand Out. Get Read. Get Hired.",
+    "titleBn": "প্রথম চাকরির সিভি",
+    "pdf": "/assets/docs/Onnoy-Stand-Out-Get-Read-Get-Hired.pdf",
+    "cover": "/assets/images/covers/cover-cv-guide.png",
+    "cardTitle": "Stand Out. Get Read. Get Hired.",
+    "kind": "Career Starter Guide",
+    "audience": "Final-year Students · Fresh Graduates",
+    "subtitle": "প্রথম চাকরির সিভি — সফটওয়্যার পড়বে, মানুষ মনে রাখবে",
+    "description": "A practical guide for final-year students and fresh graduates to write an ATS-friendly CV, review it like a recruiter, and stand out beyond the PDF.",
+    "highlights": [
+      "ATS-friendly structure in plain language",
+      "Recruiter-style review and real before-and-after examples",
+      "Ways to get noticed beyond the CV"
+    ],
+    "theme": "sky"
   },
   {
-    "title": "The Child Behind the Screen",
-    "titleBn": "স্ক্রিনের পেছনের কিশোর মন",
-    "pdf": "/assets/docs/Onnoy-The-Child-Behind-The-Screen.pdf",
-    "cover": "/assets/images/covers/cover-child-behind-screen.png"
-  },
-  {
-    "title": "Onno Ek Anima",
-    "titleBn": "অন্য এক অনিমা",
-    "pdf": "/assets/docs/Booklet_Publishable.pdf",
-    "cover": "/assets/images/covers/cover-onno-ek-onima.png"
-  },
-  {
-    "title": "The Brain Reset",
-    "titleBn": "ব্রেইন রিসেট",
-    "pdf": "/assets/docs/Brain_Reset_Booklet_Publishable.pdf",
-    "cover": "/assets/images/covers/cover-brain-reset.webp"
+    "id": "ai-guide",
+    "title": "Make Free AI Work for You",
+    "titleBn": "বিনামূল্যের AI-কে নিজের সহকারী বানান",
+    "pdf": "/assets/docs/Onnoy-Make-Free-AI-Work-for-You.pdf",
+    "cover": "/assets/images/covers/cover-free-ai-guide.png",
+    "cardTitle": "Make Free AI Work for You",
+    "kind": "Practical AI Guide",
+    "audience": "Students · Professionals · AI Users",
+    "subtitle": "বিনামূল্যের AI-কে নিজের সহকারী বানান — পরিচয় গোপন রেখে",
+    "description": "A ten-step, fill-as-you-go guide for anyone using free AI tools. Learn how to give useful context, improve the output, and protect private information.",
+    "highlights": [
+      "Build a useful AI assistant in ten steps",
+      "Get stronger output from free AI tools",
+      "Share the situation, not your identity"
+    ],
+    "theme": "amber"
   }
 ]

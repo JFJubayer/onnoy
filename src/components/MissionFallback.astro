@@ -1,0 +1,24 @@
+---
+import type { MissionFallback as MissionFallbackData } from '@data/mission-fallbacks';
+
+interface Props {
+  mission: MissionFallbackData;
+}
+
+const { mission } = Astro.props;
+const headingId = `mission-${mission.number}-fallback-title`;
+---
+
+<section class="mission-fallback" data-mission-fallback aria-labelledby={headingId}>
+  <div class="module-kicker">Mission {mission.number} overview</div>
+  <h2 id={headingId}>Before you begin</h2>
+  <p class="mission-fallback__summary">{mission.summary}</p>
+  <ol>
+    {mission.steps.map((step) => <li>{step}</li>)}
+  </ol>
+  <p class="mission-fallback__privacy"><strong>Protect privacy:</strong> {mission.privacy}</p>
+  <p class="mission-fallback__loading">The interactive mission form loads here when scripts are available. If it does not appear, refresh the page or return to Interactive Lessons.</p>
+  <noscript>
+    <p class="alert alert--warning">JavaScript is required to submit this mission. You can still review and prepare the steps above.</p>
+  </noscript>
+</section>

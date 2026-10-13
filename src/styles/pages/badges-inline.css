@@ -1,7 +1,10 @@
 /* Moved from legacy badges.html <style> */
 .badge-sample-card {
+    --tier-accent: var(--green);
+    --tier-pale: var(--green-pale);
     background: var(--surface);
     border: 1px solid var(--border);
+    border-top: 5px solid var(--tier-accent);
     border-radius: var(--radius-lg);
     padding: 32px 28px;
     box-shadow: var(--shadow-sm);
@@ -12,6 +15,9 @@
     position: relative;
     overflow: hidden;
 }
+.badge-sample-card--green { --tier-accent: var(--green); --tier-pale: var(--green-pale); }
+.badge-sample-card--sky { --tier-accent: var(--sky); --tier-pale: var(--sky-pale); }
+.badge-sample-card--rose { --tier-accent: var(--leadership); --tier-pale: var(--leadership-pale); }
 .badge-sample-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
@@ -49,7 +55,33 @@
     border-radius: 99px;
     margin-bottom: 12px;
     width: fit-content;
+    background: var(--tier-pale);
+    color: var(--tier-accent);
 }
+.badge-card-heading { margin-bottom: 16px; text-align: center; }
+.badge-card-heading .badge-tier-tag { margin-inline: auto; }
+.badge-card-heading h3 { margin: 6px 0 4px; font-size: 1.5rem; }
+.badge-title-bn { margin: 0; color: var(--tier-accent); font-size: 0.95rem; font-weight: 600; }
+.badge-description { margin-bottom: 16px; color: var(--ink-mid); font-size: 0.92rem; line-height: 1.5; }
+.badge-criteria-title { margin-bottom: 8px; color: var(--ink); font-size: 0.95rem; font-weight: 700; text-transform: uppercase; }
+.badge-card-cta { --btn-bg: var(--tier-accent); --btn-bg-hover: color-mix(in srgb, var(--tier-accent) 82%, #000); --btn-fg: #fff; width: 100%; }
+.badges-intro { max-width: 780px; margin: 0 auto 40px; text-align: center; }
+.badges-intro .section-label { margin-bottom: 8px; color: var(--green); font-weight: 700; text-transform: uppercase; }
+.badges-intro p { color: var(--ink-mid); font-size: 1.05rem; line-height: 1.6; }
+.badges-grid { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 30px; }
+.credential-callout { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 50px; padding: 36px 32px; border: 1.5px solid var(--border); border-radius: var(--radius-lg); background: linear-gradient(135deg, color-mix(in srgb, var(--green-pale) 60%, var(--surface)), color-mix(in srgb, var(--sky-pale) 55%, var(--surface))); }
+.credential-callout__icon { display: grid; width: 56px; height: 56px; flex: 0 0 56px; place-items: center; border-radius: 14px; background: var(--green); color: var(--brand-contrast); font-size: 1.8rem; }
+.credential-callout__copy { flex: 1; min-width: min(260px, 100%); }
+.credential-callout h3 { margin-bottom: 6px; font-size: 1.35rem; }
+.credential-callout p { margin: 0; color: var(--ink-mid); font-size: 0.95rem; line-height: 1.55; }
+.credential-callout code { padding: 2px 6px; border-radius: 4px; background: var(--surface); color: var(--green-dark); font-weight: 700; }
+.badge-verifier { margin-top: 24px; }
+.badge-verifier h3 { margin-bottom: 6px; }
+.badge-verifier > p { font-size: 0.95rem; }
+.badge-verifier-form { margin-top: 8px; }
+.badge-verifier-form .form-control { max-width: 280px; }
+.badge-verifier-result { margin-top: 16px; }
+.badge--result { margin: 0; }
 .criteria-list {
     list-style: none;
     padding: 0;

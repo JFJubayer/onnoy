@@ -5,6 +5,13 @@
  */
 import { translations, type Lang } from '@data/translations';
 
+declare global {
+  interface Window {
+    gtag?: (command: string, eventName: string, parameters?: Record<string, string | number | boolean>) => void;
+    onnoyTrack?: (eventName: string, parameters?: Record<string, string | number | boolean>) => void;
+  }
+}
+
 const LS_THEME = 'onnoy_theme';
 const LS_LANG = 'onnoy_lang';
 const MOBILE_BP = 960;
@@ -17,6 +24,12 @@ export function t(key: string, fallback = ''): string {
   const entry = translations[key];
   return entry?.[currentLang()] ?? fallback;
 }
+
+export function track(eventName: string, parameters: Record<string, string | number | boolean> = {}) {
+  if (typeof window.gtag === 'function') window.gtag('event', eventName, parameters);
+}
+
+window.onnoyTrack = track;
 
 export function applyLanguage(lang: Lang) {
   document.documentElement.setAttribute('lang', lang);

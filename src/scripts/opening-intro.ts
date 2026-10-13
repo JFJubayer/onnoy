@@ -4,11 +4,14 @@ function initializeOpeningIntro() {
   const skip = document.querySelector<HTMLButtonElement>('#openingIntroSkip');
   if (!intro || !video || !skip) return;
 
-  const storageKey = 'onnoy_opening_seen_v1';
+  const storageKey = 'onnoy_opening_seen_v2';
+  const seenDuration = 7 * 24 * 60 * 60 * 1000;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reducedMotion.matches) return;
   try {
-    if (sessionStorage.getItem(storageKey) === '1') return;
+    const seenAt = Number(localStorage.getItem(storageKey));
+    if (seenAt > 0 && Date.now() - seenAt < seenDuration) return;
+    if (sessionStorage.getItem('onnoy_opening_seen_v1') === '1') return;
   } catch {}
 
   if (document.hidden) {
@@ -63,7 +66,7 @@ function initializeOpeningIntro() {
   };
 
   try {
-    sessionStorage.setItem(storageKey, '1');
+    localStorage.setItem(storageKey, String(Date.now()));
   } catch {}
   background.forEach(({ element }) => { element.inert = true; });
   document.documentElement.classList.add('opening-intro-active');
@@ -73,8 +76,10 @@ function initializeOpeningIntro() {
   video.addEventListener('error', dismiss, { once: true });
   document.addEventListener('keydown', onKeyDown);
   reducedMotion.addEventListener('change', onMotionChange);
-  safetyTimer = window.setTimeout(dismiss, 8500);
+  safetyTimer = window.setTimeout(dismiss, 5000);
   video.muted = true;
+  video.defaultPlaybackRate = 1.8;
+  video.playbackRate = 1.8;
   video.poster = video.dataset.poster || '';
   video.src = video.dataset.src || '';
   skip.focus({ preventScroll: true });
